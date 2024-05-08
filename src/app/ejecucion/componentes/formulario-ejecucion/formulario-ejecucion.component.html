@@ -1,106 +1,839 @@
 <div class="px-sm-2 px-md-3 px-lg-4 my-4">
-    <div class="d-block mb-3">
-        <table class="tabla-informacion">
-            <thead>
-                <tr>
-                    <th colspan="2">Información del formulario.</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>NIT</td>
-                    <td class="fw-semibold">
-                        <ng-container *ngIf="formulario">
-                            {{ formulario.idVigilado }}
-                        </ng-container>    
-                    </td>
-                </tr>
-                <tr>
-                    <td>Razón social</td>
-                    <td class="fw-semibold">
-                        {{ usuario.nombre }}    
-                    </td>
-                </tr>
-                <tr>
-                    <td>Vigencia</td>
-                    <td class="fw-semibold">
-                        <ng-container *ngIf="formulario">
-                            {{ formulario.vigencia }}
-                        </ng-container>  
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <div class="d-block mb-3">
+    <table class="tabla-informacion">
+      <thead>
+        <tr>
+          <th colspan="2">Información del formulario.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NIT</td>
+          <td class="fw-semibold">
+            <ng-container *ngIf="formulario">
+              {{ formulario.idVigilado }}
+            </ng-container>
+          </td>
+        </tr>
+        <tr>
+          <td>Razón social</td>
+          <td class="fw-semibold">
+            {{ usuario.nombre }}
+          </td>
+        </tr>
+        <tr>
+          <td>Vigencia</td>
+          <td class="fw-semibold">
+            <ng-container *ngIf="formulario">
+              {{ formulario.vigencia }}
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="d-flex justify-content-between align-items-center mb-4" *ngIf="!formulario.soloLectura">        
-        <button
-        type="button" 
-        class="boton primario delineado" 
-        (click)="enviar()" [disabled]="hayCambios">Enviar a ST</button>
-    
-        <button 
-        type="button" 
-        class="boton primario relleno" 
-        (click)="guardar()" [disabled]="!hayCambios">Guardar</button>
+  <div class="d-flex justify-content-between align-items-center mb-4" *ngIf="!formulario.soloLectura">
+    <button type="button" class="boton primario delineado" (click)="enviar()" [disabled]="hayCambios">Enviar a
+      ST</button>
 
-        <button 
-        type="button" 
-        class="boton primario delineado" 
-        [disabled]="esVigilado"
-        [routerLink]="['/administrar', 'reportes-ejecucion']">Volver</button>
-    </div>
+    <button type="button" class="boton primario relleno" (click)="guardar()" [disabled]="!hayCambios">Guardar</button>
 
-    <div class="d-block mb-4" *ngIf="esVigilado">
+    <button type="button" class="boton primario delineado" [disabled]="esVigilado"
+      [routerLink]="['/administrar', 'reportes-ejecucion']">Volver</button>
+  </div>
+
+  <!-- <div class="d-block mb-4" *ngIf="esVigilado">
         <button class="boton primario relleno" *ngIf="!historico" (click)="irAHistorico()">Ir a historico.</button>
         <button class="boton primario delineado" *ngIf="historico" (click)="salirDeHistorico()">Salir de historico.</button>
-    </div>
+    </div> -->
 
-    <div class="d-flex mb-4">
-        <fieldset class="d-flex flex-gap-10">        
-            <div class="d-flex pt-2 fs-14px fw-semibold">Periodo</div>
-            <select 
-            class="form-select"
-            (ngModelChange)="manejarCambioDeMes($event)"
-            [(ngModel)]="idMes">
-                <option [value]="mes.idMes" *ngFor="let mes of meses">{{ mes.idMostrar }} - {{ mes.nombreMes }}</option>
-            </select>
-            <span class="validacion" *ngIf="!historico">Al enviar a ST, se enviará la información solo del mes seleccionado.</span>
-        </fieldset>
-    </div>
-    
-    <ul ngbNav #nav="ngbNav" class="nav-tabs w-100" [destroyOnHide]="false">
-        <li ngbNavItem [ngbNavItem]="tab.nombre" *ngFor="let tab of formulario.formularios">
-            <button ngbNavLink>{{ tab.nombre }}</button>
-            <ng-template ngbNavContent>
-                <app-tab-formulario-ejecucion
-                (nuevasActividades)="manejarNuevasActividades($event)"
-                (nuevosAdicionales)="manejarNuevosAdicionales($event)"
-                [actividadesFaltantes]="actividadesFaltantes"
-                [adicionalesFaltantes]="adicionalesFaltantes"
-                [idVigilado]="formulario.idVigilado"
-                [tab]="tab" 
-                [soloLectura]="formulario.soloLectura" />
-            </ng-template>
-        </li>
-    </ul>
-    <div [ngbNavOutlet]="nav" class="w-100"></div>
+  <div class="d-flex mb-4">
+    <fieldset class="d-flex flex-gap-10">
+      <div class="d-flex pt-2 fs-14px fw-semibold">Periodo</div>
+      <select class="form-select" (ngModelChange)="manejarCambioDeMes($event)" [(ngModel)]="idMes">
+        <option [value]="mes.idMes" *ngFor="let mes of meses">{{ mes.idMostrar }} - {{ mes.nombreMes }}</option>
+      </select>
+      <span class="validacion" *ngIf="!historico">Al enviar a ST, se enviará la información solo del mes
+        seleccionado.</span>
+    </fieldset>
+  </div>
 
-    <app-importar-patios
-    #importarPatios
-    *ngIf="idMes" 
-    [idMes]="idMes"
-    [idVigilado]="formulario.idVigilado"
-    [vigencia]="formulario.vigencia"
-    (hayCambios)="manejarCambioArchivos()" /> 
-    
-    <app-importar-empresas
-    #importarEmpresas
-    *ngIf="idMes" 
-    [idMes]="idMes"
-    [idVigilado]="formulario.idVigilado"
-    [vigencia]="formulario.vigencia"
-    (hayCambios)="manejarCambioArchivos()" />
+  <ul ngbNav #nav="ngbNav" class="nav-tabs w-100" [destroyOnHide]="false">
+    <li ngbNavItem [ngbNavItem]="'SUBJETIVO'">
+      <button ngbNavLink>SUBJETIVO</button>
+      <ng-template ngbNavContent>
+        <div class="table-responsive">
+          <table class="table tabla-actividades">
+            <thead><!-- Encabezado 1 de la tabla -->
+              <tr>
+                <th>Aspectos relacionados con la información societaria</th>
+                <th>Lista desplegable</th>
+                <th>Anexo</th>
+                <th>Formato</th>
+              </tr>
+            </thead>
+            <tbody> <!-- 16 filas -->
+              <tr><!-- linea 1 -->
+                <td class="actividad">
+                  ¿El libro de accionistas se encuentra inscrito y registrado en cámara y comercio?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL1">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 2 -->
+                <td class="actividad">
+                  ¿El libro de actas de asamblea se encuentra inscrito y registrado en cámara de comercio?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL2">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 3 -->
+                <td class="actividad">
+                  ¿Todas las actas de asamblea y/o junta directiva elaboradas se encuentran debidamente asentadas en el libro de actas?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL3">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 4 -->
+                <td class="actividad">
+                  ¿Los Estatutos y las Reformas Estatutarias han sido registradas en cámara de comercio?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL4">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 5 con archivo excel-->
+                <td class="actividad">
+                  ¿La Sociedad presenta litigios o procesos a favor o en contra?
+                </td>
+                <td class="text-center">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL2" (change)="cambioRespuestaSelect($event)">
+                      <option value="">Elija una opción</option>
+                      <option value=1>Si</option>
+                      <option value=2>No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td>
+                  <p class="fs-12px" *ngIf="cambioRespuesta == true">
+                    Relación de litigios y/o procesos a favor o en contra detallando: (i)Juzgado,(ii)Clase de litigio,(iii)Partes,
+                    Pretensiones y/o cuantía, (iv)Estado del proceso,(v)
+                    Probabilidad de éxito.
+                  </p>
+                  <p class="fs-12px validacion" *ngIf="cambioRespuesta == false">
+                    Certificación firmada indicando que no presenta litigios
+                  </p>
+                </td>
+                <td><!-- Cambio entre excel y pdf -->
+                  <fieldset class="d-flex flex-column" *ngIf="cambioRespuesta == true">
+                    <app-input-archivo id="archivoL5"
+                    [disabled]="soloLectura"
+                    [nombre]="'archivoL5xlsx'"
+                    [(ngModel)]="archivo"
+                    [acepta]="['.xlsx']"
+                    [tamanoMaximoMb]='10' />
+                    <span class="validacion">Excel</span>
+                  </fieldset>
+                  <fieldset class="d-flex flex-column" *ngIf="cambioRespuesta == false">
+                    <app-input-archivo id="archivoL5"
+                    [disabled]="soloLectura"
+                    [nombre]="'ArchivoL5pdf'"
+                    [(ngModel)]="archivo"
+                    [acepta]="['.pdf']"
+                    [tamanoMaximoMb]='10' />
+                    <span class="validacion">PDF</span>
+                  </fieldset>
+                </td>
+              </tr>
+              <tr><!-- linea 6 -->
+                <td class="actividad">
+                  ¿Se encuentra registrada la provisión en los Estados Financieros, de acuerdo lo establecido con la NIC 37?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL6">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 7 -->
+                <td class="actividad">
+                  ¿Han adelantado procesos de fusión, escisión y/o disminuciones de capital con efectivo reembolso de aportes?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL7">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 8 con input numerico y archivo pdf-->
+                <td class="actividad">
+                  Si su respuesta al punto anterior es afirmativa, indique el acto administrativo de la Superintendencia que les autorizó adelantar este proceso
+                </td>
+                <td class="text-center">
+                  <ng-container >
+                    <app-input-numerico id="numeroL8"
+                      [valorInicial]="respuesta !== '' ? +respuesta : null"
+                      [largoMaximo]="10"
+                      [cantidadDecimales]="2"
+                      [disabled]="soloLectura"
+                      [ngModel]="respuesta"/>
+                  </ng-container>
+                </td>
+                <td class="fs-12px">
+                  Acto administrativo
+                </td>
+                <td>
+                  <fieldset class="d-flex flex-column">
+                    <app-input-archivo id="archivoL8"
+                    [disabled]="soloLectura"
+                    [nombre]="'ArchivoPdf'"
+                    [(ngModel)]="archivo"
+                    [acepta]="['.pdf']"
+                    [tamanoMaximoMb]='10' />
+                    <span class="validacion">PDF</span>
+                  </fieldset>
+                </td>
+              </tr>
+              <tr><!-- linea 9 -->
+                <td class="actividad">
+                  ¿Han realizado el registro de esta reforma estatutaria en cámara de comercio?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL9">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 10 -->
+                <td class="actividad">
+                  ¿Tienen configurada una situación de control?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL10">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 11 -->
+                <td class="actividad">
+                  ¿Tienen conformado un grupo empresarial?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL11">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 12 -->
+                <td class="actividad">
+                  En virtud del artículo 30 de la Ley 222, ¿han realizado la inscripción de la situación de control y/o grupo empresarial en el Registro Mercantil?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL12">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 13 -->
+                <td class="actividad">
+                  ¿Cuenta con inversiones en subordinadas?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL13">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 14 -->
+                <td class="actividad">
+                  Para la determinación del cumplimiento de la hipótesis de negocio en marcha, ¿la sociedad previamente ha evaluado los indicadores del Decreto 1378 de 2021 y del Anexo 5 del Decreto 2420 del 2015?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL14">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 15 -->
+                <td class="actividad">
+                  ¿El resultado del cálculo de los anteriores indicadores ha sido dado a conocer al máximo órgano social conforme lo establecido en el artículo 4 de la Ley 2069 de 2020?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL15">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 16 -->
+                <td class="actividad">
+                  ¿El Revisor Fiscal en el Dictamen ha emitido opinión desfavorable sobre el cumplimiento de la hipótesis de negocio en marcha, de acuerdo con la responsabilidad otorgada al Revisor Fiscal en la NIA 570?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL16">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+            <thead><!-- Encabezado 2 de la tabla -->
+              <tr>
+                <th colspan="3">Aspectos relacionados con la información administrativa</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody> <!-- 3 filas -->
+              <tr><!-- linea 1T2 -->
+                <td class="actividad">
+                  ¿Se encuentra al día en el pago de la contribución especial?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL1T2">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 2T2 -->
+                <td class="actividad">
+                  ¿Se encuentra al día en el pago de la contraprestación?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL2T2">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 3T2 -->
+                <td class="actividad">
+                  ¿La sociedad cuenta con un software contable debidamente licenciado conforme lo establecido en la Ley 603 del 2000?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL3T2">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+            <thead><!-- Encabezado 3 de la tabla -->
+              <tr>
+                <th colspan="3">Aspectos relacionados con la información financiero, económico y/o contable</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody> <!-- 9 filas -->
+              <tr><!-- linea 1T3 -->
+                <td class="actividad">
+                  ¿La presentación de Estados Financieros está alineada con los parámetros fijados en la NIC 1 o la sección 3 del Estándar para Pymes "Preparación de estados financieros" ?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL1T3">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 2T3 -->
+                <td class="actividad">
+                  ¿La Sociedad cuenta con un manual de políticas contables conforme al marco normativo que le corresponde aplicar y estas son actualizadas periódicamente?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL2T3">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 3T3 -->
+                <td class="actividad">
+                  ¿Los Estados Financieros presentan información re-expresada?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL3T3">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 4T3 (Falta información para desplegar las opciones adecuadas) -->
+                <td class="actividad">
+                  Si su respuesta al punto anterior es afirmativa, ¿la información re-expresada corresponde a?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL4T3">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 5T3 con archivo pdf-->
+                <td class="actividad">
+                  Indicar si tiene cuentas por pagar con vencimientos superiores a 90 días
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL5T3">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td>
+                  Relación de cuentas por pagar del pasivo externo por edades con vencimientos superiores a 90 días,  extraído del libro auxiliar donde se identifique: NIT-Razón Social-Valor, el cual debe estar firmado por el Representante Legal, Contador Público y/o Revisor Fiscal en el caso que aplique
+                </td>
+                <td>
+                  <fieldset class="d-flex flex-column">
+                    <app-input-archivo id="archivoL5T3"
+                    [disabled]="soloLectura"
+                    [nombre]="'archivoL5T3'"
+                    [(ngModel)]="archivo"
+                    [acepta]="['.pdf']"
+                    [tamanoMaximoMb]='10' />
+                    <span class="validacion">PDF</span>
+                  </fieldset>
+                </td>
+              </tr>
+              <tr><!-- linea 6T3 -->
+                <td class="actividad">
+                  En virtud del contrato de concesión, ¿ ha desarrollado actividades que permitieron la generación de ingresos para la presente vigencia?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL6T3">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 7T3 con archivo excel (Falta información para desplegar las opciones adecuadas)-->
+                <td class="actividad">
+                  Para el desarrollo de la actividad económica, ¿Qué clase de equipos utiliza?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL7T3">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td>
+                  Relación en la que se discrimine el tipo de equipo y si el reconocimiento del equipo dentro del activo se encuentra registrado como propio o arrendado
+                </td>
+                <td>
+                  <fieldset class="d-flex flex-column">
+                    <app-input-archivo id="archivoL7T3"
+                    [disabled]="soloLectura"
+                    [nombre]="'archivoL7T3'"
+                    [(ngModel)]="archivo"
+                    [acepta]="['.xlsx']"
+                    [tamanoMaximoMb]='10' />
+                    <span class="validacion">Excel</span>
+                  </fieldset>
+                </td>
+              </tr>
+              <tr><!-- linea 8T3 -->
+                <td class="actividad">
+                  Indicar si realizan transacciones con partes relacionadas y se encuentran discriminadas en los Estados Financieros
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL8T3">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 9T3 -->
+                <td class="actividad">
+                  Si su respuesta al punto anterior es afirmativa, ¿se encuentran discriminadas en las Notas a los Estados Financieros las transacciones con partes relacionadas?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL9T3">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+            <thead><!-- Encabezado 4 de la tabla -->
+              <tr>
+                <th colspan="3">Aspectos relacionados con la información financiero, económico y/o contable</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody> <!-- 5 filas -->
+              <tr><!-- linea 1T4 -->
+                <td class="actividad">
+                  ¿Han dado cumplimiento al plan de inversiones establecido en el contrato de concesión?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL1T4">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td>
+                  Plan de inversiones
+                </td>
+                <td>
+                  <fieldset class="d-flex flex-column">
+                    <app-input-archivo id="archivoL1T4"
+                    [disabled]="soloLectura"
+                    [nombre]="'archivoL1T4'"
+                    [(ngModel)]="archivo"
+                    [acepta]="['.xlsx']"
+                    [tamanoMaximoMb]='10' />
+                    <span class="validacion">Excel</span>
+                  </fieldset>
+                </td>
+              </tr>
+              <tr><!-- linea 2T4 -->
+                <td class="actividad">
+                  Si la respuesta al punto anterior es negativa, explique de manera amplia y clara las razones del incumplimiento del plan de inversiones
+                </td>
+                <td class="text-center ejecutado" colspan="2">
+                  <fieldset class="d-flex flex-gap-10">
+                    <textarea name="textL2T4" id="textL2T4" rows="5" cols="30"></textarea>
+                  </fieldset>
+                </td>
+                <!-- <td></td> -->
+                <td></td>
+              </tr>
+              <tr><!-- linea 3T4 con archivo pdf-->
+                <td class="actividad">
+                  ¿En qué porcentaje de avance se encuentra en el plan de inversiones?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL3T4">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td>
+                  Cronograma de cumplimiento del plan de inversiones
+                </td>
+                <td>
+                  <fieldset class="d-flex flex-column">
+                    <app-input-archivo id="archivoL3T4"
+                    [disabled]="soloLectura"
+                    [nombre]="'archivoL3T4'"
+                    [(ngModel)]="archivo"
+                    [acepta]="['.xlsx']"
+                    [tamanoMaximoMb]='10' />
+                    <span class="validacion">Excel</span>
+                  </fieldset>
+                </td>
+              </tr>
+              <tr><!-- linea 4T4 con archivo excel (Falta información para desplegar las opciones adecuadas)-->
+                <td class="actividad">
+                  ¿Con qué periodicidad realiza el mantenimiento preventivo de la infraestructura y de los equipos propios y/o arrendados?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL4T4">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td>
+                  Cronograma de mantenimiento de infraestructura y equipos de la presente vigencia
+                </td>
+                <td>
+                  <fieldset class="d-flex flex-column">
+                    <app-input-archivo id="archivoL4T4"
+                    [disabled]="soloLectura"
+                    [nombre]="'archivoL4T4'"
+                    [(ngModel)]="archivo"
+                    [acepta]="['.xlsx']"
+                    [tamanoMaximoMb]='10' />
+                    <span class="validacion">Excel</span>
+                  </fieldset>
+                </td>
+              </tr>
+              <tr><!-- linea 5T4 (Falta información para desplegar las opciones adecuadas) -->
+                <td class="actividad">
+                  ¿Cuentan con las pólizas de responsabilidad civil, contractual y extracontractual vigentes?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL5T4">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+            <thead><!-- Encabezado 5 de la tabla -->
+              <tr>
+                <th colspan="3">Aspectos relacionados con la gestión de riesgos</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody> <!-- 4 filas -->
+              <tr><!-- linea 1T5 -->
+                <td class="actividad">
+                  ¿Su modelo de negocio y buenas prácticas de negocio corporativo están enfocadas en la sostenibilidad y conducta empresarial responsable con el medio ambiente, atendiendo los parámetros establecidos en la NIIF S1 y NIIF S2 ?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL1T5">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+              </tr>
+              <tr><!-- linea 2T5 -->
+                <td class="actividad">
+                  Si la respuesta al punto anterior es negativa, explique de manera amplia y clara las razones del incumplimiento del plan de inversiones
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL2T5">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr><!-- linea 3T5 con archivo pdf-->
+                <td class="actividad">
+                  ¿Tiene implementado un sistema de administración o  mapa de prevención de riesgos empresariales: Operativos, Legales y Financiero de liquidez, de mercado, de crédito, de tasas de interés, de cambio de moneda, de combustible, de flujo de efectivo?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL3T5">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td>
+                  Matriz de mapa de riesgos
+                </td>
+                <td>
+                  <fieldset class="d-flex flex-column">
+                    <app-input-archivo id="archivoL3T5"
+                    [disabled]="soloLectura"
+                    [nombre]="'archivoL3T5'"
+                    [(ngModel)]="archivo"
+                    [acepta]="['.pdf']"
+                    [tamanoMaximoMb]='10' />
+                    <span class="validacion">PDF</span>
+                  </fieldset>
+                </td>
+              </tr>
+              <tr><!-- linea 4T5 con archivo excel -->
+                <td class="actividad">
+                  ¿La sociedad tiene plan de contingencia en el evento de presentar situación crítica de carácter legal, administrativa, contable, financiera y operativa?
+                </td>
+                <td class="text-center ejecutado">
+                  <fieldset class="d-flex flex-gap-10">
+                    <select class="form-select" id="selectL4T5">
+                      <option value="">Elija una opción</option>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </fieldset>
+                </td>
+                <td>
+                  Plan de mejoramiento que contenga:
+                  -Descripción de la contingencia
+                  -Tareas
+                  -Responsable del área
+                  -Tiempos (inicio-fin)
+                  -Seguimiento
+                  -Responsable del seguimiento
+                </td>
+                <td>
+                  <fieldset class="d-flex flex-column">
+                    <app-input-archivo id="archivoL4T5"
+                    [disabled]="soloLectura"
+                    [nombre]="'archivoL4T5'"
+                    [(ngModel)]="archivo"
+                    [acepta]="['.xlsx']"
+                    [tamanoMaximoMb]='10' />
+                    <span class="validacion">Excel</span>
+                  </fieldset>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav" class="w-100"></div>
 </div>
 
 <app-popup #popup />

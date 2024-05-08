@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { FormularioEjecucion } from '../../modelos/FormularioEjecucion';
+import { Actividad, FormularioEjecucion } from '../../modelos/FormularioEjecucion';
 import { RespuestaActividad } from '../../modelos/RespuestaActividad';
 import { RespuestaAdicional } from '../../modelos/RespuestaAdicional';
 import { ServicioEjecucion } from '../../servicios/ejecucion.service';
@@ -35,7 +35,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   @Input() esVigilado: boolean = true
   @Input() meses: Mes[] = []
   @Input() idMesInicial!: number
-  
+
   actividadesFaltantes: number[] = []
   adicionalesFaltantes: number[] = []
 
@@ -46,6 +46,12 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   usuario: Usuario
   colaDeMensajes: ((param: Function) => void)[] = []
 
+  soloLectura: boolean = false
+  archivo: File | null = null;
+  actividad!: Actividad
+  respuesta: string = ""
+  cambioRespuesta?: boolean
+
   constructor(private servicio: ServicioEjecucion, private router: Router, private servicioLocalStorage: ServicioLocalStorage){
     const usuario = this.servicioLocalStorage.obtenerUsuario()
     if(!usuario) throw new ErrorAutorizacion();
@@ -54,7 +60,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     this.formularioGuardado = new EventEmitter<void>();
     this.recargar = new EventEmitter<void>();
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['idMesInicial']){
       this.idMes = changes['idMesInicial'].currentValue
@@ -63,6 +69,13 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
 
   ngOnInit(): void {
     this.idMes = this.idMesInicial
+  }
+
+  cambioRespuestaSelect(event:any){
+    const respuesta = event.target.value
+    if(respuesta == 1){this.cambioRespuesta = true}
+    if(respuesta == 2){this.cambioRespuesta = false}
+    if(!respuesta || respuesta == null){this.cambioRespuesta = undefined}
   }
 
   guardar(){
@@ -123,8 +136,8 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
 
 /*     this.servicio.guardarEjecucion(
       +this.formulario.idReporte,
-      this.idMes!, 
-      this.respuestasActividades, 
+      this.idMes!,
+      this.respuestasActividades,
       this.respuestasAdicionales,
     ).subscribe({
       next: ()=>{
@@ -148,8 +161,8 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   guardarFormulario(): Observable<Object>{
     return this.servicio.guardarEjecucion(
       +this.formulario.idReporte,
-      this.idMes!, 
-      this.respuestasActividades, 
+      this.idMes!,
+      this.respuestasActividades,
       this.respuestasAdicionales,
     )
   }
@@ -171,7 +184,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
         this.actividadesFaltantes = error.error.faltantesActividades
         this.adicionalesFaltantes = error.error.faltantesAdicionales
         this.popup.abrirPopupFallido(
-          DialogosEjecucion.ENVIAR_EJECUCION_ERROR_GENERICO_TITULO, 
+          DialogosEjecucion.ENVIAR_EJECUCION_ERROR_GENERICO_TITULO,
           DialogosEjecucion.ENVIAR_EJECUCION_ERROR_GENERICO_DESCRIPCION
         )
       }
@@ -211,8 +224,8 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
 
   guardarImportacion(archivo: File, tipo: TipoImportacion): Observable<Object | HttpErrorResponse>{
     return this.servicio.guardarImportacion(
-      archivo, 
-      this.formulario.idVigilado, 
+      archivo,
+      this.formulario.idVigilado,
       this.formulario.vigencia,
       this.formulario.mes,
       tipo

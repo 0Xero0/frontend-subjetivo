@@ -68,9 +68,9 @@ const routes: Routes = [
         path: 'asignacion',
         component: PaginaAsignacionTamanoOrganizacionComponent
       },
-      { 
-        path: 'asignaciones', 
-        loadChildren: () => import('./asignaciones/asignaciones.module').then(m => m.AsignacionesModule) 
+      {
+        path: 'asignaciones',
+        loadChildren: () => import('./asignaciones/asignaciones.module').then(m => m.AsignacionesModule)
       },
       {
         path: 'verificar-reportes',
