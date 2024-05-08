@@ -16,9 +16,9 @@ import { SoporteAccesoComponent } from './autenticacion/componentes/soporte-acce
 import { PaginaAsignacionTamanoOrganizacionComponent } from './categorizacion/paginas/pagina-asignacion-tamano-organizacion/pagina-asignacion-tamano-organizacion.component';
 import { PaginaFormularioAspiranteProveedorTecnologicoComponent } from './formularios/paginas/pagina-formulario-aspirante-proveedor-tecnologico/pagina-formulario-aspirante-proveedor-tecnologico.component';
 import { PaginaEjecucionComponent } from './ejecucion/paginas/pagina-ejecucion/pagina-ejecucion.component';
-import { PaginaListadoEjecucionComponent } from './ejecucion/paginas/pagina-listado-ejecucion/pagina-listado-ejecucion.component';
 import { PaginaAdministrarMesesComponent } from './encuestas/paginas/pagina-administrar-meses/pagina-administrar-meses.component';
 import { PaginaAdministrarMesesPatiosModalidadesComponent } from './encuestas/paginas/pagina-administrar-meses-patios-modalidades/pagina-administrar-meses-patios-modalidades.component';
+import { FormularioEjecucionComponent } from './ejecucion/componentes/formulario-ejecucion/formulario-ejecucion.component';
 
 
 
@@ -94,12 +94,8 @@ const routes: Routes = [
       },
       {
         path: 'ejecucion',
-        component: PaginaEjecucionComponent
+        component: FormularioEjecucionComponent
       },
-      {
-        path: 'reportes-ejecucion',
-        component: PaginaListadoEjecucionComponent
-      }
     ]
   },
   {
