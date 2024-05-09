@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { LlavesLocalStorage } from '../LlavesLocalStorage';
-import { Rol } from 'src/app/autenticacion/modelos/Rol';
+import { Formulario, Rol } from 'src/app/autenticacion/modelos/Rol';
 
 @Injectable({
     providedIn: 'root'
@@ -24,5 +24,11 @@ export class ServicioLocalStorage {
 
     actualizarUsuario(usuario: Usuario): void{
         localStorage.setItem(LlavesLocalStorage.Usuario, JSON.stringify(usuario))
+    }
+
+    obtenerFormularios(): Formulario[] | [] {
+        const formularios = localStorage.getItem( LlavesLocalStorage.Formularios ) 
+        if(!formularios) return [];
+        return JSON.parse(formularios) as Formulario[] | [];
     }
 }

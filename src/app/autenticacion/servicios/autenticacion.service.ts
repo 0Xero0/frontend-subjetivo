@@ -16,6 +16,7 @@ export class AutenticacionService {
   public readonly llaveTokenLocalStorage = 'jwt'
   public readonly llaveUsuarioLocalStorage = 'Usuario'
   public readonly llaveRolesLocalStorage = 'rol'
+  public readonly llaveFormulariosLocalStorage = 'formularios'
 
 
   constructor(private clientHttp:HttpClient) {
@@ -39,12 +40,14 @@ export class AutenticacionService {
     localStorage.removeItem(this.llaveUsuarioLocalStorage)
     localStorage.removeItem(this.llaveTokenLocalStorage)
     localStorage.removeItem(this.llaveRolesLocalStorage)
+    localStorage.removeItem(this.llaveFormulariosLocalStorage)
   }
 
-  public guardarInformacionInicioSesion(jwt:string, rol:object, Usuario: object):void{
+  public guardarInformacionInicioSesion(jwt:string, rol:object, Usuario: object, formularios: any):void{
     localStorage.setItem(this.llaveTokenLocalStorage, jwt),
     localStorage.setItem(this.llaveRolesLocalStorage, JSON.stringify(rol))
     localStorage.setItem(this.llaveUsuarioLocalStorage, JSON.stringify(Usuario))
+    localStorage.setItem(this.llaveFormulariosLocalStorage, JSON.stringify(formularios))
   }
 
   public crearSoporte(peticion: PeticionCrearSoporte){

@@ -57,7 +57,7 @@ export class ModalMunicipiosComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerTodasLasCiudades()
     this.obtenerDepartamentos()
-    this.obtenerCiudades(this.usuario.departamentoId)
+   // this.obtenerCiudades(this.usuario.departamentoId)
     this.formulario.controls.convenioPDF.valueChanges.subscribe({
       next: (archivo) => {
         if (archivo) {
@@ -105,7 +105,7 @@ export class ModalMunicipiosComponent implements OnInit {
   limpiarFormulario() {
     this.formulario.reset()
     this.obtenerDepartamentos()
-    this.obtenerCiudades(this.usuario.departamentoId)
+   // this.obtenerCiudades(this.usuario.departamentoId)
   }
 
   abrirModal1() {
@@ -139,7 +139,7 @@ export class ModalMunicipiosComponent implements OnInit {
         next: () => {
           this.popup.abrirPopupExitoso("Información almacenada.")
           this.servicioModal.dismissAll()
-          this.usuario.abrirModal = false
+          //this.usuario.abrirModal = false
           this.servicioLocalStorage.actualizarUsuario(this.usuario)
         },
         error: () => {
@@ -164,7 +164,7 @@ export class ModalMunicipiosComponent implements OnInit {
       next: () => {
         this.servicioModal.dismissAll()
         this.popup.abrirPopupExitoso('Información almacenada.')
-        this.usuario.abrirModal = false
+       // this.usuario.abrirModal = false
         this.servicioLocalStorage.actualizarUsuario(this.usuario)
       },
       error: () => {
@@ -183,12 +183,12 @@ export class ModalMunicipiosComponent implements OnInit {
   }
 
   obtenerDepartamentos() {
-    this.departamentos = [{
+   /*  this.departamentos = [{
       id: this.usuario.departamentoId,
       name: this.usuario.nombreDepartamento
-    }]
+    }] */
     const inputDepartamento = this.formulario.controls['departamento']
-    inputDepartamento.setValue(this.usuario.departamentoId)
+    //inputDepartamento.setValue(this.usuario.departamentoId)
     inputDepartamento.disable()
   }
 

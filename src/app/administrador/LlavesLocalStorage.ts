@@ -3,5 +3,6 @@ export enum LlavesLocalStorage {
     Usuario = "Usuario",
     DocumentoUsuario = "documentoUsuario",
     ExpiracionToken = "expira",
-    Token = "jwt"
+    Token = "jwt",
+    Formularios = 'formularios'
 }

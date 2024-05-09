@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Rol, Submodulo } from 'src/app/autenticacion/modelos/Rol';
+import { Formulario, Rol, Submodulo } from 'src/app/autenticacion/modelos/Rol';
 import { ServicioLocalStorage } from '../../servicios/local-storage.service';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { AutenticacionService } from 'src/app/autenticacion/servicios/autenticacion.service';
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
   rol?: Rol | null;
+  formularios?: Formulario[] | [];
   usuario?: Usuario | null;
   isCollapsed = false;
   desplegado = true
@@ -25,6 +26,9 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.rol = this.servicioLocalStorage.obtenerRol()
+    this.formularios = this.servicioLocalStorage.obtenerFormularios()
+    console.log(this.formularios);
+    
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
   }
 

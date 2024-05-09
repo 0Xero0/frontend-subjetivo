@@ -52,9 +52,9 @@ export class PaginaInformacionGeneralVigiladoComponent implements OnInit, AfterV
   }
   
   ngAfterViewInit(): void {
-    if(this.usuario.abrirModal){
+  /*   if(this.usuario.abrirModal){
       this.modalMunicipios.abrirModal1()
-    }
+    } */
   }
 
   ngOnInit(): void {

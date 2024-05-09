@@ -1,10 +1,11 @@
-import { Rol } from "./Rol"
+import { Formulario, Rol } from "./Rol"
 
 export interface IniciarSesionRespuesta {
   usuario: Usuario
   token: string
   claveTemporal: boolean
-  rol: Rol
+  rol: Rol,
+  formularios:Formulario[]
 }
 
 export interface Usuario {
@@ -16,11 +17,11 @@ export interface Usuario {
   correo: string
   idEmpresa?: string
   logoEmpresa?: string
-  abrirModal: boolean;
+ /*  abrirModal: boolean;
   departamentoId: number;
   municipioId: number;
   esDepartamental: number;
   nombreCiudad: string;
   nombreDepartamento: string;
-  reportaOtroMunicipio: boolean;
+  reportaOtroMunicipio: boolean; */
 }
