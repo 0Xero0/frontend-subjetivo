@@ -11,6 +11,13 @@
         </li>
       </ul>
     </li>
+    <li [routerLinkActive]="'activo'" class="modulo" *ngFor="let formulario of this.formularios">
+      <span 
+      class="nombre-modulo" 
+      routerLink="/administrar{{formulario.ruta}}"
+      >{{formulario.delegatura}}</span>
+      
+    </li>
     <li class="modulo">
       <span class="nombre-modulo">Seguridad</span> 
       <ul class="submodulos">

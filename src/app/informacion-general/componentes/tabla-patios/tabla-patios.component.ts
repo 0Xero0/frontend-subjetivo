@@ -60,7 +60,7 @@ export class TablaPatiosComponent {
   ngOnInit(): void {
     this.obtenerTodasLasCiudades()
     this.obtenerDepartamentos()
-    this.obtenerCiudades(this.usuario.departamentoId)
+   // this.obtenerCiudades(this.usuario.departamentoId)
     this.formulario.get('departamento')!.valueChanges.subscribe({
       next: (departamentoId)=>{
         this.formulario.get('municipio')!.setValue("")
@@ -139,7 +139,7 @@ export class TablaPatiosComponent {
     this.formulario.reset()
     this.formulario.get('nombre')!.setValue('')
     this.obtenerDepartamentos()
-    this.obtenerCiudades(this.usuario.departamentoId)
+   // this.obtenerCiudades(this.usuario.departamentoId)
   }
 
   limpiarRegistrosEnRam(){
@@ -170,12 +170,12 @@ export class TablaPatiosComponent {
   }
 
   obtenerDepartamentos(){
-    this.departamentos = [{
+  /*   this.departamentos = [{
       id: this.usuario.departamentoId,
       name: this.usuario.nombreDepartamento
-    }]
+    }] */
     const inputDepartamento = this.formulario.controls['departamento']
-    inputDepartamento.setValue(this.usuario.departamentoId)
+   // inputDepartamento.setValue(this.usuario.departamentoId)
     inputDepartamento.disable()
   }
 

@@ -30,7 +30,7 @@ export class TablaEmpresasJurisdiccionComponent {
   ciudades: Ciudad[] = []
   todasLasCiudades: Ciudad[] = []
   usuario: Usuario
-  filtro: boolean
+  /* filtro: boolean */
 
   formulario: FormGroup<{
     nit: FormControl<string | null>,
@@ -67,7 +67,7 @@ export class TablaEmpresasJurisdiccionComponent {
     const usuario = this.servicioLocalStorage.obtenerUsuario()
     if(!usuario) throw new ErrorAutorizacion();
     this.usuario = usuario
-    this.filtro = this.usuario.esDepartamental !== 1 && !this.usuario.reportaOtroMunicipio ? true : false
+    //this.filtro = this.usuario.esDepartamental !== 1 && !this.usuario.reportaOtroMunicipio ? true : false
     this.aCrear = new EventEmitter<EmpresaJurisdiccionACrear[]>();
     this.aEliminar = new EventEmitter<number[]>();
 
@@ -111,7 +111,7 @@ export class TablaEmpresasJurisdiccionComponent {
   ngOnInit(): void {
     this.obtenerTodasLasCiudades()
     this.obtenerDepartamentos()
-    this.obtenerCiudades(this.usuario.departamentoId, this.filtro)
+    //this.obtenerCiudades(this.usuario.departamentoId, this.filtro)
     this.obtenerServiciosModalidades()
 
     this.formulario.controls.aATipoServicio.valueChanges.subscribe({
@@ -222,7 +222,7 @@ export class TablaEmpresasJurisdiccionComponent {
   limpiarFormulario() {
     this.formulario.reset()
     this.obtenerDepartamentos()
-    this.obtenerCiudades(this.usuario.departamentoId, this.filtro)
+    //this.obtenerCiudades(this.usuario.departamentoId, this.filtro)
   }
 
   limpiarRegistrosEnRam() {
@@ -273,12 +273,12 @@ export class TablaEmpresasJurisdiccionComponent {
   }
 
   obtenerDepartamentos(){
-    this.departamentos = [{
+   /*  this.departamentos = [{
       id: this.usuario.departamentoId,
       name: this.usuario.nombreDepartamento
-    }]
+    }] */
     const inputDepartamento = this.formulario.controls['departamento']
-    inputDepartamento.setValue(this.usuario.departamentoId)
+   // inputDepartamento.setValue(this.usuario.departamentoId)
     inputDepartamento.disable()
   }
 
