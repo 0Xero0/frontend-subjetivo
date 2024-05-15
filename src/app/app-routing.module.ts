@@ -11,6 +11,7 @@ import { PaginaResponderSoporteComponent } from './soportes/paginas/pagina-respo
 import { SoporteAccesoComponent } from './autenticacion/componentes/soporte-acceso/soporte-acceso.component';
 import { FormularioEjecucionComponent } from './ejecucion/componentes/formulario-ejecucion/formulario-ejecucion.component';
 import { PaginaEjecucionComponent } from './ejecucion/paginas/pagina-ejecucion/pagina-ejecucion.component';
+import { AereosComponent } from './ejecucion/componentes/aereos/aereos.component';
 
 
 
@@ -39,6 +40,10 @@ const routes: Routes = [
       {
         path: 'puertos',
         component: PaginaEjecucionComponent
+      },
+      {
+        path: 'concesiones',
+        component: AereosComponent
       },
     ]
   },

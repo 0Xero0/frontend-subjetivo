@@ -9,6 +9,7 @@ import { InputsModule } from '../inputs/inputs.module';;
 import { PipesModule } from '../pipes/pipes.module';
 import { RouterModule } from '@angular/router';
 import { InformacionGeneralModule } from '../informacion-general/informacion-general.module';
+import { AereosComponent } from './componentes/aereos/aereos.component';
 
 
 
@@ -16,6 +17,7 @@ import { InformacionGeneralModule } from '../informacion-general/informacion-gen
   declarations: [
     FormularioEjecucionComponent,
     PaginaEjecucionComponent,
+    AereosComponent,
   ],
   imports: [
     CommonModule,
