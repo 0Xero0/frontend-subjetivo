@@ -24,7 +24,6 @@ import { Pregunta } from '../../modelos/Preguntas';
 })
 export class FormularioEjecucionComponent implements OnInit, OnChanges{
   @ViewChild('popup') popup!: PopupComponent
-  @ViewChild('numeroL8') numero!:InputNumericoComponent
   hayCambios: boolean = false
   usuario: Usuario
 
@@ -135,14 +134,14 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
       if(!respuesta || respuesta == null){this.cambioRespuesta = undefined; this.archivoL5 = null; this.resArchivoL5 = undefined}
     }
     if(pregunta == 7){
-      if(respuesta == '1'){this.cambioT1L7 = false; this.archivoL8 = null; this.resArchivoL8 = undefined; this.numerico = false}
-      if(respuesta == '2' || respuesta == '3' || respuesta == '4'){this.cambioT1L7 = true; this.numerico = true}
+      if(respuesta == '1'){this.cambioT1L7 = false; this.archivoL8 = null; this.resArchivoL8 = undefined; this.numerico = false;this.numberL8 = ""}
+      if(respuesta == '2' || respuesta == '3' || respuesta == '4'){this.cambioT1L7 = true; this.numerico = true;this.numberL8 = ""}
       if(!respuesta || respuesta == null){this.cambioT1L7 = undefined; this.numerico = true; this.archivoL8 = null; this.resArchivoL8 = undefined}
     }
     if(pregunta == 22){
       if(respuesta == '1'){this.cambioT3L3 = false;}
-      if(respuesta == '2'){this.cambioT3L3 = true;}
-      if(!respuesta || respuesta == null){this.cambioT3L3 = true}
+      if(respuesta == '2'){this.cambioT3L3 = true;this.selectL23 = ""}
+      if(!respuesta || respuesta == null){this.cambioT3L3 = true;this.selectL23 = ""}
     }
     if(pregunta == 24){
       if(respuesta == '1'){this.cambioT3L5 = true; this.archivoL5T3 = null; this.resArchivoL5T3 = undefined}
@@ -156,8 +155,8 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     }
     if(pregunta == 27){
       if(respuesta == '1'){this.cambioT3L8 = false}
-      if(respuesta == '2'){this.cambioT3L8 = true}
-      if(!respuesta || respuesta == null){this.cambioT3L8 = true}
+      if(respuesta == '2'){this.cambioT3L8 = true;this.selectL28 = ""}
+      if(!respuesta || respuesta == null){this.cambioT3L8 = true;this.selectL28 = ""}
     }
     if(pregunta == 29){
       if(respuesta == '1'){this.cambioT4L1 = true;this.archivoL1T4 = null; this.resArchivoL1T4 = undefined; this.textArea = true}
@@ -719,16 +718,32 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     })
   }
 
-  verificarFaltantes(input: number): boolean{
-    for(const valor of this.faltantes){
-      if(valor == input){return true}
+  /* verificarFaltantes(input: number): boolean{
+    if(this.faltantes.length == 37){return false}
+    else{
+      for(const valor of this.faltantes){
+        if(valor == input){return true}
+      }
+    }
+    return false
+  } */
+
+  verificarFaltantes(input: string | "",pregunta?: number): boolean{
+    if(this.faltantes.length == 37){return false}
+    if(input == ""){return true}
+    else if(pregunta){
+      if(input != ""){
+        for(const valor of this.faltantes){
+          if(valor == pregunta){return true}
+        }
+      }
     }
     return false
   }
 
-recargarPagina(){
-  window.location.reload()
-}
+  recargarPagina(){
+    window.location.reload()
+  }
 
   manejarCambioArchivos(){
     this.hayCambios = true
