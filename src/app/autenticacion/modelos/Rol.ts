@@ -30,3 +30,10 @@ export interface Submodulo{
   actualizacion: Date;
 }
 
+export interface Formulario{
+  id: string;
+  nombre: string;
+  ruta: string;
+  delegatura: string;
+}
+

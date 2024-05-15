@@ -13,6 +13,7 @@ import { FiltrosReportes } from 'src/app/encuestas/modelos/FiltrosReportes';
 import { ListaEmpresasEjecucion } from '../modelos/ListaEmpresasEjecucion';
 import { ListaPatiosEjecucion } from '../modelos/ListaPatiosEjecucion';
 import { TipoImportacion } from '../TipoImportacion';
+import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
 
 @Injectable({
   providedIn: 'root'
@@ -25,74 +26,103 @@ export class ServicioEjecucion extends Autenticable {
     super()
   }
 
-  consultarListaFormulariosEjecucion(pagina: number, limite: number, idVigilado: string, filtros?: FiltrosReportes) {
-    let endpoint = `/api/v1/encuestas/listar?pagina=${pagina}&limite=${limite}&idVigilado=${idVigilado}&idEncuesta=2`
-    if(filtros){
-      if(filtros.termino){
-        endpoint+= `&termino=${filtros.termino}` 
-      }
-    }
-    return this.http.get<{ reportadas: ResumenReporte[], paginacion: Paginacion }>(
+  obtenerPortuarias(){
+    const endpoint = `/api/v1/portuarias`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  maestraSiNo(){
+    const endpoint = `/api/v1/maestras/sino`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  maestraSiNoAplica(){
+    const endpoint = `/api/v1/maestras/sinoaplica`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  maestraFusiones(){
+    const endpoint = `/api/v1/maestras/fusiones`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  maestraInversiones(){
+    const endpoint = `/api/v1/maestras/inversiones`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  maestraFinancierosN(){
+    const endpoint = `/api/v1/maestras/financierosN`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  maestraFinancieros(){
+    const endpoint = `/api/v1/maestras/financieros`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  maestraNits(){
+    const endpoint = `/api/v1/maestras/nits`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  maestraOrganizaciones(){
+    const endpoint = `/api/v1/maestras/organizaciones`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  maestraPeriodos(){
+    const endpoint = `/api/v1/maestras/periodos`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  maestraPorcentajes(){
+    const endpoint = `/api/v1/maestras/porcentajes`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  maestraSociedades(){
+    const endpoint = `/api/v1/maestras/sociedades`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  maestraDomicilios(){
+    const endpoint = `/api/v1/maestras/domicilios`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  maestraEquipos(){
+    const endpoint = `/api/v1/maestras/equipos`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  cargarArchivos(archivo: File, extension:string){
+    //console.log(archivo, extension);
+    const endpoint = `/api/v1/archivos`
+    const formData = new FormData()
+    formData.append('archivo', archivo)
+    formData.append('extension',extension)
+    return this.http.post<ArchivoGuardado>(
       `${this.host}${endpoint}`,
+      formData,
       { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
     )
   }
 
-  consultarEjecucion(idReporte: number, idVigilado: string, idMes: number, historico: boolean = false) {
-    const endpoint = `/api/v1/inidicador/ejecucion?idReporte=${idReporte}&idVigilado=${idVigilado}&idMes=${idMes}&historico=${historico}`
-    return this.http.get<FormularioEjecucion>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
-  }
-
-  guardarEjecucion(
-    reporteId: number,
-    mesId: number,
-    respuestasActividades: RespuestaActividad[],
-    respuestasAdicionales: RespuestaAdicional[]
-  ) {
-    const endpoint = '/api/v1/inidicador/respuestasEjecucion'
-    return this.http.post(`${this.host}${endpoint}`, {
-        reporteId,
-        respuestasActividades,
-        adicionales: respuestasAdicionales,
-        mesId
-      },
+  guardar(portuariasJson: any){
+    console.log(portuariasJson);
+    const endpoint = '/api/v1/portuarias'
+    return this.http.post<any>(
+      `${this.host}${endpoint}`,
+      portuariasJson ,
       { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  enviarEjecucion(idReporte: number, idVigilado: string, idMes: number) {
-    const endpoint = '/api/v1/inidicador/enviarEjecucion'
-    return this.http.post(`${this.host}${endpoint}`, {
-        idReporte,
-        idVigilado,
-        idMes
-      },
-      { headers: this.obtenerCabeceraAutorizacion() }
+  enviarST(){
+    const endpoint = '/api/v1/portuarias/enviar'
+    return this.http.get<any>(
+      `${this.host}${endpoint}`,
+      { headers: this.obtenerCabeceraAutorizacion()}
     )
-  }
-
-  obtenerMeses(historico: boolean = false):Observable<{ meses: Mes[] }>{
-    let endpoint = `/api/v1/maestras/meses?historico=${historico}`
-    return this.http.get<{ meses: Mes[] }>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
-  }
-
-  consultarListadoEmpresas(idVigilado: string, vigencia: number, idMes: number){
-    const endpoint = `/api/v1/inidicador/empresas?idVigilado=${idVigilado}&vigencia=${vigencia}&idMes=${idMes}`
-    return this.http.get<ListaEmpresasEjecucion>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
-  }
-
-  consultarListadoPatios(idVigilado: string, vigencia: number, idMes: number){
-    const endpoint = `/api/v1/inidicador/patios?idVigilado=${idVigilado}&vigencia=${vigencia}&idMes=${idMes}`
-    return this.http.get<ListaPatiosEjecucion>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
-  }
-
-  guardarImportacion(archivo: File, idVigilado: string, vigencia: number, mes: number, tipo: TipoImportacion){
-    const endpoint = '/api/v1/inidicador/importar-excel'
-    const formData = new FormData()
-    formData.append('tipo', tipo.toString())
-    formData.append('archivo', archivo)
-    formData.append('idVigilado', idVigilado)
-    formData.append('vigencia', vigencia.toString())
-    formData.append('mes', mes.toString())
-    return this.http.post(`${this.host}${endpoint}`, formData ,{ headers: this.obtenerCabeceraAutorizacion() })
   }
 }
