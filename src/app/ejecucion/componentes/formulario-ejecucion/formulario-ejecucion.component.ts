@@ -268,7 +268,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
           this.soloLectura = true
           this.cambioT3L3 = true
           this.cambioT3L8 = true
-          this.numerico = true
+          this.numerico = false
           this.textArea = true
           this.hayCambios = true
         }
@@ -310,7 +310,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
         this.selectL35 = this.portuarias[34].valor
         this.selectL36 = this.portuarias[35].valor;
         this.selectL37 = this.portuarias[36].valor;
-        console.log(this.portuarias);
+        //console.log(this.portuarias);
       }
     })
   }
@@ -435,7 +435,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
       }
       preguntas.push(pregunta7)
     }
-    if(this.numberL8 != "" || this.numberL8 == ""){
+    if(this.numberL8 != "" || this.selectL7 == "2"){
       const pregunta8: Pregunta = {
         preguntaId: 8,
         valor: this.numberL8,
@@ -678,7 +678,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     Swal.showLoading(null);
     this.servicio.guardar(preguntaJson).subscribe({
       next: (respuesta: any) =>{
-        console.log(respuesta);
+        //console.log(respuesta);
         if(respuesta){
           Swal.fire({
             titleText:"¡Guardado exitoso!",
@@ -699,7 +699,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
       }
     })
 
-    console.log(preguntaJson);
+    //console.log(preguntaJson);
   }
 
   enviarST(){
@@ -708,7 +708,13 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
         this.aprobado = respuesta['aprobado']
         this.faltantes = respuesta['faltantes']
         this.obtenerPortuarias()
-        console.log(respuesta);
+        if(respuesta['aprobado']){
+          Swal.fire({
+            titleText:"Enviado a ST exitosamente",
+            icon: "success"
+          })
+        }
+        //console.log(respuesta);
       }
     })
   }
@@ -720,6 +726,9 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     return false
   }
 
+recargarPagina(){
+  window.location.reload()
+}
 
   manejarCambioArchivos(){
     this.hayCambios = true
