@@ -89,7 +89,7 @@ export class InputArchivoComponent implements OnInit, ControlValueAccessor {
 
   private tamanoValido(archivo: File): boolean{
     if(this.tamanoMaximoMb){
-      return this.tamanoMaximoMb * 1000000 >= archivo.size ? true : false 
+      return this.tamanoMaximoMb * 1000000 >= archivo.size ? true : false
     }else{
       return true
     }

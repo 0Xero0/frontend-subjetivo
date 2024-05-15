@@ -33,3 +33,6 @@
   color: var(--azul-oscuro);
   background-color: var(--azul-claro);
 }
+.texto-azul{
+  color: var(--azul-oscuro);
+}

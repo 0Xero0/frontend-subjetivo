@@ -17,7 +17,7 @@ export class InputNumericoComponent implements OnInit, ControlValueAccessor {
   @Input() cantidadDecimales: number = 3
   @Input() valorInicial: number | null = null;
   @Input() largoMaximo: number | null = null
-  @Input() placeholder: string = ""; 
+  @Input() placeholder: string = "";
 
   valor: number | null = 0
   valorInput = ""
@@ -60,6 +60,8 @@ export class InputNumericoComponent implements OnInit, ControlValueAccessor {
 
   writeValue(valor: number): void {
     this.valor = valor
+    if(valor){this.valorInput = valor.toString()}
+
   }
 
   registerOnChange(fn: any): void {
