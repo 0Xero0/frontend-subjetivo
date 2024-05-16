@@ -51,7 +51,7 @@
             <tr><!-- linea 2 -->
               <td>2</td>
               <td class="actividad">
-                ¿El libro de actas de asamblea se encuentra inscrito y registrado en cámara de comercio?<span class="validacion">*</span>
+                ¿El libro de actas de asamblea se encuentra inscrito y registrado en cámara de comercio?
               </td>
               <td class="text-center ejecutado">
                 <fieldset class="d-flex flex-gap-10">
@@ -69,7 +69,7 @@
             <tr><!-- linea 3 -->
               <td>3</td>
               <td class="actividad">
-                ¿Todas las actas de asamblea y/o junta directiva elaboradas se encuentran debidamente asentadas en el<span class="validacion">*</span>
+                ¿Todas las actas de asamblea y/o junta directiva elaboradas se encuentran debidamente asentadas en el
                 libro de actas?
               </td>
               <td class="text-center ejecutado">
@@ -88,7 +88,7 @@
             <tr><!-- linea 4 -->
               <td>4</td>
               <td class="actividad">
-                ¿Los Estatutos y las Reformas Estatutarias han sido registradas en cámara de comercio?<span class="validacion">*</span>
+                ¿Los Estatutos y las Reformas Estatutarias han sido registradas en cámara de comercio?
               </td>
               <td class="text-center ejecutado">
                 <fieldset class="d-flex flex-gap-10">
@@ -106,7 +106,7 @@
             <tr><!-- linea 5 con archivo excel-->
               <td>5</td>
               <td class="actividad">
-                ¿La Sociedad presenta litigios o procesos a favor o en contra?<span class="validacion">*</span>
+                ¿La Sociedad presenta litigios o procesos a favor o en contra?
               </td>
               <td class="text-center">
                 <fieldset class="d-flex flex-gap-10">
@@ -152,7 +152,7 @@
               <td>6</td>
               <td class="actividad">
                 ¿Se encuentra registrada la provisión en los Estados Financieros,
-                de acuerdo lo establecido con la NIC 37?<span class="validacion">*</span>
+                de acuerdo lo establecido con la NIC 37?
               </td>
               <td class="text-center ejecutado">
                 <fieldset class="d-flex flex-gap-10">
@@ -170,7 +170,7 @@
               <td>7</td>
               <td class="actividad">
                 ¿Han adelantado procesos de fusión, escisión y/o disminuciones de capital con efectivo reembolso de
-                aportes?<span class="validacion">*</span>
+                aportes?
               </td>
               <td class="text-center ejecutado">
                 <fieldset class="d-flex flex-gap-10">
@@ -197,7 +197,10 @@
                   <app-input-numerico id="numeroL8" [(ngModel)]="numberL8" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="!numerico"/>
                 </ng-container>
-                <span class="validacion" *ngIf="verificarFaltantes('8',8)">Falta por completar</span>
+                <span *ngIf="numerico">
+                  <span class="validacion" *ngIf="verificarFaltantes('8',8)">Falta por completar</span>
+                </span>
+
               </td>
               <td>
                 <p *ngIf="cambioT1L7 == true">Acto administrativo.</p>
