@@ -1,4 +1,4 @@
-import { Component, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
 import { ServicioEjecucion } from '../../servicios/ejecucion.service';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './aereos.component.html',
   styleUrls: ['./aereos.component.css']
 })
-export class AereosComponent {
+export class AereosComponent implements OnInit, OnChanges{
   @ViewChild('popup') popup!: PopupComponent
   hayCambios: boolean = false
 
@@ -70,7 +70,62 @@ export class AereosComponent {
   ngOnChanges(changes: SimpleChanges): void {
   }
 
+  ngOnInit(): void {
+    //this.enviarST()
+    this.obtenerMaestras()
+  }
 
+  obtenerMaestras(){
+    this.servicio.maestraSiNo().subscribe({
+      next: (respuesta)=>{
+        this.sino = respuesta['siNo']
+      }
+    })
+    this.servicio.maestraSiNoAplica().subscribe({
+      next: (respuesta)=>{
+        this.sinoAplica = respuesta['siNoNoaplica']
+      }
+    })
+    this.servicio.maestraFusiones().subscribe({
+      next: (respuesta)=>{
+        this.fusiones = respuesta['fusiones']
+      }
+    })
+    this.servicio.maestraInversiones().subscribe({
+      next: (respuesta)=>{
+        this.inversiones = respuesta['inversiones']
+      }
+    })
+    this.servicio.maestraFinancieros().subscribe({
+      next: (respuesta)=>{
+        this.financieros = respuesta['financieros']
+      }
+    })
+    this.servicio.maestraFinancierosN().subscribe({
+      next: (respuesta)=>{
+        this.financierosN = respuesta['financierosN']
+      }
+    })
+    this.servicio.maestraEquipos().subscribe({
+      next: (respuesta)=>{
+        this.equipos = respuesta['equipos']
+      }
+    })
+    this.servicio.maestraPorcentajes().subscribe({
+      next: (respuesta)=>{
+        this.porcentajes = respuesta['porcentajes']
+      }
+    })
+    this.servicio.maestraPeriodos().subscribe({
+      next: (respuesta)=>{
+        this.periodos = respuesta['periodos']
+      }
+    })
+  }
+
+  detectarCambios(){
+    this.hayCambios = true
+  }
 
   recargarPagina(){
     window.location.reload()

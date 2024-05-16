@@ -31,6 +31,11 @@ export class ServicioEjecucion extends Autenticable {
     return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
 
+  obtenerTransporte(){
+    const endpoint = `/api/v1/transportes`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
   maestraSiNo(){
     const endpoint = `/api/v1/maestras/sino`
     return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
@@ -112,17 +117,17 @@ export class ServicioEjecucion extends Autenticable {
   guardar(portuariasJson: any){
     console.log(portuariasJson);
     const endpoint = '/api/v1/portuarias'
-    return this.http.post<any>(
-      `${this.host}${endpoint}`,
-      portuariasJson ,
-      { headers: this.obtenerCabeceraAutorizacion() })
+    return this.http.post<any>(`${this.host}${endpoint}`,portuariasJson ,{ headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  guardarTransporte(transportesJson: any){
+    console.log(transportesJson);
+    const endpoint = '/api/v1/transportes'
+    return this.http.post<any>(`${this.host}${endpoint}`,transportesJson ,{ headers: this.obtenerCabeceraAutorizacion() })
   }
 
   enviarST(){
     const endpoint = '/api/v1/portuarias/enviar'
-    return this.http.get<any>(
-      `${this.host}${endpoint}`,
-      { headers: this.obtenerCabeceraAutorizacion()}
-    )
+    return this.http.get<any>(`${this.host}${endpoint}`,{ headers: this.obtenerCabeceraAutorizacion()})
   }
 }

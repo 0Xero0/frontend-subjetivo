@@ -684,14 +684,11 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     })
   }
 
-  verificarFaltantes(input: string | "",pregunta?: number): boolean{
-    if(this.faltantes.length == 37){return false}
-    if(input == ""){return true}
+  verificarFaltantes(pregunta: number): boolean{
+    if(this.faltantes.length === 37){return false}
     else if(pregunta){
-      if(input != ""){
-        for(const valor of this.faltantes){
-          if(valor == pregunta){return true}
-        }
+      for(const valor of this.faltantes){
+        if(valor == pregunta){return true}
       }
     }
     return false
