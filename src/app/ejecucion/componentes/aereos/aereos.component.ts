@@ -69,4 +69,14 @@ export class AereosComponent {
   }
   ngOnChanges(changes: SimpleChanges): void {
   }
+
+
+
+  recargarPagina(){
+    window.location.reload()
+  }
+
+  manejarCambioArchivos(){
+    this.hayCambios = true
+  }
 }

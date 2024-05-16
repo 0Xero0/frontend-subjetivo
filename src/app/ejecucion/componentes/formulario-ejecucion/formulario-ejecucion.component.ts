@@ -159,9 +159,9 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
       if(!respuesta || respuesta == null){this.cambioT3L8 = true;this.selectL28 = ""}
     }
     if(pregunta == 29){
-      if(respuesta == '1'){this.cambioT4L1 = true;this.archivoL1T4 = null; this.resArchivoL1T4 = undefined; this.textArea = true}
+      if(respuesta == '1'){this.cambioT4L1 = true;this.archivoL1T4 = null; this.resArchivoL1T4 = undefined; this.textArea = true;this.textArea30 = ""}
       if(respuesta == '2'){this.cambioT4L1 = false; this.textArea = false;this.archivoL1T4 = null; this.resArchivoL1T4 = undefined}
-      if(!respuesta || respuesta == null){this.cambioT4L1 = undefined; this.textArea = true;this.archivoL1T4 = null; this.resArchivoL1T4 = undefined}
+      if(!respuesta || respuesta == null){this.cambioT4L1 = undefined; this.textArea = true;this.archivoL1T4 = null; this.resArchivoL1T4 = undefined;this.textArea30 = ""}
     }
     if(pregunta == 31){
       if(respuesta != null){this.cambioT4L3 = true; this.archivoL3T4 = null; this.resArchivoL3T4 = undefined}
@@ -382,36 +382,32 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   guardar(){
     let preguntaJson: any;
     const preguntas = []
-    if(this.selectL1 != ""){
-      const pregunta1: Pregunta = {
+    //------------------------
+    const pregunta1: Pregunta = {
         preguntaId: 1,
         valor: this.selectL1
       }
       preguntas.push(pregunta1)
-    }
-    if(this.selectL2 != ""){
+    //-------------------------
       const pregunta2: Pregunta = {
         preguntaId: 2,
         valor: this.selectL2
       }
       preguntas.push(pregunta2)
-    }
-    if(this.selectL3 != ""){
-      const pregunta3: Pregunta = {
+    //--------------------------
+    const pregunta3: Pregunta = {
         preguntaId: 3,
         valor: this.selectL3
       }
       preguntas.push(pregunta3)
-    }
-    if(this.selectL4 != ""){
-      const pregunta4: Pregunta = {
+    //--------------------------
+    const pregunta4: Pregunta = {
         preguntaId: 4,
         valor: this.selectL4
       }
       preguntas.push(pregunta4)
-    }
-    if(this.selectL5 != ""){
-      const pregunta5: Pregunta = {
+    //---------------------------
+    const pregunta5: Pregunta = {
         preguntaId: 5,
         valor: this.selectL5,
         nombreAlmacenado: this.resArchivoL5?.nombreAlmacenado,
@@ -419,23 +415,20 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
         ruta: this.resArchivoL5?.ruta
       }
       preguntas.push(pregunta5)
-    }
-    if(this.selectL6 != ""){
-      const pregunta6: Pregunta = {
+    //--------------------------
+    const pregunta6: Pregunta = {
         preguntaId: 6,
         valor: this.selectL6
       }
       preguntas.push(pregunta6)
-    }
-    if(this.selectL7 != ""){
-      const pregunta7: Pregunta = {
+    //--------------------------
+    const pregunta7: Pregunta = {
         preguntaId: 7,
         valor: this.selectL7
       }
       preguntas.push(pregunta7)
-    }
-    if(this.numberL8 != "" || this.selectL7 == "2"){
-      const pregunta8: Pregunta = {
+    //--------------------------
+    const pregunta8: Pregunta = {
         preguntaId: 8,
         valor: this.numberL8,
         nombreAlmacenado: this.resArchivoL8?.nombreAlmacenado,
@@ -443,7 +436,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
         ruta: this.resArchivoL8?.ruta
       }
       preguntas.push(pregunta8)
-    }
+    //-------------------------
     if(this.selectL9 != ""){
       const pregunta9: Pregunta = {
         preguntaId: 9,
