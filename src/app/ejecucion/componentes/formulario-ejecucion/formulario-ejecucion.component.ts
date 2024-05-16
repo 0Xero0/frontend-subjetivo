@@ -136,7 +136,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     if(pregunta == 7){
       if(respuesta == '1'){this.cambioT1L7 = false; this.archivoL8 = null; this.resArchivoL8 = undefined; this.numerico = false;this.numberL8 = ""}
       if(respuesta == '2' || respuesta == '3' || respuesta == '4'){this.cambioT1L7 = true; this.numerico = true;this.numberL8 = ""}
-      if(!respuesta || respuesta == null){this.cambioT1L7 = undefined; this.numerico = true; this.archivoL8 = null; this.resArchivoL8 = undefined}
+      if(!respuesta || respuesta == null){this.cambioT1L7 = undefined; this.numerico = false; this.archivoL8 = null; this.resArchivoL8 = undefined;this.numberL8 = ""}
     }
     if(pregunta == 22){
       if(respuesta == '1'){this.cambioT3L3 = false;}
