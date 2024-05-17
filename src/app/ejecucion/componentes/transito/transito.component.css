@@ -36,3 +36,6 @@
 .texto-azul{
   color: var(--azul-oscuro);
 }
+.fondo-azul{
+  background-color: blue;
+}

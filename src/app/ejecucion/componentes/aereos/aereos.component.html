@@ -505,7 +505,7 @@
                 </p>
               </td>
               <td>
-                <fieldset class="d-flex flex-column" *ngIf="cambioT3L5 == true || cambioT3L5 == false">
+                <fieldset class="d-flex flex-column" *ngIf="cambioT3L5 == true">
                   <app-input-archivo id="archivoL5T3" [disabled]="soloLectura" [nombre]="'archivoL5T3'"
                     [(ngModel)]="archivoT3L5" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,21),detectarCambios()]"/>
                     <span class="texto-azul" *ngIf="transporte[20].nombreOriginalArchivo != '' && selectL21 == transporte[20].valor">
@@ -513,7 +513,7 @@
                     </span>
                   <span>Excel, Máximo 5 Mb</span>
                 </fieldset>
-                <fieldset class="d-flex flex-column" *ngIf="cambioT3L5 == true || cambioT3L5 == false">
+                <fieldset class="d-flex flex-column" *ngIf="cambioT3L5 == false">
                   <app-input-archivo id="archivoL5T3" [disabled]="soloLectura" [nombre]="'archivoL5T3'"
                     [(ngModel)]="archivoT3L5" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,21),detectarCambios()]"/>
                     <span class="texto-azul" *ngIf="transporte[20].nombreOriginalArchivo != '' && selectL21 == transporte[20].valor">

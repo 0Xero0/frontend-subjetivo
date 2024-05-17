@@ -36,6 +36,11 @@ export class ServicioEjecucion extends Autenticable {
     return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
 
+  obtenerTransito(){
+    const endpoint = `/api/v1/transitos`
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
   maestraSiNo(){
     const endpoint = `/api/v1/maestras/sino`
     return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
@@ -112,6 +117,11 @@ export class ServicioEjecucion extends Autenticable {
       formData,
       { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
     )
+  }
+
+  obtenerMaestras2(ruta:string){
+    const endpoint = `/api/v1/maestras/`+ruta
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
 
   guardar(portuariasJson: any){
