@@ -10,6 +10,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { RouterModule } from '@angular/router';
 import { InformacionGeneralModule } from '../informacion-general/informacion-general.module';
 import { AereosComponent } from './componentes/aereos/aereos.component';
+import { TransitoComponent } from './componentes/transito/transito.component';
 
 
 
@@ -18,6 +19,7 @@ import { AereosComponent } from './componentes/aereos/aereos.component';
     FormularioEjecucionComponent,
     PaginaEjecucionComponent,
     AereosComponent,
+    TransitoComponent,
   ],
   imports: [
     CommonModule,

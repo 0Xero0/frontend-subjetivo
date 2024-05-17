@@ -18,7 +18,7 @@ import { TarifasModule } from './tarifas/tarifas.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
