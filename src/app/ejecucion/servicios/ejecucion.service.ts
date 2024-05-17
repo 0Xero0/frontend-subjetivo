@@ -120,14 +120,20 @@ export class ServicioEjecucion extends Autenticable {
     return this.http.post<any>(`${this.host}${endpoint}`,portuariasJson ,{ headers: this.obtenerCabeceraAutorizacion() })
   }
 
+  enviarST(){
+    const endpoint = '/api/v1/portuarias/enviar'
+    return this.http.get<any>(`${this.host}${endpoint}`,{ headers: this.obtenerCabeceraAutorizacion()})
+  }
+
   guardarTransporte(transportesJson: any){
     console.log(transportesJson);
     const endpoint = '/api/v1/transportes'
     return this.http.post<any>(`${this.host}${endpoint}`,transportesJson ,{ headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  enviarST(){
-    const endpoint = '/api/v1/portuarias/enviar'
+  enviarSTTransporte(){
+    const endpoint = '/api/v1/transportes/enviar'
     return this.http.get<any>(`${this.host}${endpoint}`,{ headers: this.obtenerCabeceraAutorizacion()})
   }
+
 }

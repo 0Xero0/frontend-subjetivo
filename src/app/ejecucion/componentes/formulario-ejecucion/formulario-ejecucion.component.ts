@@ -98,7 +98,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   }
 
   ngOnInit(): void {
-    this.enviarST()
+    //this.enviarST()
     this.maestraFusiones()
     this.maestraSiNo()
     this.maestraSiNoAplica()
@@ -678,6 +678,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
             titleText:"Enviado a ST exitosamente",
             icon: "success"
           })
+          this.recargarPagina()
         }
         //console.log(respuesta);
       }
