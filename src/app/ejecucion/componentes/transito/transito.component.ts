@@ -26,7 +26,6 @@ export class TransitoComponent {
 
   @ViewChild('popup') popup!: PopupComponent
   hayCambios: boolean = false
-  usuario: Usuario
 
   soloLectura: boolean = false
   aprobado: boolean = false
@@ -34,17 +33,57 @@ export class TransitoComponent {
 
   //Variables tabla 1
   textL1: string = "";selectL2: string = "";numberL3: string = "";numberL4: string = "";selectL5: string = "";selectL6: string = "";
-  selectL7: string = "";numberL8: string = "";selectL9: string = "";selectL10: string = "";selectL11: string = "";selectL12: string = "";
-  selectL13: string = "";selectL14: string = "";selectL15: string = "";selectL16: string = ""
-  //Variables select tabla 2
-  selectL17: string = "";selectL18: string = "";selectL19: string = "";
-  //Variables select tabla 3
-  selectL20: string = "";selectL21: string = "";selectL22: string = "";selectL23: string = "";selectL24: string = "";selectL25: string = "";
-  selectL26: string = "";selectL27: string = "";selectL28: string = "";
-  //Variables select tabla 4
-  selectL29: string = "";textArea30: string = "";selectL31: string = "";selectL32: string = "";selectL33: string = "";
-  //Variables select tabla 5
-  selectL34: string = "";selectL35: string = "";selectL36: string = "";selectL37: string = "";
+  selectL7: string = ""
+  //Variables checkbox tabla 2
+  check1: boolean = false;check2: boolean = false;check3: boolean = false;check4: boolean = false;check5: boolean = false;
+  check6: boolean = false;check7: boolean = false;check8: boolean = false;check9: boolean = false;
+  //Variables grua
+  textGrua1: string = "";numeroGrua1: string = "";selectG1: string = "";selectG2: string = "";textGrua2: string = "";textGrua3: string = "";
+  textGrua4: string = "";numeroGrua2: string = "";archivoG1: File | null = null;archivoG2: File | null = null;selectG3: string = "";
+  textGrua5: string = "";selectG4: string = "";fechaG1: string = "";fechaG2: string = "";selectG5: string = "";numeroGrua3: string = "";
+  textGrua6: string = "";numeroG4: string = "";
+  //Variables Patios
+  textP1: string = "";numeroP1: string = "";selectP1: string = "";selectP2: string = "";textP2: string = "";textP3: string = "";
+  textP4: string = "";numeroP2: string = "";archivoP1: File | null = null;archivoP2: File | null = null;selectP3: string = "";
+  textP5: string = "";selectP4: string = "";fechaP1: string = "";fechaP2: string = "";selectP5: string = "";numeroP3: string = "";
+  textP6: string = "";numeroP4: string = "";
+  //Variables Tramites
+  textT1: string = "";numeroT1: string = "";selectT1: string = "";selectT2: string = "";textT2: string = "";textT3: string = "";
+  textT4: string = "";numeroT2: string = "";archivoT1: File | null = null;archivoT2: File | null = null;selectT3: string = "";
+  textT5: string = "";selectT4: string = "";fechaT1: string = "";fechaT2: string = "";selectT5: string = "";numeroT3: string = "";
+  textT6: string = "";numeroT4: string = "";
+  //Variables Deteccion
+  textD1: string = "";numeroD1: string = "";selectD1: string = "";selectD2: string = "";textD2: string = "";textD3: string = "";
+  textD4: string = "";numeroD2: string = "";archivoD1: File | null = null;archivoD2: File | null = null;selectD3: string = "";
+  textD5: string = "";selectD4: string = "";fechaD1: string = "";fechaD2: string = "";selectD5: string = "";numeroD3: string = "";
+  textD6: string = "";numeroD4: string = "";
+
+  //Variables PC
+  textPC1: string = "";numeroPC1: string = "";selectPC1: string = "";selectPC2: string = "";textPC2: string = "";textPC3: string = "";
+  textPC4: string = "";numeroPC2: string = "";archivoPC1: File | null = null;archivoPC2: File | null = null;selectPC3: string = "";
+  textPC5: string = "";selectPC4: string = "";fechaPC1: string = "";fechaPC2: string = "";selectPC5: string = "";numeroPC3: string = "";
+  textPC6: string = "";numeroPC4: string = "";
+  //Variables PCC
+  textPCC1: string = "";numeroPCC1: string = "";selectPCC1: string = "";selectPCC2: string = "";textPCC2: string = "";textPCC3: string = "";
+  textPCC4: string = "";numeroPCC2: string = "";archivoPCC1: File | null = null;archivoPCC2: File | null = null;selectPCC3: string = "";
+  textPCC5: string = "";selectPCC4: string = "";fechaPCC1: string = "";fechaPCC2: string = "";selectPCC5: string = "";numeroPCC3: string = "";
+  textPCC6: string = "";numeroPCC4: string = "";
+  //Variables PCP
+  textPCP1: string = "";numeroPCP1: string = "";selectPCP1: string = "";selectPCP2: string = "";textPCP2: string = "";textPCP3: string = "";
+  textPCP4: string = "";numeroPCP2: string = "";archivoPCP1: File | null = null;archivoPCP2: File | null = null;selectPCP3: string = "";
+  textPCP5: string = "";selectPCP4: string = "";fechaPCP1: string = "";fechaPCP2: string = "";selectPCP5: string = "";numeroPCP3: string = "";
+  textPCP6: string = "";numeroPCP4: string = "";
+  //Variables Recaudo
+  textR1: string = "";numeroR1: string = "";selectR1: string = "";selectR2: string = "";textR2: string = "";textR3: string = "";
+  textR4: string = "";numeroR2: string = "";archivoR1: File | null = null;archivoR2: File | null = null;selectR3: string = "";
+  textR5: string = "";selectR4: string = "";fechaR1: string = "";fechaR2: string = "";selectR5: string = "";numeroR3: string = "";
+  textR6: string = "";numeroR4: string = "";
+
+  //Variables Otros
+  textO1: string = "";numeroO1: string = "";selectO1: string = "";selectO2: string = "";textO2: string = "";textO3: string = "";
+  textO4: string = "";numeroO2: string = "";archivoO1: File | null = null;archivoO2: File | null = null;selectO3: string = "";
+  textO5: string = "";selectO4: string = "";fechaO1: string = "";fechaO2: string = "";selectO5: string = "";numeroO3: string = "";
+  textO6: string = "";selectO0: string = "";numeroO4: string = "";
 
   //Variables habilitar/deshabilitar/cambiar/mostrar
   cambioRespuesta?: boolean//T1L5
@@ -86,31 +125,22 @@ export class TransitoComponent {
   porcentajes?: Array<any>
   periodos?: Array<any>
   nits?: Array<any>
+  organizaciones?: Array<any>
+  domicilios?: Array<any>
+  sociedades?: Array<any>
 
   portuarias: Portuarias[] = []
+  identificacionOrganismo?: any
 
   constructor(private servicio: ServicioEjecucion, private router: Router, private servicioLocalStorage: ServicioLocalStorage){
-    this.obtenerPortuarias()
-
-    const usuario = this.servicioLocalStorage.obtenerUsuario()
-    if(!usuario) throw new ErrorAutorizacion();
-    this.usuario = usuario
+    this.obtenerTransitos()
   }
   ngOnChanges(changes: SimpleChanges): void {
   }
 
   ngOnInit(): void {
     /* this.enviarST() */
-    this.maestraFusiones()
-    this.maestraSiNo()
-    this.maestraSiNoAplica()
-    this.maestraInversiones()
-    this.maestraFinancieros()
-    this.maestraFinancierosN()
-    this.maestraEquipos()
-    this.maestraPorcentajes()
-    this.maestraPeriodos()
-    this.maestraNits()
+    this.obtenerMaestras()
   }
 
   detectarCambios(){
@@ -136,16 +166,6 @@ export class TransitoComponent {
       if(respuesta == '2'){this.cambioRespuesta = false; this.archivoL5 = null; this.resArchivoL5 = undefined}
       if(!respuesta || respuesta == null){this.cambioRespuesta = undefined; this.archivoL5 = null; this.resArchivoL5 = undefined}
     }
-    if(pregunta == 7){
-      if(respuesta == '1'){this.cambioT1L7 = false; this.archivoL8 = null; this.resArchivoL8 = undefined; this.numerico = false;this.numberL8 = " "}
-      if(respuesta == '2' || respuesta == '3' || respuesta == '4'){this.cambioT1L7 = true; this.numerico = true;this.numberL8 = " "}
-      if(!respuesta || respuesta == null){this.cambioT1L7 = undefined; this.numerico = false; this.archivoL8 = null; this.resArchivoL8 = undefined;this.numberL8 = " "}
-    }
-    if(pregunta == 22){
-      if(respuesta == '1'){this.cambioT3L3 = false;}
-      if(respuesta == '2'){this.cambioT3L3 = true;this.selectL23 = ""}
-      if(!respuesta || respuesta == null){this.cambioT3L3 = true;this.selectL23 = ""}
-    }
     if(pregunta == 24){
       if(respuesta == '1'){this.cambioT3L5 = true; this.archivoL5T3 = null; this.resArchivoL5T3 = undefined}
       if(respuesta == '2'){this.cambioT3L5 = false; this.archivoL5T3 = null; this.resArchivoL5T3 = undefined}
@@ -156,170 +176,99 @@ export class TransitoComponent {
       if(respuesta == '4'){this.cambioT3L7 = false; this.archivoL7T3 = null; this.resArchivoL7T3 = undefined}
       if(!respuesta || respuesta == null){this.cambioT3L7 = undefined; this.archivoL7T3 = null; this.resArchivoL7T3 = undefined}
     }
-    if(pregunta == 27){
-      if(respuesta == '1'){this.cambioT3L8 = false}
-      if(respuesta == '2'){this.cambioT3L8 = true;this.selectL28 = ""}
-      if(!respuesta || respuesta == null){this.cambioT3L8 = true;this.selectL28 = ""}
-    }
-    if(pregunta == 29){
-      if(respuesta == '1'){this.cambioT4L1 = true;this.archivoL1T4 = null; this.resArchivoL1T4 = undefined; this.textArea = true;this.textArea30 = ""}
-      if(respuesta == '2'){this.cambioT4L1 = false; this.textArea = false;this.archivoL1T4 = null; this.resArchivoL1T4 = undefined}
-      if(!respuesta || respuesta == null){this.cambioT4L1 = undefined; this.textArea = true;this.archivoL1T4 = null; this.resArchivoL1T4 = undefined;this.textArea30 = ""}
-    }
-    if(pregunta == 31){
-      if(respuesta != null){this.cambioT4L3 = true; this.archivoL3T4 = null; this.resArchivoL3T4 = undefined}
-      if(!respuesta || respuesta == null){this.cambioT4L3 = false; this.archivoL3T4 = null; this.resArchivoL3T4 = undefined}
-    }
-    if(pregunta == 32){
-      if(respuesta != null){this.cambioT4L4 = true; this.archivoL4T4 = null; this.resArchivoL4T4 = undefined}
-      if(!respuesta || respuesta == null){this.cambioT4L4 = false; this.archivoL4T4 = null; this.resArchivoL4T4 = undefined}
-    }
-    if(pregunta == 36){
-      if(respuesta == '1'){this.cambioT5L3 = true; this.archivoL3T5 = null; this.resArchivoL3T5 = undefined}
-      if(respuesta == '2'){this.cambioT5L3 = false; this.archivoL3T5 = null; this.resArchivoL3T5 = undefined}
-      if(!respuesta || respuesta == null){this.cambioT5L3 = undefined; this.archivoL3T5 = null; this.resArchivoL3T5 = undefined}
-    }
-    if(pregunta == 37){
-      if(respuesta == '1'){this.cambioT5L4 = true; this.archivoL4T5 = null; this.resArchivoL4T5 = undefined}
-      if(respuesta == '2'){this.cambioT5L4 = false; this.archivoL4T5 = null; this.resArchivoL4T5 = undefined}
-      if(!respuesta || respuesta == null){this.cambioT5L4 = undefined; this.archivoL4T5 = null; this.resArchivoL4T5 = undefined}
-    }
 
   }
 
-  maestraSiNo(){
+  obtenerMaestras(){
     this.servicio.maestraSiNo().subscribe({
       next: (respuesta)=>{
         this.sino = respuesta['siNo']
       }
     })
-  }
-
-  maestraSiNoAplica(){
     this.servicio.maestraSiNoAplica().subscribe({
       next: (respuesta)=>{
         this.sinoAplica = respuesta['siNoNoaplica']
       }
     })
-  }
-
-  maestraFusiones(){
     this.servicio.maestraFusiones().subscribe({
       next: (respuesta)=>{
         this.fusiones = respuesta['fusiones']
       }
     })
-  }
-
-  maestraInversiones(){
     this.servicio.maestraInversiones().subscribe({
       next: (respuesta)=>{
         this.inversiones = respuesta['inversiones']
       }
     })
-  }
-
-  maestraFinancieros(){
     this.servicio.maestraFinancieros().subscribe({
       next: (respuesta)=>{
         this.financieros = respuesta['financieros']
       }
     })
-  }
-
-  maestraFinancierosN(){
     this.servicio.maestraFinancierosN().subscribe({
       next: (respuesta)=>{
         this.financierosN = respuesta['financierosN']
       }
     })
-  }
-
-  maestraEquipos(){
     this.servicio.maestraEquipos().subscribe({
       next: (respuesta)=>{
         this.equipos = respuesta['equipos']
       }
     })
-  }
-
-  maestraPorcentajes(){
     this.servicio.maestraPorcentajes().subscribe({
       next: (respuesta)=>{
         this.porcentajes = respuesta['porcentajes']
       }
     })
-  }
-
-  maestraPeriodos(){
     this.servicio.maestraPeriodos().subscribe({
       next: (respuesta)=>{
         this.periodos = respuesta['periodos']
       }
     })
-  }
-
-  maestraNits(){
+    this.servicio.maestraOrganizaciones().subscribe({
+      next: (respuesta)=>{
+        this.organizaciones = respuesta['organizaciones']
+      }
+    })
     this.servicio.maestraNits().subscribe({
       next: (respuesta)=>{
         this.nits = respuesta['nits']
       }
     })
+    this.servicio.maestraDomicilios().subscribe({
+      next: (respuesta)=>{
+        this.domicilios = respuesta['domicilios']
+      }
+    })
+    this.servicio.maestraSociedades().subscribe({
+      next: (respuesta)=>{
+        this.sociedades = respuesta['sociedades']
+      }
+    })
   }
 
-  obtenerPortuarias(){
-    this.servicio.obtenerPortuarias().subscribe({
+  obtenerTransitos(){
+    this.servicio.obtenerTransito().subscribe({
       next: (respuesta:any)=>{
-        this.portuarias = respuesta['preguntas']
+        this.identificacionOrganismo = respuesta['identificacionOrganismo']
+        console.log(this.identificacionOrganismo.razonSocial);
+        
         for(let i = 1; i <= 37; i++){
-          this.cambioRespuestaSelect(this.portuarias[i-1].valor,i)
+          //this.cambioRespuestaSelect(this.portuarias[i-1].valor,i)
         }
         if(respuesta['editable'] != true){
-        //  this.soloLectura = true
-          this.cambioT3L3 = true
-          this.cambioT3L8 = true
-          this.numerico = false
-          this.textArea = true
+          this.soloLectura = true
           this.hayCambios = true
         }
         //Inicializar variables
-        this.textL1 = this.portuarias[0].valor
-        this.selectL2 = this.portuarias[1].valor
-        this.numberL3 = this.portuarias[2].valor
-        this.numberL4 = this.portuarias[3].valor
-        this.selectL5 = this.portuarias[4].valor;
-        this.selectL6 = this.portuarias[5].valor
-        this.selectL7 = this.portuarias[6].valor
-        this.numberL8 = this.portuarias[7].valor;
-        this.selectL9 = this.portuarias[8].valor
-        this.selectL10 = this.portuarias[9].valor
-        this.selectL11 = this.portuarias[10].valor
-        this.selectL12 = this.portuarias[11].valor
-        this.selectL13 = this.portuarias[12].valor
-        this.selectL14 = this.portuarias[13].valor
-        this.selectL15 = this.portuarias[14].valor
-        this.selectL16 = this.portuarias[15].valor
-        this.selectL17 = this.portuarias[16].valor
-        this.selectL18 = this.portuarias[17].valor
-        this.selectL19 = this.portuarias[18].valor
-        this.selectL20 = this.portuarias[19].valor
-        this.selectL21 = this.portuarias[20].valor
-        this.selectL22 = this.portuarias[21].valor
-        this.selectL23 = this.portuarias[22].valor
-        this.selectL24 = this.portuarias[23].valor;
-        this.selectL25 = this.portuarias[24].valor
-        this.selectL26 = this.portuarias[25].valor;
-        this.selectL27 = this.portuarias[26].valor
-        this.selectL28 = this.portuarias[27].valor
-        this.selectL29 = this.portuarias[28].valor;
-        this.textArea30 = this.portuarias[29].valor
-        this.selectL31 = this.portuarias[30].valor;
-        this.selectL32 = this.portuarias[31].valor;
-        this.selectL33 = this.portuarias[32].valor
-        this.selectL34 = this.portuarias[33].valor
-        this.selectL35 = this.portuarias[34].valor
-        this.selectL36 = this.portuarias[35].valor;
-        this.selectL37 = this.portuarias[36].valor;
+        this.textL1 = this.identificacionOrganismo.razonSocial
+        this.selectL2 = this.identificacionOrganismo.tipoNit
+        this.numberL3 = this.identificacionOrganismo.nit
+        this.numberL4 = this.identificacionOrganismo.digitoVerificacion
+        this.selectL5 = this.identificacionOrganismo.tipoOrganizacion
+        this.selectL6 = this.identificacionOrganismo.apoyaTerceros
+        this.selectL7 = this.identificacionOrganismo.procesoAdjudicacion
+        this.check1 = this.identificacionOrganismo.gruas
         //console.log(this.portuarias);
       }
     })
@@ -438,212 +387,12 @@ export class TransitoComponent {
         valor: this.selectL7
       }
       preguntas.push(pregunta7)
-    //--------------------------
-    const pregunta8: Pregunta = {
-        preguntaId: 8,
-        valor: this.numberL8,
-        nombreAlmacenado: this.resArchivoL8?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL8?.nombreOriginalArchivo,
-        ruta: this.resArchivoL8?.ruta
-      }
-      preguntas.push(pregunta8)
-    //-------------------------
-    const pregunta9: Pregunta = {
-        preguntaId: 9,
-        valor: this.selectL9
-      }
-      preguntas.push(pregunta9)
-    //--------------------------
-    const pregunta10: Pregunta = {
-        preguntaId: 10,
-        valor: this.selectL10
-      }
-      preguntas.push(pregunta10)
-    //---------------------------
-    const pregunta11: Pregunta = {
-        preguntaId: 11,
-        valor: this.selectL11
-      }
-      preguntas.push(pregunta11)
-    //---------------------------
-    const pregunta12: Pregunta = {
-        preguntaId: 12,
-        valor: this.selectL12
-      }
-      preguntas.push(pregunta12)
-    //---------------------------
-    const pregunta13: Pregunta = {
-        preguntaId: 13,
-        valor: this.selectL13
-      }
-      preguntas.push(pregunta13)
-    //---------------------------
-    const pregunta14: Pregunta = {
-        preguntaId: 14,
-        valor: this.selectL14
-      }
-      preguntas.push(pregunta14)
-    //---------------------------
-    const pregunta15: Pregunta = {
-        preguntaId: 15,
-        valor: this.selectL15
-      }
-      preguntas.push(pregunta15)
-    //---------------------------
-    const pregunta16: Pregunta = {
-        preguntaId: 16,
-        valor: this.selectL16
-      }
-      preguntas.push(pregunta16)
     //---------------------------
     const pregunta17: Pregunta = {
         preguntaId: 17,
-        valor: this.selectL17
+        valor: ""
       }
       preguntas.push(pregunta17)
-    //---------------------------
-    const pregunta18: Pregunta = {
-        preguntaId: 18,
-        valor: this.selectL18
-      }
-      preguntas.push(pregunta18)
-    //---------------------------
-    const pregunta19: Pregunta = {
-        preguntaId: 19,
-        valor: this.selectL19
-      }
-      preguntas.push(pregunta19)
-    //---------------------------
-    const pregunta20: Pregunta = {
-        preguntaId: 20,
-        valor: this.selectL20
-      }
-      preguntas.push(pregunta20)
-    //---------------------------
-    const pregunta21: Pregunta = {
-        preguntaId: 21,
-        valor: this.selectL21
-      }
-      preguntas.push(pregunta21)
-    //---------------------------
-    const pregunta22: Pregunta = {
-        preguntaId: 22,
-        valor: this.selectL22
-      }
-      preguntas.push(pregunta22)
-    //---------------------------
-    const pregunta23: Pregunta = {
-        preguntaId: 23,
-        valor: this.selectL23
-      }
-      preguntas.push(pregunta23)
-    //---------------------------
-    const pregunta24: Pregunta = {
-        preguntaId: 24,
-        valor: this.selectL24,
-        nombreAlmacenado: this.resArchivoL5T3?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL5T3?.nombreOriginalArchivo,
-        ruta: this.resArchivoL5T3?.ruta
-      }
-      preguntas.push(pregunta24)
-    //---------------------------
-    const pregunta25: Pregunta = {
-        preguntaId: 25,
-        valor: this.selectL25
-      }
-      preguntas.push(pregunta25)
-    //---------------------------
-    const pregunta26: Pregunta = {
-        preguntaId: 26,
-        valor: this.selectL26,
-        nombreAlmacenado: this.resArchivoL7T3?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL7T3?.nombreOriginalArchivo,
-        ruta: this.resArchivoL7T3?.ruta
-      }
-      preguntas.push(pregunta26)
-    //---------------------------
-    const pregunta27: Pregunta = {
-        preguntaId: 27,
-        valor: this.selectL27
-      }
-      preguntas.push(pregunta27)
-    //---------------------------
-    const pregunta28: Pregunta = {
-        preguntaId: 28,
-        valor: this.selectL28
-      }
-      preguntas.push(pregunta28)
-    //---------------------------
-    const pregunta29: Pregunta = {
-        preguntaId: 29,
-        valor: this.selectL29,
-        nombreAlmacenado: this.resArchivoL1T4?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL1T4?.nombreOriginalArchivo,
-        ruta: this.resArchivoL1T4?.ruta
-      }
-      preguntas.push(pregunta29)
-    //---------------------------
-    const pregunta30: Pregunta = {
-        preguntaId: 30,
-        valor: this.textArea30
-      }
-      preguntas.push(pregunta30)
-    //---------------------------
-    const pregunta31: Pregunta = {
-        preguntaId: 31,
-        valor: this.selectL31,
-        nombreAlmacenado: this.resArchivoL3T4?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL3T4?.nombreOriginalArchivo,
-        ruta: this.resArchivoL3T4?.ruta
-      }
-      preguntas.push(pregunta31)
-    //---------------------------
-    const pregunta32: Pregunta = {
-        preguntaId: 32,
-        valor: this.selectL32,
-        nombreAlmacenado: this.resArchivoL4T4?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL4T4?.nombreOriginalArchivo,
-        ruta: this.resArchivoL4T4?.ruta
-      }
-      preguntas.push(pregunta32)
-    //---------------------------
-    const pregunta33: Pregunta = {
-        preguntaId: 33,
-        valor: this.selectL33
-      }
-      preguntas.push(pregunta33)
-    //---------------------------
-    const pregunta34: Pregunta = {
-        preguntaId: 34,
-        valor: this.selectL34
-      }
-      preguntas.push(pregunta34)
-    //---------------------------
-    const pregunta35: Pregunta = {
-        preguntaId: 35,
-        valor: this.selectL35
-      }
-      preguntas.push(pregunta35)
-    //---------------------------
-    const pregunta36: Pregunta = {
-        preguntaId: 36,
-        valor: this.selectL36,
-        nombreAlmacenado: this.resArchivoL3T5?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL3T5?.nombreOriginalArchivo,
-        ruta: this.resArchivoL3T5?.ruta
-      }
-      preguntas.push(pregunta36)
-    //---------------------------
-    const pregunta37: Pregunta = {
-        preguntaId: 37,
-        valor: this.selectL37,
-        nombreAlmacenado: this.resArchivoL4T5?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL4T5?.nombreOriginalArchivo,
-        ruta: this.resArchivoL4T5?.ruta
-      }
-      preguntas.push(pregunta37)
-    //---------------------------
-
     preguntaJson={preguntas}
     Swal.fire({
       icon: 'info',
@@ -659,6 +408,7 @@ export class TransitoComponent {
             titleText:"¡Guardado exitoso!",
             icon: "success"
           })
+          this.obtenerTransitos()
           this.detectarCambios()
           this.hayCambios = false
           this.recargarPagina()
@@ -683,7 +433,7 @@ export class TransitoComponent {
       next: (respuesta) => {
         this.aprobado = respuesta['aprobado']
         this.faltantes = respuesta['faltantes']
-        this.obtenerPortuarias()
+        this.obtenerTransitos()
         if(respuesta['aprobado']){
           Swal.fire({
             titleText:"Enviado a ST exitosamente",

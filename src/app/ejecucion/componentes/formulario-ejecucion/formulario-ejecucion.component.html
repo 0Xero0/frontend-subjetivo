@@ -210,7 +210,7 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT1L7 != undefined">
                   <app-input-archivo id="archivoL8" [disabled]="soloLectura" [nombre]="'ArchivoL8pdf'"
                     [(ngModel)]="archivoL8" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,8),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="portuarias[7].nombreOriginalArchivo != '' && selectL7 == portuarias[7].valor">
+                    <span class="texto-azul" *ngIf="portuarias[7].nombreOriginalArchivo != '' && selectL7 == portuarias[6].valor">
                       {{portuarias[7].nombreOriginalArchivo}}
                     </span>
                   <span>PDF, Máximo 5 Mb</span>
