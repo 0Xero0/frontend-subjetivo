@@ -650,7 +650,8 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
           })
           this.detectarCambios()
           this.hayCambios = false
-          this.recargarPagina()
+          this.obtenerPortuarias()
+          //this.recargarPagina()
         }
       },
       error: (error: HttpErrorResponse) => {
