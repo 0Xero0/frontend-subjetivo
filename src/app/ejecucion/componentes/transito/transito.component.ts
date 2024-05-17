@@ -18,11 +18,12 @@ import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
 import { Pregunta } from '../../modelos/Preguntas';
 
 @Component({
-  selector: 'app-formulario-ejecucion',
-  templateUrl: './formulario-ejecucion.component.html',
-  styleUrls: ['./formulario-ejecucion.component.css']
+  selector: 'app-transito',
+  templateUrl: './transito.component.html',
+  styleUrls: ['./transito.component.css']
 })
-export class FormularioEjecucionComponent implements OnInit, OnChanges{
+export class TransitoComponent {
+
   @ViewChild('popup') popup!: PopupComponent
   hayCambios: boolean = false
   usuario: Usuario
@@ -84,6 +85,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   equipos?: Array<any>
   porcentajes?: Array<any>
   periodos?: Array<any>
+  nits?: Array<any>
 
   portuarias: Portuarias[] = []
 
@@ -98,7 +100,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   }
 
   ngOnInit(): void {
-    //this.enviarST()
+    /* this.enviarST() */
     this.maestraFusiones()
     this.maestraSiNo()
     this.maestraSiNoAplica()
@@ -108,6 +110,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     this.maestraEquipos()
     this.maestraPorcentajes()
     this.maestraPeriodos()
+    this.maestraNits()
   }
 
   detectarCambios(){
@@ -256,6 +259,14 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     })
   }
 
+  maestraNits(){
+    this.servicio.maestraNits().subscribe({
+      next: (respuesta)=>{
+        this.nits = respuesta['nits']
+      }
+    })
+  }
+
   obtenerPortuarias(){
     this.servicio.obtenerPortuarias().subscribe({
       next: (respuesta:any)=>{
@@ -264,7 +275,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
           this.cambioRespuestaSelect(this.portuarias[i-1].valor,i)
         }
         if(respuesta['editable'] != true){
-          this.soloLectura = true
+        //  this.soloLectura = true
           this.cambioT3L3 = true
           this.cambioT3L8 = true
           this.numerico = false
@@ -678,7 +689,6 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
             titleText:"Enviado a ST exitosamente",
             icon: "success"
           })
-          this.recargarPagina()
         }
         //console.log(respuesta);
       }
