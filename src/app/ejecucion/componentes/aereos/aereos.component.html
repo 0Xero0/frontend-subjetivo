@@ -130,7 +130,7 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT1L5 == false || cambioT1L5 == true">
                   <app-input-archivo id="archivoL5" [disabled]="soloLectura" [nombre]="'ArchivoL5pdf'"
                     [(ngModel)]="archivoT1L5" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,5),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[4].nombreOriginalArchivo != '' && transporte[4].valor == '2' && selectL5 == '2'">
+                    <span class="texto-azul" *ngIf="transporte[4].nombreOriginalArchivo != '' && selectL5 == transporte[4].valor">
                       {{transporte[4].nombreOriginalArchivo}}
                     </span>
                   <span>PDF, Máximo 5 Mb</span>
@@ -166,18 +166,18 @@
               </td>
               <td><!-- Cambio entre excel y pdf -->
                 <fieldset class="d-flex flex-column" *ngIf="cambioT1L6 == true">
-                  <app-input-archivo id="archivoL5" [disabled]="soloLectura" [nombre]="'archivoL5xlsx'"
-                    [(ngModel)]="archivoT1L6" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,5),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[4].nombreOriginalArchivo != '' && transporte[4].valor == '1' && selectL5 == '1'">
-                      {{transporte[4].nombreOriginalArchivo}}
+                  <app-input-archivo id="archivoL6" [disabled]="soloLectura" [nombre]="'archivoL6xlsx'"
+                    [(ngModel)]="archivoT1L6" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,6),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="transporte[5].nombreOriginalArchivo !== '' && selectL6 == transporte[5].valor">
+                      {{transporte[5].nombreOriginalArchivo}}
                     </span>
                   <span>Excel, Máximo 5 Mb</span>
                 </fieldset>
-                <fieldset class="d-flex flex-column" *ngIf="cambioT1L5 == false">
-                  <app-input-archivo id="archivoL5" [disabled]="soloLectura" [nombre]="'ArchivoL5pdf'"
-                    [(ngModel)]="archivoT1L5" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,5),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[4].nombreOriginalArchivo != '' && transporte[4].valor == '2' && selectL5 == '2'">
-                      {{transporte[4].nombreOriginalArchivo}}
+                <fieldset class="d-flex flex-column" *ngIf="cambioT1L6 == false">
+                  <app-input-archivo id="archivoL6" [disabled]="soloLectura" [nombre]="'ArchivoL6pdf'"
+                    [(ngModel)]="archivoT1L6" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,6),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="transporte[5].nombreOriginalArchivo !== '' && selectL6 == transporte[5].valor">
+                      {{transporte[5].nombreOriginalArchivo}}
                     </span>
                   <span>PDF, Máximo 5 Mb</span>
                 </fieldset>
@@ -226,7 +226,7 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT1L7 != undefined">
                   <app-input-archivo id="archivoL8" [disabled]="soloLectura" [nombre]="'ArchivoL8pdf'"
                     [(ngModel)]="archivoT1L8" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,8),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[7].nombreOriginalArchivo != ''">
+                    <span class="texto-azul" *ngIf="transporte[7].nombreOriginalArchivo != '' && selectL7 == transporte[7].valor">
                       {{transporte[7].nombreOriginalArchivo}}
                     </span>
                   <span>PDF, Máximo 5 Mb</span>
@@ -474,7 +474,7 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT3L4 == true || cambioT3L4 == false">
                   <app-input-archivo id="archivoL5T3" [disabled]="soloLectura" [nombre]="'archivoL5T3pdf'"
                     [(ngModel)]="archivoT3L4" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,20),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[19].nombreOriginalArchivo != ''">
+                    <span class="texto-azul" *ngIf="transporte[19].nombreOriginalArchivo != '' && selectL20 == transporte[19].valor">
                       {{transporte[19].nombreOriginalArchivo}}
                     </span>
                   <span>PDF, Máximo 5 Mb</span>
@@ -508,7 +508,7 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT3L5 == true || cambioT3L5 == false">
                   <app-input-archivo id="archivoL5T3" [disabled]="soloLectura" [nombre]="'archivoL5T3'"
                     [(ngModel)]="archivoT3L5" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,21),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[20].nombreOriginalArchivo != ''">
+                    <span class="texto-azul" *ngIf="transporte[20].nombreOriginalArchivo != '' && selectL21 == transporte[20].valor">
                       {{transporte[20].nombreOriginalArchivo}}
                     </span>
                   <span>Excel, Máximo 5 Mb</span>
@@ -516,7 +516,7 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT3L5 == true || cambioT3L5 == false">
                   <app-input-archivo id="archivoL5T3" [disabled]="soloLectura" [nombre]="'archivoL5T3'"
                     [(ngModel)]="archivoT3L5" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,21),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[20].nombreOriginalArchivo != ''">
+                    <span class="texto-azul" *ngIf="transporte[20].nombreOriginalArchivo != '' && selectL21 == transporte[20].valor">
                       {{transporte[20].nombreOriginalArchivo}}
                     </span>
                   <span>PDF, Máximo 5 Mb</span>
@@ -639,7 +639,7 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT5L3 == true || cambioT5L3 == false">
                   <app-input-archivo id="archivoL3T5" [disabled]="soloLectura" [nombre]="'archivoL3T5pdf'"
                     [(ngModel)]="archivoT5L3" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,26),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[25].nombreOriginalArchivo != '' && transporte[25].valor != ''">
+                    <span class="texto-azul" *ngIf="transporte[25].nombreOriginalArchivo != '' && selectL26 == transporte[25].valor">
                       {{transporte[25].nombreOriginalArchivo}}
                     </span>
                   <span>PDF, Máximo 5 Mb</span>
@@ -680,7 +680,7 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT5L4 == true">
                   <app-input-archivo id="archivoL4T5" [disabled]="soloLectura" [nombre]="'archivoL4T5pdf'"
                     [(ngModel)]="archivoT5L4" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,27),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[26].nombreOriginalArchivo != '' && transporte[26].valor == '1'">
+                    <span class="texto-azul" *ngIf="transporte[26].nombreOriginalArchivo != '' && selectL27 == transporte[26].valor">
                       {{transporte[26].nombreOriginalArchivo}}
                     </span>
                   <span >Excel, Máximo 5 Mb</span>
@@ -688,7 +688,7 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT5L4 == false">
                   <app-input-archivo id="archivoL4T5" [disabled]="soloLectura" [nombre]="'archivoL4T5pdf'"
                     [(ngModel)]="archivoT5L4" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,27),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[26].nombreOriginalArchivo != '' && transporte[26].valor == '2'">
+                    <span class="texto-azul" *ngIf="transporte[26].nombreOriginalArchivo != '' && selectL27 == transporte[26].valor">
                       {{transporte[26].nombreOriginalArchivo}}
                     </span>
                   <span >PDF, Máximo 5 Mb</span>

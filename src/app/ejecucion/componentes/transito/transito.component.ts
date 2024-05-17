@@ -32,8 +32,8 @@ export class TransitoComponent {
   aprobado: boolean = false
   faltantes: number[] = []
 
-  //Variables select tabla 1
-  selectL1: string = "";selectL2: string = "";selectL3: string = "";selectL4: string = "";selectL5: string = "";selectL6: string = "";
+  //Variables tabla 1
+  textL1: string = "";selectL2: string = "";numberL3: string = "";numberL4: string = "";selectL5: string = "";selectL6: string = "";
   selectL7: string = "";numberL8: string = "";selectL9: string = "";selectL10: string = "";selectL11: string = "";selectL12: string = "";
   selectL13: string = "";selectL14: string = "";selectL15: string = "";selectL16: string = ""
   //Variables select tabla 2
@@ -283,10 +283,10 @@ export class TransitoComponent {
           this.hayCambios = true
         }
         //Inicializar variables
-        this.selectL1 = this.portuarias[0].valor
+        this.textL1 = this.portuarias[0].valor
         this.selectL2 = this.portuarias[1].valor
-        this.selectL3 = this.portuarias[2].valor
-        this.selectL4 = this.portuarias[3].valor
+        this.numberL3 = this.portuarias[2].valor
+        this.numberL4 = this.portuarias[3].valor
         this.selectL5 = this.portuarias[4].valor;
         this.selectL6 = this.portuarias[5].valor
         this.selectL7 = this.portuarias[6].valor
@@ -396,7 +396,7 @@ export class TransitoComponent {
     //------------------------
     const pregunta1: Pregunta = {
         preguntaId: 1,
-        valor: this.selectL1
+        valor: this.textL1
       }
       preguntas.push(pregunta1)
     //-------------------------
@@ -408,13 +408,13 @@ export class TransitoComponent {
     //--------------------------
     const pregunta3: Pregunta = {
         preguntaId: 3,
-        valor: this.selectL3
+        valor: this.numberL3
       }
       preguntas.push(pregunta3)
     //--------------------------
     const pregunta4: Pregunta = {
         preguntaId: 4,
-        valor: this.selectL4
+        valor: this.numberL4
       }
       preguntas.push(pregunta4)
     //---------------------------

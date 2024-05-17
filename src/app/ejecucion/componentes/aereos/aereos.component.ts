@@ -83,8 +83,8 @@ export class AereosComponent implements OnInit, OnChanges{
     this.servicio.obtenerTransporte().subscribe({
       next: (respuesta:any)=>{
         this.transporte = respuesta['preguntas']
-        for(let i = 1; i <= 37; i++){
-          //this.cambioRespuestaSelect(this.portuarias[i-1].valor,i)
+        for(let i = 1; i <= 27; i++){
+          this.cambioRespuestaSelect(this.transporte[i-1].valor,i)
         }
         if(respuesta['editable'] != true){
           this.soloLectura = true
@@ -97,8 +97,8 @@ export class AereosComponent implements OnInit, OnChanges{
         this.selectL3 = this.transporte[2].valor
         this.selectL4 = this.transporte[3].valor
         this.selectL5 = this.transporte[4].valor;
-        this.selectL6 = this.transporte[5].valor
-        this.selectL7 = this.transporte[6].valor
+        this.selectL6 = this.transporte[5].valor;
+        this.selectL7 = this.transporte[6].valor;
         this.numberL8 = this.transporte[7].valor;
         this.selectL9 = this.transporte[8].valor
         this.selectL10 = this.transporte[9].valor
