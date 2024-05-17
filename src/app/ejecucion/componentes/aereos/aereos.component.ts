@@ -433,6 +433,7 @@ export class AereosComponent implements OnInit, OnChanges{
           })
           this.detectarCambios()
           this.hayCambios = false
+          this.obtenerTransporte()
           //this.recargarPagina()
         }
       },
