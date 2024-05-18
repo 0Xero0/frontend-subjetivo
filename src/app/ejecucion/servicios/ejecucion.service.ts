@@ -152,4 +152,9 @@ export class ServicioEjecucion extends Autenticable {
     return this.http.post<any>(`${this.host}${endpoint}`,transitosJson ,{ headers: this.obtenerCabeceraAutorizacion() })
   }
 
+  enviarSTTransito(){
+    const endpoint = '/api/v1/transitos/enviar'
+    return this.http.get<any>(`${this.host}${endpoint}`,{ headers: this.obtenerCabeceraAutorizacion()})
+  }
+
 }

@@ -63,58 +63,54 @@ export class TransitoComponent {
   //Variables Patios
   textP1: string = "";numeroP1: string = "";selectP1: string = "";selectP2: string = "";textP2: string = "";textP3: string = "";
   textP4: string = "";numeroP2: string = "";archivoP1: File | null = null;archivoP2: File | null = null;selectP3: string = "";
-  textP5: string = "";selectP4: string = "";fechaP1: string = "";fechaP2: string = "";selectP5: string = "";numeroP3: string = "";
+  textP5: string = "";selectP4: string = "";fechaP1?: Date;fechaP2?: Date;selectP5: string = "";numeroP3: string = "";
   textP6: string = "";numeroP4: string = "";
   //Variables Tramites
   textT1: string = "";numeroT1: string = "";selectT1: string = "";selectT2: string = "";textT2: string = "";textT3: string = "";
   textT4: string = "";numeroT2: string = "";archivoT1: File | null = null;archivoT2: File | null = null;selectT3: string = "";
-  textT5: string = "";selectT4: string = "";fechaT1: string = "";fechaT2: string = "";selectT5: string = "";numeroT3: string = "";
+  textT5: string = "";selectT4: string = "";fechaT1?: Date;fechaT2?: Date;selectT5: string = "";numeroT3: string = "";
   textT6: string = "";numeroT4: string = "";
   //Variables Deteccion
   textD1: string = "";numeroD1: string = "";selectD1: string = "";selectD2: string = "";textD2: string = "";textD3: string = "";
   textD4: string = "";numeroD2: string = "";archivoD1: File | null = null;archivoD2: File | null = null;selectD3: string = "";
-  textD5: string = "";selectD4: string = "";fechaD1: string = "";fechaD2: string = "";selectD5: string = "";numeroD3: string = "";
+  textD5: string = "";selectD4: string = "";fechaD1?: Date;fechaD2?: Date;selectD5: string = "";numeroD3: string = "";
   textD6: string = "";numeroD4: string = "";
   //Variables PC
   textPC1: string = "";numeroPC1: string = "";selectPC1: string = "";selectPC2: string = "";textPC2: string = "";textPC3: string = "";
   textPC4: string = "";numeroPC2: string = "";archivoPC1: File | null = null;archivoPC2: File | null = null;selectPC3: string = "";
-  textPC5: string = "";selectPC4: string = "";fechaPC1: string = "";fechaPC2: string = "";selectPC5: string = "";numeroPC3: string = "";
+  textPC5: string = "";selectPC4: string = "";fechaPC1?: Date;fechaPC2?: Date;selectPC5: string = "";numeroPC3: string = "";
   textPC6: string = "";numeroPC4: string = "";
   //Variables PCC
   textPCC1: string = "";numeroPCC1: string = "";selectPCC1: string = "";selectPCC2: string = "";textPCC2: string = "";textPCC3: string = "";
   textPCC4: string = "";numeroPCC2: string = "";archivoPCC1: File | null = null;archivoPCC2: File | null = null;selectPCC3: string = "";
-  textPCC5: string = "";selectPCC4: string = "";fechaPCC1: string = "";fechaPCC2: string = "";selectPCC5: string = "";numeroPCC3: string = "";
+  textPCC5: string = "";selectPCC4: string = "";fechaPCC1?: Date;fechaPCC2?: Date;selectPCC5: string = "";numeroPCC3: string = "";
   textPCC6: string = "";numeroPCC4: string = "";
   //Variables PCP
   textPCP1: string = "";numeroPCP1: string = "";selectPCP1: string = "";selectPCP2: string = "";textPCP2: string = "";textPCP3: string = "";
   textPCP4: string = "";numeroPCP2: string = "";archivoPCP1: File | null = null;archivoPCP2: File | null = null;selectPCP3: string = "";
-  textPCP5: string = "";selectPCP4: string = "";fechaPCP1: string = "";fechaPCP2: string = "";selectPCP5: string = "";numeroPCP3: string = "";
+  textPCP5: string = "";selectPCP4: string = "";fechaPCP1?: Date;fechaPCP2?: Date;selectPCP5: string = "";numeroPCP3: string = "";
   textPCP6: string = "";numeroPCP4: string = "";
   //Variables Recaudo
   textR1: string = "";numeroR1: string = "";selectR1: string = "";selectR2: string = "";textR2: string = "";textR3: string = "";
   textR4: string = "";numeroR2: string = "";archivoR1: File | null = null;archivoR2: File | null = null;selectR3: string = "";
-  textR5: string = "";selectR4: string = "";fechaR1: string = "";fechaR2: string = "";selectR5: string = "";numeroR3: string = "";
+  textR5: string = "";selectR4: string = "";fechaR1?: Date;fechaR2?: Date;selectR5: string = "";numeroR3: string = "";
   textR6: string = "";numeroR4: string = "";
   //Variables Otros
   textO1: string = "";numeroO1: string = "";selectO1: string = "";selectO2: string = "";textO2: string = "";textO3: string = "";
   textO4: string = "";numeroO2: string = "";archivoO1: File | null = null;archivoO2: File | null = null;selectO3: string = "";
-  textO5: string = "";selectO4: string = "";fechaO1: string = "";fechaO2: string = "";selectO5: string = "";numeroO3: string = "";
+  textO5: string = "";selectO4: string = "";fechaO1?: Date;fechaO2?: Date;selectO5: string = "";numeroO3: string = "";
   textO6: string = "";selectO0: string = "";numeroO4: string = "";textO0: string =""
 
   //Variables habilitar/deshabilitar/cambiar/mostrar
-  cambioRespuesta?: boolean//T1L5
-  cambioT1L7?: boolean
-  numerico: boolean = true//T1L8
-  cambioT3L3: boolean = true
-  cambioT3L5?: boolean
-  cambioT3L7?: boolean
-  cambioT3L8: boolean = true
-  cambioT4L1?: boolean
-  textArea: boolean = true //T4L2
-  cambioT4L3?: boolean
-  cambioT4L4?: boolean
-  cambioT5L3?: boolean
-  cambioT5L4?: boolean
+  cambioG: boolean = true
+  cambioP: boolean = true
+  cambioT: boolean = true
+  cambioD: boolean = true
+  cambioPC: boolean = true
+  cambioPCC: boolean = true
+  cambioPCP: boolean = true
+  cambioR: boolean = true
+  cambioO: boolean = true
 
   //Variables archivos Grua            //Variables archivos Patios          //Variables archivos Traamites       //Variables archivos Deteccion
   resArchivoG1?: ArchivoGuardado;/*  */resArchivoP1?: ArchivoGuardado;/*  */resArchivoT1?: ArchivoGuardado;/*  */resArchivoD1?: ArchivoGuardado;
@@ -143,7 +139,6 @@ export class TransitoComponent {
   domicilios?: Array<any>
   sociedades?: Array<any>
 
-  portuarias: Portuarias[] = []
   identificacionOrganismo?: any
   preguntas?: any
 
@@ -167,17 +162,40 @@ export class TransitoComponent {
     return typeof valor === 'string';
   }
 
-  cambioRespuestaSelect(event:any,pregunta:number){
-    let respuesta: string
-    if(this.esString(event) || event == null || event == undefined || event == ""){
-      respuesta = event
-    }else{
-      respuesta = event.target.value
+  cambioRespuestaSelect(event:any,servicio:any){
+    if(event.target.value == null || event.target.value == undefined || event.target.value == ""){
+      if(servicio == 'G'){this.cambioG = true; this.numeroG3 = " "}
+      if(servicio == 'P'){this.cambioP = true; this.numeroP3 = " "}
+      if(servicio == 'T'){this.cambioT = true; this.numeroT3 = " "}
+      if(servicio == 'D'){this.cambioD = true; this.numeroD3 = " "}
+      if(servicio == 'PC'){this.cambioPC = true; this.numeroPC3 = " "}
+      if(servicio == 'PCC'){this.cambioPCC = true; this.numeroPCC3 = " "}
+      if(servicio == 'PCP'){this.cambioPCP = true; this.numeroPCP3 = " "}
+      if(servicio == 'R'){this.cambioR = true; this.numeroR3 = " "}
+      if(servicio == 'O'){this.cambioO = true; this.numeroO3 = " "}
     }
-
-    if(pregunta == 5){//T1L5
+    if(event.target.value == 1){
+      if(servicio == 'G'){this.cambioG = false; this.numeroG3 = " "}
+      if(servicio == 'P'){this.cambioP = false; this.numeroP3 = " "}
+      if(servicio == 'T'){this.cambioT = false; this.numeroT3 = " "}
+      if(servicio == 'D'){this.cambioD = false; this.numeroD3 = " "}
+      if(servicio == 'PC'){this.cambioPC = false; this.numeroPC3 = " "}
+      if(servicio == 'PCC'){this.cambioPCC = false; this.numeroPCC3 = " "}
+      if(servicio == 'PCP'){this.cambioPCP = false; this.numeroPCP3 = " "}
+      if(servicio == 'R'){this.cambioR = false; this.numeroR3 = " "}
+      if(servicio == 'O'){this.cambioO = false; this.numeroO3 = " "}
     }
-
+    if(event.target.value == 2){
+      if(servicio == 'G'){this.cambioG = true; this.numeroG3 = " "}
+      if(servicio == 'P'){this.cambioP = true; this.numeroP3 = " "}
+      if(servicio == 'T'){this.cambioT = true; this.numeroT3 = " "}
+      if(servicio == 'D'){this.cambioD = true; this.numeroD3 = " "}
+      if(servicio == 'PC'){this.cambioPC = true; this.numeroPC3 = " "}
+      if(servicio == 'PCC'){this.cambioPCC = true; this.numeroPCC3 = " "}
+      if(servicio == 'PCP'){this.cambioPCP = true; this.numeroPCP3 = " "}
+      if(servicio == 'R'){this.cambioR = true; this.numeroR3 = " "}
+      if(servicio == 'O'){this.cambioO = true; this.numeroO3 = " "}
+    }
   }
 
   obtenerMaestras(){
@@ -372,16 +390,20 @@ export class TransitoComponent {
             titleText:"¡Guardado exitoso!",
             icon: "success"
           })
-        /*   this.obtenerTransitos()
-          this.detectarCambios()
+          this.obtenerTransitos()
+          //this.detectarCambios()
           this.hayCambios = false
-          this.recargarPagina() */
         }
       },
       error: (error: HttpErrorResponse) => {
         if(error.status == 400){
           Swal.fire({
             titleText:error.error.mensaje,
+            icon:'error'
+          })
+        }else{
+          Swal.fire({
+            titleText:error.error,
             icon:'error'
           })
         }
@@ -392,9 +414,10 @@ export class TransitoComponent {
   }
 
   enviarST(){
-    this.servicio.enviarST().subscribe({
+    this.servicio.enviarSTTransito().subscribe({
       next: (respuesta) => {
-        this.aprobado = respuesta['aprobado']
+        console.log(respuesta);
+        /* this.aprobado = respuesta['aprobado']
         this.faltantes = respuesta['faltantes']
         this.obtenerTransitos()
         if(respuesta['aprobado']){
@@ -402,7 +425,7 @@ export class TransitoComponent {
             titleText:"Enviado a ST exitosamente",
             icon: "success"
           })
-        }
+        } */
         //console.log(respuesta);
       }
     })
@@ -424,6 +447,108 @@ export class TransitoComponent {
 
   manejarCambioArchivos(){
     this.hayCambios = true
+  }
+
+  verificarFechas(servicio:any){
+    if(servicio == 1){
+      if(this.fechaG1 && this.fechaG2){
+        if(this.fechaG1 >= this.fechaG2){
+          Swal.fire({
+            titleText:"La fecha Inicial no puede ser mayor o  igual a la fecha final",
+            icon:"warning",
+          })
+          this.fechaG1 = undefined; this.fechaG2 = undefined
+        }
+      }
+    }
+    if(servicio == 2){
+      if(this.fechaP1 && this.fechaP2){
+        if(this.fechaP1 >= this.fechaP2){
+          Swal.fire({
+            titleText:"La fecha Inicial no puede ser mayor o  igual a la fecha final",
+            icon:"warning",
+          })
+          this.fechaP1 = undefined; this.fechaP2 = undefined
+        }
+      }
+    }
+    if(servicio == 3){
+      if(this.fechaT1 && this.fechaT2){
+        if(this.fechaT1 >= this.fechaT2){
+          Swal.fire({
+            titleText:"La fecha Inicial no puede ser mayor o  igual a la fecha final",
+            icon:"warning",
+          })
+          this.fechaT1 = undefined; this.fechaT2 = undefined
+        }
+      }
+    }
+    if(servicio == 4){
+      if(this.fechaD1 && this.fechaD2){
+        if(this.fechaD1 >= this.fechaD2){
+          Swal.fire({
+            titleText:"La fecha Inicial no puede ser mayor o  igual a la fecha final",
+            icon:"warning",
+          })
+          this.fechaD1 = undefined; this.fechaD2 = undefined
+        }
+      }
+    }
+    if(servicio == 5){
+      if(this.fechaPC1 && this.fechaPC2){
+        if(this.fechaPC1 >= this.fechaPC2){
+          Swal.fire({
+            titleText:"La fecha Inicial no puede ser mayor o  igual a la fecha final",
+            icon:"warning",
+          })
+          this.fechaPC1 = undefined; this.fechaPC2 = undefined
+        }
+      }
+    }
+    if(servicio == 6){
+      if(this.fechaPCC1 && this.fechaPCC2){
+        if(this.fechaPCC1 >= this.fechaPCC2){
+          Swal.fire({
+            titleText:"La fecha Inicial no puede ser mayor o  igual a la fecha final",
+            icon:"warning",
+          })
+          this.fechaPCC1 = undefined; this.fechaPCC2 = undefined
+        }
+      }
+    }
+    if(servicio == 7){
+      if(this.fechaPCP1 && this.fechaPCP2){
+        if(this.fechaPCP1 >= this.fechaPCP2){
+          Swal.fire({
+            titleText:"La fecha Inicial no puede ser mayor o  igual a la fecha final",
+            icon:"warning",
+          })
+          this.fechaPCP1 = undefined; this.fechaPCP2 = undefined
+        }
+      }
+    }
+    if(servicio == 8){
+      if(this.fechaR1 && this.fechaR2){
+        if(this.fechaR1 >= this.fechaR2){
+          Swal.fire({
+            titleText:"La fecha Inicial no puede ser mayor o  igual a la fecha final",
+            icon:"warning",
+          })
+          this.fechaR1 = undefined; this.fechaR2 = undefined
+        }
+      }
+    }
+    if(servicio == 9){
+      if(this.fechaO1 && this.fechaO2){
+        if(this.fechaO1 >= this.fechaO2){
+          Swal.fire({
+            titleText:"La fecha Inicial no puede ser mayor o  igual a la fecha final",
+            icon:"warning",
+          })
+          this.fechaO1 = undefined; this.fechaO2 = undefined
+        }
+      }
+    }
   }
 
   capturarIdentificacion(){

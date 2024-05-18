@@ -4,8 +4,7 @@
   </div>
 
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <button type="button" class="boton primario delineado" [disabled]="hayCambios"
-      (click)="[enviarST(),recargarPagina()]">
+    <button type="button" class="boton primario delineado" [disabled]="hayCambios" (click)="enviarST()">
       Enviar a ST
     </button>
     <button type="button" class="boton primario relleno" [disabled]="!hayCambios" (click)="guardar()" *ngIf="!aprobado">
@@ -40,9 +39,7 @@
                   <input type="text" id="textL1" [(ngModel)]="textL1" class="form-control"
                   (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
                 </ng-container>
-                <span *ngIf="numerico">
-                  <span class="validacion" *ngIf="verificarFaltantes(1)">Falta por completar</span>
-                </span>
+                <span class="validacion" *ngIf="verificarFaltantes(1)">Falta por completar</span>
               </td>
             </tr>
             <tr><!-- linea 2 -->
@@ -71,9 +68,7 @@
                   <app-input-numerico id="numberL3" [(ngModel)]="numberL3" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="10" [disabled]="soloLectura" />
                 </ng-container>
-                <span *ngIf="numerico">
-                  <span class="validacion" *ngIf="verificarFaltantes(3)">Falta por completar</span>
-                </span>
+                <span class="validacion" *ngIf="verificarFaltantes(3)">Falta por completar</span>
               </td>
             </tr>
             <tr>
@@ -87,9 +82,7 @@
                   <app-input-numerico id="numberL4" [(ngModel)]="numberL4" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="1" [disabled]="soloLectura" />
                 </ng-container>
-                <span *ngIf="numerico">
-                  <span class="validacion" *ngIf="verificarFaltantes(4)">Falta por completar</span>
-                </span>
+                <span class="validacion" *ngIf="verificarFaltantes(4)">Falta por completar</span>
               </td>
             </tr>
             <tr>
@@ -487,7 +480,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaG1" [(ngModel)]="fechaG1" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(1)">
                   <span class="validacion" *ngIf="verificarFaltantes(29)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -501,7 +494,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaG2" [(ngModel)]="fechaG2" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(1)">
                   <span class="validacion" *ngIf="verificarFaltantes(30)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -514,7 +507,7 @@
               </td>
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
-                  <select class="form-select" id="selectG5" [(ngModel)]="selectG5" (change)="cambioRespuestaSelect($event,32)"
+                  <select class="form-select" id="selectG5" [(ngModel)]="selectG5" (change)="cambioRespuestaSelect($event,'G')"
                   (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
@@ -531,7 +524,7 @@
               </td>
               <td colspan="2">
                   <app-input-numerico id="numeroG3" [(ngModel)]="numeroG3" (ngModelChange)="detectarCambios()"
-                    [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="soloLectura"/>
+                    [largoMaximo]="10" [disabled]="cambioG"/>
                   <span class="validacion" *ngIf="verificarFaltantes(32)">Falta por completar</span>
               </td>
               <td></td>
@@ -786,7 +779,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaP1" [(ngModel)]="fechaP1" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(2)">
                   <span class="validacion" *ngIf="verificarFaltantes(47)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -800,7 +793,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaP2" [(ngModel)]="fechaP2" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(2)">
                   <span class="validacion" *ngIf="verificarFaltantes(48)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -1084,7 +1077,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaT1" [(ngModel)]="fechaT1" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(3)">
                   <span class="validacion" *ngIf="verificarFaltantes(29)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -1098,7 +1091,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaT2" [(ngModel)]="fechaT2" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(3)">
                   <span class="validacion" *ngIf="verificarFaltantes(30)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -1383,7 +1376,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaD1" [(ngModel)]="fechaD1" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(4)">
                   <span class="validacion" *ngIf="verificarFaltantes(47)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -1397,7 +1390,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaD2" [(ngModel)]="fechaD2" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(4)">
                   <span class="validacion" *ngIf="verificarFaltantes(48)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -1682,7 +1675,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaPC1" [(ngModel)]="fechaPC1" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(5)">
                   <span class="validacion" *ngIf="verificarFaltantes(47)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -1696,7 +1689,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaPC2" [(ngModel)]="fechaPC2" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(5)">
                   <span class="validacion" *ngIf="verificarFaltantes(48)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -1981,7 +1974,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaPCC1" [(ngModel)]="fechaPCC1" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(6)">
                   <span class="validacion" *ngIf="verificarFaltantes(47)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -1995,7 +1988,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaPCC2" [(ngModel)]="fechaPCC2" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(6)">
                   <span class="validacion" *ngIf="verificarFaltantes(48)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -2280,7 +2273,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaPCP1" [(ngModel)]="fechaPCP1" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(7)">
                   <span class="validacion" *ngIf="verificarFaltantes(47)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -2294,7 +2287,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaPCP2" [(ngModel)]="fechaPCP2" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(7)">
                   <span class="validacion" *ngIf="verificarFaltantes(48)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -2579,7 +2572,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaR1" [(ngModel)]="fechaR1" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(8)">
                   <span class="validacion" *ngIf="verificarFaltantes(47)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -2593,7 +2586,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaR2" [(ngModel)]="fechaR2" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(8)">
                   <span class="validacion" *ngIf="verificarFaltantes(48)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -2896,7 +2889,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaO1" [(ngModel)]="fechaO1" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(9)">
                   <span class="validacion" *ngIf="verificarFaltantes(47)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -2910,7 +2903,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="date" id="fechaO2" [(ngModel)]="fechaO2" class="form-control"
-                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(9)">
                   <span class="validacion" *ngIf="verificarFaltantes(48)">Falta por completar</span>
                 </fieldset>
               </td>
