@@ -383,12 +383,12 @@
               <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
               <td >
                 <app-input-archivo id="archivoG1" [disabled]="soloLectura" [nombre]="'archivoG1Pdf'"
-                    [(ngModel)]="archivoG1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,24),detectarCambios()]"/>
+                    [(ngModel)]="archivoG1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'G1'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.gruas[17]?.nombreOriginalArchivo != ''">
+                  {{preguntas.gruas[17]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -397,12 +397,12 @@
               <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
               <td >
                 <app-input-archivo id="archivoG2" [disabled]="soloLectura" [nombre]="'archivoG2Pdf'"
-                    [(ngModel)]="archivoG2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,25),detectarCambios()]"/>
+                    [(ngModel)]="archivoG2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'G2'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.gruas[8]?.nombreOriginalArchivo != ''">
+                  {{preguntas.gruas[8]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -681,13 +681,13 @@
               <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
               <td >
                 <app-input-archivo id="archivoP1" [disabled]="soloLectura" [nombre]="'archivoP1Pdf'"
-                    [(ngModel)]="archivoP1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,42),detectarCambios()]"/>
+                    [(ngModel)]="archivoP1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'P1'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
                   <span class="validacion" *ngIf="verificarFaltantes(42)">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.patios[17]?.nombreOriginalArchivo != ''">
+                  {{preguntas.patios[17]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -696,12 +696,12 @@
               <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
               <td >
                 <app-input-archivo id="archivoP2" [disabled]="soloLectura" [nombre]="'archivoP2Pdf'"
-                    [(ngModel)]="archivoP2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,43),detectarCambios()]"/>
+                    [(ngModel)]="archivoP2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'P2'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.patios[8]?.nombreOriginalArchivo != ''">
+                  {{preguntas.patios[8]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -851,7 +851,7 @@
             </tr>
           </tbody>
         </table>
-        <table class="table" *ngIf="check3"><!-- Tabla Grúa -->
+        <table class="table" *ngIf="check3"><!-- Tabla Trámites -->
           <colgroup>
             <col style="width: 30px;">
             <col style="width: 350px;">
@@ -980,12 +980,12 @@
               <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
               <td >
                 <app-input-archivo id="archivoT1" [disabled]="soloLectura" [nombre]="'archivoT1Pdf'"
-                    [(ngModel)]="archivoT1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,60),detectarCambios()]"/>
+                    [(ngModel)]="archivoT1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'T1'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.tramitesTransito[17]?.nombreOriginalArchivo != ''">
+                  {{preguntas.tramitesTransito[17]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -994,12 +994,12 @@
               <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
               <td >
                 <app-input-archivo id="archivoT2" [disabled]="soloLectura" [nombre]="'archivoT2Pdf'"
-                    [(ngModel)]="archivoT2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,25),detectarCambios()]"/>
+                    [(ngModel)]="archivoT2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'T2'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.tramitesTransito[8]?.nombreOriginalArchivo != ''">
+                  {{preguntas.tramitesTransito[8]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -1149,7 +1149,7 @@
             </tr>
           </tbody>
         </table>
-        <table class="table" *ngIf="check4"><!-- Tabla Patios -->
+        <table class="table" *ngIf="check4"><!-- Tabla Dtección -->
           <colgroup>
             <col style="width: 30px;">
             <col style="width: 350px;">
@@ -1278,13 +1278,13 @@
               <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
               <td >
                 <app-input-archivo id="archivoD1" [disabled]="soloLectura" [nombre]="'archivoD1Pdf'"
-                    [(ngModel)]="archivoD1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,42),detectarCambios()]"/>
+                    [(ngModel)]="archivoD1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'D1'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
                   <span class="validacion" *ngIf="verificarFaltantes(42)">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.deteccionInfracciones[17]?.nombreOriginalArchivo != ''">
+                  {{preguntas.deteccionInfracciones[17]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -1293,12 +1293,12 @@
               <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
               <td >
                 <app-input-archivo id="archivoD2" [disabled]="soloLectura" [nombre]="'archivoD2Pdf'"
-                    [(ngModel)]="archivoD2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,43),detectarCambios()]"/>
+                    [(ngModel)]="archivoD2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'D2'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.deteccionInfracciones[8]?.nombreOriginalArchivo != ''">
+                  {{preguntas.deteccionInfracciones[8]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -1577,13 +1577,13 @@
               <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
               <td >
                 <app-input-archivo id="archivoPC1" [disabled]="soloLectura" [nombre]="'archivoPC1Pdf'"
-                    [(ngModel)]="archivoPC1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,42),detectarCambios()]"/>
+                    [(ngModel)]="archivoPC1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'PC1'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
                   <span class="validacion" *ngIf="verificarFaltantes(42)">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.procesosContravencionales[17]?.nombreOriginalArchivo != ''">
+                  {{preguntas.procesosContravencionales[17]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -1592,12 +1592,12 @@
               <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
               <td >
                 <app-input-archivo id="archivoPC2" [disabled]="soloLectura" [nombre]="'archivoPC2Pdf'"
-                    [(ngModel)]="archivoPC2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,43),detectarCambios()]"/>
+                    [(ngModel)]="archivoPC2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'PC2'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.procesosContravencionales[8]?.nombreOriginalArchivo != ''">
+                  {{preguntas.procesosContravencionales[8]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -1876,13 +1876,13 @@
               <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
               <td >
                 <app-input-archivo id="archivoPCC1" [disabled]="soloLectura" [nombre]="'archivoPCC1Pdf'"
-                    [(ngModel)]="archivoPCC1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,42),detectarCambios()]"/>
+                    [(ngModel)]="archivoPCC1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'PCC1'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
                   <span class="validacion" *ngIf="verificarFaltantes(42)">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.procesoCobroCoactivo[17]?.nombreOriginalArchivo != ''">
+                  {{preguntas.procesoCobroCoactivo[17]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -1891,12 +1891,12 @@
               <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
               <td >
                 <app-input-archivo id="archivoPCC2" [disabled]="soloLectura" [nombre]="'archivoPCC2Pdf'"
-                    [(ngModel)]="archivoPCC2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,43),detectarCambios()]"/>
+                    [(ngModel)]="archivoPCC2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'PCC2'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.procesoCobroCoactivo[8]?.nombreOriginalArchivo != ''">
+                  {{preguntas.procesoCobroCoactivo[8]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -2175,13 +2175,13 @@
               <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
               <td >
                 <app-input-archivo id="archivoPCP1" [disabled]="soloLectura" [nombre]="'archivoPCP1Pdf'"
-                    [(ngModel)]="archivoPCP1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,42),detectarCambios()]"/>
+                    [(ngModel)]="archivoPCP1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'PCP1'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
                   <span class="validacion" *ngIf="verificarFaltantes(42)">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.procesoCobroPersuasivo[17]?.nombreOriginalArchivo != ''">
+                  {{preguntas.procesoCobroPersuasivo[17]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -2190,12 +2190,12 @@
               <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
               <td >
                 <app-input-archivo id="archivoPCP2" [disabled]="soloLectura" [nombre]="'archivoPCP2Pdf'"
-                    [(ngModel)]="archivoPCP2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,43),detectarCambios()]"/>
+                    [(ngModel)]="archivoPCP2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'PCP2'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.procesoCobroPersuasivo[8]?.nombreOriginalArchivo != ''">
+                  {{preguntas.procesoCobroPersuasivo[8]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -2474,13 +2474,13 @@
               <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
               <td >
                 <app-input-archivo id="archivoR1" [disabled]="soloLectura" [nombre]="'archivoR1Pdf'"
-                    [(ngModel)]="archivoR1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,42),detectarCambios()]"/>
+                    [(ngModel)]="archivoR1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'R1'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
                   <span class="validacion" *ngIf="verificarFaltantes(42)">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.recaudoMultas[17]?.nombreOriginalArchivo != ''">
+                  {{preguntas.recaudoMultas[17]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -2489,12 +2489,12 @@
               <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
               <td >
                 <app-input-archivo id="archivoR2" [disabled]="soloLectura" [nombre]="'archivoR2Pdf'"
-                    [(ngModel)]="archivoR2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,43),detectarCambios()]"/>
+                    [(ngModel)]="archivoR2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'R2'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.recaudoMultas[8]?.nombreOriginalArchivo != ''">
+                  {{preguntas.recaudoMultas[8]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -2656,6 +2656,24 @@
               <th>9-</th>
               <th>OTROS</th>
             </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td class="actividad">
+                ¿Cuáles otros servicios tiene tercerizados?
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textO0" [(ngModel)]="textO0" class="form-control"
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(35)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
             <tr><!-- Encabezado 1 -->
               <th></th>
               <th colspan="3">RESPECTO AL TERCERO</th>
@@ -2773,13 +2791,13 @@
               <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
               <td >
                 <app-input-archivo id="archivoO1" [disabled]="soloLectura" [nombre]="'archivoO1Pdf'"
-                    [(ngModel)]="archivoO1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,42),detectarCambios()]"/>
+                    [(ngModel)]="archivoO1" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'O1'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
                   <span class="validacion" *ngIf="verificarFaltantes(42)">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.otros[17]?.nombreOriginalArchivo != ''">
+                  {{preguntas.otros[17]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -2788,12 +2806,12 @@
               <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
               <td >
                 <app-input-archivo id="archivoO2" [disabled]="soloLectura" [nombre]="'archivoO2Pdf'"
-                    [(ngModel)]="archivoO2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,43),detectarCambios()]"/>
+                    [(ngModel)]="archivoO2" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,'O2'),detectarCambios()]"/>
                   <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="portuarias[7]?.nombreOriginalArchivo != ''">
-                  {{portuarias[7]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.otros[8]?.nombreOriginalArchivo != ''">
+                  {{preguntas.otros[8]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
