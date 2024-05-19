@@ -16,6 +16,7 @@ import { InputArchivoComponent } from 'src/app/inputs/componentes/input-archivo/
 import Swal from 'sweetalert2';
 import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
 import { Pregunta } from '../../modelos/Preguntas';
+import { Faltantes } from '../../modelos/faltantes';
 
 @Component({
   selector: 'app-transito',
@@ -29,7 +30,7 @@ export class TransitoComponent {
 
   soloLectura: boolean = false
   aprobado: boolean = false
-  faltantes: number[] = []
+  faltantes?: Faltantes
 
   servicios = [
     {
@@ -59,67 +60,67 @@ export class TransitoComponent {
   textG1: string = "";numeroG1: string = "";selectG1: string = "";selectG2: string = "";textG2: string = "";textG3: string = "";
   textG4: string = "";numeroG2: string = "";archivoG1: File | null = null;archivoG2: File | null = null;selectG3: string = "";
   textG5: string = "";selectG4: string = "";fechaG1?: Date;fechaG2?: Date;selectG5: string = "";numeroG3: string = "";
-  textG6: string = "";numeroG4: string = "";
+  textG6: string = "";numeroG4: string = "";numeroG5: string = "";
   //Variables Patios
   textP1: string = "";numeroP1: string = "";selectP1: string = "";selectP2: string = "";textP2: string = "";textP3: string = "";
   textP4: string = "";numeroP2: string = "";archivoP1: File | null = null;archivoP2: File | null = null;selectP3: string = "";
   textP5: string = "";selectP4: string = "";fechaP1?: Date;fechaP2?: Date;selectP5: string = "";numeroP3: string = "";
-  textP6: string = "";numeroP4: string = "";
+  textP6: string = "";numeroP4: string = "";numeroP5: string = "";
   //Variables Tramites
   textT1: string = "";numeroT1: string = "";selectT1: string = "";selectT2: string = "";textT2: string = "";textT3: string = "";
   textT4: string = "";numeroT2: string = "";archivoT1: File | null = null;archivoT2: File | null = null;selectT3: string = "";
   textT5: string = "";selectT4: string = "";fechaT1?: Date;fechaT2?: Date;selectT5: string = "";numeroT3: string = "";
-  textT6: string = "";numeroT4: string = "";
+  textT6: string = "";numeroT4: string = "";numeroT5: string = "";
   //Variables Deteccion
   textD1: string = "";numeroD1: string = "";selectD1: string = "";selectD2: string = "";textD2: string = "";textD3: string = "";
   textD4: string = "";numeroD2: string = "";archivoD1: File | null = null;archivoD2: File | null = null;selectD3: string = "";
   textD5: string = "";selectD4: string = "";fechaD1?: Date;fechaD2?: Date;selectD5: string = "";numeroD3: string = "";
-  textD6: string = "";numeroD4: string = "";
+  textD6: string = "";numeroD4: string = "";numeroD5: string = "";
   //Variables PC
   textPC1: string = "";numeroPC1: string = "";selectPC1: string = "";selectPC2: string = "";textPC2: string = "";textPC3: string = "";
   textPC4: string = "";numeroPC2: string = "";archivoPC1: File | null = null;archivoPC2: File | null = null;selectPC3: string = "";
   textPC5: string = "";selectPC4: string = "";fechaPC1?: Date;fechaPC2?: Date;selectPC5: string = "";numeroPC3: string = "";
-  textPC6: string = "";numeroPC4: string = "";
+  textPC6: string = "";numeroPC4: string = "";numeroPC5: string = "";
   //Variables PCC
   textPCC1: string = "";numeroPCC1: string = "";selectPCC1: string = "";selectPCC2: string = "";textPCC2: string = "";textPCC3: string = "";
   textPCC4: string = "";numeroPCC2: string = "";archivoPCC1: File | null = null;archivoPCC2: File | null = null;selectPCC3: string = "";
   textPCC5: string = "";selectPCC4: string = "";fechaPCC1?: Date;fechaPCC2?: Date;selectPCC5: string = "";numeroPCC3: string = "";
-  textPCC6: string = "";numeroPCC4: string = "";
+  textPCC6: string = "";numeroPCC4: string = "";numeroPCC5: string = "";
   //Variables PCP
   textPCP1: string = "";numeroPCP1: string = "";selectPCP1: string = "";selectPCP2: string = "";textPCP2: string = "";textPCP3: string = "";
   textPCP4: string = "";numeroPCP2: string = "";archivoPCP1: File | null = null;archivoPCP2: File | null = null;selectPCP3: string = "";
   textPCP5: string = "";selectPCP4: string = "";fechaPCP1?: Date;fechaPCP2?: Date;selectPCP5: string = "";numeroPCP3: string = "";
-  textPCP6: string = "";numeroPCP4: string = "";
+  textPCP6: string = "";numeroPCP4: string = "";numeroPCP5: string = "";
   //Variables Recaudo
   textR1: string = "";numeroR1: string = "";selectR1: string = "";selectR2: string = "";textR2: string = "";textR3: string = "";
   textR4: string = "";numeroR2: string = "";archivoR1: File | null = null;archivoR2: File | null = null;selectR3: string = "";
   textR5: string = "";selectR4: string = "";fechaR1?: Date;fechaR2?: Date;selectR5: string = "";numeroR3: string = "";
-  textR6: string = "";numeroR4: string = "";
+  textR6: string = "";numeroR4: string = "";numeroR5: string = "";
   //Variables Otros
   textO1: string = "";numeroO1: string = "";selectO1: string = "";selectO2: string = "";textO2: string = "";textO3: string = "";
   textO4: string = "";numeroO2: string = "";archivoO1: File | null = null;archivoO2: File | null = null;selectO3: string = "";
   textO5: string = "";selectO4: string = "";fechaO1?: Date;fechaO2?: Date;selectO5: string = "";numeroO3: string = "";
-  textO6: string = "";selectO0: string = "";numeroO4: string = "";textO0: string =""
+  textO6: string = "";selectO0: string = "";numeroO4: string = "";textO0: string ="";numeroO5: string = "";
 
   //Variables habilitar/deshabilitar/cambiar/mostrar
-  cambioG: boolean = true
-  cambioP: boolean = true
-  cambioT: boolean = true
-  cambioD: boolean = true
-  cambioPC: boolean = true
-  cambioPCC: boolean = true
-  cambioPCP: boolean = true
-  cambioR: boolean = true
-  cambioO: boolean = true
+  cambioG: boolean = false
+  cambioP: boolean = false
+  cambioT: boolean = false
+  cambioD: boolean = false
+  cambioPC: boolean = false
+  cambioPCC: boolean = false
+  cambioPCP: boolean = false
+  cambioR: boolean = false
+  cambioO: boolean = false
 
   //Variables archivos Grua            //Variables archivos Patios          //Variables archivos Traamites       //Variables archivos Deteccion
   resArchivoG1?: ArchivoGuardado;/*  */resArchivoP1?: ArchivoGuardado;/*  */resArchivoT1?: ArchivoGuardado;/*  */resArchivoD1?: ArchivoGuardado;
   resArchivoG2?: ArchivoGuardado;/*  */resArchivoP2?: ArchivoGuardado;/*  */resArchivoT2?: ArchivoGuardado;/*  */resArchivoD2?: ArchivoGuardado;
-  
+
   //Variables archivos PC               //Variables archivos PCC               //Variables archivos PCP               //Variables archivos Recaudo
   resArchivoPC1?: ArchivoGuardado;/*  */resArchivoPCC1?: ArchivoGuardado;/*  */resArchivoPCP1?: ArchivoGuardado;/*  */resArchivoR1?: ArchivoGuardado;
   resArchivoPC2?: ArchivoGuardado;/*  */resArchivoPCC2?: ArchivoGuardado;/*  */resArchivoPCP2?: ArchivoGuardado;/*  */resArchivoR2?: ArchivoGuardado;
-  
+
   //Variables archivos Otros
   resArchivoO1?: ArchivoGuardado;
   resArchivoO2?: ArchivoGuardado;
@@ -150,6 +151,7 @@ export class TransitoComponent {
 
   ngOnInit(): void {
     this.obtenerMaestras()
+    this.enviarST()
   }
 
   detectarCambios(){
@@ -163,7 +165,7 @@ export class TransitoComponent {
   }
 
   cambioRespuestaSelect(event:any,servicio:any){
-    if(event.target.value == null || event.target.value == undefined || event.target.value == ""){
+    if(event.target.value === null || event.target.value === undefined || event.target.value === ""){
       if(servicio == 'G'){this.cambioG = true; this.numeroG3 = " "}
       if(servicio == 'P'){this.cambioP = true; this.numeroP3 = " "}
       if(servicio == 'T'){this.cambioT = true; this.numeroT3 = " "}
@@ -271,13 +273,15 @@ export class TransitoComponent {
       next: (respuesta:any)=>{
         this.identificacionOrganismo = respuesta['identificacionOrganismo']
         this.preguntas = respuesta['preguntas']
-        
+
         for(let i = 1; i <= 37; i++){
           //this.cambioRespuestaSelect(this.portuarias[i-1].valor,i)
         }
         if(respuesta['editable'] != true){
           this.soloLectura = true
           this.hayCambios = true
+          this.cambioG = true; this.cambioP = true; this.cambioT = true; this.cambioD = true; this.cambioPC = true
+          this.cambioPCC = true; this.cambioPCP = true; this.cambioR = true; this.cambioO = true
         }
         this.llenarIdentificacion()
         this.llenarPreguntas(this.preguntas)
@@ -408,7 +412,7 @@ export class TransitoComponent {
           })
         }
       }
-    }) 
+    })
 
     //console.log(preguntaJson);
   }
@@ -416,11 +420,11 @@ export class TransitoComponent {
   enviarST(){
     this.servicio.enviarSTTransito().subscribe({
       next: (respuesta) => {
-        console.log(respuesta);
-        /* this.aprobado = respuesta['aprobado']
-        this.faltantes = respuesta['faltantes']
+        this.aprobado = respuesta['aprobado']
+        this.faltantes = respuesta
         this.obtenerTransitos()
-        if(respuesta['aprobado']){
+        console.log(this.faltantes);
+        /* if(respuesta['aprobado']){
           Swal.fire({
             titleText:"Enviado a ST exitosamente",
             icon: "success"
@@ -431,11 +435,70 @@ export class TransitoComponent {
     })
   }
 
-  verificarFaltantes(pregunta: number): boolean{
-    if(this.faltantes.length === 37){return false}
-    else if(pregunta){
-      for(const valor of this.faltantes){
-        if(valor == pregunta){return true}
+  verificarFaltantes(tipo: number, pregunta: number,servicio?:number): boolean{
+    if(
+      this.faltantes?.faltantesIdentificacion.length === 15 &&
+      this.faltantes?.faltantesPreguntas.gruas.length === 18 &&
+      this.faltantes?.faltantesPreguntas.patios.length === 18 &&
+      this.faltantes?.faltantesPreguntas.tramitesTransito.length === 18 &&
+      this.faltantes?.faltantesPreguntas.deteccionInfracciones.length === 18 &&
+      this.faltantes?.faltantesPreguntas.procesosContravencionales.length === 18 &&
+      this.faltantes?.faltantesPreguntas.procesoCobroCoactivo.length === 18 &&
+      this.faltantes?.faltantesPreguntas.procesoCobroPersuasivo.length === 18 &&
+      this.faltantes?.faltantesPreguntas.recaudoMultas.length === 18 &&
+      this.faltantes?.faltantesPreguntas.otros.length === 19
+    ){return false}
+    else if(tipo && pregunta){
+      if(tipo == 1 && this.faltantes?.faltantesIdentificacion){
+        for(const valor of this.faltantes?.faltantesIdentificacion){
+          if(valor == pregunta){return true}
+        }
+      }else if(tipo == 2){
+        if(servicio == 1 && this.faltantes?.faltantesPreguntas.gruas){
+          for(const valor of this.faltantes?.faltantesPreguntas.gruas){
+            if(valor == pregunta){return true}
+          }
+        }
+        if(servicio == 2 && this.faltantes?.faltantesPreguntas.patios){
+          for(const valor of this.faltantes?.faltantesPreguntas.patios){
+            if(valor == pregunta){return true}
+          }
+        }
+        if(servicio == 3 && this.faltantes?.faltantesPreguntas.tramitesTransito){
+          for(const valor of this.faltantes?.faltantesPreguntas.tramitesTransito){
+            if(valor == pregunta){return true}
+          }
+        }
+        if(servicio == 4 && this.faltantes?.faltantesPreguntas.deteccionInfracciones){
+          for(const valor of this.faltantes?.faltantesPreguntas.deteccionInfracciones){
+            if(valor == pregunta){return true}
+          }
+        }
+        if(servicio == 5 && this.faltantes?.faltantesPreguntas.procesosContravencionales){
+          for(const valor of this.faltantes?.faltantesPreguntas.procesosContravencionales){
+            if(valor == pregunta){return true}
+          }
+        }
+        if(servicio == 6 && this.faltantes?.faltantesPreguntas.procesoCobroCoactivo){
+          for(const valor of this.faltantes?.faltantesPreguntas.procesoCobroCoactivo){
+            if(valor == pregunta){return true}
+          }
+        }
+        if(servicio == 7 && this.faltantes?.faltantesPreguntas.procesoCobroPersuasivo){
+          for(const valor of this.faltantes?.faltantesPreguntas.procesoCobroPersuasivo){
+            if(valor == pregunta){return true}
+          }
+        }
+        if(servicio == 8 && this.faltantes?.faltantesPreguntas.recaudoMultas){
+          for(const valor of this.faltantes?.faltantesPreguntas.recaudoMultas){
+            if(valor == pregunta){return true}
+          }
+        }
+        if(servicio == 9 && this.faltantes?.faltantesPreguntas.otros){
+          for(const valor of this.faltantes?.faltantesPreguntas.otros){
+            if(valor == pregunta){console.log(pregunta);return true}
+          }
+        }
       }
     }
     return false
@@ -645,11 +708,15 @@ export class TransitoComponent {
         "valor":this.numeroG3,
         "servicioId":1
       },{
+        "preguntaId":18,
+        "valor":this.numeroG5,
+        "servicioId":1
+      },{
         "preguntaId":16,
         "valor":this.textG6,
         "servicioId":1
-      }   
-    
+      }
+
     )
     }
 
@@ -723,11 +790,15 @@ export class TransitoComponent {
         "valor":this.numeroP3,
         "servicioId":2
       },{
+        "preguntaId":18,
+        "valor":this.numeroP5,
+        "servicioId":2
+      },{
         "preguntaId":16,
         "valor":this.textP6,
         "servicioId":2
-      }   
-    
+      }
+
     )
     }
 
@@ -804,8 +875,11 @@ export class TransitoComponent {
         "preguntaId":16,
         "valor":this.textT6,
         "servicioId":3
-      }   
-    
+      },{
+        "preguntaId":18,
+        "valor":this.numeroT5,
+        "servicioId":3
+      }
     )
     }
 
@@ -882,8 +956,12 @@ export class TransitoComponent {
         "preguntaId":16,
         "valor":this.textD6,
         "servicioId":4
-      }   
-    
+      },{
+        "preguntaId":18,
+        "valor":this.numeroD5,
+        "servicioId":4
+      }
+
     )
     }
 
@@ -960,8 +1038,12 @@ export class TransitoComponent {
         "preguntaId":16,
         "valor":this.textPC6,
         "servicioId":5
-      }   
-    
+      },{
+        "preguntaId":18,
+        "valor":this.numeroPC5,
+        "servicioId":5
+      }
+
     )
     }
 
@@ -1038,8 +1120,12 @@ export class TransitoComponent {
         "preguntaId":16,
         "valor":this.textPCC6,
         "servicioId":6
-      }   
-    
+      },{
+        "preguntaId":18,
+        "valor":this.numeroPCC5,
+        "servicioId":6
+      }
+
     )
     }
 
@@ -1116,8 +1202,12 @@ export class TransitoComponent {
         "preguntaId":16,
         "valor":this.textPCP6,
         "servicioId":7
-      }   
-    
+      },{
+        "preguntaId":18,
+        "valor":this.numeroPCP5,
+        "servicioId":7
+      }
+
     )
     }
 
@@ -1194,8 +1284,12 @@ export class TransitoComponent {
         "preguntaId":16,
         "valor":this.textR6,
         "servicioId":8
-      }   
-    
+      },{
+        "preguntaId":18,
+        "valor":this.numeroR5,
+        "servicioId":8
+      }
+
     )
     }
 
@@ -1276,8 +1370,12 @@ export class TransitoComponent {
         "preguntaId":16,
         "valor":this.textO6,
         "servicioId":9
-      }   
-    
+      },{
+        "preguntaId":18,
+        "valor":this.numeroO5,
+        "servicioId":9
+      }
+
     )
     }
 
@@ -1321,6 +1419,7 @@ export class TransitoComponent {
     this.selectG5 = preguntas.gruas[14].valor
     this.numeroG3 = preguntas.gruas[15].valor
     this.textG6 = preguntas.gruas[16].valor
+    this.numeroG5 = preguntas.gruas[18].valor
     /* patios */
     this.textP1 = preguntas.patios[1].valor
     this.numeroP1 = preguntas.patios[2].valor
@@ -1337,6 +1436,7 @@ export class TransitoComponent {
     this.selectP5 = preguntas.patios[14].valor
     this.numeroP3 = preguntas.patios[15].valor
     this.textP6 = preguntas.patios[16].valor
+    this.numeroP5 = preguntas.patios[18].valor
     /* tramitesTransito */
     this.textT1 = preguntas.tramitesTransito[1].valor
     this.numeroT1 = preguntas.tramitesTransito[2].valor
@@ -1353,6 +1453,7 @@ export class TransitoComponent {
     this.selectT5 = preguntas.tramitesTransito[14].valor
     this.numeroT3 = preguntas.tramitesTransito[15].valor
     this.textT6 = preguntas.tramitesTransito[16].valor
+    this.numeroT5 = preguntas.tramitesTransito[18].valor
     /* deteccionInfracciones */
     this.textD1 = preguntas.deteccionInfracciones[1].valor
     this.numeroD1 = preguntas.deteccionInfracciones[2].valor
@@ -1369,6 +1470,7 @@ export class TransitoComponent {
     this.selectD5 = preguntas.deteccionInfracciones[14].valor
     this.numeroD3 = preguntas.deteccionInfracciones[15].valor
     this.textD6 = preguntas.deteccionInfracciones[16].valor
+    this.numeroD5 = preguntas.deteccionInfracciones[18].valor
     /* procesosContravencionales */
     this.textPC1 = preguntas.procesosContravencionales[1].valor
     this.numeroPC1 = preguntas.procesosContravencionales[2].valor
@@ -1385,6 +1487,7 @@ export class TransitoComponent {
     this.selectPC5 = preguntas.procesosContravencionales[14].valor
     this.numeroPC3 = preguntas.procesosContravencionales[15].valor
     this.textPC6 = preguntas.procesosContravencionales[16].valor
+    this.numeroPC5 = preguntas.procesosContravencionales[18].valor
     /* procesoCobroCoactivo */
     this.textPCC1 = preguntas.procesoCobroCoactivo[1].valor
     this.numeroPCC1 = preguntas.procesoCobroCoactivo[2].valor
@@ -1401,6 +1504,7 @@ export class TransitoComponent {
     this.selectPCC5 = preguntas.procesoCobroCoactivo[14].valor
     this.numeroPCC3 = preguntas.procesoCobroCoactivo[15].valor
     this.textPCC6 = preguntas.procesoCobroCoactivo[16].valor
+    this.numeroPCC5 = preguntas.procesoCobroCoactivo[18].valor
     /* procesoCobroPersuasivo */
     this.textPCP1 = preguntas.procesoCobroPersuasivo[1].valor
     this.numeroPCP1 = preguntas.procesoCobroPersuasivo[2].valor
@@ -1417,6 +1521,7 @@ export class TransitoComponent {
     this.selectPCP5 = preguntas.procesoCobroPersuasivo[14].valor
     this.numeroPCP3 = preguntas.procesoCobroPersuasivo[15].valor
     this.textPCP6 = preguntas.procesoCobroPersuasivo[16].valor
+    this.numeroPCP5 = preguntas.procesoCobroPersuasivo[18].valor
     /* recaudoMultas */
     this.textR1 = preguntas.recaudoMultas[1].valor
     this.numeroR1 = preguntas.recaudoMultas[2].valor
@@ -1433,6 +1538,7 @@ export class TransitoComponent {
     this.selectR5 = preguntas.recaudoMultas[14].valor
     this.numeroR3 = preguntas.recaudoMultas[15].valor
     this.textR6 = preguntas.recaudoMultas[16].valor
+    this.numeroR5 = preguntas.recaudoMultas[18].valor
     /* otros */
     this.textO0 = preguntas.otros[0].valor
     this.textO1 = preguntas.otros[1].valor
@@ -1450,5 +1556,6 @@ export class TransitoComponent {
     this.selectO5 = preguntas.otros[14].valor
     this.numeroO3 = preguntas.otros[15].valor
     this.textO6 = preguntas.otros[16].valor
+    this.numeroO5 = preguntas.otros[18].valor
   }
 }
