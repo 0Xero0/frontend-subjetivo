@@ -40,11 +40,11 @@ export class InputNumericoComponent implements OnInit, ControlValueAccessor {
   }
 
   alCambiarValor(valor: string) {
-    /* if (!this.regex.test(valor) && valor !== "") {
+    if (!this.regex.test(valor) && valor !== "") {
       console.log('no cumple regex', valor, this.regex)
       this.valorInput = this.valorAnterior
       return;
-    } */
+    }
     if(valor !== ""){
       this.valorInput = Number(valor).toString()
     }

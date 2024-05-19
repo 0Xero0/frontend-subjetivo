@@ -103,15 +103,15 @@ export class TransitoComponent {
   textO6: string = "";selectO0: string = "";numeroO4: string = "";textO0: string ="";numeroO5: string = "";
 
   //Variables habilitar/deshabilitar/cambiar/mostrar
-  cambioG: boolean = false
-  cambioP: boolean = false
-  cambioT: boolean = false
-  cambioD: boolean = false
-  cambioPC: boolean = false
-  cambioPCC: boolean = false
-  cambioPCP: boolean = false
-  cambioR: boolean = false
-  cambioO: boolean = false
+  cambioG: boolean = true; otroG: boolean = true
+  cambioP: boolean = true; otroP: boolean = true
+  cambioT: boolean = true; otroT: boolean = true
+  cambioD: boolean = true; otroD: boolean = true
+  cambioPC: boolean = true; otroPC: boolean = true
+  cambioPCC: boolean = true; otroPCC: boolean = true
+  cambioPCP: boolean = true; otroPCP: boolean = true
+  cambioR: boolean = true; otroR: boolean = true
+  cambioO: boolean = true; otroO: boolean = true
 
   //Variables archivos Grua            //Variables archivos Patios          //Variables archivos Traamites       //Variables archivos Deteccion
   resArchivoG1?: ArchivoGuardado;/*  */resArchivoP1?: ArchivoGuardado;/*  */resArchivoT1?: ArchivoGuardado;/*  */resArchivoD1?: ArchivoGuardado;
@@ -151,7 +151,7 @@ export class TransitoComponent {
 
   ngOnInit(): void {
     this.obtenerMaestras()
-    this.enviarST()
+    //this.enviarST()
   }
 
   detectarCambios(){
@@ -162,6 +162,31 @@ export class TransitoComponent {
   }
   esString(valor: any): boolean {
     return typeof valor === 'string';
+  }
+
+  cambioOtro(event:any,servicio:any){
+    if(event.target.value === null || event.target.value === undefined || event.target.value === "" || event.target.value !== 5){
+      if(servicio == 'G'){this.otroG = true; this.textG5 = " "}
+      if(servicio == 'P'){this.otroP = true; this.textP5 = " "}
+      if(servicio == 'T'){this.otroT = true; this.textT5 = " "}
+      if(servicio == 'D'){this.otroD = true; this.textD5 = " "}
+      if(servicio == 'PC'){this.otroPC = true; this.textPC5 = " "}
+      if(servicio == 'PCC'){this.otroPCC = true; this.textPCC5 = " "}
+      if(servicio == 'PCP'){this.otroPCP = true; this.textPCP5 = " "}
+      if(servicio == 'R'){this.otroR = true; this.textR5 = " "}
+      if(servicio == 'O'){this.otroO = true; this.textO5 = " "}
+    }
+    if(event.target.value == 5){
+      if(servicio == 'G'){this.otroG = false; this.textG5 = " "}
+      if(servicio == 'P'){this.otroP = false; this.textP5 = " "}
+      if(servicio == 'T'){this.otroT = false; this.textT5 = " "}
+      if(servicio == 'D'){this.otroD = false; this.textD5 = " "}
+      if(servicio == 'PC'){this.otroPC = false; this.textPC5 = " "}
+      if(servicio == 'PCC'){this.otroPCC = false; this.textPCC5 = " "}
+      if(servicio == 'PCP'){this.otroPCP = false; this.textPCP5 = " "}
+      if(servicio == 'R'){this.otroR = false; this.textR5 = " "}
+      if(servicio == 'O'){this.otroO = false; this.textO5 = " "}
+    }
   }
 
   cambioRespuestaSelect(event:any,servicio:any){
@@ -274,7 +299,7 @@ export class TransitoComponent {
         this.identificacionOrganismo = respuesta['identificacionOrganismo']
         this.preguntas = respuesta['preguntas']
 
-        for(let i = 1; i <= 37; i++){
+        for(let i = 1; i <= 16; i++){
           //this.cambioRespuestaSelect(this.portuarias[i-1].valor,i)
         }
         if(respuesta['editable'] != true){
@@ -380,6 +405,7 @@ export class TransitoComponent {
     let preguntaJson: any;
 
     preguntaJson={identificacionOrganismo, preguntas}
+    console.log(preguntaJson)
     Swal.fire({
       icon: 'info',
       allowOutsideClick: false,
@@ -395,7 +421,7 @@ export class TransitoComponent {
             icon: "success"
           })
           this.obtenerTransitos()
-          //this.detectarCambios()
+          this.detectarCambios()
           this.hayCambios = false
         }
       },
@@ -423,13 +449,13 @@ export class TransitoComponent {
         this.aprobado = respuesta['aprobado']
         this.faltantes = respuesta
         this.obtenerTransitos()
-        console.log(this.faltantes);
-        /* if(respuesta['aprobado']){
+        //console.log(this.faltantes);
+        if(respuesta['aprobado']){
           Swal.fire({
             titleText:"Enviado a ST exitosamente",
             icon: "success"
           })
-        } */
+        }
         //console.log(respuesta);
       }
     })
@@ -437,16 +463,16 @@ export class TransitoComponent {
 
   verificarFaltantes(tipo: number, pregunta: number,servicio?:number): boolean{
     if(
-      this.faltantes?.faltantesIdentificacion.length === 15 &&
-      this.faltantes?.faltantesPreguntas.gruas.length === 18 &&
-      this.faltantes?.faltantesPreguntas.patios.length === 18 &&
-      this.faltantes?.faltantesPreguntas.tramitesTransito.length === 18 &&
-      this.faltantes?.faltantesPreguntas.deteccionInfracciones.length === 18 &&
-      this.faltantes?.faltantesPreguntas.procesosContravencionales.length === 18 &&
-      this.faltantes?.faltantesPreguntas.procesoCobroCoactivo.length === 18 &&
-      this.faltantes?.faltantesPreguntas.procesoCobroPersuasivo.length === 18 &&
-      this.faltantes?.faltantesPreguntas.recaudoMultas.length === 18 &&
-      this.faltantes?.faltantesPreguntas.otros.length === 19
+      this.faltantes?.faltantesIdentificacion.length === 16 &&
+      this.faltantes?.faltantesPreguntas.gruas.length === 17 &&
+      this.faltantes?.faltantesPreguntas.patios.length === 17 &&
+      this.faltantes?.faltantesPreguntas.tramitesTransito.length === 17 &&
+      this.faltantes?.faltantesPreguntas.deteccionInfracciones.length === 17 &&
+      this.faltantes?.faltantesPreguntas.procesosContravencionales.length === 17 &&
+      this.faltantes?.faltantesPreguntas.procesoCobroCoactivo.length === 17 &&
+      this.faltantes?.faltantesPreguntas.procesoCobroPersuasivo.length === 17 &&
+      this.faltantes?.faltantesPreguntas.recaudoMultas.length === 17 &&
+      this.faltantes?.faltantesPreguntas.otros.length === 18
     ){return false}
     else if(tipo && pregunta){
       if(tipo == 1 && this.faltantes?.faltantesIdentificacion){
@@ -1295,7 +1321,7 @@ export class TransitoComponent {
 
     if(identificacion.otros){
       preguntas.push({
-        "preguntaId":0,
+        "preguntaId":19,
         "valor":this.textO0,
         "servicioId":9
       },{
@@ -1404,158 +1430,158 @@ export class TransitoComponent {
 
   llenarPreguntas(preguntas:any){
     /* Gruas */
-    this.textG1 = preguntas.gruas[1].valor
-    this.numeroG1 = preguntas.gruas[2].valor
-    this.selectG2 = preguntas.gruas[3].valor
-    this.textG2 = preguntas.gruas[4].valor
-    this.textG3 = preguntas.gruas[5].valor
-    this.textG4 = preguntas.gruas[6].valor
-    this.numeroG2 = preguntas.gruas[7].valor
-    this.selectG3 = preguntas.gruas[9].valor
-    this.textG5 = preguntas.gruas[10].valor
-    this.selectG4 = preguntas.gruas[11].valor
-    this.fechaG1 = preguntas.gruas[12].valor
-    this.fechaG2 = preguntas.gruas[13].valor
-    this.selectG5 = preguntas.gruas[14].valor
-    this.numeroG3 = preguntas.gruas[15].valor
-    this.textG6 = preguntas.gruas[16].valor
-    this.numeroG5 = preguntas.gruas[18].valor
+    this.textG1 = preguntas.gruas[0].valor
+    this.numeroG1 = preguntas.gruas[1].valor
+    this.selectG2 = preguntas.gruas[2].valor
+    this.textG2 = preguntas.gruas[3].valor
+    this.textG3 = preguntas.gruas[4].valor
+    this.textG4 = preguntas.gruas[5].valor
+    this.numeroG2 = preguntas.gruas[6].valor
+    this.selectG3 = preguntas.gruas[8].valor
+    this.textG5 = preguntas.gruas[9].valor
+    this.selectG4 = preguntas.gruas[10].valor
+    this.fechaG1 = preguntas.gruas[11].valor
+    this.fechaG2 = preguntas.gruas[12].valor
+    this.selectG5 = preguntas.gruas[13].valor
+    this.numeroG3 = preguntas.gruas[14].valor
+    this.textG6 = preguntas.gruas[15].valor
+    this.numeroG5 = preguntas.gruas[17].valor
     /* patios */
-    this.textP1 = preguntas.patios[1].valor
+    this.textP1 = preguntas.patios[0].valor
     this.numeroP1 = preguntas.patios[2].valor
-    this.selectP2 = preguntas.patios[3].valor
-    this.textP2 = preguntas.patios[4].valor
-    this.textP3 = preguntas.patios[5].valor
-    this.textP4 = preguntas.patios[6].valor
-    this.numeroP2 = preguntas.patios[7].valor
-    this.selectP3 = preguntas.patios[9].valor
-    this.textP5 = preguntas.patios[10].valor
-    this.selectP4 = preguntas.patios[11].valor
-    this.fechaP1 = preguntas.patios[12].valor
-    this.fechaP2 = preguntas.patios[13].valor
-    this.selectP5 = preguntas.patios[14].valor
-    this.numeroP3 = preguntas.patios[15].valor
-    this.textP6 = preguntas.patios[16].valor
-    this.numeroP5 = preguntas.patios[18].valor
+    this.selectP2 = preguntas.patios[2].valor
+    this.textP2 = preguntas.patios[3].valor
+    this.textP3 = preguntas.patios[4].valor
+    this.textP4 = preguntas.patios[5].valor
+    this.numeroP2 = preguntas.patios[6].valor
+    this.selectP3 = preguntas.patios[8].valor
+    this.textP5 = preguntas.patios[9].valor
+    this.selectP4 = preguntas.patios[10].valor
+    this.fechaP1 = preguntas.patios[11].valor
+    this.fechaP2 = preguntas.patios[12].valor
+    this.selectP5 = preguntas.patios[13].valor
+    this.numeroP3 = preguntas.patios[14].valor
+    this.textP6 = preguntas.patios[15].valor
+    this.numeroP5 = preguntas.patios[17].valor
     /* tramitesTransito */
-    this.textT1 = preguntas.tramitesTransito[1].valor
-    this.numeroT1 = preguntas.tramitesTransito[2].valor
-    this.selectT2 = preguntas.tramitesTransito[3].valor
-    this.textT2 = preguntas.tramitesTransito[4].valor
-    this.textT3 = preguntas.tramitesTransito[5].valor
-    this.textT4 = preguntas.tramitesTransito[6].valor
-    this.numeroT2 = preguntas.tramitesTransito[7].valor
-    this.selectT3 = preguntas.tramitesTransito[9].valor
-    this.textT5 = preguntas.tramitesTransito[10].valor
-    this.selectT4 = preguntas.tramitesTransito[11].valor
-    this.fechaT1 = preguntas.tramitesTransito[12].valor
-    this.fechaT2 = preguntas.tramitesTransito[13].valor
-    this.selectT5 = preguntas.tramitesTransito[14].valor
-    this.numeroT3 = preguntas.tramitesTransito[15].valor
-    this.textT6 = preguntas.tramitesTransito[16].valor
-    this.numeroT5 = preguntas.tramitesTransito[18].valor
+    this.textT1 = preguntas.tramitesTransito[0].valor
+    this.numeroT1 = preguntas.tramitesTransito[1].valor
+    this.selectT2 = preguntas.tramitesTransito[2].valor
+    this.textT2 = preguntas.tramitesTransito[3].valor
+    this.textT3 = preguntas.tramitesTransito[4].valor
+    this.textT4 = preguntas.tramitesTransito[5].valor
+    this.numeroT2 = preguntas.tramitesTransito[6].valor
+    this.selectT3 = preguntas.tramitesTransito[8].valor
+    this.textT5 = preguntas.tramitesTransito[9].valor
+    this.selectT4 = preguntas.tramitesTransito[10].valor
+    this.fechaT1 = preguntas.tramitesTransito[11].valor
+    this.fechaT2 = preguntas.tramitesTransito[12].valor
+    this.selectT5 = preguntas.tramitesTransito[13].valor
+    this.numeroT3 = preguntas.tramitesTransito[14].valor
+    this.textT6 = preguntas.tramitesTransito[15].valor
+    this.numeroT5 = preguntas.tramitesTransito[17].valor
     /* deteccionInfracciones */
-    this.textD1 = preguntas.deteccionInfracciones[1].valor
-    this.numeroD1 = preguntas.deteccionInfracciones[2].valor
-    this.selectD2 = preguntas.deteccionInfracciones[3].valor
-    this.textD2 = preguntas.deteccionInfracciones[4].valor
-    this.textD3 = preguntas.deteccionInfracciones[5].valor
-    this.textD4 = preguntas.deteccionInfracciones[6].valor
-    this.numeroD2 = preguntas.deteccionInfracciones[7].valor
-    this.selectD3 = preguntas.deteccionInfracciones[9].valor
-    this.textD5 = preguntas.deteccionInfracciones[10].valor
-    this.selectD4 = preguntas.deteccionInfracciones[11].valor
-    this.fechaD1 = preguntas.deteccionInfracciones[12].valor
-    this.fechaD2 = preguntas.deteccionInfracciones[13].valor
-    this.selectD5 = preguntas.deteccionInfracciones[14].valor
-    this.numeroD3 = preguntas.deteccionInfracciones[15].valor
-    this.textD6 = preguntas.deteccionInfracciones[16].valor
-    this.numeroD5 = preguntas.deteccionInfracciones[18].valor
+    this.textD1 = preguntas.deteccionInfracciones[0].valor
+    this.numeroD1 = preguntas.deteccionInfracciones[1].valor
+    this.selectD2 = preguntas.deteccionInfracciones[2].valor
+    this.textD2 = preguntas.deteccionInfracciones[3].valor
+    this.textD3 = preguntas.deteccionInfracciones[4].valor
+    this.textD4 = preguntas.deteccionInfracciones[5].valor
+    this.numeroD2 = preguntas.deteccionInfracciones[6].valor
+    this.selectD3 = preguntas.deteccionInfracciones[8].valor
+    this.textD5 = preguntas.deteccionInfracciones[9].valor
+    this.selectD4 = preguntas.deteccionInfracciones[10].valor
+    this.fechaD1 = preguntas.deteccionInfracciones[11].valor
+    this.fechaD2 = preguntas.deteccionInfracciones[12].valor
+    this.selectD5 = preguntas.deteccionInfracciones[13].valor
+    this.numeroD3 = preguntas.deteccionInfracciones[14].valor
+    this.textD6 = preguntas.deteccionInfracciones[15].valor
+    this.numeroD5 = preguntas.deteccionInfracciones[17].valor
     /* procesosContravencionales */
-    this.textPC1 = preguntas.procesosContravencionales[1].valor
-    this.numeroPC1 = preguntas.procesosContravencionales[2].valor
-    this.selectPC2 = preguntas.procesosContravencionales[3].valor
-    this.textPC2 = preguntas.procesosContravencionales[4].valor
-    this.textPC3 = preguntas.procesosContravencionales[5].valor
-    this.textPC4 = preguntas.procesosContravencionales[6].valor
-    this.numeroPC2 = preguntas.procesosContravencionales[7].valor
-    this.selectPC3 = preguntas.procesosContravencionales[9].valor
-    this.textPC5 = preguntas.procesosContravencionales[10].valor
-    this.selectPC4 = preguntas.procesosContravencionales[11].valor
-    this.fechaPC1 = preguntas.procesosContravencionales[12].valor
-    this.fechaPC2 = preguntas.procesosContravencionales[13].valor
-    this.selectPC5 = preguntas.procesosContravencionales[14].valor
-    this.numeroPC3 = preguntas.procesosContravencionales[15].valor
-    this.textPC6 = preguntas.procesosContravencionales[16].valor
-    this.numeroPC5 = preguntas.procesosContravencionales[18].valor
+    this.textPC1 = preguntas.procesosContravencionales[0].valor
+    this.numeroPC1 = preguntas.procesosContravencionales[1].valor
+    this.selectPC2 = preguntas.procesosContravencionales[2].valor
+    this.textPC2 = preguntas.procesosContravencionales[3].valor
+    this.textPC3 = preguntas.procesosContravencionales[4].valor
+    this.textPC4 = preguntas.procesosContravencionales[5].valor
+    this.numeroPC2 = preguntas.procesosContravencionales[6].valor
+    this.selectPC3 = preguntas.procesosContravencionales[8].valor
+    this.textPC5 = preguntas.procesosContravencionales[9].valor
+    this.selectPC4 = preguntas.procesosContravencionales[10].valor
+    this.fechaPC1 = preguntas.procesosContravencionales[11].valor
+    this.fechaPC2 = preguntas.procesosContravencionales[12].valor
+    this.selectPC5 = preguntas.procesosContravencionales[13].valor
+    this.numeroPC3 = preguntas.procesosContravencionales[14].valor
+    this.textPC6 = preguntas.procesosContravencionales[15].valor
+    this.numeroPC5 = preguntas.procesosContravencionales[17].valor
     /* procesoCobroCoactivo */
-    this.textPCC1 = preguntas.procesoCobroCoactivo[1].valor
-    this.numeroPCC1 = preguntas.procesoCobroCoactivo[2].valor
-    this.selectPCC2 = preguntas.procesoCobroCoactivo[3].valor
-    this.textPCC2 = preguntas.procesoCobroCoactivo[4].valor
-    this.textPCC3 = preguntas.procesoCobroCoactivo[5].valor
-    this.textPCC4 = preguntas.procesoCobroCoactivo[6].valor
-    this.numeroPCC2 = preguntas.procesoCobroCoactivo[7].valor
-    this.selectPCC3 = preguntas.procesoCobroCoactivo[9].valor
-    this.textPCC5 = preguntas.procesoCobroCoactivo[10].valor
-    this.selectPCC4 = preguntas.procesoCobroCoactivo[11].valor
-    this.fechaPCC1 = preguntas.procesoCobroCoactivo[12].valor
-    this.fechaPCC2 = preguntas.procesoCobroCoactivo[13].valor
-    this.selectPCC5 = preguntas.procesoCobroCoactivo[14].valor
-    this.numeroPCC3 = preguntas.procesoCobroCoactivo[15].valor
-    this.textPCC6 = preguntas.procesoCobroCoactivo[16].valor
-    this.numeroPCC5 = preguntas.procesoCobroCoactivo[18].valor
+    this.textPCC1 = preguntas.procesoCobroCoactivo[0].valor
+    this.numeroPCC1 = preguntas.procesoCobroCoactivo[1].valor
+    this.selectPCC2 = preguntas.procesoCobroCoactivo[2].valor
+    this.textPCC2 = preguntas.procesoCobroCoactivo[3].valor
+    this.textPCC3 = preguntas.procesoCobroCoactivo[4].valor
+    this.textPCC4 = preguntas.procesoCobroCoactivo[5].valor
+    this.numeroPCC2 = preguntas.procesoCobroCoactivo[6].valor
+    this.selectPCC3 = preguntas.procesoCobroCoactivo[8].valor
+    this.textPCC5 = preguntas.procesoCobroCoactivo[9].valor
+    this.selectPCC4 = preguntas.procesoCobroCoactivo[10].valor
+    this.fechaPCC1 = preguntas.procesoCobroCoactivo[11].valor
+    this.fechaPCC2 = preguntas.procesoCobroCoactivo[12].valor
+    this.selectPCC5 = preguntas.procesoCobroCoactivo[13].valor
+    this.numeroPCC3 = preguntas.procesoCobroCoactivo[14].valor
+    this.textPCC6 = preguntas.procesoCobroCoactivo[15].valor
+    this.numeroPCC5 = preguntas.procesoCobroCoactivo[17].valor
     /* procesoCobroPersuasivo */
-    this.textPCP1 = preguntas.procesoCobroPersuasivo[1].valor
-    this.numeroPCP1 = preguntas.procesoCobroPersuasivo[2].valor
-    this.selectPCP2 = preguntas.procesoCobroPersuasivo[3].valor
-    this.textPCP2 = preguntas.procesoCobroPersuasivo[4].valor
-    this.textPCP3 = preguntas.procesoCobroPersuasivo[5].valor
-    this.textPCP4 = preguntas.procesoCobroPersuasivo[6].valor
-    this.numeroPCP2 = preguntas.procesoCobroPersuasivo[7].valor
-    this.selectPCP3 = preguntas.procesoCobroPersuasivo[9].valor
-    this.textPCP5 = preguntas.procesoCobroPersuasivo[10].valor
-    this.selectPCP4 = preguntas.procesoCobroPersuasivo[11].valor
-    this.fechaPCP1 = preguntas.procesoCobroPersuasivo[12].valor
-    this.fechaPCP2 = preguntas.procesoCobroPersuasivo[13].valor
-    this.selectPCP5 = preguntas.procesoCobroPersuasivo[14].valor
-    this.numeroPCP3 = preguntas.procesoCobroPersuasivo[15].valor
-    this.textPCP6 = preguntas.procesoCobroPersuasivo[16].valor
-    this.numeroPCP5 = preguntas.procesoCobroPersuasivo[18].valor
+    this.textPCP1 = preguntas.procesoCobroPersuasivo[0].valor
+    this.numeroPCP1 = preguntas.procesoCobroPersuasivo[1].valor
+    this.selectPCP2 = preguntas.procesoCobroPersuasivo[2].valor
+    this.textPCP2 = preguntas.procesoCobroPersuasivo[3].valor
+    this.textPCP3 = preguntas.procesoCobroPersuasivo[4].valor
+    this.textPCP4 = preguntas.procesoCobroPersuasivo[5].valor
+    this.numeroPCP2 = preguntas.procesoCobroPersuasivo[6].valor
+    this.selectPCP3 = preguntas.procesoCobroPersuasivo[8].valor
+    this.textPCP5 = preguntas.procesoCobroPersuasivo[9].valor
+    this.selectPCP4 = preguntas.procesoCobroPersuasivo[10].valor
+    this.fechaPCP1 = preguntas.procesoCobroPersuasivo[11].valor
+    this.fechaPCP2 = preguntas.procesoCobroPersuasivo[12].valor
+    this.selectPCP5 = preguntas.procesoCobroPersuasivo[13].valor
+    this.numeroPCP3 = preguntas.procesoCobroPersuasivo[14].valor
+    this.textPCP6 = preguntas.procesoCobroPersuasivo[15].valor
+    this.numeroPCP5 = preguntas.procesoCobroPersuasivo[17].valor
     /* recaudoMultas */
-    this.textR1 = preguntas.recaudoMultas[1].valor
-    this.numeroR1 = preguntas.recaudoMultas[2].valor
-    this.selectR2 = preguntas.recaudoMultas[3].valor
-    this.textR2 = preguntas.recaudoMultas[4].valor
-    this.textR3 = preguntas.recaudoMultas[5].valor
-    this.textR4 = preguntas.recaudoMultas[6].valor
-    this.numeroR2 = preguntas.recaudoMultas[7].valor
-    this.selectR3 = preguntas.recaudoMultas[9].valor
-    this.textR5 = preguntas.recaudoMultas[10].valor
-    this.selectR4 = preguntas.recaudoMultas[11].valor
-    this.fechaR1 = preguntas.recaudoMultas[12].valor
-    this.fechaR2 = preguntas.recaudoMultas[13].valor
-    this.selectR5 = preguntas.recaudoMultas[14].valor
-    this.numeroR3 = preguntas.recaudoMultas[15].valor
-    this.textR6 = preguntas.recaudoMultas[16].valor
-    this.numeroR5 = preguntas.recaudoMultas[18].valor
+    this.textR1 = preguntas.recaudoMultas[0].valor
+    this.numeroR1 = preguntas.recaudoMultas[1].valor
+    this.selectR2 = preguntas.recaudoMultas[2].valor
+    this.textR2 = preguntas.recaudoMultas[3].valor
+    this.textR3 = preguntas.recaudoMultas[4].valor
+    this.textR4 = preguntas.recaudoMultas[5].valor
+    this.numeroR2 = preguntas.recaudoMultas[6].valor
+    this.selectR3 = preguntas.recaudoMultas[8].valor
+    this.textR5 = preguntas.recaudoMultas[9].valor
+    this.selectR4 = preguntas.recaudoMultas[10].valor
+    this.fechaR1 = preguntas.recaudoMultas[11].valor
+    this.fechaR2 = preguntas.recaudoMultas[12].valor
+    this.selectR5 = preguntas.recaudoMultas[13].valor
+    this.numeroR3 = preguntas.recaudoMultas[14].valor
+    this.textR6 = preguntas.recaudoMultas[15].valor
+    this.numeroR5 = preguntas.recaudoMultas[17].valor
     /* otros */
-    this.textO0 = preguntas.otros[0].valor
-    this.textO1 = preguntas.otros[1].valor
-    this.numeroO1 = preguntas.otros[2].valor
-    this.selectO2 = preguntas.otros[3].valor
-    this.textO2 = preguntas.otros[4].valor
-    this.textO3 = preguntas.otros[5].valor
-    this.textO4 = preguntas.otros[6].valor
-    this.numeroO2 = preguntas.otros[7].valor
-    this.selectO3 = preguntas.otros[9].valor
-    this.textO5 = preguntas.otros[10].valor
-    this.selectO4 = preguntas.otros[11].valor
-    this.fechaO1 = preguntas.otros[12].valor
-    this.fechaO2 = preguntas.otros[13].valor
-    this.selectO5 = preguntas.otros[14].valor
-    this.numeroO3 = preguntas.otros[15].valor
-    this.textO6 = preguntas.otros[16].valor
-    this.numeroO5 = preguntas.otros[18].valor
+    this.textO0 = preguntas.otros[18].valor
+    this.textO1 = preguntas.otros[0].valor
+    this.numeroO1 = preguntas.otros[1].valor
+    this.selectO2 = preguntas.otros[2].valor
+    this.textO2 = preguntas.otros[3].valor
+    this.textO3 = preguntas.otros[4].valor
+    this.textO4 = preguntas.otros[5].valor
+    this.numeroO2 = preguntas.otros[6].valor
+    this.selectO3 = preguntas.otros[8].valor
+    this.textO5 = preguntas.otros[9].valor
+    this.selectO4 = preguntas.otros[10].valor
+    this.fechaO1 = preguntas.otros[11].valor
+    this.fechaO2 = preguntas.otros[12].valor
+    this.selectO5 = preguntas.otros[13].valor
+    this.numeroO3 = preguntas.otros[14].valor
+    this.textO6 = preguntas.otros[15].valor
+    this.numeroO5 = preguntas.otros[17].valor
   }
 }
