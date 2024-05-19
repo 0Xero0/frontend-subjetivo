@@ -293,15 +293,24 @@ export class TransitoComponent {
     })
   }
 
+  iniciarCambios(){
+    if(this.selectG5 == '1'){this.cambioG = false;}else{}; if(this.selectG3 == '5'){this.otroG = false;}else{}
+    if(this.selectP5 == '1'){this.cambioP = false;}else{}; if(this.selectP3 == '5'){this.otroP = false;}else{}
+    if(this.selectT5 == '1'){this.cambioT = false;}else{}; if(this.selectT3 == '5'){this.otroT = false;}else{}
+    if(this.selectD5 == '1'){this.cambioD = false;}else{}; if(this.selectD3 == '5'){this.otroD = false;}else{}
+    if(this.selectPC5 == '1'){this.cambioPC = false;}else{}; if(this.selectPC3 == '5'){this.otroPC = false;}else{}
+    if(this.selectPCC5 == '1'){this.cambioPCC = false;}else{}; if(this.selectPCC3 == '5'){this.otroPCC = false;}else{}
+    if(this.selectPCP5 == '1'){this.cambioPCP = false;}else{}; if(this.selectPCP3 == '5'){this.otroPCP = false;}else{}
+    if(this.selectR5 == '1'){this.cambioR = false;}else{}; if(this.selectR3 == '5'){this.otroR = false;}else{}
+    if(this.selectO5 == '1'){this.cambioO = false;}else{}; if(this.selectO3 == '5'){this.otroO = false;}else{}
+  }
+
   obtenerTransitos(){
     this.servicio.obtenerTransito().subscribe({
       next: (respuesta:any)=>{
         this.identificacionOrganismo = respuesta['identificacionOrganismo']
         this.preguntas = respuesta['preguntas']
 
-        for(let i = 1; i <= 16; i++){
-          //this.cambioRespuestaSelect(this.portuarias[i-1].valor,i)
-        }
         if(respuesta['editable'] != true){
           this.soloLectura = true
           this.hayCambios = true
@@ -310,6 +319,7 @@ export class TransitoComponent {
         }
         this.llenarIdentificacion()
         this.llenarPreguntas(this.preguntas)
+        this.iniciarCambios()
         //console.log(this.portuarias);
       }
     })

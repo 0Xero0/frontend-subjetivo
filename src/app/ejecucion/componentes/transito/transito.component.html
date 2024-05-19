@@ -749,7 +749,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textP5" [(ngModel)]="textP5" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="cambioP">
+                    (ngModelChange)="detectarCambios()" [disabled]="otroP">
                   <span class="validacion" *ngIf="verificarFaltantes(2,10,2)">Falta por completar</span>
                 </fieldset>
               </td>
