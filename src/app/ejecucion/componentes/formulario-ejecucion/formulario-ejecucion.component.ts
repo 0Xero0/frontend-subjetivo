@@ -679,7 +679,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
             titleText:"Enviado a ST exitosamente",
             icon: "success"
           })
-          this.recargarPagina()
+          //this.recargarPagina()
         }
         //console.log(respuesta);
       }
