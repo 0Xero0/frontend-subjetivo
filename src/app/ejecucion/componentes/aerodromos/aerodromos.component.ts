@@ -24,7 +24,8 @@ export class AerodromosComponent {
   selectedYear: number | null = null;
   listaUltimoAnioRM:Array<string> = []
 
-  habilitarSubordinadas: boolean = true; habilitarNombreV: boolean = true; habilitarNitV: boolean = true; habilitarCual:boolean = true
+  habilitarSubordinadas: boolean = true; habilitarNombreV: boolean = true; habilitarNitV: boolean = true; habilitarCual:boolean = true;
+  noObligadoRF:boolean = true;
 
   /* DATOS BÁSICOS */
   nit: string = ""; digito: string = ""; nombre: string = ""; codigoCIIU: string = ""; estadoFinanciero: string = ""; vinculacionEconomica: string = ""
@@ -40,9 +41,18 @@ export class AerodromosComponent {
   /* REPRESENTACIÓN LEGAL */
   tipoDocumento:string="";numeroId:string="";nombreCompleto:string="";resDocumentoId?:ArchivoGuardado;emailRL:string="";numeroActa:string="";
   fechaNombrmiento?:Date; resActaNombramiento?:ArchivoGuardado;fechaInscrip?:Date; resCC?:ArchivoGuardado
+  /* CONTADOR */
+  tipoDocumentoC:string="";numeroIdC:string="";nombreCompletoC:string="";resDocumentoIdC?:ArchivoGuardado;emailC:string="";tarjetaPro:string="";
+  resTarjetaProDoc?:ArchivoGuardado;numeroActaC:string="";fechaNombrmientoC?:Date;resActaNombramientoC?:ArchivoGuardado
+  /* REVISOR FISCAL */
+  obligadaRF:string="";tipoDocumentoRF:string="";numeroIdRF:string="";nombreCompletoRF:string="";resDocumentoIdRF?:ArchivoGuardado;emailRF:string="";
+  tarjetaProRF:string="";resTarjetaProDocRF?:ArchivoGuardado;numeroActaRF:string="";fechaNombrmientoRF?:Date;resActaNombramientoRF?:ArchivoGuardado
+  fechaInscripRF?:Date;firmaAuditoriaRF:string="";resCamaraYcomercioRF?:ArchivoGuardado
 
   /* Archivos */
   cerl?:File; resoHabilitacion?:File; resoHabilitacion2?:File; documentoId?:File; actaNombramiento?:File; camaraYcomercio?:File;
+  documentoIdC?:File; tarjetaProDoc?:File;actaNombramientoC?:File; documentoIdRF?:File; tarjetaProDocRF?:File;actaNombramientoRF?:File;
+  camaraYcomercioRF?:File;
 
   /* Maestras */
   tipoReportes?: Array<any>
@@ -62,6 +72,8 @@ export class AerodromosComponent {
   grupoNiifReportes?: Array<any>
   tipoVigilados?: Array<any>
   tipoDocumentos?: Array<any>
+  obligatoriedades?: Array<any>
+  tipoDocumentosNa?: Array<any>
 
   identificacion:Array<any> = []
 
@@ -117,6 +129,33 @@ export class AerodromosComponent {
         this.fechaInscrip = undefined
       }
     }
+    if(input == 'fechaNombrmientoC'){
+      if(event.target.value > this.fechaActual){
+        Swal.fire({
+          titleText: 'La fecha de nombramiento no puede ser mayor a la fecha actual',
+          icon: 'warning'
+        })
+        this.fechaNombrmiento = undefined
+      }
+    }
+    if(input == 'fechaNombrmientoRF'){
+      if(event.target.value > this.fechaActual){
+        Swal.fire({
+          titleText: 'La fecha de nombramiento no puede ser mayor a la fecha actual',
+          icon: 'warning'
+        })
+        this.fechaNombrmiento = undefined
+      }
+    }
+    if(input == 'fechaInscripRF'){
+      if(event.target.value > this.fechaActual){
+        Swal.fire({
+          titleText: 'La fecha de inscripción a Cámara y Comercio no puede ser mayor a la fecha actual',
+          icon: 'warning'
+        })
+        this.fechaInscripRF = undefined
+      }
+    }
   }
   fechaComparativa(){this.anioComparativo = (Number(this.anioActual)-1).toString()}
   formatearFecha(fecha: Date): string {
@@ -144,6 +183,14 @@ export class AerodromosComponent {
       if(event.target.value == 1){this.habilitarCual = false}
       if(event.target.value != 1){this.habilitarCual = true; this.cual = ""}
     }
+    if(pregunt == 'obligadaRF'){
+      if(event.target.value != 5){this.noObligadoRF = false}
+      if(event.target.value == 5 || event.target.value == ""){this.noObligadoRF = true;
+        this.tipoDocumentoRF="";this.numeroIdRF=" ";this.nombreCompletoRF="";this.resDocumentoIdRF=undefined;this.emailRF="";
+        this.tarjetaProRF=" ";this.resTarjetaProDocRF=undefined;this.numeroActaRF=" ";this.fechaNombrmientoRF=undefined;
+        this.documentoIdRF=undefined; this.tarjetaProDocRF=undefined;
+      }
+    }
   }
 
   cargarArchivo(event: any | null,extension:string,size:number,input:any){
@@ -164,6 +211,14 @@ export class AerodromosComponent {
             if(input == 'documentoId'){this.resDocumentoId = respuesta}
             if(input == 'actaNombramiento'){this.resActaNombramiento = respuesta}
             if(input == 'camaraYcomercio'){this.resCC = respuesta}
+            if(input == 'documentoIdC'){this.resDocumentoIdC = respuesta}
+            if(input == 'tarjetaProDoc'){this.resTarjetaProDoc = respuesta}
+            if(input == 'actaNombramientoC'){this.resActaNombramientoC = respuesta}
+            if(input == 'documentoIdRF'){this.resDocumentoIdRF = respuesta}
+            if(input == 'tarjetaProDocRF'){this.resTarjetaProDocRF = respuesta}
+            if(input == 'actaNombramientoRF'){this.resActaNombramientoRF = respuesta}
+            if(input == 'camaraYcomercioRF'){this.resCamaraYcomercioRF = respuesta}
+            Swal.close()
           },
           error: (error: HttpErrorResponse) => {
             if(error.status == 415){
@@ -177,6 +232,13 @@ export class AerodromosComponent {
               if(input == 'documentoId'){this.resDocumentoId = undefined; this.documentoId = undefined}
               if(input == 'actaNombramiento'){this.resActaNombramiento = undefined; this.actaNombramiento = undefined}
               if(input == 'camaraYcomercio'){this.resCC = undefined; this.camaraYcomercio = undefined}
+              if(input == 'documentoIdC'){this.resDocumentoIdC = undefined; this.documentoIdC = undefined}
+              if(input == 'tarjetaProDoc'){this.resTarjetaProDoc = undefined; this.tarjetaProDoc = undefined}
+              if(input == 'actaNombramientoC'){this.resActaNombramientoC = undefined; this.actaNombramientoC = undefined}
+              if(input == 'documentoIdRF'){this.resDocumentoIdRF = undefined; this.documentoIdRF = undefined}
+              if(input == 'tarjetaProDocRF'){this.resTarjetaProDocRF = undefined; this.tarjetaProDocRF = undefined}
+              if(input == 'actaNombramientoRF'){this.resActaNombramientoRF = undefined; this.actaNombramientoRF = undefined}
+              if(input == 'camaraYcomercioRF'){this.resCamaraYcomercioRF = undefined; this.camaraYcomercioRF = undefined}
             }
           }
         })
@@ -191,6 +253,13 @@ export class AerodromosComponent {
         if(input == 'documentoId'){this.resDocumentoId = undefined; this.documentoId = undefined}
         if(input == 'actaNombramiento'){this.resActaNombramiento = undefined; this.actaNombramiento = undefined}
         if(input == 'camaraYcomercio'){this.resCC = undefined; this.camaraYcomercio = undefined}
+        if(input == 'documentoIdC'){this.resDocumentoIdC = undefined; this.documentoIdC = undefined}
+        if(input == 'tarjetaProDoc'){this.resTarjetaProDoc = undefined; this.tarjetaProDoc = undefined}
+        if(input == 'actaNombramientoC'){this.resActaNombramientoC = undefined; this.actaNombramientoC = undefined}
+        if(input == 'documentoIdRF'){this.resDocumentoIdRF = undefined; this.documentoIdRF = undefined}
+        if(input == 'tarjetaProDocRF'){this.resTarjetaProDocRF = undefined; this.tarjetaProDocRF = undefined}
+        if(input == 'actaNombramientoRF'){this.resActaNombramientoRF = undefined; this.actaNombramientoRF = undefined}
+        if(input == 'camaraYcomercioRF'){this.resCamaraYcomercioRF = undefined; this.camaraYcomercioRF = undefined}
       }
     }
   }
@@ -275,6 +344,16 @@ export class AerodromosComponent {
     this.servicio.obtenerMaestras2('tipo_documentos').subscribe({
       next: (respuesta)=>{
         this.tipoDocumentos = respuesta['tipoDocumentos']
+      }
+    })
+    this.servicio.obtenerMaestras2('obligatoriedades').subscribe({
+      next: (respuesta)=>{
+        this.obligatoriedades = respuesta['obligatoriedades']
+      }
+    })
+    this.servicio.obtenerMaestras2('tipo_documentos_ns').subscribe({
+      next: (respuesta)=>{
+        this.tipoDocumentosNa = respuesta['tipoDocumentosNs']
       }
     })
   }
