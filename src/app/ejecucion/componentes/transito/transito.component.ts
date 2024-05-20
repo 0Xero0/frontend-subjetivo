@@ -1,21 +1,11 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { Actividad, FormularioEjecucion } from '../../modelos/FormularioEjecucion';
+import { Component, SimpleChanges, ViewChild } from '@angular/core';
 import { ServicioEjecucion } from '../../servicios/ejecucion.service';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
-import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
-import { TipoImportacion } from '../../TipoImportacion';
-import { RespuestaErrorImportacion } from '../../modelos/ErrorImportacion';
-import { Observable, catchError, forkJoin, of } from 'rxjs'
-import { InputNumericoComponent } from 'src/app/inputs/componentes/input-numerico/input-numerico.component';
-import { Portuarias } from '../../modelos/Portuarias';
-import { InputArchivoComponent } from 'src/app/inputs/componentes/input-archivo/input-archivo.component';
 import Swal from 'sweetalert2';
 import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
-import { Pregunta } from '../../modelos/Preguntas';
 import { Faltantes } from '../../modelos/faltantes';
 
 @Component({
@@ -659,12 +649,12 @@ export class TransitoComponent {
   capturarIdentificacion(){
     return {
       "razonSocial": this.textL1,
-      "tipoNit": this.selectL2,
+      "tipoNit": (this.selectL2 == '') ? null : this.selectL2,
       "nit": this.numberL3,
       "digitoVerificacion": this.numberL4,
-      "tipoOrganizacion": this.selectL5,
-      "apoyaTerceros": this.selectL6,
-      "procesoAdjudicacion": this.selectL7,
+      "tipoOrganizacion": (this.selectL5 == '') ? null : this.selectL5,
+      "apoyaTerceros": (this.selectL6 == '') ? null : this.selectL6,
+      "procesoAdjudicacion": (this.selectL7 == '') ? null : this.selectL7,
       "gruas": this.check1,
       "patios": this.check2,
       "tramitesTransito": this.check3,
@@ -675,6 +665,7 @@ export class TransitoComponent {
       "recaudoMultas": this.check8,
       "otros": this.check9
     }
+
   }
 
   capturarPreguntas(identificacion:any){
@@ -682,411 +673,493 @@ export class TransitoComponent {
 
     if(identificacion.gruas){
       preguntas.push({
-        "preguntaId":1,
-        "valor":this.textG1,
-        "servicioId":1
-      },{
-        "preguntaId":2,
-        "valor":this.numeroG1,
-        "servicioId":1
-      },{
-        "preguntaId":3,
-        "valor":this.selectG2,
-        "servicioId":1
-      },{
-        "preguntaId":4,
-        "valor":this.textG2,
-        "servicioId":1
-      },{
-        "preguntaId":5,
-        "valor":this.textG3,
-        "servicioId":1
-      },{
-        "preguntaId":6,
-        "valor":this.textG4,
-        "servicioId":1
-      },{
-        "preguntaId":7,
-        "valor":this.numeroG2,
-        "servicioId":1
-      },{
+        "preguntaId": 1,
+        "valor": this.textG1,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 2,
+        "valor": this.numeroG1,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 3,
+        "valor": (this.selectG2 == '') ? null : this.selectG2,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 4,
+        "valor": this.textG2,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 5,
+        "valor": this.textG3,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 6,
+        "valor": this.textG4,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 7,
+        "valor": this.numeroG2,
+        "servicioId": 1
+      },
+      {
         "preguntaId": 17,
         "nombreAlmacenado": this.resArchivoG1?.nombreAlmacenado,
         "nombreOriginalArchivo": this.resArchivoG1?.nombreOriginalArchivo,
         "ruta": this.resArchivoG1?.ruta,
-        "servicioId":1
-      },{
+        "servicioId": 1
+      },
+      {
         "preguntaId": 8,
         "nombreAlmacenado": this.resArchivoG2?.nombreAlmacenado,
         "nombreOriginalArchivo": this.resArchivoG2?.nombreOriginalArchivo,
         "ruta": this.resArchivoG2?.ruta,
-        "servicioId":1
-      },{
-        "preguntaId":9,
-        "valor":this.selectG3,
-        "servicioId":1
-      },{
-        "preguntaId":10,
-        "valor":this.textG5,
-        "servicioId":1
-      },{
-        "preguntaId":11,
-        "valor":this.selectG4,
-        "servicioId":1
-      },{
-        "preguntaId":12,
-        "valor":this.fechaG1,
-        "servicioId":1
-      },{
-        "preguntaId":13,
-        "valor":this.fechaG2,
-        "servicioId":1
-      },{
-        "preguntaId":14,
-        "valor":this.selectG5,
-        "servicioId":1
-      },{
-        "preguntaId":15,
-        "valor":this.numeroG3,
-        "servicioId":1
-      },{
-        "preguntaId":18,
-        "valor":this.numeroG5,
-        "servicioId":1
-      },{
-        "preguntaId":16,
-        "valor":this.textG6,
-        "servicioId":1
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 9,
+        "valor": (this.selectG3 == '') ? null : this.selectG3,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 10,
+        "valor": this.textG5,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 11,
+        "valor": (this.selectG4 == '') ? null : this.selectG4,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 12,
+        "valor": this.fechaG1,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 13,
+        "valor": this.fechaG2,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 14,
+        "valor": (this.selectG5 == '') ? null : this.selectG5,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 15,
+        "valor": this.numeroG3,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 18,
+        "valor": this.numeroG5,
+        "servicioId": 1
+      },
+      {
+        "preguntaId": 16,
+        "valor": this.textG6,
+        "servicioId": 1
       }
 
     )
     }
 
     if(identificacion.patios){
-      preguntas.push({
-        "preguntaId":1,
-        "valor":this.textP1,
-        "servicioId":2
-      },{
-        "preguntaId":2,
-        "valor":this.numeroP1,
-        "servicioId":2
-      },{
-        "preguntaId":3,
-        "valor":this.selectP2,
-        "servicioId":2
-      },{
-        "preguntaId":4,
-        "valor":this.textP2,
-        "servicioId":2
-      },{
-        "preguntaId":5,
-        "valor":this.textP3,
-        "servicioId":2
-      },{
-        "preguntaId":6,
-        "valor":this.textP4,
-        "servicioId":2
-      },{
-        "preguntaId":7,
-        "valor":this.numeroP2,
-        "servicioId":2
-      },{
-        "preguntaId": 17,
-        "nombreAlmacenado": this.resArchivoP1?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resArchivoP1?.nombreOriginalArchivo,
-        "ruta": this.resArchivoP1?.ruta,
-        "servicioId":2
-      },{
-        "preguntaId": 8,
-        "nombreAlmacenado": this.resArchivoP2?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resArchivoP2?.nombreOriginalArchivo,
-        "ruta": this.resArchivoP2?.ruta,
-        "servicioId":2
-      },{
-        "preguntaId":9,
-        "valor":this.selectP3,
-        "servicioId":2
-      },{
-        "preguntaId":10,
-        "valor":this.textP5,
-        "servicioId":2
-      },{
-        "preguntaId":11,
-        "valor":this.selectP4,
-        "servicioId":2
-      },{
-        "preguntaId":12,
-        "valor":this.fechaP1,
-        "servicioId":2
-      },{
-        "preguntaId":13,
-        "valor":this.fechaP2,
-        "servicioId":2
-      },{
-        "preguntaId":14,
-        "valor":this.selectP5,
-        "servicioId":2
-      },{
-        "preguntaId":15,
-        "valor":this.numeroP3,
-        "servicioId":2
-      },{
-        "preguntaId":18,
-        "valor":this.numeroP5,
-        "servicioId":2
-      },{
-        "preguntaId":16,
-        "valor":this.textP6,
-        "servicioId":2
-      }
-
-    )
+      preguntas.push(
+        {
+          "preguntaId": 1,
+          "valor": this.textP1,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 2,
+          "valor": this.numeroP1,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 3,
+          "valor": (this.selectP2 == '') ? null : this.selectP2,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 4,
+          "valor": this.textP2,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 5,
+          "valor": this.textP3,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 6,
+          "valor": this.textP4,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 7,
+          "valor": this.numeroP2,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 17,
+          "nombreAlmacenado": this.resArchivoP1?.nombreAlmacenado,
+          "nombreOriginalArchivo": this.resArchivoP1?.nombreOriginalArchivo,
+          "ruta": this.resArchivoP1?.ruta,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 8,
+          "nombreAlmacenado": this.resArchivoP2?.nombreAlmacenado,
+          "nombreOriginalArchivo": this.resArchivoP2?.nombreOriginalArchivo,
+          "ruta": this.resArchivoP2?.ruta,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 9,
+          "valor": (this.selectP3 == '') ? null : this.selectP3,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 10,
+          "valor": this.textP5,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 11,
+          "valor": (this.selectP4 == '') ? null : this.selectP4,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 12,
+          "valor": this.fechaP1,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 13,
+          "valor": this.fechaP2,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 14,
+          "valor": (this.selectP5 == '') ? null : this.selectP5,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 15,
+          "valor": this.numeroP3,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 18,
+          "valor": this.numeroP5,
+          "servicioId": 2
+        },
+        {
+          "preguntaId": 16,
+          "valor": this.textP6,
+          "servicioId": 2
+        }
+      )
     }
 
     if(identificacion.tramitesTransito){
       preguntas.push({
-        "preguntaId":1,
-        "valor":this.textT1,
-        "servicioId":3
-      },{
-        "preguntaId":2,
-        "valor":this.numeroT1,
-        "servicioId":3
-      },{
-        "preguntaId":3,
-        "valor":this.selectT2,
-        "servicioId":3
-      },{
-        "preguntaId":4,
-        "valor":this.textT2,
-        "servicioId":3
-      },{
-        "preguntaId":5,
-        "valor":this.textT3,
-        "servicioId":3
-      },{
-        "preguntaId":6,
-        "valor":this.textT4,
-        "servicioId":3
-      },{
-        "preguntaId":7,
-        "valor":this.numeroT2,
-        "servicioId":3
-      },{
+        "preguntaId": 1,
+        "valor": this.textT1,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 2,
+        "valor": this.numeroT1,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 3,
+        "valor": (this.selectT2 == '') ? null : this.selectT2,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 4,
+        "valor": this.textT2,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 5,
+        "valor": this.textT3,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 6,
+        "valor": this.textT4,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 7,
+        "valor": this.numeroT2,
+        "servicioId": 3
+      },
+      {
         "preguntaId": 17,
         "nombreAlmacenado": this.resArchivoT1?.nombreAlmacenado,
         "nombreOriginalArchivo": this.resArchivoT1?.nombreOriginalArchivo,
         "ruta": this.resArchivoT1?.ruta,
-        "servicioId":3
-      },{
+        "servicioId": 3
+      },
+      {
         "preguntaId": 8,
         "nombreAlmacenado": this.resArchivoT2?.nombreAlmacenado,
         "nombreOriginalArchivo": this.resArchivoT2?.nombreOriginalArchivo,
         "ruta": this.resArchivoT2?.ruta,
-        "servicioId":3
-      },{
-        "preguntaId":9,
-        "valor":this.selectT3,
-        "servicioId":3
-      },{
-        "preguntaId":10,
-        "valor":this.textT5,
-        "servicioId":3
-      },{
-        "preguntaId":11,
-        "valor":this.selectT4,
-        "servicioId":3
-      },{
-        "preguntaId":12,
-        "valor":this.fechaT1,
-        "servicioId":3
-      },{
-        "preguntaId":13,
-        "valor":this.fechaT2,
-        "servicioId":3
-      },{
-        "preguntaId":14,
-        "valor":this.selectT5,
-        "servicioId":3
-      },{
-        "preguntaId":15,
-        "valor":this.numeroT3,
-        "servicioId":3
-      },{
-        "preguntaId":16,
-        "valor":this.textT6,
-        "servicioId":3
-      },{
-        "preguntaId":18,
-        "valor":this.numeroT5,
-        "servicioId":3
-      }
-    )
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 9,
+        "valor": (this.selectT3 == '') ? null : this.selectT3,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 10,
+        "valor": this.textT5,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 11,
+        "valor": (this.selectT4 == '') ? null : this.selectT4,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 12,
+        "valor": this.fechaT1,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 13,
+        "valor": this.fechaT2,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 14,
+        "valor": (this.selectT5 == '') ? null : this.selectT5,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 15,
+        "valor": this.numeroT3,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 16,
+        "valor": this.textT6,
+        "servicioId": 3
+      },
+      {
+        "preguntaId": 18,
+        "valor": this.numeroT5,
+        "servicioId": 3
+      })
     }
 
     if(identificacion.deteccionInfracciones){
       preguntas.push({
-        "preguntaId":1,
-        "valor":this.textD1,
-        "servicioId":4
-      },{
-        "preguntaId":2,
-        "valor":this.numeroD1,
-        "servicioId":4
-      },{
-        "preguntaId":3,
-        "valor":this.selectD2,
-        "servicioId":4
-      },{
-        "preguntaId":4,
-        "valor":this.textD2,
-        "servicioId":4
-      },{
-        "preguntaId":5,
-        "valor":this.textD3,
-        "servicioId":4
-      },{
-        "preguntaId":6,
-        "valor":this.textD4,
-        "servicioId":4
-      },{
-        "preguntaId":7,
-        "valor":this.numeroD2,
-        "servicioId":4
-      },{
+        "preguntaId": 1,
+        "valor": this.textD1,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 2,
+        "valor": this.numeroD1,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 3,
+        "valor": (this.selectD2 == '') ? null : this.selectD2,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 4,
+        "valor": this.textD2,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 5,
+        "valor": this.textD3,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 6,
+        "valor": this.textD4,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 7,
+        "valor": this.numeroD2,
+        "servicioId": 4
+      },
+      {
         "preguntaId": 17,
         "nombreAlmacenado": this.resArchivoD1?.nombreAlmacenado,
         "nombreOriginalArchivo": this.resArchivoD1?.nombreOriginalArchivo,
         "ruta": this.resArchivoD1?.ruta,
-        "servicioId":1
-      },{
+        "servicioId": 1
+      },
+      {
         "preguntaId": 8,
         "nombreAlmacenado": this.resArchivoD2?.nombreAlmacenado,
         "nombreOriginalArchivo": this.resArchivoD2?.nombreOriginalArchivo,
         "ruta": this.resArchivoD2?.ruta,
-        "servicioId":4
-      },{
-        "preguntaId":9,
-        "valor":this.selectD3,
-        "servicioId":4
-      },{
-        "preguntaId":10,
-        "valor":this.textD5,
-        "servicioId":4
-      },{
-        "preguntaId":11,
-        "valor":this.selectD4,
-        "servicioId":4
-      },{
-        "preguntaId":12,
-        "valor":this.fechaD1,
-        "servicioId":4
-      },{
-        "preguntaId":13,
-        "valor":this.fechaD2,
-        "servicioId":4
-      },{
-        "preguntaId":14,
-        "valor":this.selectD5,
-        "servicioId":4
-      },{
-        "preguntaId":15,
-        "valor":this.numeroD3,
-        "servicioId":4
-      },{
-        "preguntaId":16,
-        "valor":this.textD6,
-        "servicioId":4
-      },{
-        "preguntaId":18,
-        "valor":this.numeroD5,
-        "servicioId":4
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 9,
+        "valor": (this.selectD3 == '') ? null : this.selectD3,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 10,
+        "valor": this.textD5,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 11,
+        "valor": (this.selectD4 == '') ? null : this.selectD4,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 12,
+        "valor": this.fechaD1,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 13,
+        "valor": this.fechaD2,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 14,
+        "valor": (this.selectD5 == '') ? null : this.selectD5,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 15,
+        "valor": this.numeroD3,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 16,
+        "valor": this.textD6,
+        "servicioId": 4
+      },
+      {
+        "preguntaId": 18,
+        "valor": this.numeroD5,
+        "servicioId": 4
       }
-
-    )
+    );
     }
 
     if(identificacion.procesosContravencionales){
       preguntas.push({
-        "preguntaId":1,
-        "valor":this.textPC1,
-        "servicioId":5
-      },{
-        "preguntaId":2,
-        "valor":this.numeroPC1,
-        "servicioId":5
-      },{
-        "preguntaId":3,
-        "valor":this.selectPC2,
-        "servicioId":5
-      },{
-        "preguntaId":4,
-        "valor":this.textPC2,
-        "servicioId":5
-      },{
-        "preguntaId":5,
-        "valor":this.textPC3,
-        "servicioId":5
-      },{
-        "preguntaId":6,
-        "valor":this.textPC4,
-        "servicioId":5
-      },{
-        "preguntaId":7,
-        "valor":this.numeroPC2,
-        "servicioId":5
-      },{
+        "preguntaId": 1,
+        "valor": this.textPC1,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 2,
+        "valor": this.numeroPC1,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 3,
+        "valor": (this.selectPC2 == '') ? null : this.selectPC2,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 4,
+        "valor": this.textPC2,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 5,
+        "valor": this.textPC3,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 6,
+        "valor": this.textPC4,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 7,
+        "valor": this.numeroPC2,
+        "servicioId": 5
+      },
+      {
         "preguntaId": 17,
         "nombreAlmacenado": this.resArchivoPC1?.nombreAlmacenado,
         "nombreOriginalArchivo": this.resArchivoPC1?.nombreOriginalArchivo,
         "ruta": this.resArchivoPC1?.ruta,
-        "servicioId":5
-      },{
+        "servicioId": 5
+      },
+      {
         "preguntaId": 8,
         "nombreAlmacenado": this.resArchivoPC2?.nombreAlmacenado,
         "nombreOriginalArchivo": this.resArchivoPC2?.nombreOriginalArchivo,
         "ruta": this.resArchivoPC2?.ruta,
-        "servicioId":5
-      },{
-        "preguntaId":9,
-        "valor":this.selectPC3,
-        "servicioId":5
-      },{
-        "preguntaId":10,
-        "valor":this.textPC5,
-        "servicioId":5
-      },{
-        "preguntaId":11,
-        "valor":this.selectPC4,
-        "servicioId":5
-      },{
-        "preguntaId":12,
-        "valor":this.fechaPC1,
-        "servicioId":5
-      },{
-        "preguntaId":13,
-        "valor":this.fechaPC2,
-        "servicioId":5
-      },{
-        "preguntaId":14,
-        "valor":this.selectPC5,
-        "servicioId":5
-      },{
-        "preguntaId":15,
-        "valor":this.numeroPC3,
-        "servicioId":5
-      },{
-        "preguntaId":16,
-        "valor":this.textPC6,
-        "servicioId":5
-      },{
-        "preguntaId":18,
-        "valor":this.numeroPC5,
-        "servicioId":5
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 9,
+        "valor": (this.selectPC3 == '') ? null : this.selectPC3,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 10,
+        "valor": this.textPC5,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 11,
+        "valor": (this.selectPC4 == '') ? null : this.selectPC4,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 12,
+        "valor": this.fechaPC1,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 13,
+        "valor": this.fechaPC2,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 14,
+        "valor": (this.selectPC5 == '') ? null : this.selectPC5,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 15,
+        "valor": this.numeroPC3,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 16,
+        "valor": this.textPC6,
+        "servicioId": 5
+      },
+      {
+        "preguntaId": 18,
+        "valor": this.numeroPC5,
+        "servicioId": 5
       }
-
-    )
+    );
     }
 
     if(identificacion.procesoCobroCoactivo){
@@ -1100,7 +1173,7 @@ export class TransitoComponent {
         "servicioId":6
       },{
         "preguntaId":3,
-        "valor":this.selectPCC2,
+        "valor":(this.selectPCC2 == '') ? null : this.selectPCC2,
         "servicioId":6
       },{
         "preguntaId":4,
@@ -1132,7 +1205,7 @@ export class TransitoComponent {
         "servicioId":6
       },{
         "preguntaId":9,
-        "valor":this.selectPCC3,
+        "valor":(this.selectPCC3 == '') ? null : this.selectPCC3,
         "servicioId":6
       },{
         "preguntaId":10,
@@ -1140,7 +1213,7 @@ export class TransitoComponent {
         "servicioId":6
       },{
         "preguntaId":11,
-        "valor":this.selectPCC4,
+        "valor":(this.selectPCC4 == '') ? null : this.selectPCC4,
         "servicioId":6
       },{
         "preguntaId":12,
@@ -1152,7 +1225,7 @@ export class TransitoComponent {
         "servicioId":6
       },{
         "preguntaId":14,
-        "valor":this.selectPCC5,
+        "valor":(this.selectPCC5 == '') ? null : this.selectPCC5,
         "servicioId":6
       },{
         "preguntaId":15,
@@ -1182,7 +1255,7 @@ export class TransitoComponent {
         "servicioId":7
       },{
         "preguntaId":3,
-        "valor":this.selectPCP2,
+        "valor":(this.selectPCP2 == '') ? null : this.selectPCP2,
         "servicioId":7
       },{
         "preguntaId":4,
@@ -1205,16 +1278,16 @@ export class TransitoComponent {
         "nombreAlmacenado": this.resArchivoPCP1?.nombreAlmacenado,
         "nombreOriginalArchivo": this.resArchivoPCP1?.nombreOriginalArchivo,
         "ruta": this.resArchivoPCP1?.ruta,
-        "servicioId":1
+        "servicioId":7
       },{
         "preguntaId": 8,
         "nombreAlmacenado": this.resArchivoPCP2?.nombreAlmacenado,
         "nombreOriginalArchivo": this.resArchivoPCP2?.nombreOriginalArchivo,
         "ruta": this.resArchivoPCP2?.ruta,
-        "servicioId":1
+        "servicioId":7
       },{
         "preguntaId":9,
-        "valor":this.selectPCP3,
+        "valor":(this.selectPCP3 == '') ? null : this.selectPCP3,
         "servicioId":7
       },{
         "preguntaId":10,
@@ -1222,7 +1295,7 @@ export class TransitoComponent {
         "servicioId":7
       },{
         "preguntaId":11,
-        "valor":this.selectPCP4,
+        "valor":(this.selectPCP4 == '') ? null : this.selectPCP4,
         "servicioId":7
       },{
         "preguntaId":12,
@@ -1234,7 +1307,7 @@ export class TransitoComponent {
         "servicioId":7
       },{
         "preguntaId":14,
-        "valor":this.selectPCP5,
+        "valor":(this.selectPCP5 == '') ? null : this.selectPCP5,
         "servicioId":7
       },{
         "preguntaId":15,
@@ -1264,7 +1337,7 @@ export class TransitoComponent {
         "servicioId":8
       },{
         "preguntaId":3,
-        "valor":this.selectR2,
+        "valor":(this.selectR2 == '') ? null : this.selectR2,
         "servicioId":8
       },{
         "preguntaId":4,
@@ -1296,7 +1369,7 @@ export class TransitoComponent {
         "servicioId":8
       },{
         "preguntaId":9,
-        "valor":this.selectR3,
+        "valor":(this.selectR3 == '') ? null : this.selectR3,
         "servicioId":8
       },{
         "preguntaId":10,
@@ -1304,7 +1377,7 @@ export class TransitoComponent {
         "servicioId":8
       },{
         "preguntaId":11,
-        "valor":this.selectR4,
+        "valor":(this.selectR4 == '') ? null : this.selectR4,
         "servicioId":8
       },{
         "preguntaId":12,
@@ -1316,7 +1389,7 @@ export class TransitoComponent {
         "servicioId":8
       },{
         "preguntaId":14,
-        "valor":this.selectR5,
+        "valor":(this.selectR5 == '') ? null : this.selectR5,
         "servicioId":8
       },{
         "preguntaId":15,
@@ -1350,7 +1423,7 @@ export class TransitoComponent {
         "servicioId":9
       },{
         "preguntaId":3,
-        "valor":this.selectO2,
+        "valor":(this.selectO2 == '') ? null : this.selectO2,
         "servicioId":9
       },{
         "preguntaId":4,
@@ -1382,7 +1455,7 @@ export class TransitoComponent {
         "servicioId":9
       },{
         "preguntaId":9,
-        "valor":this.selectO3,
+        "valor":(this.selectO3 == '') ? null : this.selectO3,
         "servicioId":9
       },{
         "preguntaId":10,
@@ -1390,7 +1463,7 @@ export class TransitoComponent {
         "servicioId":9
       },{
         "preguntaId":11,
-        "valor":this.selectO4,
+        "valor":(this.selectO4 == '') ? null : this.selectO4,
         "servicioId":9
       },{
         "preguntaId":12,
@@ -1402,7 +1475,7 @@ export class TransitoComponent {
         "servicioId":9
       },{
         "preguntaId":14,
-        "valor":this.selectO5,
+        "valor":(this.selectO5 == '') ? null : this.selectO5,
         "servicioId":9
       },{
         "preguntaId":15,

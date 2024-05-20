@@ -13,6 +13,7 @@ import { FormularioEjecucionComponent } from './ejecucion/componentes/formulario
 import { PaginaEjecucionComponent } from './ejecucion/paginas/pagina-ejecucion/pagina-ejecucion.component';
 import { AereosComponent } from './ejecucion/componentes/aereos/aereos.component';
 import { TransitoComponent } from './ejecucion/componentes/transito/transito.component';
+import { AerodromosComponent } from './ejecucion/componentes/aerodromos/aerodromos.component';
 
 
 
@@ -49,6 +50,10 @@ const routes: Routes = [
       {
         path: 'concesiones',
         component: AereosComponent
+      },
+      {
+        path: 'aerodromos',
+        component: AerodromosComponent
       },
     ]
   },
