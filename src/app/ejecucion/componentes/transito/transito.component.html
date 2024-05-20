@@ -379,7 +379,7 @@
                   [(ngModel)]="archivoG1" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'G1'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <span class="validacion" *ngIf="verificarFaltantes(2,16,1)">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="preguntas.gruas[16]?.nombreOriginalArchivo != ''">
@@ -693,7 +693,7 @@
                   [(ngModel)]="archivoP1" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'P1'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <span class="validacion" *ngIf="verificarFaltantes(2,16,2)">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,2)">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="preguntas.patios[16]?.nombreOriginalArchivo != ''">
@@ -1007,7 +1007,7 @@
                   [(ngModel)]="archivoT1" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'T1'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <span class="validacion" *ngIf="verificarFaltantes(2,16,3)">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,3)">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="preguntas.tramitesTransito[16]?.nombreOriginalArchivo != ''">
@@ -1324,8 +1324,8 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,17,4)">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="preguntas.deteccionInfracciones[17]?.nombreOriginalArchivo != ''">
-                  {{preguntas.deteccionInfracciones[17]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.deteccionInfracciones[16]?.nombreOriginalArchivo != ''">
+                  {{preguntas.deteccionInfracciones[16]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -1339,8 +1339,8 @@
                 <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="preguntas.deteccionInfracciones[8]?.nombreOriginalArchivo != ''">
-                  {{preguntas.deteccionInfracciones[8]?.nombreOriginalArchivo}}
+                <span class="texto-azul" *ngIf="preguntas.deteccionInfracciones[7]?.nombreOriginalArchivo != ''">
+                  {{preguntas.deteccionInfracciones[7]?.nombreOriginalArchivo}}
                 </span>
               </td>
             </tr>
@@ -1635,7 +1635,7 @@
                   [(ngModel)]="archivoPC1" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'PC1'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <span class="validacion" *ngIf="verificarFaltantes(2,16,5)">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,5)">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="preguntas.procesosContravencionales[16]?.nombreOriginalArchivo != ''">
@@ -1949,7 +1949,7 @@
                   [(ngModel)]="archivoPCC1" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'PCC1'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <span class="validacion" *ngIf="verificarFaltantes(2,16,6)">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,6)">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="preguntas.procesoCobroCoactivo[16]?.nombreOriginalArchivo != ''">
@@ -2263,7 +2263,7 @@
                   [(ngModel)]="archivoPCP1" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'PCP1'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <span class="validacion" *ngIf="verificarFaltantes(2,16,7)">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,7)">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="preguntas.procesoCobroPersuasivo[16]?.nombreOriginalArchivo != ''">
@@ -2577,7 +2577,7 @@
                   [(ngModel)]="archivoR1" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'R1'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <span class="validacion" *ngIf="verificarFaltantes(2,16,8)">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,8)">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="preguntas.recaudoMultas[16]?.nombreOriginalArchivo != ''">
@@ -2909,7 +2909,7 @@
                   [(ngModel)]="archivoO1" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'O1'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <span class="validacion" *ngIf="verificarFaltantes(2,16,9)">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,9)">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="preguntas.otros[16]?.nombreOriginalArchivo != ''">

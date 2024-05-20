@@ -1007,7 +1007,7 @@ export class TransitoComponent {
         "nombreAlmacenado": this.resArchivoD1?.nombreAlmacenado,
         "nombreOriginalArchivo": this.resArchivoD1?.nombreOriginalArchivo,
         "ruta": this.resArchivoD1?.ruta,
-        "servicioId": 1
+        "servicioId": 4
       },
       {
         "preguntaId": 8,
