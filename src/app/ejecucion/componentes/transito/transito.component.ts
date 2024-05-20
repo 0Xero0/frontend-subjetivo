@@ -466,6 +466,11 @@ export class TransitoComponent {
             titleText:"Enviado a ST exitosamente",
             icon: "success"
           })
+        }else{
+          Swal.fire({
+            titleText:"Faltan campos por completar",
+            icon: "warning"
+          })
         }
         //console.log(respuesta);
       }

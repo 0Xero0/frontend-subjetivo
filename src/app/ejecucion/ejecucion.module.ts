@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { InformacionGeneralModule } from '../informacion-general/informacion-general.module';
 import { AereosComponent } from './componentes/aereos/aereos.component';
 import { TransitoComponent } from './componentes/transito/transito.component';
+import { AerodromosComponent } from './componentes/aerodromos/aerodromos.component';
 
 
 
@@ -20,6 +21,7 @@ import { TransitoComponent } from './componentes/transito/transito.component';
     PaginaEjecucionComponent,
     AereosComponent,
     TransitoComponent,
+    AerodromosComponent,
   ],
   imports: [
     CommonModule,
