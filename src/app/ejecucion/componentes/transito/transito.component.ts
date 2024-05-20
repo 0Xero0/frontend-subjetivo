@@ -21,6 +21,8 @@ export class TransitoComponent {
   soloLectura: boolean = false
   aprobado: boolean = false
   faltantes?: Faltantes
+  fecha: Date;
+  fechaActual: string;
 
   servicios = [
     {
@@ -29,16 +31,6 @@ export class TransitoComponent {
       indice: 'G'
     }
   ]
-
-/*   "gruas": this.check1,
-      "patios": this.check2,
-      "tramitesTransito": this.check3,
-      "deteccionInfracciones": this.check4,
-      "procesosContravencionales": this.check5,
-      "procesoCobroCoactivo": this.check6,
-      "procesoCobroPersuasivo": this.check7,
-      "recaudoMultas": this.check8,
-      "otros": this.check9 */
 
   //Variables tabla 1
   textL1: string = "";selectL2: string = "";numberL3: string = "";numberL4: string = "";selectL5: string = "";selectL6: string = "";
@@ -135,6 +127,8 @@ export class TransitoComponent {
 
   constructor(private servicio: ServicioEjecucion, private router: Router, private servicioLocalStorage: ServicioLocalStorage){
     this.obtenerTransitos()
+    this.fecha = new Date()
+    this.fechaActual = this.formatearFecha(this.fecha)
   }
   ngOnChanges(changes: SimpleChanges): void {
   }
@@ -142,6 +136,12 @@ export class TransitoComponent {
   ngOnInit(): void {
     this.obtenerMaestras()
     //this.enviarST()
+  }
+  formatearFecha(fecha: Date): string {
+    const dia = fecha.getDate().toString().padStart(2, '0');
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Los meses empiezan desde 0
+    const anio = fecha.getFullYear();
+    return `${anio}-${mes}-${dia}`;
   }
 
   detectarCambios(){
