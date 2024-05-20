@@ -310,16 +310,17 @@ export class TransitoComponent {
       next: (respuesta:any)=>{
         this.identificacionOrganismo = respuesta['identificacionOrganismo']
         this.preguntas = respuesta['preguntas']
-
+        this.llenarIdentificacion()
+        this.llenarPreguntas(this.preguntas)
+        this.iniciarCambios()
         if(respuesta['editable'] != true){
           this.soloLectura = true
           this.hayCambios = true
           this.cambioG = true; this.cambioP = true; this.cambioT = true; this.cambioD = true; this.cambioPC = true
           this.cambioPCC = true; this.cambioPCP = true; this.cambioR = true; this.cambioO = true
+          this.otroG = true; this.otroP = true; this.otroT = true; this.otroD = true; this.otroPC = true
+          this.otroPCC = true; this.otroPCP = true; this.otroR = true; this.otroO = true
         }
-        this.llenarIdentificacion()
-        this.llenarPreguntas(this.preguntas)
-        this.iniciarCambios()
         //console.log(this.portuarias);
       }
     })
