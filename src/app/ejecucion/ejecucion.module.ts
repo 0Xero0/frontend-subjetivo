@@ -12,6 +12,7 @@ import { InformacionGeneralModule } from '../informacion-general/informacion-gen
 import { AereosComponent } from './componentes/aereos/aereos.component';
 import { TransitoComponent } from './componentes/transito/transito.component';
 import { AerodromosComponent } from './componentes/aerodromos/aerodromos.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 
@@ -24,6 +25,7 @@ import { AerodromosComponent } from './componentes/aerodromos/aerodromos.compone
     AerodromosComponent,
   ],
   imports: [
+    BrowserModule,
     CommonModule,
     NgbModule,
     FormsModule,

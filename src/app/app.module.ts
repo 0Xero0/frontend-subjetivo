@@ -14,6 +14,7 @@ import { AsignacionesModule } from './asignaciones/asignaciones.module';
 import { FormulariosModule } from './formularios/formularios.module';
 import { EjecucionModule } from './ejecucion/ejecucion.module';
 import { TarifasModule } from './tarifas/tarifas.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { TarifasModule } from './tarifas/tarifas.module';
     AlertasModule,
     InputsModule,
     SweetAlert2Module.forRoot(),
+    FormsModule
   ],
   exports:[
   ],
