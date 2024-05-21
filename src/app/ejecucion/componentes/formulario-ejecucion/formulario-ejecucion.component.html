@@ -1,0 +1,903 @@
+<div class="px-sm-2 px-md-3 px-lg-4 my-4">
+  <div class="d-block mb-3 mx-3 text-center">
+    <h1>REPORTE MODELO DE NEGOCIO ESPECIAL PARA SOCIEDADES PORTUARIAS REGIONALES</h1>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <button type="button" class="boton primario delineado" [disabled]="hayCambios" (click)="enviarST()">
+      Enviar a ST
+    </button>
+    <button type="button" class="boton primario relleno" [disabled]="!hayCambios" (click)="guardar()"
+    *ngIf="!aprobado">
+      Guardar
+    </button>
+  </div>
+  <ul class="nav-tabs w-100">
+    <li>
+      <div class="table-responsive">
+        <table class="table">
+          <colgroup>
+            <col style="width: 30px;">
+            <col style="width: 350px;">
+            <col style="width: 300px;">
+            <col style="width: 500px;">
+          </colgroup>
+          <thead><!-- Encabezado 1 de la tabla -->
+            <tr>
+              <th>1-</th>
+              <th colspan="3">Aspectos relacionados con la información societaria</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 16 filas -->
+            <tr><!-- linea 1 -->
+              <td>1</td>
+              <td class="actividad">
+                ¿El libro de accionistas se encuentra inscrito y registrado en camara y comercio?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL1" [(ngModel)]="selectL1"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(1)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 2 -->
+              <td>2</td>
+              <td class="actividad">
+                ¿El libro de actas de asamblea se encuentra inscrito y registrado en cámara de comercio?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL2" [(ngModel)]="selectL2"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(2)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 3 -->
+              <td>3</td>
+              <td class="actividad">
+                ¿Todas las actas de asamblea y/o junta directiva elaboradas se encuentran debidamente asentadas en el
+                libro de actas?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL3" [(ngModel)]="selectL3"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(3)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 4 -->
+              <td>4</td>
+              <td class="actividad">
+                ¿Los Estatutos y las Reformas Estatutarias han sido registradas en cámara de comercio?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL4" [(ngModel)]="selectL4"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(4)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 5 con archivo excel-->
+              <td>5</td>
+              <td class="actividad">
+                ¿La Sociedad presenta litigios o procesos a favor o en contra?
+              </td>
+              <td class="text-center">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL5" (change)="cambioRespuestaSelect($event,5)"
+                  [(ngModel)]="selectL5" (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(5)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td>
+                <p *ngIf="cambioRespuesta == true">
+                  Relación de litigios y/o procesos a favor o en contra detallando: (i)Juzgado,(ii)Clase de
+                  litigio,(iii)Partes,
+                  Pretensiones y/o cuantía, (iv)Estado del proceso,(v)
+                  Probabilidad de éxito.
+                </p>
+                <p class="fs-12px" *ngIf="cambioRespuesta == false">
+                  Certificación firmada indicando que no presenta litigios.
+                </p>
+              </td>
+              <td><!-- Cambio entre excel y pdf -->
+                <fieldset class="d-flex flex-column" *ngIf="cambioRespuesta == true">
+                  <app-input-archivo id="archivoL5" [disabled]="soloLectura" [nombre]="'archivoL5xlsx'"
+                    [(ngModel)]="archivoL5" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,5),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="portuarias[4].nombreOriginalArchivo != '' && portuarias[4].valor == selectL5">
+                      {{portuarias[4].nombreOriginalArchivo}}
+                    </span>
+                  <span>Excel, Máximo 5 Mb</span>
+                </fieldset>
+                <fieldset class="d-flex flex-column" *ngIf="cambioRespuesta == false">
+                  <app-input-archivo id="archivoL5" [disabled]="soloLectura" [nombre]="'ArchivoL5pdf'"
+                    [(ngModel)]="archivoL5" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,5),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="portuarias[4].nombreOriginalArchivo != '' && portuarias[4].valor == selectL5">
+                      {{portuarias[4].nombreOriginalArchivo}}
+                    </span>
+                  <span>PDF, Máximo 5 Mb</span>
+                </fieldset>
+              </td>
+            </tr>
+            <tr><!-- linea 6 -->
+              <td>6</td>
+              <td class="actividad">
+                ¿Se encuentra registrada la provisión en los Estados Financieros,
+                de acuerdo lo establecido con la NIC 37?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL6" [(ngModel)]="selectL6"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 7 -->
+              <td>7</td>
+              <td class="actividad">
+                ¿Han adelantado procesos de fusión, escisión y/o disminuciones de capital con efectivo reembolso de
+                aportes?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL7" (change)="cambioRespuestaSelect($event,7)"
+                  [(ngModel)]="selectL7" (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of fusiones" [value]="opcion.id">
+                      {{opcion.nombre}}
+                    </option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 8 con input numerico y archivo pdf-->
+              <td>8</td>
+              <td class="actividad">
+                Si su respuesta al punto anterior es afirmativa, indique el acto administrativo de la Superintendencia
+                que les autorizó adelantar este proceso.
+              </td>
+              <td>
+                <ng-container>
+                  <app-input-numerico id="numeroL8" [(ngModel)]="numberL8" (ngModelChange)="detectarCambios()"
+                    [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="!numerico"/>
+                </ng-container>
+                <span *ngIf="numerico">
+                  <span class="validacion" *ngIf="verificarFaltantes(8)">Falta por completar</span>
+                </span>
+
+              </td>
+              <td>
+                <p *ngIf="cambioT1L7 == true">Acto administrativo.</p>
+                <p *ngIf="cambioT1L7 == false">Anexar certificación firmada que indique lo que corresponde.</p>
+              </td>
+              <td>
+                <fieldset class="d-flex flex-column" *ngIf="cambioT1L7 != undefined">
+                  <app-input-archivo id="archivoL8" [disabled]="soloLectura" [nombre]="'ArchivoL8pdf'"
+                    [(ngModel)]="archivoL8" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,8),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="portuarias[7].nombreOriginalArchivo != '' && selectL7 == portuarias[6].valor">
+                      {{portuarias[7].nombreOriginalArchivo}}
+                    </span>
+                  <span>PDF, Máximo 5 Mb</span>
+                </fieldset>
+              </td>
+            </tr>
+            <tr><!-- linea 9 -->
+              <td>9</td>
+              <td class="actividad">
+                ¿Han realizado el registro de esta reforma estatutaria en cámara de comercio?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL9" [(ngModel)]="selectL9"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sinoAplica" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 10 -->
+              <td>10</td>
+              <td class="actividad">
+                ¿Tienen configurada una situación de control?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL10" [(ngModel)]="selectL10"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(10)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 11 -->
+              <td>11</td>
+              <td class="actividad">
+                ¿Tienen conformado un grupo empresarial?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL11" [(ngModel)]="selectL11"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(11)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 12 -->
+              <td>12</td>
+              <td class="actividad">
+                En virtud del artículo 30 de la Ley 222, ¿han realizado la inscripción de la situación de control y/o
+                grupo empresarial en el Registro Mercantil?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL12" [(ngModel)]="selectL12"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sinoAplica" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(12)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 13 -->
+              <td>13</td>
+              <td class="actividad">
+                ¿Cuenta con inversiones en subordinadas?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL13" [(ngModel)]="selectL13"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of inversiones" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(13)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 14 -->
+              <td>14</td>
+              <td class="actividad">
+                Para la determinación del cumplimiento de la hipótesis de negocio en marcha, ¿la sociedad previamente ha
+                evaluado los indicadores del Decreto 1378 de 2021 y del Anexo 5 del Decreto 2420 del 2015?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL14" [(ngModel)]="selectL14"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(14)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 15 -->
+              <td>15</td>
+              <td class="actividad">
+                ¿El resultado del cálculo de los anteriores indicadores ha sido dado a conocer al máximo órgano social
+                conforme lo establecido en el artículo 4 de la Ley 2069 de 2020?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL15" [(ngModel)]="selectL15"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(15)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16 -->
+              <td>16</td>
+              <td class="actividad">
+                ¿El Revisor Fiscal en el Dictamen ha emitido opinión desfavorable sobre el cumplimiento de la hipótesis
+                de negocio en marcha, de acuerdo con la responsabilidad otorgada al Revisor Fiscal en la NIA 570?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL16" [(ngModel)]="selectL16"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(16)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead><!-- Encabezado 2 de la tabla -->
+            <tr>
+              <th>2-</th>
+              <th colspan="3">Aspectos relacionados con la información administrativa</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 3 filas -->
+            <tr><!-- linea 1T2 -- L17-->
+              <td>1</td>
+              <td class="actividad">
+                ¿Se encuentra al día en el pago de la contribución especial?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL1T2" [(ngModel)]="selectL17"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(17)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 2T2 -- L18-->
+              <td>2</td>
+              <td class="actividad">
+                ¿Se encuentra al día en el pago de la contraprestación?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL2T2" [(ngModel)]="selectL18"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(18)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 3T2 -- L19-->
+              <td>3</td>
+              <td class="actividad">
+                ¿La sociedad cuenta con un software contable debidamente licenciado conforme lo establecido en la Ley
+                603 del 2000?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL3T2" [(ngModel)]="selectL19"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(19)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead><!-- Encabezado 3 de la tabla -->
+            <tr>
+              <th>3-</th>
+              <th colspan="3">Aspectos relacionados con la información financiero, económico y/o contable</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 9 filas -->
+            <tr><!-- linea 1T3 -- L20-->
+              <td>1</td>
+              <td class="actividad">
+                ¿La presentación de Estados Financieros está alineada con los parámetros fijados en la NIC 1 o la
+                sección 3 del Estándar para Pymes "Preparación de estados financieros"?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL1T3" [(ngModel)]="selectL20"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(20)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 2T3 -- L21-->
+              <td>2</td>
+              <td class="actividad">
+                ¿La Sociedad cuenta con un manual de políticas contables conforme al marco normativo que le corresponde
+                aplicar y estas son actualizadas periódicamente?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL2T3" [(ngModel)]="selectL21"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(21)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 3T3 -- L22-->
+              <td>3</td>
+              <td class="actividad">
+                ¿Los Estados Financieros presentan información reexpresada?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL3T3" (change)="cambioRespuestaSelect($event,22)"
+                  [(ngModel)]="selectL22" (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(22)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 4T3 -- L23-->
+              <td>4</td>
+              <td class="actividad">
+                Si su respuesta al punto anterior es afirmativa, ¿la información reexpresada corresponde a?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL4T3" [disabled]="cambioT3L3"
+                  [(ngModel)]="selectL23" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of financierosN" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span *ngIf="!cambioT3L3">
+                    <span class="validacion" *ngIf="verificarFaltantes(23)">Falta por completar</span>
+                  </span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 5T3 con archivo pdf -- L24-->
+              <td>5</td>
+              <td class="actividad">
+                Indicar si tiene cuentas por pagar con vencimientos superiores a 90 días.
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL5T3" (change)="cambioRespuestaSelect($event,24)"
+                  [(ngModel)]="selectL24" (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(24)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td>
+                <p *ngIf="cambioT3L5 == true">
+                  Relación de cuentas por pagar del pasivo externo por edades con vencimientos superiores a 90 días,
+                  extraído del libro auxiliar donde se identifique: NIT-Razón Social-Valor, el cual debe estar firmado por
+                  el Representante Legal, Contador Público y/o Revisor Fiscal en el caso que aplique.
+                </p>
+                <p *ngIf="cambioT3L5 == false">
+                  Anexar certificado indicando que no tiene cuentas por pagar con vencimientos superiores a 90 días.
+                </p>
+              </td>
+              <td>
+                <fieldset class="d-flex flex-column" *ngIf="cambioT3L5 == true || cambioT3L5 == false">
+                  <app-input-archivo id="archivoL5T3" [disabled]="soloLectura" [nombre]="'archivoL5T3pdf'"
+                    [(ngModel)]="archivoL5T3" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,24),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="portuarias[23].nombreOriginalArchivo != '' && selectL24 == portuarias[23].valor">
+                      {{portuarias[23].nombreOriginalArchivo}}
+                    </span>
+                  <span>PDF, Máximo 5 Mb</span>
+                </fieldset>
+              </td>
+            </tr>
+            <tr><!-- linea 6T3 -- L25-->
+              <td>6</td>
+              <td class="actividad">
+                En virtud del contrato de concesión, ¿Ha desarrollado actividades que permitieron la generación de
+                ingresos para la presente vigencia?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL6T3" [(ngModel)]="selectL25"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(25)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 7T3 con archivo excel  Pendiente -- L26-->
+              <td>7</td>
+              <td class="actividad">
+                Para el desarrollo de la actividad económica, ¿Qué clase de equipos utiliza?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL7T3" (change)="cambioRespuestaSelect($event,26)"
+                  [(ngModel)]="selectL26" (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of equipos" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(26)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td>
+                <p *ngIf="cambioT3L7 == true">
+                  Relación en la que se discrimine el tipo de equipo y si el reconocimiento del equipo dentro del activo
+                  se encuentra registrado como propio o arrendado.
+                </p>
+                <p *ngIf="cambioT3L7 == false">Anexar PDF con certificación que indique lo correspondiente.</p>
+              </td>
+              <td>
+                <fieldset class="d-flex flex-column" *ngIf="cambioT3L7 == true">
+                  <app-input-archivo id="archivoL7T3" [disabled]="soloLectura" [nombre]="'archivoL7T3pdf'"
+                    [(ngModel)]="archivoL7T3" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,26),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="portuarias[25].nombreOriginalArchivo != '' && selectL26 == portuarias[25].valor">
+                      {{portuarias[25].nombreOriginalArchivo}}
+                    </span>
+                  <span>Excel, Máximo 5 Mb</span>
+                </fieldset>
+                <fieldset class="d-flex flex-column" *ngIf="cambioT3L7 == false">
+                  <app-input-archivo id="archivoL7T3" [disabled]="soloLectura" [nombre]="'archivoL7T3pdf'"
+                    [(ngModel)]="archivoL7T3" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,26),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="portuarias[25].nombreOriginalArchivo != '' && selectL26 == portuarias[25].valor">
+                      {{portuarias[25].nombreOriginalArchivo}}
+                    </span>
+                  <span>PDF, Máximo 5 Mb</span>
+                </fieldset>
+              </td>
+            </tr>
+            <tr><!-- linea 8T3 -- L27-->
+              <td>8</td>
+              <td class="actividad">
+                Indicar si realizan transacciones con partes relacionadas y se encuentran discriminadas en los Estados
+                Financieros.
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL8T3" (change)="cambioRespuestaSelect($event,27)"
+                  [(ngModel)]="selectL27" (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(27)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 9T3 -- L28-->
+              <td>9</td>
+              <td class="actividad">
+                Si su respuesta al punto anterior es afirmativa, ¿se encuentran discriminadas en las Notas a los Estados
+                Financieros las transacciones con partes relacionadas?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL9T3" [disabled]="cambioT3L8"
+                  [(ngModel)]="selectL28" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span *ngIf="!cambioT3L8">
+                    <span class="validacion" *ngIf="verificarFaltantes(28)">Falta por completar</span>
+                  </span>
+
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead><!-- Encabezado 4 de la tabla -->
+            <tr>
+              <th>4-</th>
+              <th colspan="3">Aspectos relacionados con la información operativa</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 5 filas -->
+            <tr><!-- linea 1T4 con archivo excel -- L29-->
+              <td>1</td>
+              <td class="actividad">
+                ¿Han dado cumplimiento al plan de inversiones establecido en el contrato de concesión?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL1T4" (change)="cambioRespuestaSelect($event, 29)"
+                  [(ngModel)]="selectL29" (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(29)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td>
+                <p *ngIf="cambioT4L1 == true || cambioT4L1 == false">Plan de inversiones.</p>
+              </td>
+              <td>
+                <fieldset class="d-flex flex-column" *ngIf="cambioT4L1 == true || cambioT4L1 == false">
+                  <app-input-archivo id="archivoL1T4" [disabled]="soloLectura" [nombre]="'archivoL1T4pdf'"
+                    [(ngModel)]="archivoL1T4" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,29),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="portuarias[28].nombreOriginalArchivo != '' && selectL29 == portuarias[28].valor">
+                      {{portuarias[28].nombreOriginalArchivo}}
+                    </span>
+                  <span>Excel, Máximo 5 Mb</span>
+                </fieldset>
+              </td>
+            </tr>
+            <tr><!-- linea 2T4 -- L30-->
+              <td>2</td>
+              <td class="actividad">
+                Si la respuesta al punto anterior es negativa, explique de manera amplia y clara las razones del
+                incumplimiento del plan de inversiones.
+              </td>
+              <td class="text-center ejecutado" colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <textarea name="textL2T4" id="textL2T4" rows="5" cols="30" [disabled]="textArea"
+                  [(ngModel)]="textArea30" (ngModelChange)="detectarCambios()"></textarea>
+                  <span *ngIf="!textArea">
+                    <span class="validacion" *ngIf="verificarFaltantes(30)">Falta por completar</span>
+                  </span>
+
+                </fieldset>
+              </td>
+              <!-- <td></td> -->
+              <td></td>
+            </tr>
+            <tr><!-- linea 3T4 con archivo excel -- L31-->
+              <td>3</td>
+              <td class="actividad">
+                ¿En qué porcentaje de avance se encuentra en el plan de inversiones?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL3T4" (change)="cambioRespuestaSelect($event, 31)"
+                  [(ngModel)]="selectL31" (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of porcentajes" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(31)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td>
+                <p *ngIf="cambioT4L3 == true">Cronograma de cumplimiento del plan de inversiones.</p>
+              </td>
+              <td>
+                <fieldset class="d-flex flex-column" *ngIf="cambioT4L3 == true">
+                  <app-input-archivo id="archivoL3T4" [disabled]="soloLectura" [nombre]="'archivoL3T4pdf'"
+                    [(ngModel)]="archivoL3T4" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,31),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="portuarias[30].nombreOriginalArchivo != '' && selectL31 == portuarias[30].valor">
+                      {{portuarias[30].nombreOriginalArchivo}}
+                    </span>
+                  <span>Excel, Máximo 5 Mb</span>
+                </fieldset>
+              </td>
+            </tr>
+            <tr><!-- linea 4T4 con archivo excel -- L32-->
+              <td>4</td>
+              <td class="actividad">
+                ¿Con qué periodicidad realiza el mantenimiento preventivo de la infraestructura y de los equipos propios
+                y/o arrendados?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL4T4" (change)="cambioRespuestaSelect($event, 32)"
+                  [(ngModel)]="selectL32" (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of periodos" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(32)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td>
+                <p *ngIf="cambioT4L4 == true">Cronograma de mantenimiento de infraestructura y equipos de la presente vigencia.</p>
+
+              </td>
+              <td>
+                <fieldset class="d-flex flex-column" *ngIf="cambioT4L4 == true">
+                  <app-input-archivo id="archivoL4T4" [disabled]="soloLectura" [nombre]="'archivoL4T4pdf'"
+                    [(ngModel)]="archivoL4T4" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,32),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="portuarias[31].nombreOriginalArchivo != '' && portuarias[31].valor != ''">
+                      {{portuarias[31].nombreOriginalArchivo}}
+                    </span>
+                  <span>Excel, Máximo 5 Mb</span>
+                </fieldset>
+              </td>
+            </tr>
+            <tr><!-- linea 5T4 -- L33-->
+              <td>5</td>
+              <td class="actividad">
+                ¿Cuentan con las pólizas de responsabilidad civil, contractual y extracontractual vigentes?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL5T4" [(ngModel)]="selectL33"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(33)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead><!-- Encabezado 5 de la tabla -->
+            <tr>
+              <th>5-</th>
+              <th colspan="3">Aspectos relacionados con la gestión de riesgos</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 4 filas -->
+            <tr><!-- linea 1T5 -- L34-->
+              <td>1</td>
+              <td class="actividad">
+                ¿Su modelo de negocio y buenas prácticas de negocio corporativo están enfocadas en la sostenibilidad y
+                conducta empresarial responsable con el medio ambiente, atendiendo los parámetros establecidos en la
+                NIIF S1 y NIIF S2?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL1T5" [(ngModel)]="selectL34"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(34)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+            </tr>
+            <tr><!-- linea 2T5 -- L35-->
+              <td>2</td>
+              <td class="actividad">
+                ¿La sociedad ha implementado acciones y/o estrategias para dar aplicación a la nueva
+                normatividad establecida en la NIIF S1 y NIIF S2 aplicable a partir del 1 de enero de 2024?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL2T5" [(ngModel)]="selectL35"
+                  [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(35)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 3T5 con archivo pdf -- L36-->
+              <td>3</td>
+              <td class="actividad">
+                ¿Tiene implementado un sistema de administración o mapa de prevención de riesgos empresariales:
+                Operativos, Legales y Financiero de liquidez, de mercado, de crédito, de tasas de interés, de cambio de
+                moneda, de combustible, de flujo de efectivo?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL3T5" (change)="cambioRespuestaSelect($event, 36)"
+                  [(ngModel)]="selectL36" (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(36)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td>
+                <p *ngIf="cambioT5L3 == true">Matriz de mapa de riesgos.</p>
+                <p *ngIf="cambioT5L3 == false">
+                  Anexar certificación que indique la razón por la cual no tiene implementado
+                  un sistema de administración o  mapa de prevención de riesgos empresariales.
+                </p>
+              </td>
+              <td>
+                <fieldset class="d-flex flex-column" *ngIf="cambioT5L3 == true || cambioT5L3 == false">
+                  <app-input-archivo id="archivoL3T5" [disabled]="soloLectura" [nombre]="'archivoL3T5pdf'"
+                    [(ngModel)]="archivoL3T5" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,36),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="portuarias[35].nombreOriginalArchivo != '' && selectL36 == portuarias[35].valor">
+                      {{portuarias[35].nombreOriginalArchivo}}
+                    </span>
+                  <span>PDF, Máximo 5 Mb</span>
+                </fieldset>
+              </td>
+            </tr>
+            <tr><!-- linea 4T5 con archivo excel -- L37-->
+              <td>4</td>
+              <td class="actividad">
+                ¿La sociedad tiene plan de contingencia en el evento de presentar situación crítica de carácter legal,
+                administrativa, contable, financiera y operativa?
+              </td>
+              <td class="text-center ejecutado">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL4T5" (change)="cambioRespuestaSelect($event, 37)"
+                  [(ngModel)]="selectL37" (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(37)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td>
+                  <ul *ngIf="cambioT5L4 == true">Plan de mejoramiento que contenga:
+                    <li>-Descripción de la contingencia</li>
+                    <li>-Tareas</li>
+                    <li>-Responsable del área</li>
+                    <li>-Tiempos (inicio-fin)</li>
+                    <li>-Seguimiento</li>
+                    <li>-Responsable del seguimiento</li>
+                  </ul>
+                <p *ngIf="cambioT5L4 == false">
+                  Anexar certificación que indique la razón por la cual
+                  no tiene implementado un plan de contingencias.
+                </p>
+              </td>
+              <td>
+                <fieldset class="d-flex flex-column" *ngIf="cambioT5L4 == true">
+                  <app-input-archivo id="archivoL4T5" [disabled]="soloLectura" [nombre]="'archivoL4T5pdf'"
+                    [(ngModel)]="archivoL4T5" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,37),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="portuarias[36].nombreOriginalArchivo != '' && selectL37 == portuarias[36].valor">
+                      {{portuarias[36].nombreOriginalArchivo}}
+                    </span>
+                  <span >Excel, Máximo 5 Mb</span>
+                </fieldset>
+                <fieldset class="d-flex flex-column" *ngIf="cambioT5L4 == false">
+                  <app-input-archivo id="archivoL4T5" [disabled]="soloLectura" [nombre]="'archivoL4T5pdf'"
+                    [(ngModel)]="archivoL4T5" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,37),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="portuarias[36].nombreOriginalArchivo != '' && selectL37 == portuarias[36].valor">
+                      {{portuarias[36].nombreOriginalArchivo}}
+                    </span>
+                  <span >PDF, Máximo 5 Mb</span>
+                </fieldset>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,3097 @@
+<div class="px-sm-2 px-md-3 px-lg-4 my-4">
+  <div class="d-block mb-3 mx-3 text-center">
+    <h1>REPORTE MODELO DE NEGOCIO ESPECIAL PARA ORGANISMOS DE TRÁNSITO</h1>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <button type="button" class="boton primario delineado" [disabled]="hayCambios" (click)="enviarST()">
+      Enviar a ST
+    </button>
+    <button *ngIf="!aprobado" type="button" class="boton primario relleno" [disabled]="!hayCambios" (click)="guardar()" >
+      Guardar
+    </button>
+  </div>
+  <ul class="nav-tabs w-100">
+    <li>
+      <div class="table-responsive">
+        <table class="table">
+          <colgroup>
+            <col style="width: 30px;">
+            <col style="width: 350px;">
+            <col style="width: 300px;">
+            <col style="width: 500px;">
+          </colgroup>
+          <thead><!-- Encabezado 1 de la tabla -->
+            <tr>
+              <th>1-</th>
+              <th colspan="3">Identificación del Organismo</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><!-- linea 1 -->
+              <td>1</td>
+              <td class="actividad">
+                Razón Social
+              </td>
+              <td colspan="3">
+                <ng-container>
+                  <input type="text" id="textL1" [(ngModel)]="textL1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                </ng-container>
+                <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span>
+              </td>
+            </tr>
+            <tr><!-- linea 2 -->
+              <td>2</td>
+              <td class="actividad">
+                Tipo de NIT
+              </td>
+              <td colspan="3">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL2" [(ngModel)]="selectL2" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of nits" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(1,2)">Falta por completar</span>
+                </fieldset>
+              </td>
+            </tr>
+            <tr><!-- linea 3 -->
+              <td>3</td>
+              <td class="actividad">
+                NIT sin digito de verificación
+              </td>
+              <td colspan="3">
+                <ng-container>
+                  <app-input-numerico id="numberL3" [(ngModel)]="numberL3" (ngModelChange)="detectarCambios()"
+                    [largoMaximo]="9" [disabled]="soloLectura" />
+                </ng-container>
+                <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span>
+              </td>
+            </tr>
+            <tr>
+            <tr><!-- linea 4 -->
+              <td>4</td>
+              <td class="actividad">
+                Dígito de verificación
+              </td>
+              <td colspan="3">
+                <ng-container>
+                  <app-input-numerico id="numberL4" [(ngModel)]="numberL4" (ngModelChange)="detectarCambios()"
+                    [largoMaximo]="1" [disabled]="soloLectura" />
+                </ng-container>
+                <span class="validacion" *ngIf="verificarFaltantes(1,4)">Falta por completar</span>
+              </td>
+            </tr>
+            <tr>
+            <tr><!-- linea 5 -->
+              <td>5</td>
+              <td class="actividad">
+                Tipo de Organización
+              </td>
+              <td colspan="3">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL5" [(ngModel)]="selectL5" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of organizaciones" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(1,5)">Falta por completar</span>
+                </fieldset>
+              </td>
+            </tr>
+            <tr><!-- linea 6 -->
+              <td>6</td>
+              <td class="actividad">
+                ¿Se apoya en terceros para la prestación de algunos de los servicios o funciones a cargo del organismo?
+              </td>
+              <td colspan="3">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL6" [(ngModel)]="selectL6" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(1,6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 7 -->
+              <td>7</td>
+              <td class="actividad">
+                ¿Actualmente está en proceso de adjudicación?
+              </td>
+              <td colspan="3">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectL7" [(ngModel)]="selectL7" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(1,7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead><!-- Encabezado 2 de la tabla -->
+            <tr>
+              <th colspan="4">Servicios Tercerizados</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 3 filas -->
+            <tr><!-- linea 1T2 -- L8-->
+              <td>1</td>
+              <td>
+                <input type="checkbox" id="check1" [(ngModel)]="check1" class="checkbox"
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                <label> Grúas.</label>
+              </td>
+              <td colspn="3">
+                <span class="validacion" *ngIf="verificarFaltantes(1,8)">Falta por completar</span>
+              </td>
+            </tr>
+            <tr><!-- linea 2T2 -- L9-->
+              <td>2</td>
+              <td>
+                <input type="checkbox" id="check2" [(ngModel)]="check2" class="checkbox"
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                <label> Patios.</label>
+              </td>
+              <td colspn="3">
+                <span class="validacion" *ngIf="verificarFaltantes(1,9)">Falta por completar</span>
+              </td>
+            </tr>
+            <tr><!-- linea 3T2 -- L10-->
+              <td>3</td>
+              <td>
+                <input type="checkbox" id="check3" [(ngModel)]="check3" class="checkbox"
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                <label> Trámites de tránsito.</label>
+              </td>
+              <td colspn="3">
+                <span class="validacion" *ngIf="verificarFaltantes(1,10)">Falta por completar</span>
+              </td>
+            </tr>
+            <tr><!-- linea 4T2 -- L11-->
+              <td>4</td>
+              <td>
+                <input type="checkbox" id="check4" [(ngModel)]="check4" class="checkbox"
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                <label> Detección de infracciones.</label>
+              </td>
+              <td colspn="3">
+                <span class="validacion" *ngIf="verificarFaltantes(1,11)">Falta por completar</span>
+              </td>
+            </tr>
+            <tr><!-- linea 5T2 -- L12-->
+              <td>5</td>
+              <td>
+                <input type="checkbox" id="check5" [(ngModel)]="check5" class="checkbox"
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                <label> Procesos contravencionales.</label>
+              </td>
+              <td colspn="3">
+                <span class="validacion" *ngIf="verificarFaltantes(1,12)">Falta por completar</span>
+              </td>
+            </tr>
+            <tr><!-- linea 6T2 -- L13-->
+              <td>6</td>
+              <td>
+                <input type="checkbox" id="check6" [(ngModel)]="check6" class="checkbox"
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                <label> Procesos de cobros Cocivos.</label>
+              </td>
+              <td colspn="3">
+                <span class="validacion" *ngIf="verificarFaltantes(1,13)">Falta por completar</span>
+              </td>
+            </tr>
+            <tr><!-- linea 7T2 -- L14-->
+              <td>7</td>
+              <td>
+                <input type="checkbox" id="check7" [(ngModel)]="check7" class="checkbox"
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                <label> Procesos de cobros Persuasivo.</label>
+              </td>
+              <td colspn="3">
+                <span class="validacion" *ngIf="verificarFaltantes(1,14)">Falta por completar</span>
+              </td>
+            </tr>
+            <tr><!-- linea 8T2 -- L15-->
+              <td>8</td>
+              <td>
+                <input type="checkbox" id="check8" [(ngModel)]="check8" class="checkbox"
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                <label> Recaudos de Multas.</label>
+              </td>
+              <td colspn="3">
+                <span class="validacion" *ngIf="verificarFaltantes(1,15)">Falta por completar</span>
+              </td>
+            </tr>
+            <tr><!-- linea 9T2 -- L16-->
+              <td>9</td>
+              <td>
+                <input type="checkbox" id="check9" [(ngModel)]="check9" class="checkbox"
+                  (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                <label> Otros: ¿Cúal?</label>
+              </td>
+              <td colspn="3">
+                <span class="validacion" *ngIf="verificarFaltantes(1,16)">Falta por completar</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table" *ngIf="check1"><!-- Tabla Grúa -->
+          <colgroup>
+            <col style="width: 30px;">
+            <col style="width: 350px;">
+            <col style="width: 300px;">
+            <col style="width: 500px;">
+          </colgroup>
+          <thead>
+            <tr class="fondo-azul"><!-- Grua -->
+              <th>1-</th>
+              <th>GRÚAS</th>
+            </tr>
+            <tr><!-- Encabezado 1 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL TERCERO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 1 Grua -- L17-->
+              <td></td>
+              <td class="actividad">
+                Razón Social
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textG1" [(ngModel)]="textG1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,1,1)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 2 Grua -- L18-->
+              <td></td>
+              <td class="actividad">
+                Número de Identificación
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroG1" [(ngModel)]="numeroG1" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,2,1)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 2 -->
+              <th></th>
+              <th colspan="3">DOMICILIO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><!-- linea 3 Grua -- L19-->
+              <td></td>
+              <td class="actividad">
+                Domicilio principal
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectG2" [(ngModel)]="selectG2" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of domicilios" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,3,1)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 4 Grua -- L20-->
+              <td></td>
+              <td class="actividad">
+                Dirección
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textG2" [(ngModel)]="textG2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,4,1)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 5 Grua -- L21-->
+              <td></td>
+              <td class="actividad">
+                Correo Electrónico
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textG3" [(ngModel)]="textG3" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,5,1)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 6 Grua -- L22-->
+              <td></td>
+              <td class="actividad">
+                Nombre de Contacto
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textG4" [(ngModel)]="textG4" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,6,1)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 7 Grua -- L23-->
+              <td></td>
+              <td class="actividad">
+                Teléfono de Contacto
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroG2" [(ngModel)]="numeroG2" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,7,1)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 8 Grua -- L24-->
+              <td></td>
+              <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
+              <td>
+                <app-input-archivo id="archivoG1" [disabled]="soloLectura" [nombre]="'archivoG1Pdf'"
+                  [(ngModel)]="archivoG1" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'G1'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.gruas[16]?.nombreOriginalArchivo != ''">
+                  {{preguntas.gruas[16]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+            <tr><!-- linea 9 Grua -- L25-->
+              <td></td>
+              <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
+              <td>
+                <app-input-archivo id="archivoG2" [disabled]="soloLectura" [nombre]="'archivoG2Pdf'"
+                  [(ngModel)]="archivoG2" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'G2'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.gruas[7]?.nombreOriginalArchivo != ''">
+                  {{preguntas.gruas[7]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 3 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL MODELO DE TERCERIZACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 10 Grua -- L26-->
+              <td></td>
+              <td class="actividad">
+                Tipo de Sociedad
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectG3" [(ngModel)]="selectG3" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura" (change)="cambioOtro($event,'G')">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sociedades" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,9,1)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 11 Grua -- L27-->
+              <td></td>
+              <td class="actividad">
+                Otro: ¿Cuál?
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textG5" [(ngModel)]="textG5" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="otroG">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,10,1)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 4 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 1 filas -->
+            <tr><!-- linea 12 Grua -- L28-->
+              <td></td>
+              <td class="actividad">
+                Porcentajes de participación: Escriba los porcentajes de participación de los servicios tercerizados.
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectG4" [(ngModel)]="selectG4" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of porcentajes" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,11,1)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 5 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 4 filas -->
+            <tr><!-- linea 13 Grua -- L29-->
+              <td></td>
+              <td class="actividad">
+                Fecha de inicio
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaG1" [(ngModel)]="fechaG1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(1)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,12,1)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 14 Grua -- L30-->
+              <td></td>
+              <td class="actividad">
+                Fecha de finalización
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaG2" [(ngModel)]="fechaG2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(1)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,13,1)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 15 Grua -- L31-->
+              <td></td>
+              <td class="actividad">
+                OTROSI
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectG5" [(ngModel)]="selectG5"
+                    (change)="cambioRespuestaSelect($event,'G')" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(2,14,1)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16 Grua -- L32 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                En caso de que aplique número de otrosí.
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroG3" [(ngModel)]="numeroG3" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [disabled]="cambioG" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,15,1)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16.5 Grua -- L32.5 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                Número del contrato
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroG3" [(ngModel)]="numeroG5" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,18,1)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 18 Grua -- L34-->
+              <td></td>
+              <td class="actividad">
+                Objeto del contrato
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textG6" [(ngModel)]="textG6" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,16,1)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table" *ngIf="check2"><!-- Tabla Patios -->
+          <colgroup>
+            <col style="width: 30px;">
+            <col style="width: 350px;">
+            <col style="width: 300px;">
+            <col style="width: 500px;">
+          </colgroup>
+          <thead>
+            <tr class="fondo-azul"><!-- Grua -->
+              <th>2-</th>
+              <th>PATIOS</th>
+            </tr>
+            <tr><!-- Encabezado 1 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL TERCERO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 1 Patios -- L35-->
+              <td></td>
+              <td class="actividad">
+                Razón Social
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textP1" [(ngModel)]="textP1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,1,2)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 2 Patios -- L36-->
+              <td></td>
+              <td class="actividad">
+                Número de Identificación
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroP1" [(ngModel)]="numeroP1" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,2,2)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 2 -->
+              <th></th>
+              <th colspan="3">DOMICILIO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><!-- linea 3 Patios -- L37-->
+              <td></td>
+              <td class="actividad">
+                Domicilio principal
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectP2" [(ngModel)]="selectP2" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of domicilios" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,3,2)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 4 Patios -- L38-->
+              <td></td>
+              <td class="actividad">
+                Dirección
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textP2" [(ngModel)]="textP2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,4,2)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 5 PAtios -- L39-->
+              <td></td>
+              <td class="actividad">
+                Correo Electrónico
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textP3" [(ngModel)]="textP3" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,5,2)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 6 PAtios -- L40-->
+              <td></td>
+              <td class="actividad">
+                Nombre de Contacto
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textP4" [(ngModel)]="textP4" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,6,2)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 7 Patios -- L41-->
+              <td></td>
+              <td class="actividad">
+                Teléfono de Contacto
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroP2" [(ngModel)]="numeroP2" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,7,2)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 8 Patios -- L42-->
+              <td></td>
+              <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
+              <td>
+                <app-input-archivo id="archivoP1" [disabled]="soloLectura" [nombre]="'archivoP1Pdf'"
+                  [(ngModel)]="archivoP1" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'P1'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,2)">Falta por completar</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.patios[16]?.nombreOriginalArchivo != ''">
+                  {{preguntas.patios[16]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+            <tr><!-- linea 9 Patios -- L43-->
+              <td></td>
+              <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
+              <td>
+                <app-input-archivo id="archivoP2" [disabled]="soloLectura" [nombre]="'archivoP2Pdf'"
+                  [(ngModel)]="archivoP2" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'P2'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.patios[7]?.nombreOriginalArchivo != ''">
+                  {{preguntas.patios[7]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 3 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL MODELO DE TERCERIZACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 10 Patios -- L44-->
+              <td></td>
+              <td class="actividad">
+                Tipo de Sociedad
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectP3" [(ngModel)]="selectP3" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura" (change)="cambioOtro($event,'P')">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sociedades" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,9,2)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 11 Patios -- L45-->
+              <td></td>
+              <td class="actividad">
+                Otro: ¿Cuál?
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textP5" [(ngModel)]="textP5" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="otroP">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,10,2)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 4 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 1 filas -->
+            <tr><!-- linea 12 Patios -- L46-->
+              <td></td>
+              <td class="actividad">
+                Porcentajes de participación: Escriba los porcentajes de participación de los servicios tercerizados.
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectP4" [(ngModel)]="selectP4" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of porcentajes" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,11,2)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 5 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 4 filas -->
+            <tr><!-- linea 13 Patios -- L47-->
+              <td></td>
+              <td class="actividad">
+                Fecha de inicio
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaP1" [(ngModel)]="fechaP1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(2)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,12,2)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 14 Patios -- L48-->
+              <td></td>
+              <td class="actividad">
+                Fecha de finalización
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaP2" [(ngModel)]="fechaP2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(2)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,13,2)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 15 Patios -- L49-->
+              <td></td>
+              <td class="actividad">
+                OTROSI
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectP5" [(ngModel)]="selectP5"
+                    (change)="cambioRespuestaSelect($event,'P')" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(2,14,2)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16 Patios -- L50 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                En caso de que aplique número de otrosí.
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroP3" [(ngModel)]="numeroP3" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="cambioP" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,15,2)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16.5 Patios -- L50.5 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                Número del contrato
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroP5" [(ngModel)]="numeroP5" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,18,2)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 17 Patios -- L52-->
+              <td></td>
+              <td class="actividad">
+                Objeto del contrato
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textP6" [(ngModel)]="textP6" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,16,2)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table" *ngIf="check3"><!-- Tabla Trámites -->
+          <colgroup>
+            <col style="width: 30px;">
+            <col style="width: 350px;">
+            <col style="width: 300px;">
+            <col style="width: 500px;">
+          </colgroup>
+          <thead>
+            <tr class="fondo-azul"><!-- Trámites  -->
+              <th>3-</th>
+              <th>TRÁMITES DE TRÁNSITO</th>
+            </tr>
+            <tr><!-- Encabezado 1 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL TERCERO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 1 Trámites -- L53-->
+              <td></td>
+              <td class="actividad">
+                Razón Social
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textT1" [(ngModel)]="textT1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,1,3)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 2 Trámites -- L54-->
+              <td></td>
+              <td class="actividad">
+                Número de Identificación
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroT1" [(ngModel)]="numeroT1" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,2,3)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 2 -->
+              <th></th>
+              <th colspan="3">DOMICILIO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><!-- linea 3 Trámites  -- L55-->
+              <td></td>
+              <td class="actividad">
+                Domicilio principal
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectT2" [(ngModel)]="selectT2" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of domicilios" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,3,3)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 4 Trámites  -- L56-->
+              <td></td>
+              <td class="actividad">
+                Dirección
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textT2" [(ngModel)]="textT2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,4,3)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 5 Grua -- L57-->
+              <td></td>
+              <td class="actividad">
+                Correo Electrónico
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textT3" [(ngModel)]="textT3" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,5,3)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 6 Grua -- L58-->
+              <td></td>
+              <td class="actividad">
+                Nombre de Contacto
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textT4" [(ngModel)]="textT4" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,6,3)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 7 Grua -- L59-->
+              <td></td>
+              <td class="actividad">
+                Teléfono de Contacto
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroT2" [(ngModel)]="numeroT2" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,7,3)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 8 Grua -- L60 quedé por aquí-->
+              <td></td>
+              <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
+              <td>
+                <app-input-archivo id="archivoT1" [disabled]="soloLectura" [nombre]="'archivoT1Pdf'"
+                  [(ngModel)]="archivoT1" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'T1'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,3)">Falta por completar</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.tramitesTransito[16]?.nombreOriginalArchivo != ''">
+                  {{preguntas.tramitesTransito[16]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+            <tr><!-- linea 9 Grua -- L25-->
+              <td></td>
+              <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
+              <td>
+                <app-input-archivo id="archivoT2" [disabled]="soloLectura" [nombre]="'archivoT2Pdf'"
+                  [(ngModel)]="archivoT2" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'T2'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.tramitesTransito[7]?.nombreOriginalArchivo != ''">
+                  {{preguntas.tramitesTransito[7]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 3 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL MODELO DE TERCERIZACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 10 Grua -- L26-->
+              <td></td>
+              <td class="actividad">
+                Tipo de Sociedad
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectT3" [(ngModel)]="selectT3" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura" (change)="cambioOtro($event,'T')">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sociedades" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,9,3)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 11 Grua -- L27-->
+              <td></td>
+              <td class="actividad">
+                Otro: ¿Cuál?
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textT5" [(ngModel)]="textT5" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="otroT">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,10,3)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 4 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 1 filas -->
+            <tr><!-- linea 12 Grua -- L28-->
+              <td></td>
+              <td class="actividad">
+                Porcentajes de participación: Escriba los porcentajes de participación de los servicios tercerizados.
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectT4" [(ngModel)]="selectT4" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of porcentajes" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,11,3)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 5 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 4 filas -->
+            <tr><!-- linea 13 Grua -- L29-->
+              <td></td>
+              <td class="actividad">
+                Fecha de inicio
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaT1" [(ngModel)]="fechaT1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(3)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,12,3)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 14 Grua -- L30-->
+              <td></td>
+              <td class="actividad">
+                Fecha de finalización
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaT2" [(ngModel)]="fechaT2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(3)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,13,3)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 15 Grua -- L31-->
+              <td></td>
+              <td class="actividad">
+                OTROSI
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectT5" [(ngModel)]="selectT5"
+                    (change)="cambioRespuestaSelect($event,'T')" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(2,14,3)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16 Grua -- L32 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                En caso de que aplique número de otrosí.
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroT3" [(ngModel)]="numeroT3" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="cambioT" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,15,3)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16.5 Grua -- L32.5 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                Número del contrato
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroT5" [(ngModel)]="numeroT5" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,18,3)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 18 Grua -- L34-->
+              <td></td>
+              <td class="actividad">
+                Objeto del contrato
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textT6" [(ngModel)]="textT6" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,16,3)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table" *ngIf="check4"><!-- Tabla Dtección -->
+          <colgroup>
+            <col style="width: 30px;">
+            <col style="width: 350px;">
+            <col style="width: 300px;">
+            <col style="width: 500px;">
+          </colgroup>
+          <thead>
+            <tr class="fondo-azul"><!-- Grua -->
+              <th>4-</th>
+              <th>DETECCIÓN DE INFRCCIONES</th>
+            </tr>
+            <tr><!-- Encabezado 1 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL TERCERO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 1 Patios -- L35-->
+              <td></td>
+              <td class="actividad">
+                Razón Social
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textD1" [(ngModel)]="textD1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,1,4)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 2 Patios -- L36-->
+              <td></td>
+              <td class="actividad">
+                Número de Identificación
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroD1" [(ngModel)]="numeroD1" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,2,4)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 2 -->
+              <th></th>
+              <th colspan="3">DOMICILIO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><!-- linea 3 Ptios -- L37-->
+              <td></td>
+              <td class="actividad">
+                Domicilio principal
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectD2" [(ngModel)]="selectD2" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of domicilios" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,3,4)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 4 Ptios -- L38-->
+              <td></td>
+              <td class="actividad">
+                Dirección
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textD2" [(ngModel)]="textD2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,4,4)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 5 PAtios -- L39-->
+              <td></td>
+              <td class="actividad">
+                Correo Electrónico
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textD3" [(ngModel)]="textD3" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,5,4)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 6 PAtios -- L40-->
+              <td></td>
+              <td class="actividad">
+                Nombre de Contacto
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textD4" [(ngModel)]="textD4" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,6,4)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 7 Patios -- L41-->
+              <td></td>
+              <td class="actividad">
+                Teléfono de Contacto
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroD2" [(ngModel)]="numeroD2" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,7,4)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 8 Patios -- L42-->
+              <td></td>
+              <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
+              <td>
+                <app-input-archivo id="archivoD1" [disabled]="soloLectura" [nombre]="'archivoD1Pdf'"
+                  [(ngModel)]="archivoD1" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'D1'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,4)">Falta por completar</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.deteccionInfracciones[16]?.nombreOriginalArchivo != ''">
+                  {{preguntas.deteccionInfracciones[16]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+            <tr><!-- linea 9 Patios -- L43-->
+              <td></td>
+              <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
+              <td>
+                <app-input-archivo id="archivoD2" [disabled]="soloLectura" [nombre]="'archivoD2Pdf'"
+                  [(ngModel)]="archivoD2" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'D2'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.deteccionInfracciones[7]?.nombreOriginalArchivo != ''">
+                  {{preguntas.deteccionInfracciones[7]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 3 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL MODELO DE TERCERIZACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 10 Patios -- L44-->
+              <td></td>
+              <td class="actividad">
+                Tipo de Sociedad
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectD3" [(ngModel)]="selectD3" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura" (change)="cambioOtro($event,'D')">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sociedades" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,9,4)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 11 Patios -- L45-->
+              <td></td>
+              <td class="actividad">
+                Otro: ¿Cuál?
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textD5" [(ngModel)]="textD5" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="otroD">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,10,4)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 4 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 1 filas -->
+            <tr><!-- linea 12 Patios -- L46-->
+              <td></td>
+              <td class="actividad">
+                Porcentajes de participación: Escriba los porcentajes de participación de los servicios tercerizados.
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectD4" [(ngModel)]="selectD4" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of porcentajes" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,11,4)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 5 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 4 filas -->
+            <tr><!-- linea 13 Patios -- L47-->
+              <td></td>
+              <td class="actividad">
+                Fecha de inicio
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaD1" [(ngModel)]="fechaD1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(4)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,12,4)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 14 Patios -- L48-->
+              <td></td>
+              <td class="actividad">
+                Fecha de finalización
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaD2" [(ngModel)]="fechaD2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(4)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,13,4)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 15 Patios -- L49-->
+              <td></td>
+              <td class="actividad">
+                OTROSI
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectD5" [(ngModel)]="selectD5"
+                    (change)="cambioRespuestaSelect($event,'D')" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(2,14,4)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16 Patios -- L50 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                En caso de que aplique número de otrosí.
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroD3" [(ngModel)]="numeroD3" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="cambioD" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,15,4)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16.5 Grua -- L50.5 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                Número del contrato
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroD5" [(ngModel)]="numeroD5" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,18,4)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 17 Patios -- L52-->
+              <td></td>
+              <td class="actividad">
+                Objeto del contrato
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textD6" [(ngModel)]="textD6" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,16,4)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table" *ngIf="check5"><!-- Tabla PROCESOS CONTRAVENCIONALES -->
+          <colgroup>
+            <col style="width: 30px;">
+            <col style="width: 350px;">
+            <col style="width: 300px;">
+            <col style="width: 500px;">
+          </colgroup>
+          <thead>
+            <tr class="fondo-azul"><!-- Grua -->
+              <th>5-</th>
+              <th>PROCESOS CONTRAVENCIONALES</th>
+            </tr>
+            <tr><!-- Encabezado 1 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL TERCERO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 1 Patios -- L35-->
+              <td></td>
+              <td class="actividad">
+                Razón Social
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPC1" [(ngModel)]="textPC1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,1,5)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 2 Patios -- L36-->
+              <td></td>
+              <td class="actividad">
+                Número de Identificación
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroPC1" [(ngModel)]="numeroPC1" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,2,5)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 2 -->
+              <th></th>
+              <th colspan="3">DOMICILIO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><!-- linea 3 Ptios -- L37-->
+              <td></td>
+              <td class="actividad">
+                Domicilio principal
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectPC2" [(ngModel)]="selectPC2" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of domicilios" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,3,5)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 4 Ptios -- L38-->
+              <td></td>
+              <td class="actividad">
+                Dirección
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPC2" [(ngModel)]="textPC2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,4,5)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 5 PAtios -- L39-->
+              <td></td>
+              <td class="actividad">
+                Correo Electrónico
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPC3" [(ngModel)]="textPC3" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,5,5)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 6 PAtios -- L40-->
+              <td></td>
+              <td class="actividad">
+                Nombre de Contacto
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPC4" [(ngModel)]="textPC4" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,6,5)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 7 Patios -- L41-->
+              <td></td>
+              <td class="actividad">
+                Teléfono de Contacto
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroPC2" [(ngModel)]="numeroPC2" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,7,5)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 8 Patios -- L42-->
+              <td></td>
+              <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
+              <td>
+                <app-input-archivo id="archivoPC1" [disabled]="soloLectura" [nombre]="'archivoPC1Pdf'"
+                  [(ngModel)]="archivoPC1" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'PC1'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,5)">Falta por completar</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.procesosContravencionales[16]?.nombreOriginalArchivo != ''">
+                  {{preguntas.procesosContravencionales[16]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+            <tr><!-- linea 9 Patios -- L43-->
+              <td></td>
+              <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
+              <td>
+                <app-input-archivo id="archivoPC2" [disabled]="soloLectura" [nombre]="'archivoPC2Pdf'"
+                  [(ngModel)]="archivoPC2" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'PC2'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.procesosContravencionales[7]?.nombreOriginalArchivo != ''">
+                  {{preguntas.procesosContravencionales[7]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 3 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL MODELO DE TERCERIZACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 10 Patios -- L44-->
+              <td></td>
+              <td class="actividad">
+                Tipo de Sociedad
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectPC3" [(ngModel)]="selectPC3" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura" (change)="cambioOtro($event,'PC')">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sociedades" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,9,5)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 11 Patios -- L45-->
+              <td></td>
+              <td class="actividad">
+                Otro: ¿Cuál?
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPC5" [(ngModel)]="textPC5" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="otroPC">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,10,5)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 4 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 1 filas -->
+            <tr><!-- linea 12 Patios -- L46-->
+              <td></td>
+              <td class="actividad">
+                Porcentajes de participación: Escriba los porcentajes de participación de los servicios tercerizados.
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectPC4" [(ngModel)]="selectPC4" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of porcentajes" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,11,5)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 5 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 4 filas -->
+            <tr><!-- linea 13 Patios -- L47-->
+              <td></td>
+              <td class="actividad">
+                Fecha de inicio
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaPC1" [(ngModel)]="fechaPC1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(5)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,12,5)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 14 Patios -- L48-->
+              <td></td>
+              <td class="actividad">
+                Fecha de finalización
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaPC2" [(ngModel)]="fechaPC2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(5)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,13,5)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 15 Patios -- L49-->
+              <td></td>
+              <td class="actividad">
+                OTROSI
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectPC5" [(ngModel)]="selectPC5"
+                    (change)="cambioRespuestaSelect($event,'PC')" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(2,14,5)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16 Patios -- L50 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                En caso de que aplique número de otrosí.
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroPC3" [(ngModel)]="numeroPC3" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="cambioPC" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,15,5)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16.5 Grua -- L32.5 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                Número del contrato
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroPC5" [(ngModel)]="numeroPC5" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,18,5)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 17 Patios -- L52-->
+              <td></td>
+              <td class="actividad">
+                Objeto del contrato
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPC6" [(ngModel)]="textPC6" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,16,5)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table" *ngIf="check6"><!-- Tabla PROCESOS DE COBRO COACTIVO -->
+          <colgroup>
+            <col style="width: 30px;">
+            <col style="width: 350px;">
+            <col style="width: 300px;">
+            <col style="width: 500px;">
+          </colgroup>
+          <thead>
+            <tr class="fondo-azul"><!-- Grua -->
+              <th>6-</th>
+              <th>PROCESOS DE COBRO COACTIVO</th>
+            </tr>
+            <tr><!-- Encabezado 1 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL TERCERO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 1 Patios -- L35-->
+              <td></td>
+              <td class="actividad">
+                Razón Social
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPCC1" [(ngModel)]="textPCC1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,1,6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 2 Patios -- L36-->
+              <td></td>
+              <td class="actividad">
+                Número de Identificación
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroPCC1" [(ngModel)]="numeroPCC1" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,2,6)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 2 -->
+              <th></th>
+              <th colspan="3">DOMICILIO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><!-- linea 3 Ptios -- L37-->
+              <td></td>
+              <td class="actividad">
+                Domicilio principal
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectPCC2" [(ngModel)]="selectPCC2"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of domicilios" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,3,6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 4 Ptios -- L38-->
+              <td></td>
+              <td class="actividad">
+                Dirección
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPCC2" [(ngModel)]="textPCC2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,4,6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 5 PAtios -- L39-->
+              <td></td>
+              <td class="actividad">
+                Correo Electrónico
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPCC3" [(ngModel)]="textPCC3" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,5,6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 6 PAtios -- L40-->
+              <td></td>
+              <td class="actividad">
+                Nombre de Contacto
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPCC4" [(ngModel)]="textPCC4" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,6,6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 7 Patios -- L41-->
+              <td></td>
+              <td class="actividad">
+                Teléfono de Contacto
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroPCC2" [(ngModel)]="numeroPCC2" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,7,6)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 8 Patios -- L42-->
+              <td></td>
+              <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
+              <td>
+                <app-input-archivo id="archivoPCC1" [disabled]="soloLectura" [nombre]="'archivoPCC1Pdf'"
+                  [(ngModel)]="archivoPCC1" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'PCC1'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,6)">Falta por completar</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.procesoCobroCoactivo[16]?.nombreOriginalArchivo != ''">
+                  {{preguntas.procesoCobroCoactivo[16]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+            <tr><!-- linea 9 Patios -- L43-->
+              <td></td>
+              <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
+              <td>
+                <app-input-archivo id="archivoPCC2" [disabled]="soloLectura" [nombre]="'archivoPCC2Pdf'"
+                  [(ngModel)]="archivoPCC2" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'PCC2'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.procesoCobroCoactivo[7]?.nombreOriginalArchivo != ''">
+                  {{preguntas.procesoCobroCoactivo[7]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 3 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL MODELO DE TERCERIZACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 10 Patios -- L44-->
+              <td></td>
+              <td class="actividad">
+                Tipo de Sociedad
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectPCC3" [(ngModel)]="selectPCC3" (change)="cambioOtro($event,'PCC')"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sociedades" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,9,6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 11 Patios -- L45-->
+              <td></td>
+              <td class="actividad">
+                Otro: ¿Cuál?
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPCC5" [(ngModel)]="textPCC5" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="otroPCC">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,10,6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 4 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 1 filas -->
+            <tr><!-- linea 12 Patios -- L46-->
+              <td></td>
+              <td class="actividad">
+                Porcentajes de participación: Escriba los porcentajes de participación de los servicios tercerizados.
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectPCC4" [(ngModel)]="selectPCC4" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of porcentajes" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,11,6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 5 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 4 filas -->
+            <tr><!-- linea 13 Patios -- L47-->
+              <td></td>
+              <td class="actividad">
+                Fecha de inicio
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaPCC1" [(ngModel)]="fechaPCC1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(6)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,12,6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 14 Patios -- L48-->
+              <td></td>
+              <td class="actividad">
+                Fecha de finalización
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaPCC2" [(ngModel)]="fechaPCC2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(6)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,13,6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 15 Patios -- L49-->
+              <td></td>
+              <td class="actividad">
+                OTROSI
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectPCC5" [(ngModel)]="selectPCC5"
+                    (change)="cambioRespuestaSelect($event,'PCC')" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(2,14,6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16 Patios -- L50 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                En caso de que aplique número de otrosí.
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroPCC3" [(ngModel)]="numeroPCC3" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="cambioPCC" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,15,6)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16.5 Grua -- L50.5 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                Número del contrato
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroPCC5" [(ngModel)]="numeroPCC5" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,18,6)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 17 Patios -- L52-->
+              <td></td>
+              <td class="actividad">
+                Objeto del contrato
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPCC6" [(ngModel)]="textPCC6" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,16,6)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table" *ngIf="check7"><!-- Tabla PROCESOS DE COBRO PERSUASIVO -->
+          <colgroup>
+            <col style="width: 30px;">
+            <col style="width: 350px;">
+            <col style="width: 300px;">
+            <col style="width: 500px;">
+          </colgroup>
+          <thead>
+            <tr class="fondo-azul"><!-- Grua -->
+              <th>7-</th>
+              <th>PROCESOS DE COBRO PERSUASIVO</th>
+            </tr>
+            <tr><!-- Encabezado 1 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL TERCERO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 1 Patios -- L35-->
+              <td></td>
+              <td class="actividad">
+                Razón Social
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPCP1" [(ngModel)]="textPCP1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,1,7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 2 Patios -- L36-->
+              <td></td>
+              <td class="actividad">
+                Número de Identificación
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroPCP1" [(ngModel)]="numeroPCP1" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,2,7)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 2 -->
+              <th></th>
+              <th colspan="3">DOMICILIO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><!-- linea 3 Ptios -- L37-->
+              <td></td>
+              <td class="actividad">
+                Domicilio principal
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectPCP2" [(ngModel)]="selectPCP2"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of domicilios" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,3,7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 4 Ptios -- L38-->
+              <td></td>
+              <td class="actividad">
+                Dirección
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPCP2" [(ngModel)]="textPCP2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,4,7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 5 PAtios -- L39-->
+              <td></td>
+              <td class="actividad">
+                Correo Electrónico
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPCP3" [(ngModel)]="textPCP3" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,5,7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 6 PAtios -- L40-->
+              <td></td>
+              <td class="actividad">
+                Nombre de Contacto
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPCP4" [(ngModel)]="textPCP4" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,6,7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 7 Patios -- L41-->
+              <td></td>
+              <td class="actividad">
+                Teléfono de Contacto
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroPCP2" [(ngModel)]="numeroPCP2" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,7,7)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 8 Patios -- L42-->
+              <td></td>
+              <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
+              <td>
+                <app-input-archivo id="archivoPCP1" [disabled]="soloLectura" [nombre]="'archivoPCP1Pdf'"
+                  [(ngModel)]="archivoPCP1" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'PCP1'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,7)">Falta por completar</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.procesoCobroPersuasivo[16]?.nombreOriginalArchivo != ''">
+                  {{preguntas.procesoCobroPersuasivo[16]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+            <tr><!-- linea 9 Patios -- L43-->
+              <td></td>
+              <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
+              <td>
+                <app-input-archivo id="archivoPCP2" [disabled]="soloLectura" [nombre]="'archivoPCP2Pdf'"
+                  [(ngModel)]="archivoPCP2" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'PCP2'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.procesoCobroPersuasivo[7]?.nombreOriginalArchivo != ''">
+                  {{preguntas.procesoCobroPersuasivo[7]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 3 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL MODELO DE TERCERIZACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 10 Patios -- L44-->
+              <td></td>
+              <td class="actividad">
+                Tipo de Sociedad
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectPCP3" [(ngModel)]="selectPCP3" (change)="cambioOtro($event,'PCP')"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sociedades" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,9,7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 11 Patios -- L45-->
+              <td></td>
+              <td class="actividad">
+                Otro: ¿Cuál?
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPCP5" [(ngModel)]="textPCP5" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="otroPCP">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,10,7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 4 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 1 filas -->
+            <tr><!-- linea 12 Patios -- L46-->
+              <td></td>
+              <td class="actividad">
+                Porcentajes de participación: Escriba los porcentajes de participación de los servicios tercerizados.
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectPCP4" [(ngModel)]="selectPCP4" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of porcentajes" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,11,7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 5 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 4 filas -->
+            <tr><!-- linea 13 Patios -- L47-->
+              <td></td>
+              <td class="actividad">
+                Fecha de inicio
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaPCP1" [(ngModel)]="fechaPCP1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(7)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,12,7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 14 Patios -- L48-->
+              <td></td>
+              <td class="actividad">
+                Fecha de finalización
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaPCP2" [(ngModel)]="fechaPCP2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(7)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,13,7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 15 Patios -- L49-->
+              <td></td>
+              <td class="actividad">
+                OTROSI
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectPCP5" [(ngModel)]="selectPCP5"
+                    (change)="cambioRespuestaSelect($event,'PCP')" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(2,14,7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16 Patios -- L50 -->
+              <td></td>
+              <td class="actividad">
+                En caso de que aplique número de otrosí.
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroPCP3" [(ngModel)]="numeroPCP3" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="cambioPCP" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,15,7)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16.5 Grua -- L32.5 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                Número del contrato
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroPCP5" [(ngModel)]="numeroPCP5" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,18,7)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 17 Patios -- L52-->
+              <td></td>
+              <td class="actividad">
+                Objeto del contrato
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textPCP6" [(ngModel)]="textPCP6" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,16,7)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table" *ngIf="check8"><!-- Tabla RECAUDO DE MULTAS -->
+          <colgroup>
+            <col style="width: 30px;">
+            <col style="width: 350px;">
+            <col style="width: 300px;">
+            <col style="width: 500px;">
+          </colgroup>
+          <thead>
+            <tr class="fondo-azul"><!-- Grua -->
+              <th>8-</th>
+              <th>RECAUDO DE MULTAS</th>
+            </tr>
+            <tr><!-- Encabezado 1 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL TERCERO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 1 Patios -- L35-->
+              <td></td>
+              <td class="actividad">
+                Razón Social
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textR1" [(ngModel)]="textR1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,1,8)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 2 Patios -- L36-->
+              <td></td>
+              <td class="actividad">
+                Número de Identificación
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroR1" [(ngModel)]="numeroR1" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,2,8)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 2 -->
+              <th></th>
+              <th colspan="3">DOMICILIO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><!-- linea 3 Ptios -- L37-->
+              <td></td>
+              <td class="actividad">
+                Domicilio principal
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectR2" [(ngModel)]="selectR2" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of domicilios" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,3,8)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 4 Ptios -- L38-->
+              <td></td>
+              <td class="actividad">
+                Dirección
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textR2" [(ngModel)]="textR2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,4,8)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 5 PAtios -- L39-->
+              <td></td>
+              <td class="actividad">
+                Correo Electrónico
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textR3" [(ngModel)]="textR3" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,5,8)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 6 PAtios -- L40-->
+              <td></td>
+              <td class="actividad">
+                Nombre de Contacto
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textR4" [(ngModel)]="textR4" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,6,8)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 7 Patios -- L41-->
+              <td></td>
+              <td class="actividad">
+                Teléfono de Contacto
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroR2" [(ngModel)]="numeroR2" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,7,8)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 8 Patios -- L42-->
+              <td></td>
+              <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
+              <td>
+                <app-input-archivo id="archivoR1" [disabled]="soloLectura" [nombre]="'archivoR1Pdf'"
+                  [(ngModel)]="archivoR1" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'R1'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,8)">Falta por completar</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.recaudoMultas[16]?.nombreOriginalArchivo != ''">
+                  {{preguntas.recaudoMultas[16]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+            <tr><!-- linea 9 Patios -- L43-->
+              <td></td>
+              <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
+              <td>
+                <app-input-archivo id="archivoR2" [disabled]="soloLectura" [nombre]="'archivoR2Pdf'"
+                  [(ngModel)]="archivoR2" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'R2'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.recaudoMultas[7]?.nombreOriginalArchivo != ''">
+                  {{preguntas.recaudoMultas[7]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 3 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL MODELO DE TERCERIZACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 10 Patios -- L44-->
+              <td></td>
+              <td class="actividad">
+                Tipo de Sociedad
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectR3" [(ngModel)]="selectR3" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura" (change)="cambioOtro($event,'R')">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sociedades" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,9,8)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 11 Patios -- L45-->
+              <td></td>
+              <td class="actividad">
+                Otro: ¿Cuál?
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textR5" [(ngModel)]="textR5" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="otroR">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,10,8)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 4 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 1 filas -->
+            <tr><!-- linea 12 Patios -- L46-->
+              <td></td>
+              <td class="actividad">
+                Porcentajes de participación: Escriba los porcentajes de participación de los servicios tercerizados.
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectR4" [(ngModel)]="selectR4" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of porcentajes" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,11,8)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 5 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 4 filas -->
+            <tr><!-- linea 13 Patios -- L47-->
+              <td></td>
+              <td class="actividad">
+                Fecha de inicio
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaR1" [(ngModel)]="fechaR1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(8)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,12,8)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 14 Patios -- L48-->
+              <td></td>
+              <td class="actividad">
+                Fecha de finalización
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaR2" [(ngModel)]="fechaR2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(8)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,13,8)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 15 Patios -- L49-->
+              <td></td>
+              <td class="actividad">
+                OTROSI
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectR5" [(ngModel)]="selectR5"
+                    (change)="cambioRespuestaSelect($event,'R')" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(2,14,8)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16 Patios -- L50 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                En caso de que aplique número de otrosí.
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroR3" [(ngModel)]="numeroR3" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="cambioR" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,15,8)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16.5 Grua -- L50.5 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                Número del contrato
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroR5" [(ngModel)]="numeroR5" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,18,8)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 17 Patios -- L52-->
+              <td></td>
+              <td class="actividad">
+                Objeto del contrato
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textR6" [(ngModel)]="textR6" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,16,8)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table" *ngIf="check9"><!-- Tabla OTROS -->
+          <colgroup>
+            <col style="width: 30px;">
+            <col style="width: 350px;">
+            <col style="width: 300px;">
+            <col style="width: 500px;">
+          </colgroup>
+          <thead>
+            <tr class="fondo-azul"><!-- Grua -->
+              <th>9-</th>
+              <th>OTROS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td class="actividad">
+                ¿Cuáles otros servicios tiene tercerizados?
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textO0" [(ngModel)]="textO0" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,19,9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 1 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL TERCERO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 1 Patios -- L35-->
+              <td></td>
+              <td class="actividad">
+                Razón Social
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textO1" [(ngModel)]="textO1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,1,9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 2 Patios -- L36-->
+              <td></td>
+              <td class="actividad">
+                Número de Identificación
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroO1" [(ngModel)]="numeroO1" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,2,9)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 2 -->
+              <th></th>
+              <th colspan="3">DOMICILIO</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><!-- linea 3 Ptios -- L37-->
+              <td></td>
+              <td class="actividad">
+                Domicilio principal
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectO2" [(ngModel)]="selectO2" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of domicilios" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,3,9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 4 Ptios -- L38-->
+              <td></td>
+              <td class="actividad">
+                Dirección
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textO2" [(ngModel)]="textO2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,4,9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 5 PAtios -- L39-->
+              <td></td>
+              <td class="actividad">
+                Correo Electrónico
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textO3" [(ngModel)]="textO3" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,5,9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 6 PAtios -- L40-->
+              <td></td>
+              <td class="actividad">
+                Nombre de Contacto
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textO4" [(ngModel)]="textO4" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,6,9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 7 Patios -- L41-->
+              <td></td>
+              <td class="actividad">
+                Teléfono de Contacto
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroO2" [(ngModel)]="numeroO2" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,7,9)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 8 Patios -- L42-->
+              <td></td>
+              <td colspan="2">Los contratos, Acto administrativo, Acuerdo Municipal, Otros</td>
+              <td>
+                <app-input-archivo id="archivoO1" [disabled]="soloLectura" [nombre]="'archivoO1Pdf'"
+                  [(ngModel)]="archivoO1" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'O1'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,17,9)">Falta por completar</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.otros[16]?.nombreOriginalArchivo != ''">
+                  {{preguntas.otros[16]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+            <tr><!-- linea 9 Patios -- L43-->
+              <td></td>
+              <td colspan="2">En caso de contar con otros documentos soportes relaciónelos aquí</td>
+              <td>
+                <app-input-archivo id="archivoO2" [disabled]="soloLectura" [nombre]="'archivoO2Pdf'"
+                  [(ngModel)]="archivoO2" [acepta]="['.pdf']"
+                  (change)="[cargarArchivo($event,'pdf',5,'O2'),detectarCambios()]" />
+                <span>PDF, Máximo 5 Mb</span>
+              </td>
+              <td>
+                <span class="texto-azul" *ngIf="preguntas.otros[7]?.nombreOriginalArchivo != ''">
+                  {{preguntas.otros[7]?.nombreOriginalArchivo}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 3 -->
+              <th></th>
+              <th colspan="3">RESPECTO AL MODELO DE TERCERIZACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 2 filas -->
+            <tr><!-- linea 10 Patios -- L44-->
+              <td></td>
+              <td class="actividad">
+                Tipo de Sociedad
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectO3" [(ngModel)]="selectO3" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura" (change)="cambioOtro($event,'O')">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sociedades" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,9,9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 11 Patios -- L45-->
+              <td></td>
+              <td class="actividad">
+                Otro: ¿Cuál?
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textO5" [(ngModel)]="textO5" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="otroO">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,10,9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 4 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 1 filas -->
+            <tr><!-- linea 12 Patios -- L46-->
+              <td></td>
+              <td class="actividad">
+                Porcentajes de participación: Escriba los porcentajes de participación de los servicios tercerizados.
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectO4" [(ngModel)]="selectO4" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of porcentajes" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(2,11,9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr><!-- Encabezado 5 -->
+              <th></th>
+              <th colspan="3">RESPECTO A LAS CONDICIONES DE PARTICIPACIÓN</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> <!-- 4 filas -->
+            <tr><!-- linea 13 Patios -- L47-->
+              <td></td>
+              <td class="actividad">
+                Fecha de inicio
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaO1" [(ngModel)]="fechaO1" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(9)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,12,9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 14 Patios -- L48-->
+              <td></td>
+              <td class="actividad">
+                Fecha de finalización
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="date" id="fechaO2" [(ngModel)]="fechaO2" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="verificarFechas(9)">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,13,9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 15 Patios -- L49-->
+              <td></td>
+              <td class="actividad">
+                OTROSI
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <select class="form-select" id="selectO5" [(ngModel)]="selectO5"
+                    (change)="cambioRespuestaSelect($event,'O')" (ngModelChange)="detectarCambios()"
+                    [disabled]="soloLectura">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select>
+                  <span class="validacion" *ngIf="verificarFaltantes(2,14,9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16 Patios -- L50 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                En caso de que aplique número de otrosí.
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroO3" [(ngModel)]="numeroO3" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="cambioO" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,15,9)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 16.5 Grua -- L32.5 cambiar disabled-->
+              <td></td>
+              <td class="actividad">
+                Número del contrato
+              </td>
+              <td colspan="2">
+                <app-input-numerico id="numeroO5" [(ngModel)]="numeroO5" (ngModelChange)="detectarCambios()"
+                  [largoMaximo]="15" [disabled]="soloLectura" />
+                <span class="validacion" *ngIf="verificarFaltantes(2,18,9)">Falta por completar</span>
+              </td>
+              <td></td>
+            </tr>
+            <tr><!-- linea 17 Patios -- L52-->
+              <td></td>
+              <td class="actividad">
+                Objeto del contrato
+              </td>
+              <td colspan="2">
+                <fieldset class="d-flex flex-gap-10">
+                  <input type="text" id="textO6" [(ngModel)]="textO6" class="form-control"
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                  <span class="validacion" *ngIf="verificarFaltantes(2,16,9)">Falta por completar</span>
+                </fieldset>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </li>
+  </ul>
+</div>

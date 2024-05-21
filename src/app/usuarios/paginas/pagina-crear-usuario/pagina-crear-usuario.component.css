@@ -1,0 +1,14 @@
+.lista-de-usuarios th{
+    color: var(--azul-oscuro);
+}
+.frm-check input{
+    margin-right: 5px;
+}
+.frm-check {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+.contenedor-check{
+ display: flex;   
+}
