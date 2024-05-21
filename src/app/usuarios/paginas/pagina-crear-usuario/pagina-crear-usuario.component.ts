@@ -28,8 +28,10 @@ export class PaginaCrearUsuarioComponent implements OnInit{
   rol: string = ""
   roles: Rol[] = []
   formulario: FormGroup
-  departamentos: Departamento[] = []
-  municipios: Ciudad[] = []
+  mostrarFormularios = false
+ /*  puertos: boolean = false; concesiones: boolean = false; transito: boolean = false; aerodromos: boolean = false; */
+/*   departamentos: Departamento[] = []
+  municipios: Ciudad[] = [] */
 
   constructor(private servicio: ServicioUsuarios, private servicioDepartamento: ServicioDepartamentos){
     this.paginador = new Paginador<FiltrosUsuarios>(this.obtenerUsuarios)
@@ -37,28 +39,27 @@ export class PaginaCrearUsuarioComponent implements OnInit{
       nombre: new FormControl(undefined, [ Validators.required ]),
       apellido: new FormControl(undefined),
       identificacion: new FormControl(undefined, [ Validators.required ]),
-      fechaNacimiento: new FormControl(undefined, [ Validators.required ]),
       correo: new FormControl(undefined, [ Validators.required, Validators.email ]),
       telefono: new FormControl(undefined),
       rol: new FormControl("", [ Validators.required ]),
-      departamento: new FormControl("", [Validators.required]),
-      municipio: new FormControl("", [Validators.required])
+      puertos: new FormControl(false),
+      concesiones: new FormControl(false),
+      transito: new FormControl(false),
+      aerodromos: new FormControl(false),
     })
   }
 
   ngOnInit(): void {
     this.paginador.inicializar(1, 30)
     this.obtenerRoles()
-    this.obtenerDepartamentos()
-    this.formulario.controls['departamento'].valueChanges.subscribe({
-      next: (idDepartamento)=>{
-        if(idDepartamento && idDepartamento !== ""){
-          this.obtenerMunicipios(idDepartamento)
-        }else{
-          this.municipios = []
-        }
+    this.formulario.controls['rol'].valueChanges.subscribe({
+      next: (rolId)=>{
+        console.log(rolId);
+        (rolId == '003')?this.mostrarFormularios = true:this.mostrarFormularios = false
+        
       }
     })
+ 
   }
 
   obtenerUsuarios = (pagina: number, limite: number, filtros?: FiltrosUsuarios)=>{
@@ -82,17 +83,30 @@ export class PaginaCrearUsuarioComponent implements OnInit{
       marcarFormularioComoSucio(this.formulario)
       return;
     }
-    const controls = this.formulario.controls
+
+   /*  const formularios = this.obtenerFormularios(); */
+   const controls = this.formulario.controls
+   
     this.servicio.guardar({
       apellido: controls['apellido'].value,
       nombre: controls['nombre'].value,
       correo: controls['correo'].value,
-      fechaNacimiento: controls['fechaNacimiento'].value,
       identificacion: controls['identificacion'].value,
       idRol: controls['rol'].value,
       telefono: controls['telefono'].value,
-      departamentoId: controls['departamento'].value,
-      municipioId: controls['municipio'].value
+      formularios: [{
+        "formularioId":7,
+        "estado":controls['puertos'].value
+    },{
+        "formularioId":8,
+        "estado":controls['concesiones'].value
+    },{
+        "formularioId":9,
+        "estado":controls['transito'].value
+    },{
+        "formularioId":553,
+        "estado":controls['aerodromos'].value 
+    }]
     }).subscribe({
       next: ()=>{
         this.popup.abrirPopupExitoso("Usuario creado con éxito.")
@@ -123,8 +137,8 @@ export class PaginaCrearUsuarioComponent implements OnInit{
     this.formulario.get('rol')!.setValue("")
   }
 
-  abrirModalActualizarUsuario(usuario: Usuario){
-    this.modalActualizarUsuario.abrir(usuario)
+  abrirModalActualizarUsuario(id: string){
+    this.modalActualizarUsuario.abrir(id)
   }
 
   obtenerRoles(){
@@ -135,20 +149,24 @@ export class PaginaCrearUsuarioComponent implements OnInit{
     })
   }
 
-  obtenerDepartamentos(){
-    this.servicioDepartamento.obtenerDepartamentos().subscribe({
-      next: (departamentos)=>{
-        this.departamentos = departamentos
-      }
-    })
-  }
+/*   obtenerFormularios(){
+    const formularios = [{
+      "formularioId":7,
+      "estado":this.puertos
+  },{
+      "formularioId":8,
+      "estado":this.concesiones
+  },{
+      "formularioId":9,
+      "estado":this.transito
+  },{
+      "formularioId":553,
+      "estado":this.aerodromos
+  }]
 
-  obtenerMunicipios(departamentoId: number){
-    this.servicioDepartamento.obtenerCiudades(departamentoId).subscribe({
-      next: (municipios)=>{
-        this.municipios = municipios 
-      }
-    })
-  }
+  return formularios
+
+  } */
+
 
 }

@@ -50,6 +50,10 @@ const routes: Routes = [
         path: 'concesiones',
         component: AereosComponent
       },
+      {
+        path: 'usuarios',
+        loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule)
+      },
     ]
   },
   {

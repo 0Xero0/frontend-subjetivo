@@ -10,6 +10,7 @@ import { DateTime } from 'luxon';
 import { ServicioDepartamentos } from 'src/app/encuestas/servicios/departamentos.service';
 import { Departamento } from 'src/app/encuestas/modelos/Departamento';
 import { Ciudad } from 'src/app/encuestas/modelos/Ciudad';
+import { UsuarioDB } from '../../modelos/UsuarioDB';
 
 @Component({
   selector: 'app-modal-actualizar-usuario',
@@ -21,44 +22,32 @@ export class ModalActualizarUsuarioComponent implements OnInit{
   @ViewChild('popup') popup!: PopupComponent
 
   @Output('usuarioActualizado') usuarioActualizado: EventEmitter<void>;
-  usuario?: Usuario
+  usuario?: UsuarioDB
   formulario: FormGroup
   roles: Rol[] = []
-  departamentos: Departamento[] = []
-  municipios: Ciudad[] = []
-
   constructor(private servicioModal: NgbModal, private servicio: ServicioUsuarios, private servicioDepartamento: ServicioDepartamentos){
     this.usuarioActualizado = new EventEmitter<void>();
     this.formulario = new FormGroup({
       nombre: new FormControl(undefined, [ Validators.required ]),
       apellido: new FormControl(undefined),
       identificacion: new FormControl(undefined, [ Validators.required ]),
-      fechaNacimiento: new FormControl(undefined, [ Validators.required ]),
       correo: new FormControl(undefined, [ Validators.required ]),
       telefono: new FormControl(undefined),
       rol: new FormControl("", [ Validators.required ]),
-      departamento: new FormControl("", [Validators.required]),
-      municipio: new FormControl("", [Validators.required])
+      puertos: new FormControl(false),
+      concesiones: new FormControl(false),
+      transito: new FormControl(false),
+      aerodromos: new FormControl(false),
     })
   }
 
   ngOnInit(): void {
     this.obtenerRoles()
-    this.obtenerDepartamentos()
-    this.formulario.controls['departamento'].valueChanges.subscribe({
-      next: (idDepartamento)=>{
-        if(idDepartamento && idDepartamento !== ""){
-          this.obtenerMunicipios(idDepartamento)
-        }else{
-          this.municipios = []
-        }
-      }
-    })
   }
 
-  abrir(usuario: Usuario){
-    this.usuario = usuario
-    this.rellenarFormulario(usuario)
+  abrir(id: string){
+    this.obtenerUsuario(id)
+    
     this.servicioModal.open(this.modal, {
       size: 'xl'
     })
@@ -69,7 +58,6 @@ export class ModalActualizarUsuarioComponent implements OnInit{
   }
 
   actualizar(){
-    console.log(this.formulario.controls)
     if(this.formulario.invalid){
       marcarFormularioComoSucio(this.formulario)
       return;
@@ -79,12 +67,22 @@ export class ModalActualizarUsuarioComponent implements OnInit{
       apellido: controls['apellido'].value,
       nombre: controls['nombre'].value,
       correo: controls['correo'].value,
-      fechaNacimiento: controls['fechaNacimiento'].value,
       identificacion: controls['identificacion'].value,
       idRol: controls['rol'].value,
       telefono: controls['telefono'].value,
-      departamentoId: Number(controls['departamento'].value),
-      municipioId: Number(controls['municipio'].value)
+      formularios: [{
+        "formularioId":7,
+        "estado":controls['puertos'].value
+    },{
+        "formularioId":8,
+        "estado":controls['concesiones'].value
+    },{
+        "formularioId":9,
+        "estado":controls['transito'].value
+    },{
+        "formularioId":553,
+        "estado":controls['aerodromos'].value 
+    }]
     }).subscribe({
       next: ()=>{
         this.usuarioActualizado.emit();
@@ -96,19 +94,44 @@ export class ModalActualizarUsuarioComponent implements OnInit{
     })
   }
 
-  rellenarFormulario(usuario: Usuario){
+  rellenarFormulario(usuario: UsuarioDB){
+    console.log(usuario);
+    
     const controls = this.formulario.controls
     controls['apellido'].setValue(usuario.apellido)
     controls['nombre'].setValue(usuario.nombre)
     controls['correo'].setValue(usuario.correo)
-    controls['fechaNacimiento'].setValue(
-      DateTime.fromISO(usuario.fechaNacimiento).toFormat('yyyy-MM-dd') 
-    )
     controls['identificacion'].setValue(usuario.identificacion)
-    controls['rol'].setValue(usuario.idRol)
-    controls['telefono'].setValue(usuario.telefono)
-    controls['departamento'].setValue(usuario.departamentoId)
-    controls['municipio'].setValue(usuario.municipioId)
+    controls['rol'].setValue(usuario.id_rol)
+    controls['puertos'].setValue(false)
+    controls['concesiones'].setValue(false)
+    controls['transito'].setValue(false)
+    controls['aerodromos'].setValue(false)
+
+    this.marcarCheckboxes(usuario.formularios);
+
+
+
+    
+  }
+
+  marcarCheckboxes(formularios:any): void {
+    formularios.forEach((formulario:any) => {
+      switch (formulario.delegatura.toLowerCase()) {
+        case 'puertos':
+          this.formulario.controls['puertos'].setValue(formulario.estado);
+          break;
+        case 'concesiones':
+          this.formulario.controls['concesiones'].setValue(formulario.estado);
+          break;
+        case 'tránsito':
+          this.formulario.controls['transito'].setValue(formulario.estado);
+          break;
+        case 'aeródromos':
+          this.formulario.controls['aerodromos'].setValue(formulario.estado);
+          break;
+      }
+    });
   }
 
   limpiarFormulario(){
@@ -124,20 +147,14 @@ export class ModalActualizarUsuarioComponent implements OnInit{
     })
   }
 
-  obtenerDepartamentos(){
-    this.servicioDepartamento.obtenerDepartamentos().subscribe({
-      next: (departamentos)=>{
-        this.departamentos = departamentos
+  obtenerUsuario(id:string){
+    this.servicio.obtenerUsuarioPorId(id).subscribe({
+      next: (respuesta: any) => {
+       this.usuario = respuesta
+       if(this.usuario) this.rellenarFormulario(this.usuario);
       }
     })
   }
 
-  obtenerMunicipios(departamentoId: number){
-    this.servicioDepartamento.obtenerCiudades(departamentoId).subscribe({
-      next: (municipios)=>{
-        this.municipios = municipios 
-      }
-    })
-  }
 
 }
