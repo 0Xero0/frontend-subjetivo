@@ -454,7 +454,7 @@ export class AerodromosComponent {
       text: 'Espere por favor...',
     });
     Swal.showLoading(null);
-    this.servicio.guardarTransito(aerodromosJson).subscribe({
+    this.servicio.guardarAerodromo(aerodromosJson).subscribe({
       next: (respuesta: any) =>{
         //console.log(respuesta);
         if(respuesta){
