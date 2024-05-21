@@ -144,6 +144,13 @@ export class TransitoComponent {
     return `${anio}-${mes}-${dia}`;
   }
 
+  validateText(event: any) {
+    const pattern = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]*$/;
+    if (!pattern.test(event.target.value)) {
+      event.target.value = event.target.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]/g, '');
+    }
+  }
+
   detectarCambios(){
     this.hayCambios = true
   }

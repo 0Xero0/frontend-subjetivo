@@ -472,7 +472,7 @@
               </td>
               <td>
                 <fieldset class="d-flex flex-column" *ngIf="cambioT3L4 == true || cambioT3L4 == false">
-                  <app-input-archivo id="archivoL5T3" [disabled]="soloLectura" [nombre]="'archivoL5T3pdf'"
+                  <app-input-archivo id="archivoT3L4" [disabled]="soloLectura" [nombre]="'archivoT3L4'"
                     [(ngModel)]="archivoT3L4" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,20),detectarCambios()]"/>
                     <span class="texto-azul" *ngIf="transporte[19].nombreOriginalArchivo != '' && selectL20 == transporte[19].valor">
                       {{transporte[19].nombreOriginalArchivo}}
@@ -506,7 +506,7 @@
               </td>
               <td>
                 <fieldset class="d-flex flex-column" *ngIf="cambioT3L5 == true">
-                  <app-input-archivo id="archivoL5T3" [disabled]="soloLectura" [nombre]="'archivoL5T3'"
+                  <app-input-archivo id="archivoL5T3" [disabled]="soloLectura" [nombre]="'archivoL5T3pdf'"
                     [(ngModel)]="archivoT3L5" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,21),detectarCambios()]"/>
                     <span class="texto-azul" *ngIf="transporte[20].nombreOriginalArchivo != '' && selectL21 == transporte[20].valor">
                       {{transporte[20].nombreOriginalArchivo}}
@@ -514,7 +514,7 @@
                   <span>Excel, Máximo 5 Mb</span>
                 </fieldset>
                 <fieldset class="d-flex flex-column" *ngIf="cambioT3L5 == false">
-                  <app-input-archivo id="archivoL5T3" [disabled]="soloLectura" [nombre]="'archivoL5T3'"
+                  <app-input-archivo id="archivoL5T3" [disabled]="soloLectura" [nombre]="'archivoL5T3pdf'"
                     [(ngModel)]="archivoT3L5" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,21),detectarCambios()]"/>
                     <span class="texto-azul" *ngIf="transporte[20].nombreOriginalArchivo != '' && selectL21 == transporte[20].valor">
                       {{transporte[20].nombreOriginalArchivo}}

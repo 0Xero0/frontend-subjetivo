@@ -457,7 +457,7 @@
               </td>
               <td colspan="3">
                 <ng-container>
-                  <input type="text" [(ngModel)]="tipoVigilado" class="form-control"
+                  <input type="text" [(ngModel)]="tipoVigilado" class="form-control" (input)="validateText($event)"
                     (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
@@ -500,7 +500,7 @@
               <td colspan="3">
                 <ng-container>
                   <input type="text" [(ngModel)]="entidadHabilitante" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
               </td>
@@ -529,7 +529,7 @@
               </td>
               <td colspan="3">
                 <ng-container>
-                  <input type="text" [(ngModel)]="cual" class="form-control"
+                  <input type="text" [(ngModel)]="cual" class="form-control" (input)="validateText($event)"
                     (ngModelChange)="detectarCambios()" [disabled]="habilitarCual">
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
@@ -606,7 +606,7 @@
               <td colspan="3">
                 <ng-container>
                   <input type="text" [(ngModel)]="entidadHabilitante2" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
               </td>
@@ -645,7 +645,7 @@
               <td colspan="3">
                 <ng-container>
                   <app-input-numerico [(ngModel)]="numeroId" (ngModelChange)="detectarCambios()"
-                    [largoMaximo]="12" [disabled]="soloLectura" /><!--  -->
+                    [largoMaximo]="10" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
               </td>
@@ -806,7 +806,7 @@
               <td colspan="3">
                 <ng-container>
                   <app-input-numerico [(ngModel)]="numeroIdC" (ngModelChange)="detectarCambios()"
-                    [largoMaximo]="12" [disabled]="soloLectura" /><!--  -->
+                    [largoMaximo]="10" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
               </td>
@@ -819,7 +819,7 @@
               <td colspan="3">
                 <ng-container>
                   <input type="text" [(ngModel)]="nombreCompletoC" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
               </td>
@@ -978,7 +978,7 @@
               <td colspan="3">
                 <ng-container>
                   <app-input-numerico [(ngModel)]="numeroIdRF" (ngModelChange)="detectarCambios()"
-                    [largoMaximo]="12" [disabled]="noObligadoRF" /><!--  -->
+                    [largoMaximo]="10" [disabled]="noObligadoRF" /><!--  -->
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
               </td>
@@ -991,7 +991,7 @@
               <td colspan="3">
                 <ng-container>
                   <input type="text" [(ngModel)]="nombreCompletoRF" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="noObligadoRF">
+                    (ngModelChange)="detectarCambios()" [disabled]="noObligadoRF" (input)="validateText($event)">
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
               </td>
@@ -1176,7 +1176,7 @@
               <td colspan="3">
                 <ng-container>
                   <app-input-numerico [(ngModel)]="numeroIdRFS" (ngModelChange)="detectarCambios()"
-                    [largoMaximo]="12" [disabled]="noObligadoRFS" /><!--  -->
+                    [largoMaximo]="10" [disabled]="noObligadoRFS"/><!--  -->
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
               </td>
@@ -1189,7 +1189,7 @@
               <td colspan="3">
                 <ng-container>
                   <input type="text" [(ngModel)]="nombreCompletoRFS" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="noObligadoRFS">
+                    (ngModelChange)="detectarCambios()" [disabled]="noObligadoRFS" (input)="validateText($event)">
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
               </td>
@@ -1464,7 +1464,7 @@
               <td colspan="3">
                 <ng-container>
                   <app-input-numerico [(ngModel)]="numeroIdR" (ngModelChange)="detectarCambios()"
-                    [largoMaximo]="12" [disabled]="soloLectura" /><!--  -->
+                    [largoMaximo]="10" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
               </td>
@@ -1477,7 +1477,7 @@
               <td colspan="3">
                 <ng-container>
                   <input type="text" [(ngModel)]="nombreCompletoR" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
               </td>
@@ -1764,7 +1764,9 @@
     </li>
   </ul>
   <div class="d-block mb-3 mx-3 text-center">
-    <h1>REPORTE INGRESOS BRUTOS OPERACIONALES PARA LOS ENTES TERRITORIALES (AERÓDROMOS)</h1>
+    <h1>
+      DICTAMEN DEL REVISOR FISCAL del 1 de enero al 31 de diciembre
+    </h1>
   </div>
   <ul class="nav-tabs w-100">
     <li>
@@ -1847,9 +1849,9 @@
                 </fieldset>
               </td>
             </tr>
-            <tr><!-- PDF ACTO DE NOMBRAMIENTO -->
+            <tr><!-- PDF Dictámen RF -->
               <td></td>
-              <td colspan="2">PDF ACTO DE NOMBRAMIENTO </td>
+              <td>PDF Dictámen REVISOR FISCAL </td>
               <td>
                 <app-input-archivo [disabled]="soloLectura" [nombre]="'docDictamen'"
                   [(ngModel)]="docDictamen" [acepta]="['.pdf']"

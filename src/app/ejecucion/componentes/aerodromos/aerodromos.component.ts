@@ -226,6 +226,12 @@ export class AerodromosComponent {
           icon: 'warning'
         })
         this.fechaActoAC = undefined
+      }else if (event.target.value < '1900-01-01'){
+        Swal.fire({
+          titleText: 'La fecha del Acto administrativo de creación no puede ser menor a 01 de enero de 1900',
+          icon: 'warning'
+        })
+        this.fechaActoAC = undefined
       }
     }
     if(input == 'fechaNombrmientoR'){
@@ -235,6 +241,12 @@ export class AerodromosComponent {
           icon: 'warning'
         })
         this.fechaNombrmientoR = undefined
+      }else if (event.target.value < '1900-01-01'){
+        Swal.fire({
+          titleText: 'La fecha del Acto administrativo de creación no puede ser menor a 01 de enero de 1900',
+          icon: 'warning'
+        })
+        this.fechaActoAC = undefined
       }
     }
     if(input == 'fechaNombrmientoRFR'){
@@ -244,15 +256,27 @@ export class AerodromosComponent {
           icon: 'warning'
         })
         this.fechaNombrmientoRFR = undefined
+      }else if (event.target.value < '1900-01-01'){
+        Swal.fire({
+          titleText: 'La fecha del Acto administrativo de creación no puede ser menor a 01 de enero de 1900',
+          icon: 'warning'
+        })
+        this.fechaActoAC = undefined
       }
     }
-    if(input == 'fechaNombrmientoR'){
+    if(input == 'fechaNombrmientoCR'){
       if(event.target.value > this.fechaActual){
         Swal.fire({
           titleText: 'La fecha de nombramiento no puede ser mayor a la fecha actual',
           icon: 'warning'
         })
         this.fechaNombrmientoR = undefined
+      }else if (event.target.value < '1900-01-01'){
+        Swal.fire({
+          titleText: 'La fecha del Acto administrativo de creación no puede ser menor a 01 de enero de 1900',
+          icon: 'warning'
+        })
+        this.fechaActoAC = undefined
       }
     }
   }
@@ -409,7 +433,8 @@ export class AerodromosComponent {
         this.reporte = respuesta['reporte']
         this.dictamenj = respuesta['digtamen']
         this.ingresos = respuesta['ingresos']
-        this.llenaridentificacion
+        this.llenaridentificacion()
+        this.llenarReporte()
       }
     })
   }
@@ -419,7 +444,42 @@ export class AerodromosComponent {
     const reporte = this.capturarReporte()
     const dictamen = this.capturarDictamen()
     const ingresos = this.capturarIngresos()
-    //console.log(identificacion)
+    let aerodromosJson:any;
+    
+    aerodromosJson={identificacion,reporte,dictamen,ingresos}
+    console.log(aerodromosJson)
+    Swal.fire({
+      icon: 'info',
+      allowOutsideClick: false,
+      text: 'Espere por favor...',
+    });
+    Swal.showLoading(null);
+    this.servicio.guardarTransito(aerodromosJson).subscribe({
+      next: (respuesta: any) =>{
+        //console.log(respuesta);
+        if(respuesta){
+          Swal.fire({
+            titleText:"¡Guardado exitoso!",
+            icon: "success"
+          })
+          this.obtenerAerodromos()
+          this.hayCambios = false
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        if(error.status == 400){
+          Swal.fire({
+            titleText:error.error.mensaje,
+            icon:'error'
+          })
+        }else{
+          Swal.fire({
+            titleText:error.error,
+            icon:'error'
+          })
+        }
+      }
+    })
   }
 
   maestras(){
@@ -722,9 +782,9 @@ export class AerodromosComponent {
       {/* PDF CERL */
         "preguntaId": 27,
         "valor": "",
-        "nombreAlmacenado": this.resCerl?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resCerl?.nombreOriginalArchivo,
-        "ruta": this.resCerl?.ruta,
+        "nombreAlmacenado": this.resCerl?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resCerl?.nombreOriginalArchivo??'',
+        "ruta": this.resCerl?.ruta??'',
       },
       {/* "TIPO DE VIGILADO" */
         "preguntaId": 28,
@@ -743,9 +803,9 @@ export class AerodromosComponent {
       {/* "PDF RESOLUCIÓN DE HABILITACIÓN" */
         "preguntaId": 30,
         "valor": "",
-        "nombreAlmacenado": this.resHabilitacion?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resHabilitacion?.nombreOriginalArchivo,
-        "ruta": this.resHabilitacion?.ruta,
+        "nombreAlmacenado": this.resHabilitacion?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resHabilitacion?.nombreOriginalArchivo??'',
+        "ruta": this.resHabilitacion?.ruta??'',
       },
       {/* "ENTIDAD HABILITANTE" */
         "preguntaId": 31,
@@ -792,9 +852,9 @@ export class AerodromosComponent {
       {/* "PDF RESOLUCIÓN DE HABILITACIÓN Y/O PERMISO" */
         "preguntaId": 37,
         "valor": "",
-        "nombreAlmacenado": this.resHabilitacion2?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resHabilitacion2?.nombreOriginalArchivo,
-        "ruta": this.resHabilitacion2?.ruta,
+        "nombreAlmacenado": this.resHabilitacion2?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resHabilitacion2?.nombreOriginalArchivo??'',
+        "ruta": this.resHabilitacion2?.ruta??'',
       },
       {/*  "ENTIDAD HABILITANTE" */
         "preguntaId": 38,
@@ -827,9 +887,9 @@ export class AerodromosComponent {
       {/* "PDF CEDULA RL" */
         "preguntaId": 42,
         "valor": "",
-        "nombreAlmacenado": this.resDocumentoId?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resDocumentoId?.nombreOriginalArchivo,
-        "ruta": this.resDocumentoId?.ruta,
+        "nombreAlmacenado": this.resDocumentoId?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resDocumentoId?.nombreOriginalArchivo??'',
+        "ruta": this.resDocumentoId?.ruta??'',
       },
       {/* "CORREO ELECTRÓNICO REPRESENTANTE" */
         "preguntaId": 43,
@@ -855,9 +915,9 @@ export class AerodromosComponent {
       {/* "PDF ACTA NOMBRAMIENTO" */
         "preguntaId": 46,
         "valor": "",
-        "nombreAlmacenado": this.resActaNombramiento?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resActaNombramiento?.nombreOriginalArchivo,
-        "ruta": this.resActaNombramiento?.ruta,
+        "nombreAlmacenado": this.resActaNombramiento?.nombreAlmacenado??''??''??'',
+        "nombreOriginalArchivo": this.resActaNombramiento?.nombreOriginalArchivo??''??''??'',
+        "ruta": this.resActaNombramiento?.ruta??''??''??'',
       },
       {/* "FECHA DE INSCRIPCION EN CC REPRESENTANTE" */
         "preguntaId": 47,
@@ -869,9 +929,9 @@ export class AerodromosComponent {
       {/* "PDF CAMARA Y COMERCIO" */
         "preguntaId": 48,
         "valor": "",
-        "nombreAlmacenado": this.resCC?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resCC?.nombreOriginalArchivo,
-        "ruta": this.resCC?.ruta,
+        "nombreAlmacenado": this.resCC?.nombreAlmacenado??''??''??''??'',
+        "nombreOriginalArchivo": this.resCC?.nombreOriginalArchivo??''??''??''??'',
+        "ruta": this.resCC?.ruta??''??''??''??'',
       },
       {/* "TIPO DE DOCUMENTO CONTADOR" */
         "preguntaId": 49,
@@ -897,9 +957,9 @@ export class AerodromosComponent {
       {/* "PDF CEDULA C CONTADOR" */
         "preguntaId": 52,
         "valor": "",
-        "nombreAlmacenado": this.resDocumentoIdC?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resDocumentoIdC?.nombreOriginalArchivo,
-        "ruta": this.resDocumentoIdC?.ruta,
+        "nombreAlmacenado": this.resDocumentoIdC?.nombreAlmacenado??''??''??''??''??'',
+        "nombreOriginalArchivo": this.resDocumentoIdC?.nombreOriginalArchivo??''??''??''??''??'',
+        "ruta": this.resDocumentoIdC?.ruta??''??''??''??''??'',
       },
       {/* "CORREO ELECTRÓNICO CONTADOR" */
         "preguntaId": 53,
@@ -918,9 +978,9 @@ export class AerodromosComponent {
       {/* "PDF TARJETA PROFESIONAL CONTADOR" */
         "preguntaId": 55,
         "valor": "",
-        "nombreAlmacenado": this.resTarjetaProDoc?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resTarjetaProDoc?.nombreOriginalArchivo,
-        "ruta": this.resTarjetaProDoc?.ruta,
+        "nombreAlmacenado": this.resTarjetaProDoc?.nombreAlmacenado??''??''??''??''??''??'',
+        "nombreOriginalArchivo": this.resTarjetaProDoc?.nombreOriginalArchivo??''??''??''??''??''??'',
+        "ruta": this.resTarjetaProDoc?.ruta??''??''??''??''??''??'',
       },
       {/* "NÚMERO DE ACTA  CONTADOR" */
         "preguntaId": 56,
@@ -939,9 +999,9 @@ export class AerodromosComponent {
       {/* "PDF ACTA NOMBRAMIENTO CONTADOR"  */
         "preguntaId": 58,
         "valor": "",
-        "nombreAlmacenado": this.resActaNombramientoC?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resActaNombramientoC?.nombreOriginalArchivo,
-        "ruta": this.resActaNombramientoC?.ruta,
+        "nombreAlmacenado": this.resActaNombramientoC?.nombreAlmacenado??''??''??''??''??''??''??'',
+        "nombreOriginalArchivo": this.resActaNombramientoC?.nombreOriginalArchivo??''??''??''??''??''??''??'',
+        "ruta": this.resActaNombramientoC?.ruta??''??''??''??''??''??''??'',
       },
       {/* "¿La empresa está obligada a tener Revisor fiscal?" */
         "preguntaId": 59,
@@ -974,9 +1034,9 @@ export class AerodromosComponent {
       {/*  "PDF CEDULA RF REVISOR" */
         "preguntaId": 63,
         "valor": "",
-        "nombreAlmacenado": this.resDocumentoIdRF?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resDocumentoIdRF?.nombreOriginalArchivo,
-        "ruta": this.resDocumentoIdRF?.ruta,
+        "nombreAlmacenado": this.resDocumentoIdRF?.nombreAlmacenado??''??''??''??''??''??''??''??'',
+        "nombreOriginalArchivo": this.resDocumentoIdRF?.nombreOriginalArchivo??''??''??''??''??''??''??''??'',
+        "ruta": this.resDocumentoIdRF?.ruta??''??''??''??''??''??''??''??'',
       },
       {/* "CORREO ELECTRÓNICO REVISOR" */
         "preguntaId": 64,
@@ -995,9 +1055,9 @@ export class AerodromosComponent {
     {/* "PDF TARJETA PROFESIONAL REVISOR" */
         "preguntaId": 66,
         "valor": "",
-        "nombreAlmacenado": this.resTarjetaProDocRF?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resTarjetaProDocRF?.nombreOriginalArchivo,
-        "ruta": this.resTarjetaProDocRF?.ruta,
+        "nombreAlmacenado": this.resTarjetaProDocRF?.nombreAlmacenado??''??''??''??''??''??''??''??''??'',
+        "nombreOriginalArchivo": this.resTarjetaProDocRF?.nombreOriginalArchivo??''??''??''??''??''??''??''??''??'',
+        "ruta": this.resTarjetaProDocRF?.ruta??''??''??''??''??''??''??''??''??'',
     },
     {/* "NÚMERO DE ACTA REVISOR" */
         "preguntaId": 67,
@@ -1016,9 +1076,9 @@ export class AerodromosComponent {
     {/* "PDF ACTA NOMBRAMIENTO REVISOR" */
         "preguntaId": 69,
         "valor": "",
-        "nombreAlmacenado": this.resActaNombramientoRF?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resActaNombramientoRF?.nombreOriginalArchivo,
-        "ruta": this.resActaNombramientoRF?.ruta,
+        "nombreAlmacenado": this.resActaNombramientoRF?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resActaNombramientoRF?.nombreOriginalArchivo??'',
+        "ruta": this.resActaNombramientoRF?.ruta??'',
     },
     {/* "FECHA DE INSCRIPCIÓN EN CC REVISOR" */
         "preguntaId": 70,
@@ -1064,8 +1124,8 @@ export class AerodromosComponent {
     },
     {/* "PDF CEDULA RF SUPLENTE" */
         "preguntaId": 76,
-        "valor": "",
-        "nombreAlmacenado": this.resDocumentoIdRFS,
+        "valor": this.resDocumentoIdRFS,
+        "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
     },
@@ -1086,9 +1146,9 @@ export class AerodromosComponent {
     {/* "PDF TARJETA PROFESIONAL SUPLENTE" */
         "preguntaId": 79,
         "valor": "",
-        "nombreAlmacenado": this.resTarjetaProDocRFS?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resTarjetaProDocRFS?.nombreOriginalArchivo,
-        "ruta": this.resTarjetaProDocRFS?.ruta,
+        "nombreAlmacenado": this.resTarjetaProDocRFS?.nombreAlmacenado??''??'',
+        "nombreOriginalArchivo": this.resTarjetaProDocRFS?.nombreOriginalArchivo??''??'',
+        "ruta": this.resTarjetaProDocRFS?.ruta??''??'',
     },
     {/* "NÚMERO DE ACTA  SUPLENTE" */
         "preguntaId": 80,
@@ -1107,9 +1167,9 @@ export class AerodromosComponent {
     {/* "PDF ACTA NOMBRAMIENTO SUPLENTE" */
         "preguntaId": 82,
         "valor": "",
-        "nombreAlmacenado": this.resActaNombramientoRFS?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resActaNombramientoRFS?.nombreOriginalArchivo,
-        "ruta": this.resActaNombramientoRFS?.ruta,
+        "nombreAlmacenado": this.resActaNombramientoRFS?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resActaNombramientoRFS?.nombreOriginalArchivo??'',
+        "ruta": this.resActaNombramientoRFS?.ruta??'',
     },
     {/* "FECHA DE INSCRIPCIÓN EN CC SUPLENTE" */
         "preguntaId": 83,
@@ -1121,9 +1181,9 @@ export class AerodromosComponent {
     {/* "PDF CAMARA Y COMERCIO SUPLENTE" */
         "preguntaId": 84,
         "valor": "",
-        "nombreAlmacenado": this.resCamaraYcomercioRFS?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resCamaraYcomercioRFS?.nombreOriginalArchivo,
-        "ruta": this.resCamaraYcomercioRFS?.ruta,
+        "nombreAlmacenado": this.resCamaraYcomercioRFS?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resCamaraYcomercioRFS?.nombreOriginalArchivo??'',
+        "ruta": this.resCamaraYcomercioRFS?.ruta??'',
     }
 
     ]
@@ -1161,9 +1221,9 @@ export class AerodromosComponent {
     {/* "PDF ACTO ADMINISTRATIVO DE CREACION DE LA ENTIDAD" */
         "preguntaId": 5,
         "valor": "",
-        "nombreAlmacenado": this.resDocActoAC?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resDocActoAC?.nombreOriginalArchivo,
-        "ruta": this.resDocActoAC?.ruta,
+        "nombreAlmacenado": this.resDocActoAC?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resDocActoAC?.nombreOriginalArchivo??'',
+        "ruta": this.resDocActoAC?.ruta??'',
     },
     {/* "TIPO DE DOCUMENTO" */
         "preguntaId": 6,
@@ -1196,9 +1256,9 @@ export class AerodromosComponent {
     {/* "PDF IDENTIFICACION REPRESENTANTE" */
         "preguntaId": 10,
         "valor": "",
-        "nombreAlmacenado": this.resDocumentoIdR?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resDocumentoIdR?.nombreOriginalArchivo,
-        "ruta": this.resDocumentoIdR?.ruta,
+        "nombreAlmacenado": this.resDocumentoIdR?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resDocumentoIdR?.nombreOriginalArchivo??'',
+        "ruta": this.resDocumentoIdR?.ruta??'',
     },
     {/* "ACTO OFICIAL DE NOMBRAMIENTO" */
         "preguntaId": 11,
@@ -1217,9 +1277,9 @@ export class AerodromosComponent {
     {/* "PDF ACTO DE NOMBRAMIENTO" */
         "preguntaId": 13,
         "valor": "",
-        "nombreAlmacenado": this.resDocActoNR?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resDocActoNR?.nombreOriginalArchivo,
-        "ruta": this.resDocActoNR?.ruta,
+        "nombreAlmacenado": this.resDocActoNR?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resDocActoNR?.nombreOriginalArchivo??'',
+        "ruta": this.resDocActoNR?.ruta??'',
     },
     {/* "ACTO OFICIAL DE NOMBRAMIENTO REVISOR FISCAL" */
         "preguntaId": 14,
@@ -1238,9 +1298,9 @@ export class AerodromosComponent {
     {/* "PDF ACTO DE NOMBRAMIENTO REVISOR FISCAL" */
         "preguntaId": 16,
         "valor": "",
-        "nombreAlmacenado": this.resDocActoNRR?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resDocActoNRR?.nombreOriginalArchivo,
-        "ruta": this.resDocActoNRR?.ruta,
+        "nombreAlmacenado": this.resDocActoNRR?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resDocActoNRR?.nombreOriginalArchivo??'',
+        "ruta": this.resDocActoNRR?.ruta??'',
     },
     {/* "ACTO OFICIAL DE NOMBRAMIENTO CONTADOR" */
         "preguntaId": 17,
@@ -1259,9 +1319,9 @@ export class AerodromosComponent {
     {/* "PDF ACTO DE NOMBRAMIENTO REVISOR CONTADOR" */
         "preguntaId": 19,
         "valor": "",
-        "nombreAlmacenado": this.resDocActoNCR?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resDocActoNCR?.nombreOriginalArchivo,
-        "ruta": this.resDocActoNCR?.ruta,
+        "nombreAlmacenado": this.resDocActoNCR?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resDocActoNCR?.nombreOriginalArchivo??'',
+        "ruta": this.resDocActoNCR?.ruta??'',
     }
 
     ]
@@ -1286,7 +1346,7 @@ export class AerodromosComponent {
     },
     {/* "Contenido Salvedad Dictamen" */
         "preguntaId": 3,
-        "valor": this.salvedadDictamenes,
+        "valor": this.conSalDictamen,
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1303,19 +1363,229 @@ export class AerodromosComponent {
     {/* "PDF Dictámen RF" */
         "preguntaId": 5,
         "valor": "",
-        "nombreAlmacenado": this.resDocDictamen?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resDocDictamen?.nombreOriginalArchivo,
-        "ruta": this.resDocDictamen?.ruta,
+        "nombreAlmacenado": this.resDocDictamen?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resDocDictamen?.nombreOriginalArchivo??'',
+        "ruta": this.resDocDictamen?.ruta??'',
         "anio": this.anioReporte
     }
 
     ]
   }
   capturarIngresos(){
-    return []
+    return [
+      {/* "Ingresos de actividades ordinarias ó Ingresos Fiscales" */
+        "preguntaId": 1,
+        "valor": this.IngrsoF1,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+        "anio": this.anioReporte
+      },
+      {/* "Ingresos de actividades ordinarias ó Ingresos Fiscales"  */
+        "preguntaId": 1,
+        "valor": this.IngrsoF2,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+        "anio": this.anioReporte-1
+      },
+      {/* "Ingresos derivados de actividades de transporte, conexas y complementarias" */
+        "preguntaId": 2,
+        "valor": this.IngrsoA1,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+        "anio": this.anioReporte
+      },
+      {/* "Ingresos derivados de actividades de transporte, conexas y complementarias" */
+        "preguntaId": 2,
+        "valor": this.IngrsoA2,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+        "anio": this.anioReporte-1
+      },
+      {/* "Unidad de negocio (aeródromos a cargo de los entes territoriales." */
+        "preguntaId": 3,
+        "valor": this.unidadN1,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+        "anio": this.anioReporte
+      },
+      {/* "Unidad de negocio (aeródromos a cargo de los entes territoriales." */
+        "preguntaId": 3,
+        "valor": this.unidadN2,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+        "anio": this.anioReporte-1
+      },
+      {/* "INGRESOS FISCALES NO TRIBUTARIOS " */
+        "preguntaId": 4,
+        "valor": this.ingresoFT1,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+        "anio": this.anioReporte
+      },
+      {/* "INGRESOS FISCALES NO TRIBUTARIOS " */
+        "preguntaId": 4,
+        "valor": this.ingresoFT2,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+        "anio": this.anioReporte-1
+      }
+    ]
   }
 
   llenaridentificacion(){
+    this.nit = this.identificacion[0].valor
+    this.digito = this.identificacion[1].valor
+    this.nombre = this.identificacion[2].valor
+    this.codigoCIIU = this.identificacion[3].valor
+    this.estadoFinanciero = this.identificacion[4].valor
+    this.vinculacionEconomica = this.identificacion[5].valor
+    this.subordinadaSi = this.identificacion[6].valor
+    this.vinculadosEco = this.identificacion[7].valor
+    this.nombreVinculado = this.identificacion[8].valor
+    this.nitVinculado = this.identificacion[9].valor
+    this.fechaCorteEF = this.identificacion[10].valor
+    this.moneda = this.identificacion[11].valor
+    this.fechaReporte = this.identificacion[12].valor
+    this.periodicidad = this.identificacion[13].valor
+    this.anioActual = this.identificacion[14].valor
+    this.anioComparativo = this.identificacion[15].valor
+    this.tipoEmpresa = this.identificacion[16].valor
+    this.naturaleza = this.identificacion[17].valor
+    this.tipoSocietario = this.identificacion[18].valor
+    this.sJuridica = this.identificacion[19].valor
+    this.gtupoNiif = this.identificacion[20].valor
+    this.ultimoAnioRM = this.identificacion[21].valor
+    this.domicilioPrin = this.identificacion[22].valor
+    this.direccionN = this.identificacion[23].valor
+    this.email = this.identificacion[24].valor
+    this.notElectronica = this.identificacion[25].valor
+    /* El archivo que va aquí ya se muestra [26]*/
+    this.tipoVigilado = this.identificacion[27].valor
+    this.fechaInicioPS = this.identificacion[28].valor
+    /* El archivo que va aquí ya se muestra [29]*/
+    this.entidadHabilitante = this.identificacion[30].valor
+    this.vigilada = this.identificacion[31].valor
+    this.cual = this.identificacion[32].valor
+    this.habilitacionPS = this.identificacion[33].valor
+    this.tipoVigiladoSelect = this.identificacion[34].valor
+    this.fechaInicioPS2 = this.identificacion[35].valor
+    /* El archivo que va aquí ya se muestra [36]*/
+    this.entidadHabilitante2 = this.identificacion[37].valor
+    this.tipoDocumento = this.identificacion[38].valor
+    this.numeroId = this.identificacion[39].valor
+    this.nombreCompleto = this.identificacion[40].valor
+    /* El archivo que va aquí ya se muestra [41]*/
+    this.emailRL= this.identificacion[42].valor
+    this.numeroActa= this.identificacion[43].valor
+    this.fechaNombrmiento= this.identificacion[44].valor
+    /* El archivo que va aquí ya se muestra [45]*/
+    this.fechaInscrip= this.identificacion[46].valor
+    /* El archivo que va aquí ya se muestra [47]*/
+    this.tipoDocumentoC = this.identificacion[48].valor
+    this.numeroIdC = this.identificacion[49].valor
+    this.nombreCompletoC = this.identificacion[50].valor
+    /* El archivo que va aquí ya se muestra [51]*/
+    this.emailC = this.identificacion[52].valor
+    this.tarjetaPro = this.identificacion[53].valor
+    /* El archivo que va aquí ya se muestra [54]*/
+    this.numeroActaC = this.identificacion[55].valor
+    this.fechaNombrmientoC = this.identificacion[56].valor
+    /* El archivo que va aquí ya se muestra [57]*/
+    this.obligadaRF = this.identificacion[58].valor
+    this.tipoDocumentoRF = this.identificacion[59].valor
+    this.numeroIdRF = this.identificacion[60].valor
+    this.nombreCompletoRF = this.identificacion[61].valor
+    /* El archivo que va aquí ya se muestra [62]*/
+    this.emailRF = this.identificacion[63].valor
+    this.tarjetaProRF = this.identificacion[64].valor
+    /* El archivo que va aquí ya se muestra [65]*/
+    this.numeroActaRF = this.identificacion[66].valor
+    this.fechaNombrmientoRF = this.identificacion[67].valor
+    /* El archivo que va aquí ya se muestra [68]*/
+    this.fechaInscripRF = this.identificacion[69].valor
+    this.firmaAuditoriaRF = this.identificacion[70].valor
+    this.resCamaraYcomercioRF = this.identificacion[71].valor
+    this.tipoDocumentoRFS = this.identificacion[72].valor
+    this.numeroIdRFS = this.identificacion[73].valor
+    this.nombreCompletoRFS = this.identificacion[74].valor
+    this.resDocumentoIdRFS = this.identificacion[75].valor
+    this.emailRFS = this.identificacion[76].valor
+    this.tarjetaProRFS = this.identificacion[77].valor
+    /* El archivo que va aquí ya se muestra [78]*/
+    this.numeroActaRFS = this.identificacion[79].valor
+    this.fechaNombrmientoRFS = this.identificacion[80].valor
+    /* El archivo que va aquí ya se muestra [81]*/
+    this.fechaInscripRFS = this.identificacion[82].valor
+    /* El archivo que va aquí ya se muestra [84]*/
+  }
 
+  llenarReporte(){
+    this.numeroActoAC = this.reporte[0].valor
+    this.fechaActoAC = this.reporte[1].valor
+    this.tipoEntidadP = this.reporte[2].valor
+    this.categoria = this.reporte[3].valor
+    /* El archivo que va aquí ya se muestra [4]*/
+    this.tipoDocumentoR = this.reporte[5].valor
+    this.numeroIdR = this.reporte[6].valor
+    this.nombreCompletoR = this.reporte[7].valor
+    this.emailR = this.reporte[8].valor
+    /* El archivo que va aquí ya se muestra [9]*/
+    this.actoOficialNR = this.reporte[10].valor
+    this.fechaNombrmientoR = this.reporte[11].valor
+    /* El archivo que va aquí ya se muestra [12]*/
+    this.actoOficialNRF = this.reporte[13].valor
+    this.fechaNombrmientoRFR = this.reporte[14].valor
+    /* El archivo que va aquí ya se muestra [15]*/
+    this.actoOficialNCR = this.reporte[16].valor
+    this.fechaNombrmientoCR = this.reporte[17].valor
+    /* El archivo que va aquí ya se muestra [18]*/
+  }
+
+  llenarDictamen(){
+    this.dictamen = this.dictamenj[0].valor
+    this.opinionDictamen = this.dictamenj[1].valor
+    this.salvedadDictamenes = this.dictamenj[2].valor
+    this.enfasisDictamen = this.dictamenj[3].valor
+    /* El archivo que va aquí ya se muestra [4]*/
+  }
+
+  llenarIngresos(){
+    this.IngrsoF1 = this.encontrarValor(1,this.ingresos[0].anio)
+    this.IngrsoF2 = this.encontrarValor(1,this.ingresos[1].anio)
+    this.IngrsoA1 = this.encontrarValor(2,this.ingresos[2].anio)
+    this.IngrsoA2 = this.encontrarValor(2,this.ingresos[3].anio)
+    this.unidadN1 = this.encontrarValor(3,this.ingresos[4].anio)
+    this.unidadN2 = this.encontrarValor(3,this.ingresos[5].anio)
+    this.ingresoFT1 = this.encontrarValor(4,this.ingresos[6].anio)
+    this.ingresoFT2 = this.encontrarValor(4,this.ingresos[7].anio)
+  }
+
+  encontrarValor(preguntaId:any, anio:any) {
+    if(preguntaId == 1){
+      if(anio === this.anioReporte){return this.ingresos[0].valor}
+      if(anio === this.anioReporte-1){return this.ingresos[1].valor}
+    }
+    if(preguntaId == 2){
+      if(anio === this.anioReporte){return this.ingresos[2].valor}
+      if(anio === this.anioReporte-1){return this.ingresos[3].valor}
+    }
+    if(preguntaId == 3){
+      if(anio === this.anioReporte){return this.ingresos[4].valor}
+      if(anio === this.anioReporte-1){return this.ingresos[5].valor}
+    }
+    if(preguntaId == 4){
+      if(anio === this.anioReporte){return this.ingresos[6].valor}
+      if(anio === this.anioReporte-1){return this.ingresos[7].valor}
+    }
+    /* const pregunta = preguntas.find(p => p.preguntaId === preguntaId && p.anio === anio);
+    return pregunta ? pregunta.valor : null; */
   }
 }
