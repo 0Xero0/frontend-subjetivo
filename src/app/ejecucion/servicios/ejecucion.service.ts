@@ -162,4 +162,9 @@ export class ServicioEjecucion extends Autenticable {
     return this.http.get<any>(`${this.host}${endpoint}`,{ headers: this.obtenerCabeceraAutorizacion()})
   }
 
+  guardarAerodromo(aerodromosJson:any){
+    const endpoint = '/api/v1/aerodromos'
+    return this.http.post<any>(`${this.host}${endpoint}`,aerodromosJson ,{ headers: this.obtenerCabeceraAutorizacion() })
+  }
+
 }
