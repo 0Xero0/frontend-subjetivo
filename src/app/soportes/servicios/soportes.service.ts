@@ -16,10 +16,10 @@ export class SoportesService extends Autenticable {
       id: 1,
       descripcion: 'ABIERTO'
     },
-    {
+    /* {
       id: 2,
       descripcion: 'EN PROCESO'
-    },
+    }, */
     {
       id: 3,
       descripcion: 'CERRADO'
