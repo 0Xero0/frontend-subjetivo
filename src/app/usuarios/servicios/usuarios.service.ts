@@ -59,4 +59,10 @@ export class ServicioUsuarios extends Autenticable {
     );
   }
 
+  obtenerUsuarioPorId(id: string){
+    const endpoint = `/api/v1/usuarios/${id}`
+    return this.http.get(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() } )
+  }
+
+
 }
