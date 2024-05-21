@@ -52,6 +52,10 @@ const routes: Routes = [
         component: AereosComponent
       },
       {
+        path: 'usuarios',
+        loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule)
+      },
+      {
         path: 'aerodromos',
         component: AerodromosComponent
       },

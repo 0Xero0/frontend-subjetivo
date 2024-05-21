@@ -437,7 +437,7 @@ export class AerodromosComponent {
     })
     this.servicio.obtenerMaestras2('naturalezasD').subscribe({
       next: (respuesta)=>{
-        this.naturalezasD = respuesta['delegaturasD']
+        this.naturalezasD = respuesta['naturalezasD']
       }
     })
     this.servicio.obtenerMaestras2('grupo_niif_reportes').subscribe({

@@ -1,4 +1,4 @@
-export interface Usuario {
+export interface UsuarioDB {
     id:              string;
     nombre:          string;
     usuario:         string;
@@ -7,9 +7,14 @@ export interface Usuario {
     apellido:        string;
     cargo:           null;
     identificacion:  string;
-    claveTemporal:   boolean;
+    clave_temporal:   boolean;
     correo:          string;
     telefono:        null;
-    idRol:           string;
+    id_rol:           string;
+    formularios?:{
+        id:number,
+        nombre:string,
+        delegatura:string,
+        estado:boolean
+    }
 }
-

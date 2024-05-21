@@ -4,8 +4,6 @@ export interface PeticionCrearUsuario{
     identificacion: string
     telefono: string
     correo: string
-    fechaNacimiento: string
     idRol: string
-    departamentoId: number
-    municipioId: number
+    formularios?:any
 }
