@@ -61,8 +61,11 @@ export class AerodromosComponent {
   /* REVISOR FISCAL Y CONTADOR */
   actoOficialNRF:string="";fechaNombrmientoRFR?:Date;resDocActoNRR?:ArchivoGuardado;actoOficialNCR:string="";fechaNombrmientoCR?:Date;
   resDocActoNCR?:ArchivoGuardado
-  /*  */
-  IngrsoF1:string="";IngrsoF2:string="";IngrsoA1:string="";IngrsoA2:string="";unidadN1:string="";unidadN2:string="";
+  /* INGRESOS DE ACTIVIDADES ORDINARIAS */
+  IngrsoF1:string="";IngrsoF2:string="";IngrsoA1:string="";IngrsoA2:string="";unidadN1:string="";unidadN2:string="";ingresoFT1:string="";
+  ingresoFT2:string="";
+  /* PERÍODO A REPORTAR */
+  dictamen:string="";opinionDictamen:string="";conSalDictamen:string="";enfasisDictamen:string="";
 
   /* Archivos */
   cerl?:File; resoHabilitacion?:File; resoHabilitacion2?:File; documentoId?:File; actaNombramiento?:File; camaraYcomercio?:File;
@@ -92,6 +95,10 @@ export class AerodromosComponent {
   tipoDocumentosNa?: Array<any>
   tipoEntidadesPublicas?:Array<any>
   categoriasNs?:Array<any>
+  dictamenes?:Array<any>
+  opinionDictamenes?:Array<any>
+  salvedadDictamenes?:Array<any>
+  enfasisDictamenes?:Array<any>
 
   identificacion:Array<any> = []
   reporte:Array<any> = []
@@ -117,6 +124,15 @@ export class AerodromosComponent {
 
   detectarCambios(){
     this.hayCambios = true
+  }
+
+  sumatoriaIngresos(anio:number){
+    if(anio==1){
+      this.ingresoFT1 = (this.IngrsoF1+this.IngrsoA1+this.unidadN1).toString()
+    }
+    if(anio==2){
+      this.ingresoFT2 = (Number(this.IngrsoF2)+Number(this.IngrsoA2)+Number(this.unidadN2)).toString()
+    }
   }
 
   fechaMaxima(event:any,input?:any){
@@ -462,6 +478,26 @@ export class AerodromosComponent {
     this.servicio.obtenerMaestras2('categorias_ns').subscribe({
       next: (respuesta)=>{
         this.categoriasNs = respuesta['categoriasNs']
+      }
+    })
+    this.servicio.obtenerMaestras2('dictamenes').subscribe({
+      next: (respuesta)=>{
+        this.dictamenes = respuesta['dictamenes']
+      }
+    })
+    this.servicio.obtenerMaestras2('opinion_dictamenes').subscribe({
+      next: (respuesta)=>{
+        this.opinionDictamenes = respuesta['opinionDictamenes']
+      }
+    })
+    this.servicio.obtenerMaestras2('salvedad_dictamenes').subscribe({
+      next: (respuesta)=>{
+        this.salvedadDictamenes = respuesta['salvedadDictamenes']
+      }
+    })
+    this.servicio.obtenerMaestras2('enfasis_dictamenes').subscribe({
+      next: (respuesta)=>{
+        this.enfasisDictamenes = respuesta['enfasisDictamenes']
       }
     })
   }

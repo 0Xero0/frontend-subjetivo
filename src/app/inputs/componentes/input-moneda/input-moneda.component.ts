@@ -16,7 +16,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class InputMonedaComponent implements OnInit, ControlValueAccessor{
   @Input() cantidadDecimales: number = 3
   @Input() valorInicial: number | null = null;
-  @Input() placeholder: string = ""; 
+  @Input() placeholder: string = "";
   valor: number | null = null;
   valorInput: string = ""
   valorAnterior: string = ""
@@ -29,7 +29,7 @@ export class InputMonedaComponent implements OnInit, ControlValueAccessor{
 
   ngOnInit(): void {
     this.regex = new RegExp(`^[0-9]+(\\.[0-9]{1,${this.cantidadDecimales}})?$`)
-    this.valorInput = this.valorInicial !== null ? this.formatear(this.valorInicial.toString()) : ""; 
+    this.valorInput = this.valorInicial !== null ? this.formatear(this.valorInicial.toString()) : "";
     this.valorAnterior = this.valorInicial !== null ? this.valorInicial.toString() : "";
   }
 
@@ -50,7 +50,7 @@ export class InputMonedaComponent implements OnInit, ControlValueAccessor{
       this.valorInput = this.valorAnterior
       return;
     }
-    this.valorInput = this.formatear(valor.toString()) 
+    this.valorInput = this.formatear(valor.toString())
     this.valorAnterior = this.valorInput
     this.valor = this.valorInput !== "" ? Number(this.desformatear(this.valorInput)) : null
     this.onChange(this.valor)
@@ -63,6 +63,7 @@ export class InputMonedaComponent implements OnInit, ControlValueAccessor{
 
   writeValue(valor: number): void {
     this.valor = valor
+    if(valor){this.valorInput = this.formatear(valor.toString())}
   }
 
   registerOnChange(fn: any): void {
