@@ -26,7 +26,7 @@ export class AerodromosComponent {
   listaUltimoAnioRM:Array<string> = []
 
   habilitarSubordinadas: boolean = true; habilitarNombreV: boolean = true; habilitarNitV: boolean = true; habilitarCual:boolean = true;
-  noObligadoRF:boolean = true;
+  noObligadoRF:boolean = true;noObligadoRFS:boolean = true;
 
   /* DATOS BÁSICOS */
   nit: string = ""; digito: string = ""; nombre: string = ""; codigoCIIU: string = ""; estadoFinanciero: string = ""; vinculacionEconomica: string = ""
@@ -65,13 +65,13 @@ export class AerodromosComponent {
   IngrsoF1:string="";IngrsoF2:string="";IngrsoA1:string="";IngrsoA2:string="";unidadN1:string="";unidadN2:string="";ingresoFT1:string="";
   ingresoFT2:string="";
   /* PERÍODO A REPORTAR */
-  dictamen:string="";opinionDictamen:string="";conSalDictamen:string="";enfasisDictamen:string="";
+  dictamen:string="";opinionDictamen:string="";conSalDictamen:string="";enfasisDictamen:string="";resDocDictamen?:ArchivoGuardado
 
   /* Archivos */
   cerl?:File; resoHabilitacion?:File; resoHabilitacion2?:File; documentoId?:File; actaNombramiento?:File; camaraYcomercio?:File;
   documentoIdC?:File; tarjetaProDoc?:File;actaNombramientoC?:File; documentoIdRF?:File; tarjetaProDocRF?:File;actaNombramientoRF?:File;
   camaraYcomercioRF?:File;documentoIdRFS?:File; tarjetaProDocRFS?:File;actaNombramientoRFS?:File;camaraYcomercioRFS?:File;docActoAC?:File;
-  documentoIdR?:File;docActoNR?:File;docActoNRR?:File;docActoNCR?:File;
+  documentoIdR?:File;docActoNR?:File;docActoNRR?:File;docActoNCR?:File;docDictamen?:File;
 
   /* Maestras */
   tipoReportes?: Array<any>
@@ -102,6 +102,8 @@ export class AerodromosComponent {
 
   identificacion:Array<any> = []
   reporte:Array<any> = []
+  dictamenj:Array<any> = []
+  ingresos:Array<any> = []
 
   constructor(private servicio: ServicioEjecucion, private router: Router){
     this.obtenerAerodromos()
@@ -124,6 +126,13 @@ export class AerodromosComponent {
 
   detectarCambios(){
     this.hayCambios = true
+  }
+
+  validateText(event: any) {
+    const pattern = /^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]*$/;
+    if (!pattern.test(event.target.value)) {
+      event.target.value = event.target.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]/g, '');
+    }
   }
 
   sumatoriaIngresos(anio:number){
@@ -275,10 +284,21 @@ export class AerodromosComponent {
     }
     if(pregunt == 'obligadaRF'){
       if(event.target.value != 5){this.noObligadoRF = false}
-      if(event.target.value == 5 || event.target.value == ""){this.noObligadoRF = true;
+      if(event.target.value == 5 || event.target.value == ""){this.noObligadoRF = true;this.noObligadoRFS = true;
         this.tipoDocumentoRF="";this.numeroIdRF=" ";this.nombreCompletoRF="";this.resDocumentoIdRF=undefined;this.emailRF="";
         this.tarjetaProRF=" ";this.resTarjetaProDocRF=undefined;this.numeroActaRF=" ";this.fechaNombrmientoRF=undefined;
-        this.documentoIdRF=undefined; this.tarjetaProDocRF=undefined;
+        this.documentoIdRF=undefined; this.tarjetaProDocRF=undefined;this.tipoDocumentoRFS = ""
+        this.numeroIdRFS=" ";this.nombreCompletoRFS="";this.resDocumentoIdRFS=undefined;this.emailRFS="";
+        this.tarjetaProRFS=" ";this.resTarjetaProDocRFS=undefined;this.numeroActaRFS=" ";this.fechaNombrmientoRFS=undefined;
+        this.documentoIdRFS=undefined; this.tarjetaProDocRFS=undefined;
+      }
+    }
+    if(pregunt == 'fiscalSuplente'){
+      if(event.target.value != 4 && event.target.value != ""){this.noObligadoRFS = false}
+      if(event.target.value == 4 || event.target.value == ""){this.noObligadoRFS = true;
+        this.numeroIdRFS=" ";this.nombreCompletoRFS="";this.resDocumentoIdRFS=undefined;this.emailRFS="";
+        this.tarjetaProRFS=" ";this.resTarjetaProDocRFS=undefined;this.numeroActaRFS=" ";this.fechaNombrmientoRFS=undefined;
+        this.documentoIdRFS=undefined; this.tarjetaProDocRFS=undefined;
       }
     }
   }
@@ -316,12 +336,13 @@ export class AerodromosComponent {
             if(input == 'docActoNR'){this.resDocActoNR = respuesta}
             if(input == 'docActoNRR'){this.resDocActoNRR = respuesta}
             if(input == 'docActoNCR'){this.resDocActoNCR = respuesta}
+            if(input == 'docDictamen'){this.resDocDictamen = respuesta}
             Swal.close()
           },
           error: (error: HttpErrorResponse) => {
-            if(error.status == 415){
+            if(error){
               Swal.fire({
-                titleText:error.error.mensaje,
+                titleText:error.message,
                 icon:'error'
               })
               if(input == 'cerl'){this.resCerl = undefined; this.cerl = undefined}
@@ -345,6 +366,7 @@ export class AerodromosComponent {
               if(input == 'docActoNR'){this.resDocActoNR = undefined; this.docActoNR = undefined}
               if(input == 'docActoNRR'){this.resDocActoNRR = undefined; this.docActoNRR = undefined}
               if(input == 'docActoNCR'){this.resDocActoNCR = undefined; this.docActoNCR = undefined}
+              if(input == 'docDictamen'){this.resDocDictamen = undefined; this.docDictamen = undefined}
             }
           }
         })
@@ -374,6 +396,7 @@ export class AerodromosComponent {
         if(input == 'docActoNR'){this.resDocActoNR = undefined; this.docActoNR = undefined}
         if(input == 'docActoNRR'){this.resDocActoNRR = undefined; this.docActoNRR = undefined}
         if(input == 'docActoNCR'){this.resDocActoNCR = undefined; this.docActoNCR = undefined}
+        if(input == 'docDictamen'){this.resDocDictamen = undefined; this.docDictamen = undefined}
       }
     }
   }
@@ -384,9 +407,19 @@ export class AerodromosComponent {
         console.log(respuesta);
         this.identificacion = respuesta['identificacion']
         this.reporte = respuesta['reporte']
+        this.dictamenj = respuesta['digtamen']
+        this.ingresos = respuesta['ingresos']
         this.llenaridentificacion
       }
     })
+  }
+
+  guardar(){
+    const identificacion = this.capturarIdentificacion()
+    const reporte = this.capturarReporte()
+    const dictamen = this.capturarDictamen()
+    const ingresos = this.capturarIngresos()
+    //console.log(identificacion)
   }
 
   maestras(){
@@ -500,6 +533,786 @@ export class AerodromosComponent {
         this.enfasisDictamenes = respuesta['enfasisDictamenes']
       }
     })
+  }
+
+  capturarIdentificacion(){
+    return [
+      {/* "NIT SIN DIGITO DE VERIFICACIÓN" */
+        "preguntaId": 1,
+        "valor": this.nit,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "DIGITO DE VERIFICACIÓN" */
+        "preguntaId": 2,
+        "valor": this.digito,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "NOMBRE DE LA SOCIEDAD" */
+        "preguntaId": 3,
+        "valor": this.nombre,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "CODIGO CIIU" */
+        "preguntaId": 4,
+        "valor": this.codigoCIIU,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "TIPO DE ESTADOS FINANCIEROS" */
+        "preguntaId": 5,
+        "valor": this.estadoFinanciero,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "TIPO DE VINCULACIÓN ECONÓMICA" */
+        "preguntaId": 6,
+        "valor": this.vinculacionEconomica,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "SUBORDINADA SI" */
+        "preguntaId": 7,
+        "valor": this.subordinadaSi,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "VINCULADOS ECONÓMICOS" */
+        "preguntaId": 8,
+        "valor": this.vinculadosEco,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "NOMBRE VINCULADO ECONÓMICO" */
+        "preguntaId": 9,
+        "valor": this.nombreVinculado,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "NIT VINCULADO ECONÓMICO" */
+        "preguntaId": 10,
+        "valor": this.nitVinculado,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "FECHA DE CORTE ESTADOS FINANCIEROS" */
+        "preguntaId": 11,
+        "valor": this.fechaCorteEF,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "MONEDA DE PRESENTACIÓN" */
+        "preguntaId": 12,
+        "valor": this.moneda,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "FECHA DE REPORTE" */
+        "preguntaId": 13,
+        "valor": this.fechaReporte,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "PERIODICIDAD DE PRESENTACIÓN" */
+        "preguntaId": 14,
+        "valor": this.periodicidad,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "AÑO ACTUAL DEL REPORTE" */
+        "preguntaId": 15,
+        "valor": this.anioActual,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "AÑO COMPARATIVO" */
+        "preguntaId": 16,
+        "valor": this.anioComparativo,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "TIPO DE EMPRESA" */
+        "preguntaId": 17,
+        "valor": this.tipoEmpresa,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "NATURALEZA" */
+        "preguntaId": 18,
+        "valor": this.naturaleza,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "TIPO SOCIETARIO" */
+        "preguntaId": 19,
+        "valor": this.tipoSocietario,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "SITUACION JURÍDICA" */
+        "preguntaId": 20,
+        "valor": this.sJuridica,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "GRUPO NIIF DE REPORTE" */
+        "preguntaId": 21,
+        "valor": this.gtupoNiif,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "ULTIMO AÑO RENOVACIÓN MATRICULA" */
+        "preguntaId": 22,
+        "valor": this.ultimoAnioRM,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "DOMICILIO PRINCIPAL" */
+        "preguntaId": 23,
+        "valor": this.domicilioPrin,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "DIRECCIÓN DE NOTIFICACIÓN" */
+        "preguntaId": 24,
+        "valor": this.direccionN,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "CORREO ELECTRÓNICO DE NOTIFICACIÓN" */
+        "preguntaId": 25,
+        "valor": this.email,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "NOTIFICACIÓN ELECTRÓNICA" */
+        "preguntaId": 26,
+        "valor": this.notElectronica,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* PDF CERL */
+        "preguntaId": 27,
+        "valor": "",
+        "nombreAlmacenado": this.resCerl?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resCerl?.nombreOriginalArchivo,
+        "ruta": this.resCerl?.ruta,
+      },
+      {/* "TIPO DE VIGILADO" */
+        "preguntaId": 28,
+        "valor": this.tipoVigilado,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "FECHA HABILITACIÓN O INICIO DE PRESTACIÓN DE SERVICIO" */
+        "preguntaId": 29,
+        "valor": this.fechaInicioPS,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "PDF RESOLUCIÓN DE HABILITACIÓN" */
+        "preguntaId": 30,
+        "valor": "",
+        "nombreAlmacenado": this.resHabilitacion?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resHabilitacion?.nombreOriginalArchivo,
+        "ruta": this.resHabilitacion?.ruta,
+      },
+      {/* "ENTIDAD HABILITANTE" */
+        "preguntaId": 31,
+        "valor": this.entidadHabilitante,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* " ¿Es vigilada por otra Superintendencia?" */
+        "preguntaId": 32,
+        "valor": this.vigilada,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* " Si marcó SI: ¿Cuál?" */
+        "preguntaId": 33,
+        "valor": this.cual,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "¿Cuenta con habilitación para la prestación del servicio en alguna otra modalidad de transporte?" */
+        "preguntaId": 34,
+        "valor": this.habilitacionPS,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "TIPO DE VIGILADO" */
+        "preguntaId": 35,
+        "valor": this.tipoVigiladoSelect,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "FECHA HABILITACIÓN O INICIO DE PRESTACIÓN DE SERVICIO" */
+        "preguntaId": 36,
+        "valor": this.fechaInicioPS2,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "PDF RESOLUCIÓN DE HABILITACIÓN Y/O PERMISO" */
+        "preguntaId": 37,
+        "valor": "",
+        "nombreAlmacenado": this.resHabilitacion2?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resHabilitacion2?.nombreOriginalArchivo,
+        "ruta": this.resHabilitacion2?.ruta,
+      },
+      {/*  "ENTIDAD HABILITANTE" */
+        "preguntaId": 38,
+        "valor": this.entidadHabilitante2,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "TIPO DE DOCUMENTO REPRESENTANTE" */
+        "preguntaId": 39,
+        "valor": this.tipoDocumento,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "NÚMERO DE DOCUMENTO REPRESENTANTE" */
+        "preguntaId": 40,
+        "valor": this.numeroId,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "NOMBRE COMPLETO REPRESENTANTE" */
+        "preguntaId": 41,
+        "valor": this.nombreCompleto,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "PDF CEDULA RL" */
+        "preguntaId": 42,
+        "valor": "",
+        "nombreAlmacenado": this.resDocumentoId?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resDocumentoId?.nombreOriginalArchivo,
+        "ruta": this.resDocumentoId?.ruta,
+      },
+      {/* "CORREO ELECTRÓNICO REPRESENTANTE" */
+        "preguntaId": 43,
+        "valor": this.emailRL,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "NÚMERO DE ACTA  REPRESENTANTE" */
+        "preguntaId": 44,
+        "valor": this.numeroActa,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "FECHA DE NOMBRAMIENTO REPRESENTANTE" */
+        "preguntaId": 45,
+        "valor": this.fechaNombrmiento,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "PDF ACTA NOMBRAMIENTO" */
+        "preguntaId": 46,
+        "valor": "",
+        "nombreAlmacenado": this.resActaNombramiento?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resActaNombramiento?.nombreOriginalArchivo,
+        "ruta": this.resActaNombramiento?.ruta,
+      },
+      {/* "FECHA DE INSCRIPCION EN CC REPRESENTANTE" */
+        "preguntaId": 47,
+        "valor": this.fechaInscrip,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "PDF CAMARA Y COMERCIO" */
+        "preguntaId": 48,
+        "valor": "",
+        "nombreAlmacenado": this.resCC?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resCC?.nombreOriginalArchivo,
+        "ruta": this.resCC?.ruta,
+      },
+      {/* "TIPO DE DOCUMENTO CONTADOR" */
+        "preguntaId": 49,
+        "valor": this.tipoDocumentoC,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "NÚMERO DE DOCUMENTO CONTADOR" */
+        "preguntaId": 50,
+        "valor": this.numeroIdC,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "NOMBRE COMPLETO CONTADOR" */
+        "preguntaId": 51,
+        "valor": this.nombreCompletoC,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "PDF CEDULA C CONTADOR" */
+        "preguntaId": 52,
+        "valor": "",
+        "nombreAlmacenado": this.resDocumentoIdC?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resDocumentoIdC?.nombreOriginalArchivo,
+        "ruta": this.resDocumentoIdC?.ruta,
+      },
+      {/* "CORREO ELECTRÓNICO CONTADOR" */
+        "preguntaId": 53,
+        "valor": this.emailC,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "TARJETA PROFESIONAL CONTADOR" */
+        "preguntaId": 54,
+        "valor": this.tarjetaPro,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "PDF TARJETA PROFESIONAL CONTADOR" */
+        "preguntaId": 55,
+        "valor": "",
+        "nombreAlmacenado": this.resTarjetaProDoc?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resTarjetaProDoc?.nombreOriginalArchivo,
+        "ruta": this.resTarjetaProDoc?.ruta,
+      },
+      {/* "NÚMERO DE ACTA  CONTADOR" */
+        "preguntaId": 56,
+        "valor": this.numeroActaC,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "FECHA DE NOMBRAMIENTO CONTADOR" */
+        "preguntaId": 57,
+        "valor": this.fechaNombrmientoC,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "PDF ACTA NOMBRAMIENTO CONTADOR"  */
+        "preguntaId": 58,
+        "valor": "",
+        "nombreAlmacenado": this.resActaNombramientoC?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resActaNombramientoC?.nombreOriginalArchivo,
+        "ruta": this.resActaNombramientoC?.ruta,
+      },
+      {/* "¿La empresa está obligada a tener Revisor fiscal?" */
+        "preguntaId": 59,
+        "valor": this.obligadaRF,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "TIPO DE DOCUMENTO REVISOR" */
+        "preguntaId": 60,
+        "valor": this.tipoDocumentoRF,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "NÚMERO DE DOCUMENTO REVISOR" */
+        "preguntaId": 61,
+        "valor": this.numeroIdRF,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/* "NOMBRE COMPLETO REVISOR" */
+        "preguntaId": 62,
+        "valor": this.nombreCompletoRF,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+      },
+      {/*  "PDF CEDULA RF REVISOR" */
+        "preguntaId": 63,
+        "valor": "",
+        "nombreAlmacenado": this.resDocumentoIdRF?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resDocumentoIdRF?.nombreOriginalArchivo,
+        "ruta": this.resDocumentoIdRF?.ruta,
+      },
+      {/* "CORREO ELECTRÓNICO REVISOR" */
+        "preguntaId": 64,
+        "valor": this.emailRF,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "TARJETA PROFESIONAL REVISOR" */
+        "preguntaId": 65,
+        "valor": this.tarjetaProRF,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "PDF TARJETA PROFESIONAL REVISOR" */
+        "preguntaId": 66,
+        "valor": "",
+        "nombreAlmacenado": this.resTarjetaProDocRF?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resTarjetaProDocRF?.nombreOriginalArchivo,
+        "ruta": this.resTarjetaProDocRF?.ruta,
+    },
+    {/* "NÚMERO DE ACTA REVISOR" */
+        "preguntaId": 67,
+        "valor": this.numeroActaRF,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "FECHA DE NOMBRAMIENTO REVISOR" */
+        "preguntaId": 68,
+        "valor": this.fechaNombrmientoRF,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "PDF ACTA NOMBRAMIENTO REVISOR" */
+        "preguntaId": 69,
+        "valor": "",
+        "nombreAlmacenado": this.resActaNombramientoRF?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resActaNombramientoRF?.nombreOriginalArchivo,
+        "ruta": this.resActaNombramientoRF?.ruta,
+    },
+    {/* "FECHA DE INSCRIPCIÓN EN CC REVISOR" */
+        "preguntaId": 70,
+        "valor": this.fechaInscripRF,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "FIRMA DE AUDITORIA (SI APLICA)" */
+        "preguntaId": 71,
+        "valor": this.firmaAuditoriaRF,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "PDF CAMARA Y COMERCIO REVISOR" */
+        "preguntaId": 72,
+        "valor": this.resCamaraYcomercioRF,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "TIPO DE DOCUMENTO SUPLENTE" */
+        "preguntaId": 73,
+        "valor": this.tipoDocumentoRFS,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "NÚMERO DE DOCUMENTO SUPLENTE", */
+        "preguntaId": 74,
+        "valor": this.numeroIdRFS,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "NOMBRE COMPLETO SUPLENTE" */
+        "preguntaId": 75,
+        "valor": this.nombreCompletoRFS,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "PDF CEDULA RF SUPLENTE" */
+        "preguntaId": 76,
+        "valor": "",
+        "nombreAlmacenado": this.resDocumentoIdRFS,
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "CORREO ELECTRÓNICO SUPLENTE" */
+        "preguntaId": 77,
+        "valor": this.emailRFS,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "TARJETA PROFESIONAL SUPLENTE" */
+        "preguntaId": 78,
+        "valor": this.tarjetaProRFS,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "PDF TARJETA PROFESIONAL SUPLENTE" */
+        "preguntaId": 79,
+        "valor": "",
+        "nombreAlmacenado": this.resTarjetaProDocRFS?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resTarjetaProDocRFS?.nombreOriginalArchivo,
+        "ruta": this.resTarjetaProDocRFS?.ruta,
+    },
+    {/* "NÚMERO DE ACTA  SUPLENTE" */
+        "preguntaId": 80,
+        "valor": this.numeroActaRFS,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "FECHA DE NOMBRAMIENTO SUPLENTE" */
+        "preguntaId": 81,
+        "valor": this.fechaNombrmientoRFS,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "PDF ACTA NOMBRAMIENTO SUPLENTE" */
+        "preguntaId": 82,
+        "valor": "",
+        "nombreAlmacenado": this.resActaNombramientoRFS?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resActaNombramientoRFS?.nombreOriginalArchivo,
+        "ruta": this.resActaNombramientoRFS?.ruta,
+    },
+    {/* "FECHA DE INSCRIPCIÓN EN CC SUPLENTE" */
+        "preguntaId": 83,
+        "valor": this.fechaInscripRFS,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "PDF CAMARA Y COMERCIO SUPLENTE" */
+        "preguntaId": 84,
+        "valor": "",
+        "nombreAlmacenado": this.resCamaraYcomercioRFS?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resCamaraYcomercioRFS?.nombreOriginalArchivo,
+        "ruta": this.resCamaraYcomercioRFS?.ruta,
+    }
+
+    ]
+  }
+  capturarReporte(){
+    return [
+      {/* "NÚMERO DE ACTO ADMINISTRATIVO DE CREACIÓN" */
+        "preguntaId": 1,
+        "valor": this.numeroActoAC,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "FECHA DE ACTO ADMINISTRATIVO DE CREACIÓN" */
+        "preguntaId": 2,
+        "valor": this.fechaActoAC,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "TIPO DE ENTIDAD PÚBLICA" */
+        "preguntaId": 3,
+        "valor": this.tipoEntidadP,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "CATEGORÍA" */
+        "preguntaId": 4,
+        "valor": this.categoria,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "PDF ACTO ADMINISTRATIVO DE CREACION DE LA ENTIDAD" */
+        "preguntaId": 5,
+        "valor": "",
+        "nombreAlmacenado": this.resDocActoAC?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resDocActoAC?.nombreOriginalArchivo,
+        "ruta": this.resDocActoAC?.ruta,
+    },
+    {/* "TIPO DE DOCUMENTO" */
+        "preguntaId": 6,
+        "valor": this.tipoDocumentoR,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "NÚMERO DE DOCUMENTO" */
+        "preguntaId": 7,
+        "valor": this.numeroIdR,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "NOMBRE COMPLETO" */
+        "preguntaId": 8,
+        "valor": this.nombreCompletoR,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "CORREO ELECTRÓNICO" */
+        "preguntaId": 9,
+        "valor": this.emailR,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "PDF IDENTIFICACION REPRESENTANTE" */
+        "preguntaId": 10,
+        "valor": "",
+        "nombreAlmacenado": this.resDocumentoIdR?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resDocumentoIdR?.nombreOriginalArchivo,
+        "ruta": this.resDocumentoIdR?.ruta,
+    },
+    {/* "ACTO OFICIAL DE NOMBRAMIENTO" */
+        "preguntaId": 11,
+        "valor": this.actoOficialNR,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "FECHA DE NOMBRAMIENTO" */
+        "preguntaId": 12,
+        "valor": this.fechaNombrmientoR,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "PDF ACTO DE NOMBRAMIENTO" */
+        "preguntaId": 13,
+        "valor": "",
+        "nombreAlmacenado": this.resDocActoNR?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resDocActoNR?.nombreOriginalArchivo,
+        "ruta": this.resDocActoNR?.ruta,
+    },
+    {/* "ACTO OFICIAL DE NOMBRAMIENTO REVISOR FISCAL" */
+        "preguntaId": 14,
+        "valor": this.actoOficialNRF,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "FECHA DE NOMBRAMIENTO REVISOR FISCAL" */
+        "preguntaId": 15,
+        "valor": this.fechaNombrmientoRFR,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "PDF ACTO DE NOMBRAMIENTO REVISOR FISCAL" */
+        "preguntaId": 16,
+        "valor": "",
+        "nombreAlmacenado": this.resDocActoNRR?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resDocActoNRR?.nombreOriginalArchivo,
+        "ruta": this.resDocActoNRR?.ruta,
+    },
+    {/* "ACTO OFICIAL DE NOMBRAMIENTO CONTADOR" */
+        "preguntaId": 17,
+        "valor": this.actoOficialNCR,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "FECHA DE NOMBRAMIENTO CONTADOR" */
+        "preguntaId": 18,
+        "valor": this.fechaNombrmientoCR,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+    },
+    {/* "PDF ACTO DE NOMBRAMIENTO REVISOR CONTADOR" */
+        "preguntaId": 19,
+        "valor": "",
+        "nombreAlmacenado": this.resDocActoNCR?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resDocActoNCR?.nombreOriginalArchivo,
+        "ruta": this.resDocActoNCR?.ruta,
+    }
+
+    ]
+  }
+  capturarDictamen(){
+    return [
+      {/* "Dictamen" */
+        "preguntaId": 1,
+        "valor": this.dictamen,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+        "anio": this.anioReporte
+    },
+    {/* "Opinión Dictamen" */
+        "preguntaId": 2,
+        "valor": this.opinionDictamen,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+        "anio": this.anioReporte
+    },
+    {/* "Contenido Salvedad Dictamen" */
+        "preguntaId": 3,
+        "valor": this.salvedadDictamenes,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+        "anio": this.anioReporte
+    },
+    {/* "Parrafo Enfasis Dictamen" */
+        "preguntaId": 4,
+        "valor": this.enfasisDictamen,
+        "nombreAlmacenado": "",
+        "nombreOriginalArchivo": "",
+        "ruta": "",
+        "anio": this.anioReporte
+    },
+    {/* "PDF Dictámen RF" */
+        "preguntaId": 5,
+        "valor": "",
+        "nombreAlmacenado": this.resDocDictamen?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resDocDictamen?.nombreOriginalArchivo,
+        "ruta": this.resDocDictamen?.ruta,
+        "anio": this.anioReporte
+    }
+
+    ]
+  }
+  capturarIngresos(){
+    return []
   }
 
   llenaridentificacion(){
