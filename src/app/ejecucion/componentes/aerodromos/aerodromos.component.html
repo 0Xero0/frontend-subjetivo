@@ -964,7 +964,7 @@
                   <select class="form-select" [(ngModel)]="tipoDocumentoRF" [disabled]="noObligadoRF"
                     (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
-                    <option *ngFor="let opcion of tipoDocumentosNa" [value]="opcion.id">{{opcion.nombre}}</option>
+                    <option *ngFor="let opcion of tipoDocumentos" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
                   <!-- <span class="validacion" *ngIf="verificarFaltantes(1,2)">Falta por completar</span> -->
                 </fieldset>
