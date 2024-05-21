@@ -1453,7 +1453,7 @@ export class AerodromosComponent {
     this.nitVinculado = this.identificacion[9].valor
     this.fechaCorteEF = this.identificacion[10].valor
     this.moneda = this.identificacion[11].valor
-    this.fechaReporte = this.identificacion[12].valor
+    /* this.fechaReporte = this.identificacion[12].valor */
     this.periodicidad = this.identificacion[13].valor
     this.anioActual = this.identificacion[14].valor
     this.anioComparativo = this.identificacion[15].valor
