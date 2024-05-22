@@ -461,7 +461,11 @@ export class AereosComponent implements OnInit, OnChanges{
             titleText:"Enviado a ST exitosamente",
             icon: "success"
           })
-          this.recargarPagina()
+        }else{
+          Swal.fire({
+            titleText:"Faltan campos por completar",
+            icon: "warning"
+          })
         }
         //console.log(respuesta);
       }

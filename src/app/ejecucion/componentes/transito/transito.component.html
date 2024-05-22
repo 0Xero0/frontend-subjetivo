@@ -146,12 +146,17 @@
             </tr>
           </thead>
           <tbody> <!-- 3 filas -->
+            <tr>
+              <td colspan="4">
+                <span>Al no seleccionar un servicio tercerizado, el sistema lo tomará como NO</span>
+              </td>
+            </tr>
             <tr><!-- linea 1T2 -- L8-->
               <td>1</td>
               <td>
                 <input type="checkbox" id="check1" [(ngModel)]="check1" class="checkbox"
                   (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
-                <label> Grúas.</label>
+                <label class="mx-2"> Grúas.</label>
               </td>
               <td colspn="3">
                 <span class="validacion" *ngIf="verificarFaltantes(1,8)">Falta por completar</span>
@@ -162,7 +167,7 @@
               <td>
                 <input type="checkbox" id="check2" [(ngModel)]="check2" class="checkbox"
                   (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
-                <label> Patios.</label>
+                <label class="mx-2"> Patios.</label>
               </td>
               <td colspn="3">
                 <span class="validacion" *ngIf="verificarFaltantes(1,9)">Falta por completar</span>
@@ -173,7 +178,7 @@
               <td>
                 <input type="checkbox" id="check3" [(ngModel)]="check3" class="checkbox"
                   (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
-                <label> Trámites de tránsito.</label>
+                <label class="mx-2"> Trámites de tránsito.</label>
               </td>
               <td colspn="3">
                 <span class="validacion" *ngIf="verificarFaltantes(1,10)">Falta por completar</span>
@@ -184,7 +189,7 @@
               <td>
                 <input type="checkbox" id="check4" [(ngModel)]="check4" class="checkbox"
                   (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
-                <label> Detección de infracciones.</label>
+                <label class="mx-2"> Detección de infracciones.</label>
               </td>
               <td colspn="3">
                 <span class="validacion" *ngIf="verificarFaltantes(1,11)">Falta por completar</span>
@@ -195,7 +200,7 @@
               <td>
                 <input type="checkbox" id="check5" [(ngModel)]="check5" class="checkbox"
                   (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
-                <label> Procesos contravencionales.</label>
+                <label class="mx-2"> Procesos contravencionales.</label>
               </td>
               <td colspn="3">
                 <span class="validacion" *ngIf="verificarFaltantes(1,12)">Falta por completar</span>
@@ -206,7 +211,7 @@
               <td>
                 <input type="checkbox" id="check6" [(ngModel)]="check6" class="checkbox"
                   (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
-                <label> Procesos de cobros Cocivos.</label>
+                <label class="mx-2"> Procesos de cobros Cocivos.</label>
               </td>
               <td colspn="3">
                 <span class="validacion" *ngIf="verificarFaltantes(1,13)">Falta por completar</span>
@@ -217,7 +222,7 @@
               <td>
                 <input type="checkbox" id="check7" [(ngModel)]="check7" class="checkbox"
                   (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
-                <label> Procesos de cobros Persuasivo.</label>
+                <label class="mx-2"> Procesos de cobros Persuasivo.</label>
               </td>
               <td colspn="3">
                 <span class="validacion" *ngIf="verificarFaltantes(1,14)">Falta por completar</span>
@@ -228,7 +233,7 @@
               <td>
                 <input type="checkbox" id="check8" [(ngModel)]="check8" class="checkbox"
                   (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
-                <label> Recaudos de Multas.</label>
+                <label class="mx-2"> Recaudos de Multas.</label>
               </td>
               <td colspn="3">
                 <span class="validacion" *ngIf="verificarFaltantes(1,15)">Falta por completar</span>
@@ -239,7 +244,7 @@
               <td>
                 <input type="checkbox" id="check9" [(ngModel)]="check9" class="checkbox"
                   (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
-                <label> Otros: ¿Cúal?</label>
+                <label class="mx-2"> Otros: ¿Cúal?</label>
               </td>
               <td colspn="3">
                 <span class="validacion" *ngIf="verificarFaltantes(1,16)">Falta por completar</span>
@@ -339,8 +344,11 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textG3" [(ngModel)]="textG3" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateEmail($event, 1)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,5,1)">Falta por completar</span>
+                  <div *ngIf="!emailValido1 && textG3">
+                    <small class="validacion">Introduce un correo electrónico válido.</small><span class="mx-2">user@ejemplo.com</span>
+                  </div>
                 </fieldset>
               </td>
               <td></td>
@@ -435,7 +443,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textG5" [(ngModel)]="textG5" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="otroG">
+                    (ngModelChange)="detectarCambios()" [disabled]="otroG" (input)="validateText($event)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,10,1)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -653,8 +661,11 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textP3" [(ngModel)]="textP3" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateEmail($event, 2)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,5,2)">Falta por completar</span>
+                  <div *ngIf="!emailValido2 && textP3">
+                    <small class="validacion">Introduce un correo electrónico válido.</small><span class="mx-2">user@ejemplo.com</span>
+                  </div>
                 </fieldset>
               </td>
               <td></td>
@@ -749,7 +760,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textP5" [(ngModel)]="textP5" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="otroP">
+                    (ngModelChange)="detectarCambios()" [disabled]="otroP" (input)="validateText($event)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,10,2)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -967,8 +978,11 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textT3" [(ngModel)]="textT3" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateEmail($event, 3)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,5,3)">Falta por completar</span>
+                  <div *ngIf="!emailValido3 && textT3">
+                    <small class="validacion">Introduce un correo electrónico válido.</small><span class="mx-2">user@ejemplo.com</span>
+                  </div>
                 </fieldset>
               </td>
               <td></td>
@@ -1063,7 +1077,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textT5" [(ngModel)]="textT5" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="otroT">
+                    (ngModelChange)="detectarCambios()" [disabled]="otroT" (input)="validateText($event)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,10,3)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -1281,8 +1295,11 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textD3" [(ngModel)]="textD3" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateEmail($event, 4)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,5,4)">Falta por completar</span>
+                  <div *ngIf="!emailValido4 && textD3">
+                    <small class="validacion">Introduce un correo electrónico válido.</small><span class="mx-2">user@ejemplo.com</span>
+                  </div>
                 </fieldset>
               </td>
               <td></td>
@@ -1377,7 +1394,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textD5" [(ngModel)]="textD5" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="otroD">
+                    (ngModelChange)="detectarCambios()" [disabled]="otroD" (input)="validateText($event)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,10,4)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -1595,8 +1612,11 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textPC3" [(ngModel)]="textPC3" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateEmail($event, 5)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,5,5)">Falta por completar</span>
+                  <div *ngIf="!emailValido5 && textPC3">
+                    <small class="validacion">Introduce un correo electrónico válido.</small><span class="mx-2">user@ejemplo.com</span>
+                  </div>
                 </fieldset>
               </td>
               <td></td>
@@ -1691,7 +1711,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textPC5" [(ngModel)]="textPC5" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="otroPC">
+                    (ngModelChange)="detectarCambios()" [disabled]="otroPC" (input)="validateText($event)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,10,5)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -1909,8 +1929,11 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textPCC3" [(ngModel)]="textPCC3" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateEmail($event, 6)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,5,6)">Falta por completar</span>
+                  <div *ngIf="!emailValido6 && textPCC3">
+                    <small class="validacion">Introduce un correo electrónico válido.</small><span class="mx-2">user@ejemplo.com</span>
+                  </div>
                 </fieldset>
               </td>
               <td></td>
@@ -2005,7 +2028,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textPCC5" [(ngModel)]="textPCC5" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="otroPCC">
+                    (ngModelChange)="detectarCambios()" [disabled]="otroPCC" (input)="validateText($event)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,10,6)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -2223,8 +2246,11 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textPCP3" [(ngModel)]="textPCP3" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateEmail($event, 7)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,5,7)">Falta por completar</span>
+                  <div *ngIf="!emailValido7 && textPCP3">
+                    <small class="validacion">Introduce un correo electrónico válido.</small><span class="mx-2">user@ejemplo.com</span>
+                  </div>
                 </fieldset>
               </td>
               <td></td>
@@ -2319,7 +2345,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textPCP5" [(ngModel)]="textPCP5" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="otroPCP">
+                    (ngModelChange)="detectarCambios()" [disabled]="otroPCP" (input)="validateText($event)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,10,7)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -2537,8 +2563,11 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textR3" [(ngModel)]="textR3" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateEmail($event, 8)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,5,8)">Falta por completar</span>
+                  <div *ngIf="!emailValido8 && textR3">
+                    <small class="validacion">Introduce un correo electrónico válido.</small><span class="mx-2">user@ejemplo.com</span>
+                  </div>
                 </fieldset>
               </td>
               <td></td>
@@ -2633,7 +2662,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textR5" [(ngModel)]="textR5" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="otroR">
+                    (ngModelChange)="detectarCambios()" [disabled]="otroR" (input)="validateText($event)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,10,8)">Falta por completar</span>
                 </fieldset>
               </td>
@@ -2869,8 +2898,11 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textO3" [(ngModel)]="textO3" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateEmail($event, 9)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,5,9)">Falta por completar</span>
+                  <div *ngIf="!emailValido9 && textO3">
+                    <small class="validacion">Introduce un correo electrónico válido.</small><span class="mx-2">user@ejemplo.com</span>
+                  </div>
                 </fieldset>
               </td>
               <td></td>
@@ -2965,7 +2997,7 @@
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textO5" [(ngModel)]="textO5" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="otroO">
+                    (ngModelChange)="detectarCambios()" [disabled]="otroO" (input)="validateText($event)">
                   <span class="validacion" *ngIf="verificarFaltantes(2,10,9)">Falta por completar</span>
                 </fieldset>
               </td>
