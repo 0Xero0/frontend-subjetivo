@@ -160,7 +160,7 @@ export class AerodromosComponent {
     if(input == 4){this.emailRF = currentValue;this.emailValidoRF = pattern.test(currentValue);}
     if(input == 5){this.emailRFS = currentValue;this.emailValidoRFS = pattern.test(currentValue);}
     if(input == 2){this.emailR = currentValue;this.emailValidoR = pattern.test(currentValue);}
-    
+
   }
 
   sumatoriaIngresos(anio:number){
@@ -328,7 +328,7 @@ export class AerodromosComponent {
 
     if(pregunt == 'vinculacionEconomica'){
       if(respuesta == '2'){this.habilitarSubordinadas = false}
-      if(respuesta != '2'){this.habilitarSubordinadas = true; this.subordinadaSi = ""}
+      if(respuesta != '2'){this.habilitarSubordinadas = true; this.subordinadaSi = ""; this.nitVinculado = ""}
     }
     if(pregunt == 'vinculadosEco'){
       if(respuesta == '1'){this.habilitarNombreV = false; this.habilitarNitV = false}
@@ -492,7 +492,7 @@ export class AerodromosComponent {
     const dictamen = this.capturarDictamen()
     const ingresos = this.capturarIngresos()
     let aerodromosJson:any;
-    
+
     aerodromosJson={identificacion,reporte,dictamen,ingresos}
     console.log(aerodromosJson)
     Swal.fire({
@@ -534,7 +534,7 @@ export class AerodromosComponent {
     this.servicio.enviarSTAerodromo().subscribe({
       next: (respuesta) => {
         console.log(respuesta);
-        
+
         this.aprobado = respuesta['aprobado']
         this.faltantesDigtamen = respuesta['faltantesDigtamen']
         this.faltantesIdentificacion = respuesta['faltantesIdentificacion']
@@ -1566,9 +1566,13 @@ export class AerodromosComponent {
     this.email = this.identificacion[24].valor
     this.notElectronica = this.identificacion[25].valor
     /* El archivo que va aquí ya se muestra [26]*/
+    this.resCerl = this.identificacion[26]
+    /* ---------------------------------------- */
     this.tipoVigilado = this.identificacion[27].valor
     this.fechaInicioPS = this.identificacion[28].valor
     /* El archivo que va aquí ya se muestra [29]*/
+    this.resHabilitacion = this.identificacion[29]
+    /* ---------------------------------------- */
     this.entidadHabilitante = this.identificacion[30].valor
     this.vigilada = this.identificacion[31].valor
     this.cual = this.identificacion[32].valor
@@ -1576,41 +1580,63 @@ export class AerodromosComponent {
     this.tipoVigiladoSelect = this.identificacion[34].valor
     this.fechaInicioPS2 = this.identificacion[35].valor
     /* El archivo que va aquí ya se muestra [36]*/
+    this.resHabilitacion2 = this.identificacion[36]
+    /* ---------------------------------------- */
     this.entidadHabilitante2 = this.identificacion[37].valor
     this.tipoDocumento = this.identificacion[38].valor
     this.numeroId = this.identificacion[39].valor
     this.nombreCompleto = this.identificacion[40].valor
     /* El archivo que va aquí ya se muestra [41]*/
+    this.resDocumentoId = this.identificacion[41]
+    /* ---------------------------------------- */
     this.emailRL= this.identificacion[42].valor
     this.numeroActa= this.identificacion[43].valor
     this.fechaNombrmiento= this.identificacion[44].valor
     /* El archivo que va aquí ya se muestra [45]*/
+    this.resActaNombramiento = this.identificacion[45]
+    /* ---------------------------------------- */
     this.fechaInscrip= this.identificacion[46].valor
     /* El archivo que va aquí ya se muestra [47]*/
+    this.resCC = this.identificacion[47]
+    /* ---------------------------------------- */
     this.tipoDocumentoC = this.identificacion[48].valor
     this.numeroIdC = this.identificacion[49].valor
     this.nombreCompletoC = this.identificacion[50].valor
     /* El archivo que va aquí ya se muestra [51]*/
+    this.resDocumentoIdC = this.identificacion[51]
+    /* ---------------------------------------- */
     this.emailC = this.identificacion[52].valor
     this.tarjetaPro = this.identificacion[53].valor
     /* El archivo que va aquí ya se muestra [54]*/
+    this.resTarjetaProDoc = this.identificacion[54]
+    /* ---------------------------------------- */
     this.numeroActaC = this.identificacion[55].valor
     this.fechaNombrmientoC = this.identificacion[56].valor
     /* El archivo que va aquí ya se muestra [57]*/
+    this.resActaNombramientoC = this.identificacion[57]
+    /* ---------------------------------------- */
     this.obligadaRF = this.identificacion[58].valor
     this.tipoDocumentoRF = this.identificacion[59].valor
     this.numeroIdRF = this.identificacion[60].valor
     this.nombreCompletoRF = this.identificacion[61].valor
     /* El archivo que va aquí ya se muestra [62]*/
+    this.resDocumentoIdRF = this.identificacion[62]
+    /* ---------------------------------------- */
     this.emailRF = this.identificacion[63].valor
     this.tarjetaProRF = this.identificacion[64].valor
     /* El archivo que va aquí ya se muestra [65]*/
+    this.resTarjetaProDocRF = this.identificacion[65]
+    /* ---------------------------------------- */
     this.numeroActaRF = this.identificacion[66].valor
     this.fechaNombrmientoRF = this.identificacion[67].valor
     /* El archivo que va aquí ya se muestra [68]*/
+    this.resActaNombramientoRF = this.identificacion[68]
+    /* ---------------------------------------- */
     this.fechaInscripRF = this.identificacion[69].valor
     this.firmaAuditoriaRF = this.identificacion[70].valor
-    /* this.resCamaraYcomercioRF = this.identificacion[71].valor */
+    /* El archivo que va aquí ya se muestra [71]*/
+    this.resCamaraYcomercioRF = this.identificacion[71]
+    /* ---------------------------------------- */
     this.tipoDocumentoRFS = this.identificacion[72].valor
     this.numeroIdRFS = this.identificacion[73].valor
     this.nombreCompletoRFS = this.identificacion[74].valor
@@ -1618,11 +1644,17 @@ export class AerodromosComponent {
     this.emailRFS = this.identificacion[76].valor
     this.tarjetaProRFS = this.identificacion[77].valor
     /* El archivo que va aquí ya se muestra [78]*/
+    this.resTarjetaProDocRFS = this.identificacion[78]
+    /* ---------------------------------------- */
     this.numeroActaRFS = this.identificacion[79].valor
     this.fechaNombrmientoRFS = this.identificacion[80].valor
     /* El archivo que va aquí ya se muestra [81]*/
+    this.resActaNombramientoRFS = this.identificacion[81]
+    /* ---------------------------------------- */
     this.fechaInscripRFS = this.identificacion[82].valor
     /* El archivo que va aquí ya se muestra [84]*/
+    this.resCamaraYcomercioRFS = this.identificacion[84]
+    /* ---------------------------------------- */
   }
 
   llenarReporte(){
