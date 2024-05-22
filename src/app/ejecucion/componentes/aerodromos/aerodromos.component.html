@@ -1178,7 +1178,7 @@
                   <app-input-numerico [(ngModel)]="numeroIdRFS" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="10" [disabled]="noObligadoRFS"/><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,74) && !numeroIdRFS">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,74) && !numeroIdRFS">Falta por completar</span>
               </td>
             </tr>
             <tr><!-- NOMBRE COMPLETO 75-->
@@ -1296,7 +1296,7 @@
                   <input type="date" [(ngModel)]="fechaNombrmientoRFS" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="noObligadoRFS" (change)="fechaMaxima($event,'fechaNombrmientoRFS')">
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,82) && !fechaNombrmientoRFS">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,82) && !fechaNombrmientoRFS">Falta por completar</span>
               </td>
             </tr>
             <tr><!-- FECHA DE INSCRIPCIÓN EN CÁMARA Y COMERCIO 83-->
@@ -1497,7 +1497,7 @@
                     <small class="validacion">Introduce un correo electrónico válido.</small><span class="mx-2">user@ejemplo.com</span>
                   </div>
                 </form>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,9) && !emailR">Falta por completar</span>
               </td>
             </tr>
             <tr><!-- PDF IDENTIFICACION REPRESENTANTE 10-->
