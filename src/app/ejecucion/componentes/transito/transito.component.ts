@@ -95,6 +95,10 @@ export class TransitoComponent {
   cambioR: boolean = true; otroR: boolean = true
   cambioO: boolean = true; otroO: boolean = true
 
+  /* Validación de correos */
+  emailValido1:boolean = true; emailValido2:boolean = true; emailValido3:boolean = true; emailValido4:boolean = true; emailValido5:boolean = true;
+  emailValido6:boolean = true; emailValido7:boolean = true; emailValido8:boolean = true; emailValido9:boolean = true;
+
   //Variables archivos Grua            //Variables archivos Patios          //Variables archivos Traamites       //Variables archivos Deteccion
   resArchivoG1?: ArchivoGuardado;/*  */resArchivoP1?: ArchivoGuardado;/*  */resArchivoT1?: ArchivoGuardado;/*  */resArchivoD1?: ArchivoGuardado;
   resArchivoG2?: ArchivoGuardado;/*  */resArchivoP2?: ArchivoGuardado;/*  */resArchivoT2?: ArchivoGuardado;/*  */resArchivoD2?: ArchivoGuardado;
@@ -149,6 +153,27 @@ export class TransitoComponent {
     if (!pattern.test(event.target.value)) {
       event.target.value = event.target.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]/g, '');
     }
+  }
+  validateEmail(event: any, input: number) {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const inputElement = event.target as HTMLInputElement;
+    const currentValue = inputElement.value;
+
+    if (!pattern.test(currentValue)) {
+      inputElement.setCustomValidity('Introduce un correo electrónico válido.');
+    } else {
+      inputElement.setCustomValidity('');
+    }
+    if(input == 1){this.textG3 = currentValue;this.emailValido1 = pattern.test(currentValue);}
+    if(input == 2){this.textP3 = currentValue;this.emailValido2 = pattern.test(currentValue);}
+    if(input == 3){this.textT3 = currentValue;this.emailValido3 = pattern.test(currentValue);}
+    if(input == 4){this.textD3 = currentValue;this.emailValido4 = pattern.test(currentValue);}
+    if(input == 5){this.textPC3 = currentValue;this.emailValido5 = pattern.test(currentValue);}
+    if(input == 6){this.textPCC3 = currentValue;this.emailValido6 = pattern.test(currentValue);}
+    if(input == 7){this.textPCP3 = currentValue;this.emailValido7 = pattern.test(currentValue);}
+    if(input == 8){this.textR3 = currentValue;this.emailValido8 = pattern.test(currentValue);}
+    if(input == 9){this.textO3 = currentValue;this.emailValido9 = pattern.test(currentValue);}
+    
   }
 
   detectarCambios(){
