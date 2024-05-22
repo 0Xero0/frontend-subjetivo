@@ -173,7 +173,7 @@ export class TransitoComponent {
     if(input == 7){this.textPCP3 = currentValue;this.emailValido7 = pattern.test(currentValue);}
     if(input == 8){this.textR3 = currentValue;this.emailValido8 = pattern.test(currentValue);}
     if(input == 9){this.textO3 = currentValue;this.emailValido9 = pattern.test(currentValue);}
-    
+
   }
 
   detectarCambios(){
@@ -335,6 +335,7 @@ export class TransitoComponent {
         this.llenarIdentificacion()
         this.llenarPreguntas(this.preguntas)
         this.iniciarCambios()
+        
         if(respuesta['editable'] != true){
           this.soloLectura = true
           this.hayCambios = true

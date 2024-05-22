@@ -236,7 +236,7 @@
               <td colspan="3">
                 <ng-container>
                   <app-input-numerico [(ngModel)]="anioActual" (ngModelChange)="[detectarCambios(),fechaComparativa()]"
-                    [largoMaximo]="4" [disabled]="soloLectura" /><!--  -->
+                    [largoMaximo]="4" [disabled]="true" /><!--  -->
                 </ng-container>
                 <span class="validacion" *ngIf="verificarFaltantes(1,15) && !anioActual">Falta por completar</span>
               </td>
