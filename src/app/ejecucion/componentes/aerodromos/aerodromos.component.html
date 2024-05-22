@@ -1040,10 +1040,10 @@
                   <app-input-numerico [(ngModel)]="tarjetaProRF" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="12" [disabled]="noObligadoRF" /><!--  -->
                 </ng-container>
-                <span class="validacion" *ngIf="verificarFaltantes(1,65)">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(1,65) && !tarjetaProRF">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- PDF TARJETA PROFESIONAL -->
+            <tr><!-- PDF TARJETA PROFESIONAL 66-->
               <td></td>
               <td colspan="2">PDF TARJETA PROFESIONAL </td>
               <td>
@@ -1051,7 +1051,7 @@
                   [(ngModel)]="tarjetaProDocRF" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'tarjetaProDocRF'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,66) && !tarjetaProDocRF">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="identificacion[65]?.nombreOriginalArchivo != ''">
@@ -1059,7 +1059,7 @@
                 </span>
               </td>
             </tr>
-            <tr><!-- NÚMERO DE ACTA -->
+            <tr><!-- NÚMERO DE ACTA 67-->
               <td></td>
               <td class="actividad">
                 NÚMERO DE ACTA
@@ -1069,10 +1069,10 @@
                   <app-input-numerico [(ngModel)]="numeroActaRF" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="10" [disabled]="noObligadoRF" /><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,67) && !numeroActaRF">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- PDF ACTA NOMBRAMIENTO -->
+            <tr><!-- PDF ACTA NOMBRAMIENTO 68-->
               <td></td>
               <td colspan="2">ACTA NOMBRAMIENTO </td>
               <td>
@@ -1080,7 +1080,7 @@
                   [(ngModel)]="actaNombramientoRF" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'actaNombramientoRF'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,68) && !actaNombramientoRF">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="identificacion[68]?.nombreOriginalArchivo != ''">
@@ -1088,7 +1088,7 @@
                 </span>
               </td>
             </tr>
-            <tr><!-- FECHA DE NOMBRAMIENTO -->
+            <tr><!-- FECHA DE NOMBRAMIENTO 69-->
               <td></td>
               <td class="actividad">
                 FECHA DE NOMBRAMIENTO
@@ -1098,23 +1098,23 @@
                   <input type="date" [(ngModel)]="fechaNombrmientoRF" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="noObligadoRF" (change)="fechaMaxima($event,'fechaNombrmientoRF')">
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,69) && !fechaNombrmientoRF">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- FECHA DE INSCRIPCIÓN EN CC -->
+            <tr><!-- FECHA DE INSCRIPCIÓN EN CÁMARA Y COMERCIO 70-->
               <td></td>
               <td class="actividad">
-                FECHA DE INSCRIPCIÓN EN CC
+                FECHA DE INSCRIPCIÓN EN CÁMARA Y COMERCIO
               </td>
               <td colspan="3">
                 <ng-container>
                   <input type="date" [(ngModel)]="fechaInscripRF" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="noObligadoRF" (change)="fechaMaxima($event,'fechaInscripRF')">
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,70) && !fechaInscripRF">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- FIRMA DE AUDITORIA (SI APLICA) -->
+            <tr><!-- FIRMA DE AUDITORIA (SI APLICA) 71-->
               <td></td>
               <td class="actividad">
                 FIRMA DE AUDITORIA (SI APLICA)
@@ -1124,18 +1124,18 @@
                   <input type="text" [(ngModel)]="firmaAuditoriaRF" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="noObligadoRF">
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,71) && !firmaAuditoriaRF">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- PDF CÁMARA Y COMERCIO -->
+            <tr><!-- PDF CÁMARA Y COMERCIO 72-->
               <td></td>
-              <td colspan="2">CÁMARA Y COMERCIO </td>
+              <td colspan="2">PDF CÁMARA Y COMERCIO </td>
               <td>
                 <app-input-archivo [disabled]="noObligadoRF" [nombre]="'camaraYcomercioRF'"
                   [(ngModel)]="camaraYcomercioRF" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'camaraYcomercioRF'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,72) && !camaraYcomercioRF">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="identificacion[71]?.nombreOriginalArchivo != ''">
@@ -1152,7 +1152,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr><!-- TIPO DE DOCUMENTO -->
+            <tr><!-- TIPO DE DOCUMENTO 73-->
               <td></td>
               <td class="actividad">
                 TIPO DE DOCUMENTO
@@ -1164,11 +1164,11 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of tipoDocumentosNa" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <!-- <span class="validacion" *ngIf="verificarFaltantes(1,2)">Falta por completar</span> -->
+                  <span class="validacion" *ngIf="verificarFaltantes(1,73) && !tipoDocumentoRFS">Falta por completar</span>
                 </fieldset>
               </td>
             </tr>
-            <tr><!-- NÚMERO DE DOCUMENTO -->
+            <tr><!-- NÚMERO DE DOCUMENTO 74-->
               <td></td>
               <td class="actividad">
                 NÚMERO DE DOCUMENTO
@@ -1178,10 +1178,10 @@
                   <app-input-numerico [(ngModel)]="numeroIdRFS" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="10" [disabled]="noObligadoRFS"/><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,74) && !numeroIdRFS">Falta por completar</span> -->
               </td>
             </tr>
-            <tr><!-- NOMBRE COMPLETO -->
+            <tr><!-- NOMBRE COMPLETO 75-->
               <td></td>
               <td class="actividad">
                 NOMBRE COMPLETO
@@ -1191,10 +1191,10 @@
                   <input type="text" [(ngModel)]="nombreCompletoRFS" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="noObligadoRFS" (input)="validateText($event)">
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,75) && !nombreCompletoRFS">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- PDF CEDULA REVISOR FISCAL SUPLENTE -->
+            <tr><!-- PDF CEDULA REVISOR FISCAL SUPLENTE 76-->
               <td></td>
               <td colspan="2">PDF CEDULA REVISOR FISCAL SUPLENTE </td>
               <td>
@@ -1202,7 +1202,7 @@
                   [(ngModel)]="documentoIdRFS" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'documentoIdRFS'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,76) && !documentoIdRFS">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="identificacion[75]?.nombreOriginalArchivo != ''">
@@ -1210,7 +1210,7 @@
                 </span>
               </td>
             </tr>
-            <tr><!-- CORREO ELECTRÓNICO DE NOTIFICACIÓN - Pendiente arreglar validacion -->
+            <tr><!-- CORREO ELECTRÓNICO DE NOTIFICACIÓN 77-->
               <td></td>
               <td class="actividad">
                 CORREO ELECTRÓNICO DE NOTIFICACIÓN
@@ -1219,16 +1219,16 @@
                 <form #emailForm5="ngForm">
                   <ng-container>
                     <input type="email" [(ngModel)]="emailRFS" class="form-control" id="emailRFS" name="emailRFS"
-                      (ngModelChange)="detectarCambios()" [disabled]="noObligadoRFS" required email>
+                      (ngModelChange)="detectarCambios()" [disabled]="noObligadoRFS" (input)="validateEmail($event,5)">
                   </ng-container>
-                  <div *ngIf="emailForm5.controls['emailRFS'] && emailForm5.controls['emailRFS'].value && emailForm5.controls['emailRFS'].invalid">
-                    <small *ngIf="emailForm5.controls['emailRFS'].errors?.['emailRFS']" class="validacion">Introduce un correo electrónico válido.</small>
+                  <div *ngIf="!emailValidoRFS && emailRFS">
+                    <small class="validacion">Introduce un correo electrónico válido.</small><span class="mx-2">user@ejemplo.com</span>
                   </div>
                 </form>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,77) && !emailRFS">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- TARJETA PROFESIONAL -->
+            <tr><!-- TARJETA PROFESIONAL 78-->
               <td></td>
               <td class="actividad">
                 TARJETA PROFESIONAL
@@ -1238,10 +1238,10 @@
                   <app-input-numerico [(ngModel)]="tarjetaProRFS" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="12" [disabled]="noObligadoRFS" /><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,78) && !tarjetaProRFS">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- PDF TARJETA PROFESIONAL -->
+            <tr><!-- PDF TARJETA PROFESIONAL 79-->
               <td></td>
               <td colspan="2">PDF TARJETA PROFESIONAL </td>
               <td>
@@ -1249,7 +1249,7 @@
                   [(ngModel)]="tarjetaProDocRFS" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'tarjetaProDocRFS'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,79) && !tarjetaProDocRFS">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="identificacion[78]?.nombreOriginalArchivo != ''">
@@ -1257,7 +1257,7 @@
                 </span>
               </td>
             </tr>
-            <tr><!-- NÚMERO DE ACTA -->
+            <tr><!-- NÚMERO DE ACTA 80-->
               <td></td>
               <td class="actividad">
                 NÚMERO DE ACTA
@@ -1267,10 +1267,10 @@
                   <app-input-numerico [(ngModel)]="numeroActaRFS" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="10" [disabled]="noObligadoRFS" /><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,80) && !numeroActaRFS">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- PDF ACTA NOMBRAMIENTO -->
+            <tr><!-- PDF ACTA NOMBRAMIENTO 81-->
               <td></td>
               <td colspan="2">ACTA NOMBRAMIENTO </td>
               <td>
@@ -1278,7 +1278,7 @@
                   [(ngModel)]="actaNombramientoRFS" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'actaNombramientoRFS'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,81) && !actaNombramientoRFS">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="identificacion[81]?.nombreOriginalArchivo != ''">
@@ -1286,7 +1286,7 @@
                 </span>
               </td>
             </tr>
-            <tr><!-- FECHA DE NOMBRAMIENTO -->
+            <tr><!-- FECHA DE NOMBRAMIENTO 82-->
               <td></td>
               <td class="actividad">
                 FECHA DE NOMBRAMIENTO
@@ -1296,31 +1296,31 @@
                   <input type="date" [(ngModel)]="fechaNombrmientoRFS" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="noObligadoRFS" (change)="fechaMaxima($event,'fechaNombrmientoRFS')">
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,82) && !fechaNombrmientoRFS">Falta por completar</span> -->
               </td>
             </tr>
-            <tr><!-- FECHA DE INSCRIPCIÓN EN CC -->
+            <tr><!-- FECHA DE INSCRIPCIÓN EN CÁMARA Y COMERCIO 83-->
               <td></td>
               <td class="actividad">
-                FECHA DE INSCRIPCIÓN EN CC
+                FECHA DE INSCRIPCIÓN EN CÁMARA Y COMERCIO
               </td>
               <td colspan="3">
                 <ng-container>
                   <input type="date" [(ngModel)]="fechaInscripRFS" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="noObligadoRFS" (change)="fechaMaxima($event,'fechaInscripRFS')">
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,83) && !fechaInscripRFS">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- PDF CÁMARA Y COMERCIO -->
+            <tr><!-- PDF CÁMARA Y COMERCIO 84-->
               <td></td>
-              <td colspan="2">CÁMARA Y COMERCIO </td>
+              <td colspan="2">PDF CÁMARA Y COMERCIO </td>
               <td>
                 <app-input-archivo [disabled]="noObligadoRFS" [nombre]="'camaraYcomercioRFS'"
                   [(ngModel)]="camaraYcomercioRFS" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'camaraYcomercioRFS'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(1,84) && !camaraYcomercioRFS">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="identificacion[83]?.nombreOriginalArchivo != ''">
@@ -1357,7 +1357,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr><!-- NÚMERO DE ACTO ADMINISTRATIVO DE CREACIÓN -->
+            <tr><!-- NÚMERO DE ACTO ADMINISTRATIVO DE CREACIÓN 1-->
               <td></td>
               <td class="actividad">
                 NÚMERO DE ACTO ADMINISTRATIVO DE CREACIÓN
@@ -1367,10 +1367,10 @@
                   <app-input-numerico [(ngModel)]="numeroActoAC" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="12" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,1) && !numeroActoAC">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- FECHA DE ACTO ADMINISTRATIVO DE CREACIÓN -->
+            <tr><!-- FECHA DE ACTO ADMINISTRATIVO DE CREACIÓN 2-->
               <td></td>
               <td class="actividad">
                 FECHA DE ACTO ADMINISTRATIVO DE CREACIÓN
@@ -1380,10 +1380,10 @@
                   <input type="date" [(ngModel)]="fechaActoAC" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="fechaMaxima($event,'fechaActoAC')">
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,2) && !fechaActoAC">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- TIPO DE ENTIDAD PÚBLICA -->
+            <tr><!-- TIPO DE ENTIDAD PÚBLICA 3-->
               <td></td>
               <td class="actividad">
                 TIPO DE ENTIDAD PÚBLICA
@@ -1396,10 +1396,10 @@
                     <option *ngFor="let opcion of tipoEntidadesPublicas" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
                 </fieldset>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,3) && !tipoEntidadP">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- CATEGORÍA -->
+            <tr><!-- CATEGORÍA 4-->
               <td></td>
               <td class="actividad">
                 CATEGORÍA
@@ -1412,10 +1412,10 @@
                     <option *ngFor="let opcion of categoriasNs" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
                 </fieldset>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,4) && !categoria">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- PDF CEDULA RL -->
+            <tr><!-- PDF ACTO ADMINISTRATIVO DE CREACION DE LA ENTIDAD 5-->
               <td></td>
               <td colspan="2">PDF ACTO ADMINISTRATIVO DE CREACION DE LA ENTIDAD </td>
               <td>
@@ -1423,7 +1423,7 @@
                   [(ngModel)]="docActoAC" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'docActoAC'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,5) && !docActoAC">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="reporte[4]?.nombreOriginalArchivo != ''">
@@ -1440,7 +1440,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr><!-- TIPO DE DOCUMENTO -->
+            <tr><!-- TIPO DE DOCUMENTO 6-->
               <td></td>
               <td class="actividad">
                 TIPO DE DOCUMENTO
@@ -1452,11 +1452,11 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of tipoDocumentos" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <!-- <span class="validacion" *ngIf="verificarFaltantes(1,2)">Falta por completar</span> -->
+                  <span class="validacion" *ngIf="verificarFaltantes(2,6) && !tipoDocumentoR">Falta por completar</span>
                 </fieldset>
               </td>
             </tr>
-            <tr><!-- NÚMERO DE DOCUMENTO -->
+            <tr><!-- NÚMERO DE DOCUMENTO 7-->
               <td></td>
               <td class="actividad">
                 NÚMERO DE DOCUMENTO
@@ -1466,10 +1466,10 @@
                   <app-input-numerico [(ngModel)]="numeroIdR" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="10" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,7) && !numeroIdR">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- NOMBRE COMPLETO -->
+            <tr><!-- NOMBRE COMPLETO 8-->
               <td></td>
               <td class="actividad">
                 NOMBRE COMPLETO
@@ -1479,10 +1479,10 @@
                   <input type="text" [(ngModel)]="nombreCompletoR" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,8) && !nombreCompletoR">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- CORREO ELECTRÓNICO DE NOTIFICACIÓN - Pendiente arreglar validacion -->
+            <tr><!-- CORREO ELECTRÓNICO DE NOTIFICACIÓN 9 -->
               <td></td>
               <td class="actividad">
                 CORREO ELECTRÓNICO DE NOTIFICACIÓN
@@ -1491,16 +1491,16 @@
                 <form #emailForm6="ngForm">
                   <ng-container>
                     <input type="email" [(ngModel)]="emailR" class="form-control" id="emailR" name="emailR"
-                      (ngModelChange)="detectarCambios()" [disabled]="soloLectura" required email>
+                      (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateEmail($event,6)">
                   </ng-container>
-                  <div *ngIf="emailForm6.controls['emailR'] && emailForm6.controls['emailR'].value && emailForm6.controls['emailR'].invalid">
-                    <small *ngIf="emailForm6.controls['emailR'].errors?.['emailR']" class="validacion">Introduce un correo electrónico válido.</small>
+                  <div *ngIf="!emailValidoR && emailR">
+                    <small class="validacion">Introduce un correo electrónico válido.</small><span class="mx-2">user@ejemplo.com</span>
                   </div>
                 </form>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
               </td>
             </tr>
-            <tr><!-- PDF IDENTIFICACION REPRESENTANTE -->
+            <tr><!-- PDF IDENTIFICACION REPRESENTANTE 10-->
               <td></td>
               <td colspan="2">PDF IDENTIFICACION REPRESENTANTE </td>
               <td>
@@ -1508,7 +1508,7 @@
                   [(ngModel)]="documentoIdR" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'documentoIdR'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,10) && !documentoIdR">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="reporte[9]?.nombreOriginalArchivo != ''">
@@ -1516,7 +1516,7 @@
                 </span>
               </td>
             </tr>
-            <tr><!-- ACTO OFICIAL DE NOMBRAMIENTO -->
+            <tr><!-- ACTO OFICIAL DE NOMBRAMIENTO 11-->
               <td></td>
               <td class="actividad">
                 ACTO OFICIAL DE NOMBRAMIENTO
@@ -1526,10 +1526,10 @@
                   <app-input-numerico [(ngModel)]="actoOficialNR" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="12" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,11) && !actoOficialNR">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- FECHA DE NOMBRAMIENTO -->
+            <tr><!-- FECHA DE NOMBRAMIENTO 12-->
               <td></td>
               <td class="actividad">
                 FECHA DE NOMBRAMIENTO
@@ -1539,10 +1539,10 @@
                   <input type="date" [(ngModel)]="fechaNombrmientoR" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="fechaMaxima($event,'fechaNombrmientoR')">
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,12) && !fechaNombrmientoR">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- PDF ACTO DE NOMBRAMIENTO -->
+            <tr><!-- PDF ACTO DE NOMBRAMIENTO 13-->
               <td></td>
               <td colspan="2">PDF ACTO DE NOMBRAMIENTO </td>
               <td>
@@ -1550,7 +1550,7 @@
                   [(ngModel)]="docActoNR" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'docActoNR'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,13) && !docActoNR">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="reporte[12]?.nombreOriginalArchivo != ''">
@@ -1567,7 +1567,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr><!-- ACTO OFICIAL DE NOMBRAMIENTO REVISOR FISCAL -->
+            <tr><!-- ACTO OFICIAL DE NOMBRAMIENTO REVISOR FISCAL 14-->
               <td></td>
               <td class="actividad">
                 ACTO OFICIAL DE NOMBRAMIENTO REVISOR FISCAL
@@ -1577,10 +1577,10 @@
                   <app-input-numerico [(ngModel)]="actoOficialNRF" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="12" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,14) && !actoOficialNRF">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- FECHA DE NOMBRAMIENTO REVISOR FISCAL -->
+            <tr><!-- FECHA DE NOMBRAMIENTO REVISOR FISCAL 15-->
               <td></td>
               <td class="actividad">
                 FECHA DE NOMBRAMIENTO REVISOR FISCAL
@@ -1590,10 +1590,10 @@
                   <input type="date" [(ngModel)]="fechaNombrmientoRFR" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="fechaMaxima($event,'fechaNombrmientoRF')">
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,15) && !fechaNombrmientoRFR">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- PDF ACTO DE NOMBRAMIENTO -->
+            <tr><!-- PDF ACTO DE NOMBRAMIENTO 16-->
               <td></td>
               <td colspan="2">PDF ACTO DE NOMBRAMIENTO </td>
               <td>
@@ -1601,7 +1601,7 @@
                   [(ngModel)]="docActoNRR" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'docActoNRR'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,16) && !docActoNRR">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="reporte[15]?.nombreOriginalArchivo != ''">
@@ -1609,7 +1609,7 @@
                 </span>
               </td>
             </tr>
-            <tr><!-- ACTO OFICIAL DE NOMBRAMIENTO CONTADOR -->
+            <tr><!-- ACTO OFICIAL DE NOMBRAMIENTO CONTADOR 17-->
               <td></td>
               <td class="actividad">
                 ACTO OFICIAL DE NOMBRAMIENTO CONTADOR
@@ -1619,10 +1619,10 @@
                   <app-input-numerico [(ngModel)]="actoOficialNCR" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="12" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,17) && !actoOficialNCR">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- FECHA DE NOMBRAMIENTO CONTADOR -->
+            <tr><!-- FECHA DE NOMBRAMIENTO CONTADOR 18-->
               <td></td>
               <td class="actividad">
                 FECHA DE NOMBRAMIENTO CONTADOR
@@ -1632,7 +1632,7 @@
                   <input type="date" [(ngModel)]="fechaNombrmientoCR" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="fechaMaxima($event,'fechaNombrmientoCR')">
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,18) && !fechaNombrmientoCR">Falta por completar</span>
               </td>
             </tr>
             <tr><!-- PDF ACTO DE NOMBRAMIENTO -->
@@ -1643,7 +1643,7 @@
                   [(ngModel)]="docActoNCR" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'docActoNCR'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(2,19) && !docActoNCR">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="reporte[18]?.nombreOriginalArchivo != ''">
@@ -1678,7 +1678,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr><!-- Ingresos de actividades ordinarias o Ingresos Fiscales. -->
+            <tr><!-- Ingresos de actividades ordinarias o Ingresos Fiscales. 1-->
               <td></td>
               <td class="actividad">
                 Ingresos de actividades ordinarias o Ingresos Fiscales.
@@ -1688,17 +1688,17 @@
                   <app-input-moneda [(ngModel)]="IngrsoF1" (ngModelChange)="[detectarCambios(),sumatoriaIngresos(1)]"
                     [maxlength]="12" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(3,1) && !IngrsoF1">Falta por completar</span>
               </td>
               <td>
                 <ng-container>
                   <app-input-moneda [(ngModel)]="IngrsoF2" (ngModelChange)="[detectarCambios(),sumatoriaIngresos(2)]"
                     [maxlength]="12" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(3,1) && !IngrsoF2">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- Ingresos derivados de actividades de transporte, conexas y complementarias. -->
+            <tr><!-- Ingresos derivados de actividades de transporte, conexas y complementarias. 2-->
               <td></td>
               <td class="actividad">
                 Ingresos derivados de actividades de transporte, conexas y complementarias.
@@ -1708,17 +1708,17 @@
                   <app-input-moneda [(ngModel)]="IngrsoA1" (ngModelChange)="[detectarCambios(),sumatoriaIngresos(1)]"
                     [maxlength]="12" [disabled]="soloLectura"/><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(3,2) && !IngrsoA1">Falta por completar</span>
               </td>
               <td>
                 <ng-container>
                   <app-input-moneda [(ngModel)]="IngrsoA2" (ngModelChange)="[detectarCambios(),sumatoriaIngresos(2)]"
                     [maxlength]="12" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(3,2) && !IngrsoA2">Falta por completar</span>
               </td>
             </tr>
-            <tr><!-- Unidad de negocio (aeródromos a cargo de los entes territoriales). -->
+            <tr><!-- Unidad de negocio (aeródromos a cargo de los entes territoriales). 3-->
               <td></td>
               <td class="actividad">
                 Unidad de negocio (aeródromos a cargo de los entes territoriales).
@@ -1728,14 +1728,14 @@
                   <app-input-moneda [(ngModel)]="unidadN1" (ngModelChange)="[detectarCambios(),sumatoriaIngresos(1)]"
                     [maxlength]="12" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+              <span class="validacion" *ngIf="verificarFaltantes(3,3) && !unidadN1">Falta por completar</span>
               </td>
               <td>
                 <ng-container>
                   <app-input-moneda [(ngModel)]="unidadN2" (ngModelChange)="[detectarCambios(),sumatoriaIngresos(2)]"
                     [maxlength]="12" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
+              <span class="validacion" *ngIf="verificarFaltantes(3,3) && !unidadN2">Falta por completar</span>
               </td>
             </tr>
             <tr><!-- INGRESOS FISCALES NO TRIBUTARIOS  -->
@@ -1786,7 +1786,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr><!-- Dictamen -->
+            <tr><!-- Dictamen 1-->
               <td></td>
               <td class="actividad">
                 Dictamen
@@ -1798,11 +1798,11 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of dictamenes" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <!-- <span class="validacion" *ngIf="verificarFaltantes(1,2)">Falta por completar</span> -->
+                  <span class="validacion" *ngIf="verificarFaltantes(4,1) && !dictamen">Falta por completar</span>
                 </fieldset>
               </td>
             </tr>
-            <tr><!-- Opinión Dictamen -->
+            <tr><!-- Opinión Dictamen 2-->
               <td></td>
               <td class="actividad">
                 Opinión Dictamen
@@ -1814,11 +1814,11 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of opinionDictamenes" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <!-- <span class="validacion" *ngIf="verificarFaltantes(1,2)">Falta por completar</span> -->
+                  <span class="validacion" *ngIf="verificarFaltantes(4,2) && !opinionDictamen">Falta por completar</span>
                 </fieldset>
               </td>
             </tr>
-            <tr><!-- Contenido Salvedad Dictamen -->
+            <tr><!-- Contenido Salvedad Dictamen 3-->
               <td></td>
               <td class="actividad">
                 Contenido Salvedad Dictamen
@@ -1830,11 +1830,11 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of salvedadDictamenes" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <!-- <span class="validacion" *ngIf="verificarFaltantes(1,2)">Falta por completar</span> -->
+                  <span class="validacion" *ngIf="verificarFaltantes(4,3) && !conSalDictamen">Falta por completar</span>
                 </fieldset>
               </td>
             </tr>
-            <tr><!-- Párrafo Énfasis Dictamen-->
+            <tr><!-- Párrafo Énfasis Dictamen 4-->
               <td></td>
               <td class="actividad">
                 Párrafo Énfasis Dictamen
@@ -1846,11 +1846,11 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of enfasisDictamenes" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <!-- <span class="validacion" *ngIf="verificarFaltantes(1,2)">Falta por completar</span> -->
+                  <span class="validacion" *ngIf="verificarFaltantes(4,4) && !enfasisDictamen">Falta por completar</span>
                 </fieldset>
               </td>
             </tr>
-            <tr><!-- PDF Dictámen RF -->
+            <tr><!-- PDF Dictámen RF 5-->
               <td></td>
               <td>PDF Dictámen REVISOR FISCAL </td>
               <td>
@@ -1858,7 +1858,7 @@
                   [(ngModel)]="docDictamen" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'docDictamen'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
-                <!-- <span class="validacion" *ngIf="verificarFaltantes(2,17,1)">Falta por completar</span> -->
+                <span class="validacion" *ngIf="verificarFaltantes(4,5) && !docDictamen">Falta por completar</span>
               </td>
               <td>
                 <span class="texto-azul" *ngIf="dictamenj[4]?.nombreOriginalArchivo != ''">

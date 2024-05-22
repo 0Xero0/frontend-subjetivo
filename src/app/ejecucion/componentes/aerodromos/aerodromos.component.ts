@@ -32,7 +32,8 @@ export class AerodromosComponent {
   habilitarSubordinadas: boolean = true; habilitarNombreV: boolean = true; habilitarNitV: boolean = true; habilitarCual:boolean = true;
   noObligadoRF:boolean = true;noObligadoRFS:boolean = true;
   /* Validación correos electronicos */
-  emailValido:boolean = true; emailValidoRL:boolean = true; emailValidoC:boolean = true; emailValidoRF:boolean = true;
+  emailValido:boolean = true; emailValidoRL:boolean = true; emailValidoC:boolean = true; emailValidoRF:boolean = true;emailValidoRFS:boolean = true;
+  emailValidoR:boolean = true;
 
   /* DATOS BÁSICOS */
   nit: string = ""; digito: string = ""; nombre: string = ""; codigoCIIU: string = ""; estadoFinanciero: string = ""; vinculacionEconomica: string = ""
@@ -157,6 +158,8 @@ export class AerodromosComponent {
     if(input == 2){this.emailRL = currentValue;this.emailValidoRL = pattern.test(currentValue);}
     if(input == 3){this.emailC = currentValue;this.emailValidoC = pattern.test(currentValue);}
     if(input == 4){this.emailRF = currentValue;this.emailValidoRF = pattern.test(currentValue);}
+    if(input == 5){this.emailRFS = currentValue;this.emailValidoRFS = pattern.test(currentValue);}
+    if(input == 2){this.emailR = currentValue;this.emailValidoR = pattern.test(currentValue);}
     
   }
 
@@ -476,7 +479,9 @@ export class AerodromosComponent {
         if(this.identificacion[58].valor){this.habilitarSi(this.identificacion[58].valor,'obligadaRF')}
         if(this.identificacion[72].valor){this.habilitarSi(this.identificacion[72].valor,'fiscalSuplente')}
 
-        if(respuesta['editable'] == false){this.soloLectura = true; this.hayCambios = true}
+        if(respuesta['editable'] == false){
+          this.soloLectura = true; this.hayCambios = true; this.noObligadoRF = true; this.noObligadoRFS = true;
+        }
       }
     })
   }
