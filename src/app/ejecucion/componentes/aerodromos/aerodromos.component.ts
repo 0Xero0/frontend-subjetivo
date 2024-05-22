@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
 import { Faltantes } from '../../modelos/faltantes';
+import { ingresos } from '../../modelos/aerodromo';
 
 @Component({
   selector: 'app-aerodromos',
@@ -18,7 +19,10 @@ export class AerodromosComponent {
 
   soloLectura: boolean = false
   aprobado: boolean = false
-  faltantes?: Faltantes
+  faltantesDigtamen?:Array<any>
+  faltantesIdentificacion?:Array<any>
+  faltantesIngresos?:Array<any>
+  faltantesReporte?:Array<any>
   fecha: Date;
   fechaActual: string;
   anioReporte: number;
@@ -27,6 +31,8 @@ export class AerodromosComponent {
 
   habilitarSubordinadas: boolean = true; habilitarNombreV: boolean = true; habilitarNitV: boolean = true; habilitarCual:boolean = true;
   noObligadoRF:boolean = true;noObligadoRFS:boolean = true;
+  /* Validación correos electronicos */
+  emailValido:boolean = true; emailValidoRL:boolean = true; emailValidoC:boolean = true; emailValidoRF:boolean = true;
 
   /* DATOS BÁSICOS */
   nit: string = ""; digito: string = ""; nombre: string = ""; codigoCIIU: string = ""; estadoFinanciero: string = ""; vinculacionEconomica: string = ""
@@ -103,7 +109,7 @@ export class AerodromosComponent {
   identificacion:Array<any> = []
   reporte:Array<any> = []
   dictamenj:Array<any> = []
-  ingresos:Array<any> = []
+  ingresos:Array<ingresos> = []
 
   constructor(private servicio: ServicioEjecucion, private router: Router){
     this.obtenerAerodromos()
@@ -133,6 +139,25 @@ export class AerodromosComponent {
     if (!pattern.test(event.target.value)) {
       event.target.value = event.target.value.replace(/[^a-zA-ZñÑáéíóúÁÉÍÓÚüÜ ]/g, '');
     }
+  }
+  esString(valor: any): boolean {
+    return typeof valor === 'string';
+  }
+  validateEmail(event: any, input: number) {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const inputElement = event.target as HTMLInputElement;
+    const currentValue = inputElement.value;
+
+    if (!pattern.test(currentValue)) {
+      inputElement.setCustomValidity('Introduce un correo electrónico válido.');
+    } else {
+      inputElement.setCustomValidity('');
+    }
+    if(input == 1){this.email = currentValue;this.emailValido = pattern.test(currentValue);}
+    if(input == 2){this.emailRL = currentValue;this.emailValidoRL = pattern.test(currentValue);}
+    if(input == 3){this.emailC = currentValue;this.emailValidoC = pattern.test(currentValue);}
+    if(input == 4){this.emailRF = currentValue;this.emailValidoRF = pattern.test(currentValue);}
+    
   }
 
   sumatoriaIngresos(anio:number){
@@ -290,36 +315,43 @@ export class AerodromosComponent {
     return `${anio}-${mes}-${dia}`;
   }
 
-  habilitarSi(event:any,pregunt:any){
+  habilitarSi(event?:any,pregunt?:any){
+    let respuesta: string
+    if(this.esString(event) || event == null || event == undefined || event == ""){
+      respuesta = event
+    }else{
+      respuesta = event.target.value
+    }
+
     if(pregunt == 'vinculacionEconomica'){
-      if(event.target.value == 2){this.habilitarSubordinadas = false}
-      if(event.target.value != 2){this.habilitarSubordinadas = true; this.subordinadaSi = ""}
+      if(respuesta == '2'){this.habilitarSubordinadas = false}
+      if(respuesta != '2'){this.habilitarSubordinadas = true; this.subordinadaSi = ""}
     }
     if(pregunt == 'vinculadosEco'){
-      if(event.target.value == 1){this.habilitarNombreV = false; this.habilitarNitV = false}
-      if(event.target.value != 1){
+      if(respuesta == '1'){this.habilitarNombreV = false; this.habilitarNitV = false}
+      if(respuesta != '1'){
         this.habilitarNombreV = true; this.nombreVinculado = ""
         this.habilitarNitV = true; this.nitVinculado = ""
       }
     }
     if(pregunt == 'vigilada'){
-      if(event.target.value == 1){this.habilitarCual = false}
-      if(event.target.value != 1){this.habilitarCual = true; this.cual = ""}
+      if(respuesta == '1'){this.habilitarCual = false}
+      if(respuesta != '1'){this.habilitarCual = true; this.cual = ""}
     }
     if(pregunt == 'obligadaRF'){
-      if(event.target.value != 5){this.noObligadoRF = false}
-      if(event.target.value == 5 || event.target.value == ""){this.noObligadoRF = true;this.noObligadoRFS = true;
+      if(respuesta != '5'){this.noObligadoRF = false}
+      if(respuesta == '5' || respuesta == ""){this.noObligadoRF = true;this.noObligadoRFS = true;
         this.tipoDocumentoRF="";this.numeroIdRF=" ";this.nombreCompletoRF="";this.resDocumentoIdRF=undefined;this.emailRF="";
         this.tarjetaProRF=" ";this.resTarjetaProDocRF=undefined;this.numeroActaRF=" ";this.fechaNombrmientoRF=undefined;
-        this.documentoIdRF=undefined; this.tarjetaProDocRF=undefined;this.tipoDocumentoRFS = ""
-        this.numeroIdRFS=" ";this.nombreCompletoRFS="";this.resDocumentoIdRFS=undefined;this.emailRFS="";
+        this.documentoIdRF=undefined; this.tarjetaProDocRF=undefined;this.resCamaraYcomercioRF=undefined;this.camaraYcomercioRF=undefined
+        this.tipoDocumentoRFS = "";this.numeroIdRFS=" ";this.nombreCompletoRFS="";this.resDocumentoIdRFS=undefined;this.emailRFS="";
         this.tarjetaProRFS=" ";this.resTarjetaProDocRFS=undefined;this.numeroActaRFS=" ";this.fechaNombrmientoRFS=undefined;
         this.documentoIdRFS=undefined; this.tarjetaProDocRFS=undefined;
       }
     }
     if(pregunt == 'fiscalSuplente'){
-      if(event.target.value != 4 && event.target.value != ""){this.noObligadoRFS = false}
-      if(event.target.value == 4 || event.target.value == ""){this.noObligadoRFS = true;
+      if(respuesta != '4' && respuesta != ""){this.noObligadoRFS = false}
+      if(respuesta == '4' || respuesta == ""){this.noObligadoRFS = true;
         this.numeroIdRFS=" ";this.nombreCompletoRFS="";this.resDocumentoIdRFS=undefined;this.emailRFS="";
         this.tarjetaProRFS=" ";this.resTarjetaProDocRFS=undefined;this.numeroActaRFS=" ";this.fechaNombrmientoRFS=undefined;
         this.documentoIdRFS=undefined; this.tarjetaProDocRFS=undefined;
@@ -435,6 +467,16 @@ export class AerodromosComponent {
         this.ingresos = respuesta['ingresos']
         this.llenaridentificacion()
         this.llenarReporte()
+        this.llenarDictamen()
+        this.llenarIngresos()
+
+        if(this.identificacion[5].valor){this.habilitarSi(this.identificacion[5].valor,'vinculacionEconomica')}
+        if(this.identificacion[7].valor){this.habilitarSi(this.identificacion[7].valor,'vinculadosEco')}
+        if(this.identificacion[31].valor){this.habilitarSi(this.identificacion[31].valor,'vigilada')}
+        if(this.identificacion[58].valor){this.habilitarSi(this.identificacion[58].valor,'obligadaRF')}
+        if(this.identificacion[72].valor){this.habilitarSi(this.identificacion[72].valor,'fiscalSuplente')}
+
+        if(respuesta['editable'] == false){this.soloLectura = true; this.hayCambios = true}
       }
     })
   }
@@ -463,6 +505,7 @@ export class AerodromosComponent {
             icon: "success"
           })
           this.obtenerAerodromos()
+          this.detectarCambios()
           this.hayCambios = false
         }
       },
@@ -480,6 +523,56 @@ export class AerodromosComponent {
         }
       }
     })
+  }
+
+  enviarST(){
+    this.servicio.enviarSTAerodromo().subscribe({
+      next: (respuesta) => {
+        console.log(respuesta);
+        
+        this.aprobado = respuesta['aprobado']
+        this.faltantesDigtamen = respuesta['faltantesDigtamen']
+        this.faltantesIdentificacion = respuesta['faltantesIdentificacion']
+        this.faltantesIngresos = respuesta['faltantesIngresos']
+        this.faltantesReporte = respuesta['faltantesReporte']
+        this.obtenerAerodromos()
+        //console.log(this.faltantes);
+        if(respuesta['aprobado']){
+          Swal.fire({
+            titleText:"Enviado a ST exitosamente",
+            icon: "success"
+          })
+        }else{
+          Swal.fire({
+            titleText:"Faltan campos por completar",
+            icon: "warning"
+          })
+        }
+        //console.log(respuesta);
+      }
+    })
+  }
+
+  verificarFaltantes(tipo:any,preguntaId?:any):boolean{
+    if(
+      this.faltantesDigtamen?.length == 5 && this.faltantesIdentificacion?.length == 84 &&
+      this.faltantesIngresos?.length == 8 && this.faltantesReporte?.length == 19
+    ){return false}
+
+    if(tipo == 1 && this.faltantesIdentificacion){
+      for(const valor of this.faltantesIdentificacion){if(valor == preguntaId){return true}}
+    }
+    if(tipo == 2 && this.faltantesReporte){
+      for(const valor of this.faltantesReporte){if(valor == preguntaId){return true}}
+    }
+    if(tipo == 3 && this.faltantesIngresos){
+      for(const valor of this.faltantesIngresos){if(valor == preguntaId){return true}}
+    }
+    if(tipo == 4 && this.faltantesDigtamen){
+      for(const valor of this.faltantesDigtamen){if(valor == preguntaId){return true}}
+    }
+
+    return false
   }
 
   maestras(){
@@ -1096,10 +1189,10 @@ export class AerodromosComponent {
     },
     {/* "PDF CAMARA Y COMERCIO REVISOR" */
         "preguntaId": 72,
-        "valor": this.resCamaraYcomercioRF,
-        "nombreAlmacenado": "",
-        "nombreOriginalArchivo": "",
-        "ruta": "",
+        "valor": "",
+        "nombreAlmacenado": this.resCamaraYcomercioRF?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resCamaraYcomercioRF?.nombreOriginalArchivo,
+        "ruta": this.resCamaraYcomercioRF?.ruta,
     },
     {/* "TIPO DE DOCUMENTO SUPLENTE" */
         "preguntaId": 73,
@@ -1512,7 +1605,7 @@ export class AerodromosComponent {
     /* El archivo que va aquí ya se muestra [68]*/
     this.fechaInscripRF = this.identificacion[69].valor
     this.firmaAuditoriaRF = this.identificacion[70].valor
-    this.resCamaraYcomercioRF = this.identificacion[71].valor
+    /* this.resCamaraYcomercioRF = this.identificacion[71].valor */
     this.tipoDocumentoRFS = this.identificacion[72].valor
     this.numeroIdRFS = this.identificacion[73].valor
     this.nombreCompletoRFS = this.identificacion[74].valor
@@ -1552,39 +1645,40 @@ export class AerodromosComponent {
   llenarDictamen(){
     this.dictamen = this.dictamenj[0].valor
     this.opinionDictamen = this.dictamenj[1].valor
-    this.salvedadDictamenes = this.dictamenj[2].valor
+    this.conSalDictamen = this.dictamenj[2].valor
     this.enfasisDictamen = this.dictamenj[3].valor
     /* El archivo que va aquí ya se muestra [4]*/
   }
 
   llenarIngresos(){
-    this.IngrsoF1 = this.encontrarValor(1,this.ingresos[0].anio)
-    this.IngrsoF2 = this.encontrarValor(1,this.ingresos[1].anio)
-    this.IngrsoA1 = this.encontrarValor(2,this.ingresos[2].anio)
-    this.IngrsoA2 = this.encontrarValor(2,this.ingresos[3].anio)
-    this.unidadN1 = this.encontrarValor(3,this.ingresos[4].anio)
-    this.unidadN2 = this.encontrarValor(3,this.ingresos[5].anio)
-    this.ingresoFT1 = this.encontrarValor(4,this.ingresos[6].anio)
-    this.ingresoFT2 = this.encontrarValor(4,this.ingresos[7].anio)
+    this.IngrsoF1 = this.encontrarValor(1,this.anioReporte)
+    this.IngrsoF2 = this.encontrarValor(1,this.anioReporte-1)
+    this.IngrsoA1 = this.encontrarValor(2,this.anioReporte)
+    this.IngrsoA2 = this.encontrarValor(2,this.anioReporte-1)
+    this.unidadN1 = this.encontrarValor(3,this.anioReporte)
+    this.unidadN2 = this.encontrarValor(3,this.anioReporte-1)
+    this.ingresoFT1 = this.encontrarValor(4,this.anioReporte)
+    this.ingresoFT2 = this.encontrarValor(4,this.anioReporte-1)
   }
 
-  encontrarValor(preguntaId:any, anio:any) {
+  encontrarValor(preguntaId:any, anio:any):string {
     if(preguntaId == 1){
-      if(anio === this.anioReporte){return this.ingresos[0].valor}
-      if(anio === this.anioReporte-1){return this.ingresos[1].valor}
+      if(anio === this.ingresos[0].anio){return this.ingresos[0].valor}
+      if(anio === this.ingresos[1].anio){return this.ingresos[1].valor}
     }
     if(preguntaId == 2){
-      if(anio === this.anioReporte){return this.ingresos[2].valor}
-      if(anio === this.anioReporte-1){return this.ingresos[3].valor}
+      if(anio === this.ingresos[2].anio){return this.ingresos[2].valor}
+      if(anio === this.ingresos[3].anio){return this.ingresos[3].valor}
     }
     if(preguntaId == 3){
-      if(anio === this.anioReporte){return this.ingresos[4].valor}
-      if(anio === this.anioReporte-1){return this.ingresos[5].valor}
+      if(anio === this.ingresos[4].anio){return this.ingresos[4].valor}
+      if(anio === this.ingresos[5].anio){return this.ingresos[5].valor}
     }
     if(preguntaId == 4){
-      if(anio === this.anioReporte){return this.ingresos[6].valor}
-      if(anio === this.anioReporte-1){return this.ingresos[7].valor}
+      if(anio === this.ingresos[6].anio){return this.ingresos[6].valor}
+      if(anio === this.ingresos[7].anio){return this.ingresos[7].valor}
     }
+    return ""
     /* const pregunta = preguntas.find(p => p.preguntaId === preguntaId && p.anio === anio);
     return pregunta ? pregunta.valor : null; */
   }
