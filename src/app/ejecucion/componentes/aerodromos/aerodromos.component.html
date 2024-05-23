@@ -74,8 +74,11 @@
               </td>
               <td colspan="3">
                 <ng-container>
-                  <app-input-numerico [(ngModel)]="codigoCIIU" (ngModelChange)="detectarCambios()"
-                    [largoMaximo]="10" [disabled]="soloLectura" /><!--  -->
+                  <select class="form-select" [(ngModel)]="codigoCIIU" [disabled]="soloLectura"
+                    (ngModelChange)="detectarCambios()">
+                    <option value="">Elija una opción</option>
+                    <option *ngFor="let opcion of codigosCiiu" [value]="opcion.id">{{opcion.nombre}}</option>
+                  </select><!--  -->
                 </ng-container>
                 <span class="validacion" *ngIf="verificarFaltantes(1,4)" && !codigoCIIU>Falta por completar</span>
               </td>
@@ -154,7 +157,7 @@
                   <input type="text" [(ngModel)]="nombreVinculado" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="habilitarNombreV">
                 </ng-container>
-                <span class="validacion" *ngIf="verificarFaltantes(1,9) && !nombreVinculado">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(1,9) && !nombreVinculado && !habilitarNombreV">Falta por completar</span>
               </td>
             </tr>
             <tr><!-- NIT VINCULADO ECONÓMICO 10-->
@@ -165,9 +168,9 @@
               <td colspan="3">
                 <ng-container>
                   <app-input-numerico [(ngModel)]="nitVinculado" (ngModelChange)="detectarCambios()"
-                    [largoMaximo]="10" [disabled]="habilitarNombreV" />
+                    [largoMaximo]="10" [disabled]="habilitarNombreV"/>
                 </ng-container>
-                <span class="validacion" *ngIf="verificarFaltantes(1,10) && !nitVinculado">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(1,10) && !nitVinculado && !habilitarNombreV">Falta por completar</span>
               </td>
             </tr>
             <tr><!-- FECHA DE CORTE ESTADOS FINANCIEROS 11-->
@@ -291,7 +294,7 @@
                   <select class="form-select" [(ngModel)]="naturaleza" [disabled]="soloLectura"
                     (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
-                    <option *ngFor="let opcion of naturalezasD" [value]="opcion.id">{{opcion.nombre}}</option>
+                    <option *ngFor="let opcion of naturalezas" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
                   <span class="validacion" *ngIf="verificarFaltantes(1,18) && !naturaleza">Falta por completar</span>
                 </fieldset>
