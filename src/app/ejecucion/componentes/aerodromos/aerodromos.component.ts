@@ -1117,7 +1117,7 @@ export class AerodromosComponent {
       },
       {/* "NÚMERO DE DOCUMENTO REVISOR" */
         "preguntaId": 61,
-        "valor": this.numeroIdRF,
+        "valor": this.numeroIdRF.trim(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1145,7 +1145,7 @@ export class AerodromosComponent {
     },
     {/* "TARJETA PROFESIONAL REVISOR" */
         "preguntaId": 65,
-        "valor": this.tarjetaProRF,
+        "valor": this.tarjetaProRF.trim(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1159,7 +1159,7 @@ export class AerodromosComponent {
     },
     {/* "NÚMERO DE ACTA REVISOR" */
         "preguntaId": 67,
-        "valor": this.numeroActaRF,
+        "valor": this.numeroActaRF.trim(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1208,7 +1208,7 @@ export class AerodromosComponent {
     },
     {/* "NÚMERO DE DOCUMENTO SUPLENTE", */
         "preguntaId": 74,
-        "valor": this.numeroIdRFS,
+        "valor": this.numeroIdRFS.trim(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1236,7 +1236,7 @@ export class AerodromosComponent {
     },
     {/* "TARJETA PROFESIONAL SUPLENTE" */
         "preguntaId": 78,
-        "valor": this.tarjetaProRFS,
+        "valor": this.tarjetaProRFS.trim(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1250,7 +1250,7 @@ export class AerodromosComponent {
     },
     {/* "NÚMERO DE ACTA  SUPLENTE" */
         "preguntaId": 80,
-        "valor": this.numeroActaRFS,
+        "valor": this.numeroActaRFS.trim(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1663,20 +1663,30 @@ export class AerodromosComponent {
     this.tipoEntidadP = this.reporte[2].valor
     this.categoria = this.reporte[3].valor
     /* El archivo que va aquí ya se muestra [4]*/
+    this.resDocActoAC = this.reporte[4]
+    /* --------------------------------------- */
     this.tipoDocumentoR = this.reporte[5].valor
     this.numeroIdR = this.reporte[6].valor
     this.nombreCompletoR = this.reporte[7].valor
     this.emailR = this.reporte[8].valor
     /* El archivo que va aquí ya se muestra [9]*/
+    this.resDocumentoIdR = this.reporte[9]
+    /* --------------------------------------- */
     this.actoOficialNR = this.reporte[10].valor
     this.fechaNombrmientoR = this.reporte[11].valor
     /* El archivo que va aquí ya se muestra [12]*/
+    this.resDocActoNR = this.reporte[12]
+    /* --------------------------------------- */
     this.actoOficialNRF = this.reporte[13].valor
     this.fechaNombrmientoRFR = this.reporte[14].valor
     /* El archivo que va aquí ya se muestra [15]*/
+    this.resDocActoNRR = this.reporte[15]
+    /* --------------------------------------- */
     this.actoOficialNCR = this.reporte[16].valor
     this.fechaNombrmientoCR = this.reporte[17].valor
     /* El archivo que va aquí ya se muestra [18]*/
+    this.resDocActoNCR = this.reporte[18]
+    /* --------------------------------------- */
   }
 
   llenarDictamen(){
@@ -1685,6 +1695,7 @@ export class AerodromosComponent {
     this.conSalDictamen = this.dictamenj[2].valor
     this.enfasisDictamen = this.dictamenj[3].valor
     /* El archivo que va aquí ya se muestra [4]*/
+    this.resDocDictamen = this.dictamenj[4]
   }
 
   llenarIngresos(){

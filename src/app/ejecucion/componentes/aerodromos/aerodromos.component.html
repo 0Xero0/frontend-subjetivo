@@ -38,7 +38,7 @@
                   <app-input-numerico [(ngModel)]="nit" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="9" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
-                <span class="validacion" *ngIf="verificarFaltantes(1,1)">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(1,1) && !nit">Falta por completar</span>
               </td>
             </tr>
             <tr><!-- Dígito de verificación 22-->
