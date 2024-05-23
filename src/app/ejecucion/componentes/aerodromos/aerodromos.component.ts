@@ -336,7 +336,7 @@ export class AerodromosComponent {
       if(respuesta == '1'){this.habilitarNombreV = false; this.habilitarNitV = false}
       if(respuesta != '1'){
         this.habilitarNombreV = true; this.nombreVinculado = ""
-        this.habilitarNitV = true; this.nitVinculado = " "
+        this.habilitarNitV = true; this.nitVinculado = ""
       }
     }
     if(pregunt == 'vigilada'){
@@ -346,20 +346,24 @@ export class AerodromosComponent {
     if(pregunt == 'obligadaRF'){
       if(respuesta != '5'){this.noObligadoRF = false}
       if(respuesta == '5' || respuesta == ""){this.noObligadoRF = true;this.noObligadoRFS = true;
-        this.tipoDocumentoRF="";this.numeroIdRF=" ";this.nombreCompletoRF="";this.resDocumentoIdRF=undefined;this.emailRF="";
-        this.tarjetaProRF=" ";this.resTarjetaProDocRF=undefined;this.numeroActaRF=" ";this.fechaNombrmientoRF=undefined;
-        this.documentoIdRF=undefined; this.tarjetaProDocRF=undefined;this.resCamaraYcomercioRF=undefined;this.camaraYcomercioRF=undefined
-        this.tipoDocumentoRFS = "";this.numeroIdRFS=" ";this.nombreCompletoRFS="";this.resDocumentoIdRFS=undefined;this.emailRFS="";
-        this.tarjetaProRFS=" ";this.resTarjetaProDocRFS=undefined;this.numeroActaRFS=" ";this.fechaNombrmientoRFS=undefined;
-        this.documentoIdRFS=undefined; this.tarjetaProDocRFS=undefined;
+        this.tipoDocumentoRF="";this.numeroIdRF="";this.nombreCompletoRF="";this.resDocumentoIdRF=undefined;this.emailRF="";
+        this.tarjetaProRF="";this.resTarjetaProDocRF=undefined;this.numeroActaRF="";this.fechaNombrmientoRF=undefined;this.firmaAuditoriaRF="";
+        this.fechaInscripRF=undefined;this.actaNombramientoRF=undefined;this.resActaNombramientoRF=undefined;this.documentoIdRF=undefined;
+        this.tarjetaProDocRF=undefined;this.resCamaraYcomercioRF=undefined;this.camaraYcomercioRF=undefined;
+
+        this.tipoDocumentoRFS = "";this.numeroIdRFS="";this.nombreCompletoRFS="";this.resDocumentoIdRFS=undefined;this.emailRFS="";
+        this.tarjetaProRFS="";this.resTarjetaProDocRFS=undefined;this.numeroActaRFS="";this.resActaNombramientoRFS=undefined;
+        this.fechaNombrmientoRFS=undefined;this.fechaInscripRFS=undefined; this.documentoIdRFS=undefined; this.tarjetaProDocRFS=undefined;
+        this.actaNombramientoRFS=undefined; this.resCamaraYcomercioRFS=undefined;this.camaraYcomercioRFS=undefined;
       }
     }
     if(pregunt == 'fiscalSuplente'){
       if(respuesta != '4' && respuesta != ""){this.noObligadoRFS = false}
       if(respuesta == '4' || respuesta == ""){this.noObligadoRFS = true;
-        this.numeroIdRFS=" ";this.nombreCompletoRFS="";this.resDocumentoIdRFS=undefined;this.emailRFS="";
-        this.tarjetaProRFS=" ";this.resTarjetaProDocRFS=undefined;this.numeroActaRFS=" ";this.fechaNombrmientoRFS=undefined;
-        this.documentoIdRFS=undefined; this.tarjetaProDocRFS=undefined;
+        this.numeroIdRFS="";this.nombreCompletoRFS="";this.resDocumentoIdRFS=undefined;this.emailRFS="";
+        this.tarjetaProRFS="";this.resTarjetaProDocRFS=undefined;this.numeroActaRFS="";this.resActaNombramientoRFS=undefined;
+        this.fechaNombrmientoRFS=undefined; this.documentoIdRFS=undefined; this.tarjetaProDocRFS=undefined;this.actaNombramientoRFS=undefined;
+        this.resCamaraYcomercioRFS=undefined;this.camaraYcomercioRFS=undefined;
       }
     }
   }
@@ -389,6 +393,7 @@ export class AerodromosComponent {
             if(input == 'tarjetaProDocRF'){this.resTarjetaProDocRF = respuesta}
             if(input == 'actaNombramientoRF'){this.resActaNombramientoRF = respuesta}
             if(input == 'camaraYcomercioRF'){this.resCamaraYcomercioRF = respuesta}
+            if(input == 'documentoIdRFS'){this.resDocumentoIdRFS = respuesta}
             if(input == 'tarjetaProDocRFS'){this.resTarjetaProDocRFS = respuesta}
             if(input == 'actaNombramientoRFS'){this.resActaNombramientoRFS = respuesta}
             if(input == 'camaraYcomercioRFS'){this.resCamaraYcomercioRFS = respuesta}
@@ -1234,10 +1239,10 @@ export class AerodromosComponent {
     },
     {/* "PDF CEDULA RF SUPLENTE" */
         "preguntaId": 76,
-        "valor": this.resDocumentoIdRFS,
-        "nombreAlmacenado": "",
-        "nombreOriginalArchivo": "",
-        "ruta": "",
+        "valor": "",
+        "nombreAlmacenado": this.resDocumentoIdRFS?.nombreAlmacenado,
+        "nombreOriginalArchivo": this.resDocumentoIdRFS?.nombreOriginalArchivo,
+        "ruta": this.resDocumentoIdRFS?.ruta,
     },
     {/* "CORREO ELECTRÓNICO SUPLENTE" */
         "preguntaId": 77,
