@@ -1072,9 +1072,9 @@ export class AerodromosComponent {
       {/* "PDF CEDULA C CONTADOR" */
         "preguntaId": 52,
         "valor": "",
-        "nombreAlmacenado": this.resDocumentoIdC?.nombreAlmacenado??''??''??''??''??'',
-        "nombreOriginalArchivo": this.resDocumentoIdC?.nombreOriginalArchivo??''??''??''??''??'',
-        "ruta": this.resDocumentoIdC?.ruta??''??''??''??''??'',
+        "nombreAlmacenado": this.resDocumentoIdC?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resDocumentoIdC?.nombreOriginalArchivo??'',
+        "ruta": this.resDocumentoIdC?.ruta??'',
       },
       {/* "CORREO ELECTRÓNICO CONTADOR" */
         "preguntaId": 53,
@@ -1093,9 +1093,9 @@ export class AerodromosComponent {
       {/* "PDF TARJETA PROFESIONAL CONTADOR" */
         "preguntaId": 55,
         "valor": "",
-        "nombreAlmacenado": this.resTarjetaProDoc?.nombreAlmacenado??''??''??''??''??''??'',
-        "nombreOriginalArchivo": this.resTarjetaProDoc?.nombreOriginalArchivo??''??''??''??''??''??'',
-        "ruta": this.resTarjetaProDoc?.ruta??''??''??''??''??''??'',
+        "nombreAlmacenado": this.resTarjetaProDoc?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resTarjetaProDoc?.nombreOriginalArchivo??'',
+        "ruta": this.resTarjetaProDoc?.ruta??'',
       },
       {/* "NÚMERO DE ACTA  CONTADOR" */
         "preguntaId": 56,
@@ -1114,9 +1114,9 @@ export class AerodromosComponent {
       {/* "PDF ACTA NOMBRAMIENTO CONTADOR"  */
         "preguntaId": 58,
         "valor": "",
-        "nombreAlmacenado": this.resActaNombramientoC?.nombreAlmacenado??''??''??''??''??''??''??'',
-        "nombreOriginalArchivo": this.resActaNombramientoC?.nombreOriginalArchivo??''??''??''??''??''??''??'',
-        "ruta": this.resActaNombramientoC?.ruta??''??''??''??''??''??''??'',
+        "nombreAlmacenado": this.resActaNombramientoC?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resActaNombramientoC?.nombreOriginalArchivo??'',
+        "ruta": this.resActaNombramientoC?.ruta??'',
       },
       {/* "¿La empresa está obligada a tener Revisor fiscal?" */
         "preguntaId": 59,
@@ -1149,9 +1149,9 @@ export class AerodromosComponent {
       {/*  "PDF CEDULA RF REVISOR" */
         "preguntaId": 63,
         "valor": "",
-        "nombreAlmacenado": this.resDocumentoIdRF?.nombreAlmacenado??''??''??''??''??''??''??''??'',
-        "nombreOriginalArchivo": this.resDocumentoIdRF?.nombreOriginalArchivo??''??''??''??''??''??''??''??'',
-        "ruta": this.resDocumentoIdRF?.ruta??''??''??''??''??''??''??''??'',
+        "nombreAlmacenado": this.resDocumentoIdRF?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resDocumentoIdRF?.nombreOriginalArchivo??'',
+        "ruta": this.resDocumentoIdRF?.ruta??'',
       },
       {/* "CORREO ELECTRÓNICO REVISOR" */
         "preguntaId": 64,
@@ -1162,7 +1162,7 @@ export class AerodromosComponent {
     },
     {/* "TARJETA PROFESIONAL REVISOR" */
         "preguntaId": 65,
-        "valor": this.tarjetaProRF.trim(),
+        "valor": this.tarjetaProRF,
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1170,9 +1170,9 @@ export class AerodromosComponent {
     {/* "PDF TARJETA PROFESIONAL REVISOR" */
         "preguntaId": 66,
         "valor": "",
-        "nombreAlmacenado": this.resTarjetaProDocRF?.nombreAlmacenado??''??''??''??''??''??''??''??''??'',
-        "nombreOriginalArchivo": this.resTarjetaProDocRF?.nombreOriginalArchivo??''??''??''??''??''??''??''??''??'',
-        "ruta": this.resTarjetaProDocRF?.ruta??''??''??''??''??''??''??''??''??'',
+        "nombreAlmacenado": this.resTarjetaProDocRF?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resTarjetaProDocRF?.nombreOriginalArchivo??'',
+        "ruta": this.resTarjetaProDocRF?.ruta??'',
     },
     {/* "NÚMERO DE ACTA REVISOR" */
         "preguntaId": 67,
@@ -1212,9 +1212,9 @@ export class AerodromosComponent {
     {/* "PDF CAMARA Y COMERCIO REVISOR" */
         "preguntaId": 72,
         "valor": "",
-        "nombreAlmacenado": this.resCamaraYcomercioRF?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resCamaraYcomercioRF?.nombreOriginalArchivo,
-        "ruta": this.resCamaraYcomercioRF?.ruta,
+        "nombreAlmacenado": this.resCamaraYcomercioRF?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resCamaraYcomercioRF?.nombreOriginalArchivo??'',
+        "ruta": this.resCamaraYcomercioRF?.ruta??'',
     },
     {/* "TIPO DE DOCUMENTO SUPLENTE" */
         "preguntaId": 73,
@@ -1240,9 +1240,9 @@ export class AerodromosComponent {
     {/* "PDF CEDULA RF SUPLENTE" */
         "preguntaId": 76,
         "valor": "",
-        "nombreAlmacenado": this.resDocumentoIdRFS?.nombreAlmacenado,
-        "nombreOriginalArchivo": this.resDocumentoIdRFS?.nombreOriginalArchivo,
-        "ruta": this.resDocumentoIdRFS?.ruta,
+        "nombreAlmacenado": this.resDocumentoIdRFS?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resDocumentoIdRFS?.nombreOriginalArchivo??'',
+        "ruta": this.resDocumentoIdRFS?.ruta??'',
     },
     {/* "CORREO ELECTRÓNICO SUPLENTE" */
         "preguntaId": 77,
@@ -1253,7 +1253,7 @@ export class AerodromosComponent {
     },
     {/* "TARJETA PROFESIONAL SUPLENTE" */
         "preguntaId": 78,
-        "valor": this.tarjetaProRFS.trim(),
+        "valor": this.tarjetaProRFS,
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1261,13 +1261,13 @@ export class AerodromosComponent {
     {/* "PDF TARJETA PROFESIONAL SUPLENTE" */
         "preguntaId": 79,
         "valor": "",
-        "nombreAlmacenado": this.resTarjetaProDocRFS?.nombreAlmacenado??''??'',
-        "nombreOriginalArchivo": this.resTarjetaProDocRFS?.nombreOriginalArchivo??''??'',
-        "ruta": this.resTarjetaProDocRFS?.ruta??''??'',
+        "nombreAlmacenado": this.resTarjetaProDocRFS?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resTarjetaProDocRFS?.nombreOriginalArchivo??'',
+        "ruta": this.resTarjetaProDocRFS?.ruta??'',
     },
     {/* "NÚMERO DE ACTA  SUPLENTE" */
         "preguntaId": 80,
-        "valor": this.numeroActaRFS.trim(),
+        "valor": this.numeroActaRFS,
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
