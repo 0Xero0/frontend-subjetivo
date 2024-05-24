@@ -167,7 +167,7 @@ export class AerodromosComponent {
 
   sumatoriaIngresos(anio:number){
     if(anio==1){
-      this.ingresoFT1 = (this.IngrsoF1+this.IngrsoA1+this.unidadN1).toString()
+      this.ingresoFT1 = (Number(this.IngrsoF1)+Number(this.IngrsoA1)+Number(this.unidadN1)).toString()
     }
     if(anio==2){
       this.ingresoFT2 = (Number(this.IngrsoF2)+Number(this.IngrsoA2)+Number(this.unidadN2)).toString()
