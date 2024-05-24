@@ -833,7 +833,7 @@
               <td>
                 <app-input-archivo [disabled]="soloLectura" [nombre]="'documentoIdC'"
                   [(ngModel)]="documentoIdC" [acepta]="['.pdf']"
-                  (change)="[cargarArchivo($event,'pdf',5,'documentoId'),detectarCambios()]" />
+                  (change)="[cargarArchivo($event,'pdf',5,'documentoIdC'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
                 <span class="validacion" *ngIf="verificarFaltantes(1,52) && !documentoIdC">Falta por completar</span>
               </td>
