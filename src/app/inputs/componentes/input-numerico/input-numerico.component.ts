@@ -58,9 +58,14 @@ export class InputNumericoComponent implements OnInit, ControlValueAccessor {
 
   onTouched = () => { }
 
-  writeValue(valor: number): void {
+  writeValue(valor: any): void {
+    /* console.log("Entro a writeValue: ",valor); */
+
     this.valor = valor
-    if(valor){this.valorInput = valor.toString()}
+    if(valor || valor == ""){
+      /* console.log("Entró") */
+      this.valorInput = valor.toString()
+    }
 
   }
 
