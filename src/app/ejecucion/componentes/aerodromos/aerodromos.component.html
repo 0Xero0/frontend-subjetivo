@@ -319,7 +319,7 @@
             <tr><!-- SITUACION JURÍDICA 20-->
               <td></td>
               <td class="actividad">
-                SITUACION JURÍDICA
+                SITUACIÓN JURÍDICA
               </td>
               <td colspan="3">
                 <fieldset class="d-flex flex-gap-10">
@@ -351,17 +351,14 @@
             <tr><!-- ULTIMO AÑO RENOVACIÓN MATRÍCULA 22-->
               <td></td>
               <td class="actividad">
-                ULTIMO AÑO RENOVACIÓN MATRÍCULA
+                ÚLTIMO AÑO RENOVACIÓN MATRÍCULA
               </td>
               <td colspan="3">
-                <fieldset class="d-flex flex-gap-10">
-                  <select class="form-select" [(ngModel)]="ultimoAnioRM" [disabled]="soloLectura"
-                    (ngModelChange)="detectarCambios()">
-                    <option value="">Elija una opción</option>
-                    <option *ngFor="let opcion of listaUltimoAnioRM" [value]="opcion">{{opcion}}</option>
-                  </select>
-                  <span class="validacion" *ngIf="verificarFaltantes(1,22) && !ultimoAnioRM">Falta por completar</span>
-                </fieldset>
+                <ng-container>
+                  <app-input-numerico [(ngModel)]="ultimoAnioRM" (ngModelChange)="detectarCambios()"
+                    [largoMaximo]="4" [disabled]="soloLectura" (change)="fechaMaxima($event,'ultimoAnioRM')"/>
+                </ng-container>
+                <span class="validacion" *ngIf="verificarFaltantes(1,22) && !ultimoAnioRM">Falta por completar</span>
               </td>
             </tr>
             <tr><!-- DOMICILIO PRINCIPAL 23-->
@@ -474,7 +471,7 @@
               <td colspan="3">
                 <ng-container>
                   <input type="date" [(ngModel)]="fechaInicioPS" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (change)="fechaMaxima($event,'fechaInicioPS')">
                 </ng-container>
                 <span class="validacion" *ngIf="verificarFaltantes(1,29) && !fechaInicioPS">Falta por completar</span>
               </td>
@@ -547,7 +544,7 @@
               <td colspan="3">
                 <fieldset class="d-flex flex-gap-10">
                   <select class="form-select" [(ngModel)]="habilitacionPS" [disabled]="soloLectura"
-                    (ngModelChange)="detectarCambios()">
+                    (ngModelChange)="detectarCambios()" (change)="habilitarSi($event,'habilitacionPS')">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
@@ -563,7 +560,7 @@
               </td>
               <td colspan="3">
                 <fieldset class="d-flex flex-gap-10">
-                  <select class="form-select" [(ngModel)]="tipoVigiladoSelect" [disabled]="soloLectura"
+                  <select class="form-select" [(ngModel)]="tipoVigiladoSelect" [disabled]="habilitarHabilitacion"
                     (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of tipoVigilados" [value]="opcion.id">{{opcion.nombre}}</option>
@@ -580,7 +577,7 @@
               <td colspan="3">
                 <ng-container>
                   <input type="date" [(ngModel)]="fechaInicioPS2" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
+                    (ngModelChange)="detectarCambios()" [disabled]="habilitarHabilitacion" (change)="fechaMaxima($event,'fechaInicioPS2')">
                 </ng-container>
                 <span class="validacion" *ngIf="verificarFaltantes(1,36) && !fechaInicioPS2">Falta por completar</span>
               </td>
@@ -589,14 +586,14 @@
               <td></td>
               <td colspan="2">PDF RESOLUCIÓN DE HABILITACIÓN Y/O PERMISO </td>
               <td>
-                <app-input-archivo [disabled]="soloLectura" [nombre]="'resoHabilitacion2'"
+                <app-input-archivo [disabled]="habilitarHabilitacion" [nombre]="'resoHabilitacion2'"
                   [(ngModel)]="resoHabilitacion2" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'resoHabilitacion2'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
                 <span class="validacion" *ngIf="verificarFaltantes(1,37) && !resoHabilitacion2">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resHabilitacion2?.nombreOriginalArchivo != ''">
+                <span class="texto-azul" *ngIf="identificacion[36]?.nombreOriginalArchivo != ''">
                   {{resHabilitacion2?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -609,7 +606,7 @@
               <td colspan="3">
                 <ng-container>
                   <input type="text" [(ngModel)]="entidadHabilitante2" class="form-control"
-                    (ngModelChange)="detectarCambios()" [disabled]="soloLectura" (input)="validateText($event)">
+                    (ngModelChange)="detectarCambios()" [disabled]="habilitarHabilitacion" (input)="validateText($event)">
                 </ng-container>
                 <span class="validacion" *ngIf="verificarFaltantes(1,38) && !entidadHabilitante2">Falta por completar</span>
               </td>
@@ -668,7 +665,7 @@
             </tr>
             <tr><!-- PDF CEDULA RL 42-->
               <td></td>
-              <td colspan="2">PDF CEDULA REPRESENTANTE LEGAL </td>
+              <td colspan="2">PDF CÉDULA REPRESENTANTE LEGAL </td>
               <td>
                 <app-input-archivo [disabled]="soloLectura" [nombre]="'documentoId'"
                   [(ngModel)]="documentoId" [acepta]="['.pdf']"
@@ -829,7 +826,7 @@
             </tr>
             <tr><!-- PDF CEDULA CONTADOR 52-->
               <td></td>
-              <td colspan="2">PDF CEDULA CONTADOR </td>
+              <td colspan="2">PDF CÉDULA CONTADOR </td>
               <td>
                 <app-input-archivo [disabled]="soloLectura" [nombre]="'documentoIdC'"
                   [(ngModel)]="documentoIdC" [acepta]="['.pdf']"
@@ -1001,7 +998,7 @@
             </tr>
             <tr><!-- PDF CEDULA REVISOR FISCAL 63-->
               <td></td>
-              <td colspan="2">PDF CEDULA REVISOR FISCAL </td>
+              <td colspan="2">PDF CÉDULA REVISOR FISCAL </td>
               <td>
                 <app-input-archivo [disabled]="noObligadoRF" [nombre]="'documentoIdRF'"
                   [(ngModel)]="documentoIdRF" [acepta]="['.pdf']"
@@ -1199,7 +1196,7 @@
             </tr>
             <tr><!-- PDF CEDULA REVISOR FISCAL SUPLENTE 76-->
               <td></td>
-              <td colspan="2">PDF CEDULA REVISOR FISCAL SUPLENTE </td>
+              <td colspan="2">PDF CÉDULA REVISOR FISCAL SUPLENTE </td>
               <td>
                 <app-input-archivo [disabled]="noObligadoRFS" [nombre]="'documentoIdRFS'"
                   [(ngModel)]="documentoIdRFS" [acepta]="['.pdf']"
@@ -1505,7 +1502,7 @@
             </tr>
             <tr><!-- PDF IDENTIFICACION REPRESENTANTE 10-->
               <td></td>
-              <td colspan="2">PDF IDENTIFICACION REPRESENTANTE </td>
+              <td colspan="2">PDF IDENTIFICACIÓN REPRESENTANTE </td>
               <td>
                 <app-input-archivo [disabled]="soloLectura" [nombre]="'documentoIdR'"
                   [(ngModel)]="documentoIdR" [acepta]="['.pdf']"
@@ -1768,7 +1765,7 @@
   </ul>
   <div class="d-block mb-3 mx-3 text-center">
     <h1>
-      DICTAMEN DEL REVISOR FISCAL del 1 de enero al 31 de diciembre
+      DICTÁMEN DEL REVISOR FISCAL del 1 de enero al 31 de diciembre
     </h1>
   </div>
   <ul class="nav-tabs w-100">
@@ -1789,15 +1786,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr><!-- Dictamen 1-->
+            <tr><!-- Dictámen 1-->
               <td></td>
               <td class="actividad">
-                Dictamen
+                Dictámen
               </td>
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
-                  <select class="form-select" [(ngModel)]="dictamen" [disabled]="soloLectura"
-                    (ngModelChange)="detectarCambios()">
+                  <select class="form-select" [(ngModel)]="dictamen" [disabled]="true"
+                    (ngModelChange)="detectarCambios()" (change)="habilitarSi($event,'dictamen')">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of dictamenes" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
@@ -1805,14 +1802,14 @@
                 </fieldset>
               </td>
             </tr>
-            <tr><!-- Opinión Dictamen 2-->
+            <tr><!-- Opinión Dictámen 2-->
               <td></td>
               <td class="actividad">
-                Opinión Dictamen
+                Opinión Dictámen
               </td>
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
-                  <select class="form-select" [(ngModel)]="opinionDictamen" [disabled]="soloLectura"
+                  <select class="form-select" [(ngModel)]="opinionDictamen" [disabled]="noObligadoRF"
                     (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of opinionDictamenes" [value]="opcion.id">{{opcion.nombre}}</option>
@@ -1821,14 +1818,14 @@
                 </fieldset>
               </td>
             </tr>
-            <tr><!-- Contenido Salvedad Dictamen 3-->
+            <tr><!-- Contenido Salvedad Dictámen 3-->
               <td></td>
               <td class="actividad">
-                Contenido Salvedad Dictamen
+                Contenido Salvedad Dictámen
               </td>
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
-                  <select class="form-select" [(ngModel)]="conSalDictamen" [disabled]="soloLectura"
+                  <select class="form-select" [(ngModel)]="conSalDictamen" [disabled]="noObligadoRF"
                     (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of salvedadDictamenes" [value]="opcion.id">{{opcion.nombre}}</option>
@@ -1837,14 +1834,14 @@
                 </fieldset>
               </td>
             </tr>
-            <tr><!-- Párrafo Énfasis Dictamen 4-->
+            <tr><!-- Párrafo Énfasis Dictámen 4-->
               <td></td>
               <td class="actividad">
-                Párrafo Énfasis Dictamen
+                Párrafo Énfasis Dictámen
               </td>
               <td colspan="2">
                 <fieldset class="d-flex flex-gap-10">
-                  <select class="form-select" [(ngModel)]="enfasisDictamen" [disabled]="soloLectura"
+                  <select class="form-select" [(ngModel)]="enfasisDictamen" [disabled]="noObligadoRF"
                     (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of enfasisDictamenes" [value]="opcion.id">{{opcion.nombre}}</option>
@@ -1857,14 +1854,14 @@
               <td></td>
               <td>PDF Dictámen REVISOR FISCAL </td>
               <td>
-                <app-input-archivo [disabled]="soloLectura" [nombre]="'docDictamen'"
+                <app-input-archivo [disabled]="noObligadoRF" [nombre]="'docDictamen'"
                   [(ngModel)]="docDictamen" [acepta]="['.pdf']"
                   (change)="[cargarArchivo($event,'pdf',5,'docDictamen'),detectarCambios()]" />
                 <span>PDF, Máximo 5 Mb</span>
                 <span class="validacion" *ngIf="verificarFaltantes(4,5) && !docDictamen">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resDocDictamen?.nombreOriginalArchivo != ''">
+                <span class="texto-azul" *ngIf="dictamenj[4]?.nombreOriginalArchivo != ''">
                   {{resDocDictamen?.nombreOriginalArchivo}}
                 </span>
               </td>
