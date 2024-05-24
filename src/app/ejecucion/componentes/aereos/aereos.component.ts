@@ -99,8 +99,8 @@ export class AereosComponent implements OnInit, OnChanges{
         this.selectL5 = this.transporte[4].valor;
         this.selectL6 = this.transporte[5].valor;
         this.selectL7 = this.transporte[6].valor;
-        this.numberL8 = this.transporte[7].valor;
-        this.selectL9 = this.transporte[8].valor
+        this.numberL8 = this.transporte[7].valor
+        this.selectL9 = this.transporte[8].valor;
         this.selectL10 = this.transporte[9].valor
         this.selectL11 = this.transporte[10].valor
         this.selectL12 = this.transporte[11].valor

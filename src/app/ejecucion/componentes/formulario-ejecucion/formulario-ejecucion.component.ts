@@ -263,14 +263,14 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
         for(let i = 1; i <= 37; i++){
           this.cambioRespuestaSelect(this.portuarias[i-1].valor,i)
         }
-        /* if(respuesta['editable'] != true){
+        if(respuesta['editable'] != true){
           this.soloLectura = true
           this.cambioT3L3 = true
           this.cambioT3L8 = true
           this.numerico = false
           this.textArea = true
           this.hayCambios = true
-        } */
+        }
         //Inicializar variables
         this.selectL1 = this.portuarias[0].valor
         this.selectL2 = this.portuarias[1].valor
