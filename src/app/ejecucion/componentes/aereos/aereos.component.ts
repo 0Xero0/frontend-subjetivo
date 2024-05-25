@@ -148,9 +148,9 @@ export class AereosComponent implements OnInit, OnChanges{
       if(!respuesta || respuesta == null){this.cambioT1L7 = undefined; this.numerico = false; this.archivoT1L8 = null; this.resArchivoT1L8 = undefined;this.numberL8 = " "}
     }
     if(pregunta == 20){
-      if(respuesta == '1'){this.cambioT3L4 = true; this.archivoT3L5 = null; this.resArchivoT3L5 = undefined}
-      if(respuesta == '2'){this.cambioT3L4 = false; this.archivoT3L5 = null; this.resArchivoT3L5 = undefined}
-      if(!respuesta || respuesta == null){this.cambioT3L4 = undefined; this.archivoT3L5 = null; this.resArchivoT3L5 = undefined}
+      if(respuesta == '1'){this.cambioT3L4 = true; this.archivoT3L4 = null; this.resArchivoT3L4 = undefined}
+      if(respuesta == '2'){this.cambioT3L4 = false; this.archivoT3L4 = null; this.resArchivoT3L4 = undefined}
+      if(!respuesta || respuesta == null){this.cambioT3L4 = undefined; this.archivoT3L4 = null; this.resArchivoT3L4 = undefined}
     }
     if(pregunta == 21){
       if(respuesta == '1' || respuesta == '2' || respuesta == '3'){this.cambioT3L5 = true; this.archivoT3L5 = null; this.resArchivoT3L5 = undefined}
