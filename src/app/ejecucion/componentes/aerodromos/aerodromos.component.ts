@@ -1617,8 +1617,8 @@ export class AerodromosComponent {
     this.moneda = this.identificacion[11].valor
     /* this.fechaReporte = this.identificacion[12].valor */
     this.periodicidad = this.identificacion[13].valor
-    this.anioActual = this.identificacion[14].valor
-    this.anioComparativo = this.identificacion[15].valor
+    /* this.anioActual = this.identificacion[14].valor
+    this.anioComparativo = this.identificacion[15].valor */
     this.tipoEmpresa = this.identificacion[16].valor
     this.naturaleza = this.identificacion[17].valor
     this.tipoSocietario = this.identificacion[18].valor
