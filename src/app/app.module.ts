@@ -15,36 +15,39 @@ import { FormulariosModule } from './formularios/formularios.module';
 import { EjecucionModule } from './ejecucion/ejecucion.module';
 import { TarifasModule } from './tarifas/tarifas.module';
 import { FormsModule } from '@angular/forms';
+import { TemplatesModule } from "./templates/templates.module";
+import { VerificarSubjetivoModule } from './verificar-subjetivo/verificar-subjetivo.module';
 
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    AdministradorModule,
-    AutenticacionModule,
-    AsignacionesModule,
-    TarifasModule,
-    FormulariosModule,
-    EjecucionModule,
-    AlertasModule,
-    InputsModule,
-    SweetAlert2Module.forRoot(),
-    FormsModule
-  ],
-  exports:[
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorAutorizacion,
-      multi: true
-    }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+    ],
+    exports: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: InterceptorAutorizacion,
+            multi: true
+        }
+    ],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        AdministradorModule,
+        AutenticacionModule,
+        AsignacionesModule,
+        TarifasModule,
+        FormulariosModule,
+        EjecucionModule,
+        AlertasModule,
+        InputsModule,
+        SweetAlert2Module.forRoot(),
+        FormsModule,
+        TemplatesModule,
+        VerificarSubjetivoModule
+    ]
 })
 export class AppModule { }
