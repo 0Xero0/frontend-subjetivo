@@ -39,7 +39,7 @@
                   <input type="text" id="textL1" [(ngModel)]="textL1" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
                 </ng-container>
-                <span class="validacion" *ngIf="verificarFaltantes(1,1) && !textL1">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(1,'razonSocial') && !textL1">Falta por completar</span>
               </td>
             </tr>
             <tr><!-- linea 2 -->
@@ -54,7 +54,7 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of nits" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <span class="validacion" *ngIf="verificarFaltantes(1,2) && !selectL2">Falta por completar</span>
+                  <span class="validacion" *ngIf="verificarFaltantes(1,'tipoNit') && !selectL2">Falta por completar</span>
                 </fieldset>
               </td>
             </tr>
@@ -68,7 +68,7 @@
                   <app-input-numerico id="numberL3" [(ngModel)]="numberL3" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="9" [disabled]="soloLectura" />
                 </ng-container>
-                <span class="validacion" *ngIf="verificarFaltantes(1,3) && !numberL3">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(1,'nit') && !numberL3">Falta por completar</span>
               </td>
             </tr>
             <tr>
@@ -82,7 +82,7 @@
                   <app-input-numerico id="numberL4" [(ngModel)]="numberL4" (ngModelChange)="detectarCambios()"
                     [largoMaximo]="1" [disabled]="soloLectura" />
                 </ng-container>
-                <span class="validacion" *ngIf="verificarFaltantes(1,4) && !numberL4">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(1,'digitoVerificacion') && !numberL4">Falta por completar</span>
               </td>
             </tr>
             <tr>
@@ -98,7 +98,7 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of organizaciones" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <span class="validacion" *ngIf="verificarFaltantes(1,5) && !selectL5">Falta por completar</span>
+                  <span class="validacion" *ngIf="verificarFaltantes(1,'tipoOrganizacion') && !selectL5">Falta por completar</span>
                 </fieldset>
               </td>
             </tr>
@@ -114,7 +114,7 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <span class="validacion" *ngIf="verificarFaltantes(1,6) && !selectL6">Falta por completar</span>
+                  <span class="validacion" *ngIf="verificarFaltantes(1,'apoyaTerceros') && !selectL6">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -132,7 +132,7 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <span class="validacion" *ngIf="verificarFaltantes(1,7) && !selectL7">Falta por completar</span>
+                  <span class="validacion" *ngIf="verificarFaltantes(1,'procesoAdjudicacion') && !selectL7">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>

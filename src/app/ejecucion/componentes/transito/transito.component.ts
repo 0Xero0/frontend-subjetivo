@@ -501,9 +501,9 @@ export class TransitoComponent {
     })
   }
 
-  verificarFaltantes(tipo: number, pregunta: number,servicio?:number): boolean{
+  verificarFaltantes(tipo: number, pregunta: any,servicio?:number): boolean{
     if(
-      this.faltantes?.faltantesIdentificacion.length === 16 &&
+      this.faltantes?.faltantesIdentificacion.length === 7 &&
       this.faltantes?.faltantesPreguntas.gruas.length === 17 &&
       this.faltantes?.faltantesPreguntas.patios.length === 17 &&
       this.faltantes?.faltantesPreguntas.tramitesTransito.length === 17 &&
