@@ -14,6 +14,7 @@ import { PaginaEjecucionComponent } from './ejecucion/paginas/pagina-ejecucion/p
 import { AereosComponent } from './ejecucion/componentes/aereos/aereos.component';
 import { TransitoComponent } from './ejecucion/componentes/transito/transito.component';
 import { AerodromosComponent } from './ejecucion/componentes/aerodromos/aerodromos.component';
+import { VerificarSubjetivoComponent } from './verificar-subjetivo/verificar-subjetivo.component';
 
 
 
@@ -72,6 +73,10 @@ const routes: Routes = [
   {
     path: 'soporte',
     component: SoporteAccesoComponent
+  },
+  {
+    path: 'verificar-subjetivo',
+    component: VerificarSubjetivoComponent
   },
   {
     path: '**',
