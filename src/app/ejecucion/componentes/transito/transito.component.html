@@ -280,7 +280,7 @@
                 <fieldset class="d-flex flex-gap-10">
                   <input type="text" id="textG1" [(ngModel)]="textG1" class="form-control"
                     (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
-                  <span class="validacion" *ngIf="verificarFaltantes(2,1,1) && !selectL7">Falta por completar</span>
+                  <span class="validacion" *ngIf="verificarFaltantes(2,1,1) && !textG1">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -293,7 +293,7 @@
               <td colspan="2">
                 <app-input-numerico id="numeroG1" [(ngModel)]="numeroG1" (ngModelChange)="detectarCambios()"
                   [largoMaximo]="15" [cantidadDecimales]="2" [disabled]="soloLectura" />
-                <span class="validacion" *ngIf="verificarFaltantes(2,2,1) && !selectL7">Falta por completar</span>
+                <span class="validacion" *ngIf="verificarFaltantes(2,2,1) && !numeroG1">Falta por completar</span>
               </td>
               <td></td>
             </tr>
