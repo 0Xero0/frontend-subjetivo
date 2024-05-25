@@ -1,0 +1,39 @@
+<app-cabecera/>
+<div class="fondo d-flex justify-content-center">
+  <div class="card contenedor-inicio-sesion">
+    <div class="card-body">
+      <div class="logos d-flex w-100 px-2 justify-content-between">
+        <div class="logo-ministerio">
+          <img draggable="false" src="assets/img/cabecera/potencia-de-la-vida.jpg" alt="ministerio-de-transporte">
+        </div>
+        <div class="logo-supertransporte col-3 ms-auto">
+          <img draggable="false" class="img-fluid" src="assets/img/cabecera/supertransporte.png" alt="ministerio-de-transporte">
+        </div>
+      </div>
+      <div>
+        <h2 class="fs-25px fw-semibold text-center texto-azul-004884">
+          VERIFICAR EL INGRESO AL APLICATIVO MESS - Modelos de Negocios Especiales
+        </h2>
+        <P class="text-center">Aquí puede verificar si está obligado a presentar reporte(s) de modelo de negocios</P>
+      </div>
+      <form class="w-100" [formGroup]="formulario">
+        <fieldset class="mb-4 justify-content-center">
+          <label class="fs-16px mb-2 texto-gris-4B4B4B" for="documentoId">NIT</label>
+          <app-input-numerico formControlName="documentoId" [largoMaximo]="10" [placeholder]="'Ingrese aquí su NIT'"
+            required [ngClass]="{'input-error':this.formulario.controls['documentoId'].errors &&
+            this.formulario.controls['documentoId'].dirty && this.formulario.controls['documentoId'].errors['required']}"/>
+            <span class="validacion"
+            *ngIf="this.formulario.controls['documentoId'].errors &&
+                    this.formulario.controls['documentoId'].dirty && this.formulario.controls['documentoId'].errors['required']">
+            Ingrese su NIT
+          </span>
+        </fieldset>
+      </form>
+      <fieldset>
+        <button type="button" class="boton primario relleno fs-14px" (click)="this.verificar()"
+          (keyup.enter)="this.verificar()">Verificar</button>
+      </fieldset>
+    </div>
+  </div>
+</div>
+<app-popup #popup />
