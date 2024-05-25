@@ -30,6 +30,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   soloLectura: boolean = false
   aprobado: boolean = false
   faltantes: number[] = []
+  editable: boolean= true
 
   //Variables select tabla 1
   selectL1: string = "";selectL2: string = "";selectL3: string = "";selectL4: string = "";selectL5: string = "";selectL6: string = "";
@@ -135,7 +136,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     }
     if(pregunta == 7){
       if(respuesta == '1'){this.cambioT1L7 = false; this.archivoL8 = null; this.resArchivoL8 = undefined; this.numerico = false;this.numberL8 = ""}
-      if(respuesta == '2' || respuesta == '3' || respuesta == '4'){this.cambioT1L7 = true; this.numerico = true;this.numberL8 = ""}
+      if(respuesta == '2' || respuesta == '3' || respuesta == '4'){this.cambioT1L7 = true; this.numerico = true;this.numberL8 = ""; this.archivoL8 = null;}
       if(!respuesta || respuesta == null){this.cambioT1L7 = undefined; this.numerico = false; this.archivoL8 = null; this.resArchivoL8 = undefined;this.numberL8 = ""}
     }
     if(pregunta == 22){
@@ -264,6 +265,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
           this.cambioRespuestaSelect(this.portuarias[i-1].valor,i)
         }
         if(respuesta['editable'] != true){
+          this.editable = respuesta['editable']
           this.soloLectura = true
           this.cambioT3L3 = true
           this.cambioT3L8 = true

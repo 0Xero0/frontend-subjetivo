@@ -19,6 +19,7 @@ export class AerodromosComponent {
 
   soloLectura: boolean = false
   aprobado: boolean = false
+  editable: boolean = true
   faltantesDigtamen?:Array<any>
   faltantesIdentificacion?:Array<any>
   faltantesIngresos?:Array<any>
@@ -531,6 +532,7 @@ export class AerodromosComponent {
         if(this.identificacion[72].valor){this.habilitarSi(this.identificacion[72].valor,'fiscalSuplente')}
 
         if(respuesta['editable'] == false){
+          this.editable = respuesta['editable']
           this.soloLectura = true; this.hayCambios = true; this.noObligadoRF = true; this.noObligadoRFS = true;
           this.habilitarHabilitacion = true
         }

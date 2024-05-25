@@ -6,7 +6,7 @@
     <button type="button" class="boton primario delineado" [disabled]="hayCambios" (click)="enviarST()" ><!-- -->
       Enviar a ST
     </button>
-    <button *ngIf="!aprobado" type="button" class="boton primario relleno" [disabled]="!hayCambios" (click)="guardar()"><!--  -->
+    <button *ngIf="editable" type="button" class="boton primario relleno" [disabled]="!hayCambios" (click)="guardar()"><!--  -->
       Guardar
     </button>
   </div>
