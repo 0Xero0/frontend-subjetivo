@@ -18,6 +18,7 @@ export class AereosComponent implements OnInit, OnChanges{
 
   soloLectura: boolean = false
   aprobado: boolean = false
+  editable: boolean = true
   faltantes: number[] = []
 
   //Variables select tabla 1
@@ -87,6 +88,7 @@ export class AereosComponent implements OnInit, OnChanges{
           this.cambioRespuestaSelect(this.transporte[i-1].valor,i)
         }
         if(respuesta['editable'] != true){
+          this.editable = respuesta['editable']
           this.soloLectura = true
           this.numerico = false
           this.hayCambios = true
@@ -96,10 +98,10 @@ export class AereosComponent implements OnInit, OnChanges{
         this.selectL2 = this.transporte[1].valor
         this.selectL3 = this.transporte[2].valor
         this.selectL4 = this.transporte[3].valor
-        this.selectL5 = this.transporte[4].valor;
-        this.selectL6 = this.transporte[5].valor;
-        this.selectL7 = this.transporte[6].valor;
-        this.numberL8 = this.transporte[7].valor;
+        this.selectL5 = this.transporte[4].valor;this.resArchivoT1L5 = this.transporte[4]
+        this.selectL6 = this.transporte[5].valor;this.resArchivoT1L6 = this.transporte[5]
+        this.selectL7 = this.transporte[6].valor
+        this.numberL8 = this.transporte[7].valor;this.resArchivoT1L8 = this.transporte[7]
         this.selectL9 = this.transporte[8].valor
         this.selectL10 = this.transporte[9].valor
         this.selectL11 = this.transporte[10].valor
@@ -111,14 +113,14 @@ export class AereosComponent implements OnInit, OnChanges{
         this.selectL17 = this.transporte[16].valor
         this.selectL18 = this.transporte[17].valor
         this.selectL19 = this.transporte[18].valor
-        this.selectL20 = this.transporte[19].valor
-        this.selectL21 = this.transporte[20].valor
+        this.selectL20 = this.transporte[19].valor;this.resArchivoT3L4 = this.transporte[19]
+        this.selectL21 = this.transporte[20].valor;this.resArchivoT3L5 = this.transporte[20]
         this.selectL22 = this.transporte[21].valor
         this.selectL23 = this.transporte[22].valor
-        this.selectL24 = this.transporte[23].valor;
+        this.selectL24 = this.transporte[23].valor
         this.selectL25 = this.transporte[24].valor
-        this.selectL26 = this.transporte[25].valor;
-        this.selectL27 = this.transporte[26].valor
+        this.selectL26 = this.transporte[25].valor;this.resArchivoT5L3 = this.transporte[25]
+        this.selectL27 = this.transporte[26].valor;this.resArchivoT5L4 = this.transporte[26]
         //console.log(this.portuarias);
       }
     })
@@ -144,13 +146,13 @@ export class AereosComponent implements OnInit, OnChanges{
     }
     if(pregunta == 7){
       if(respuesta == '1'){this.cambioT1L7 = false; this.archivoT1L8 = null; this.resArchivoT1L8 = undefined; this.numerico = false;this.numberL8 = " "}
-      if(respuesta == '2' || respuesta == '3' || respuesta == '4'){this.cambioT1L7 = true; this.numerico = true;this.numberL8 = " "}
+      if(respuesta == '2' || respuesta == '3' || respuesta == '4'){this.cambioT1L7 = true; this.numerico = true;this.numberL8 = ""; this.archivoT1L8 = null}
       if(!respuesta || respuesta == null){this.cambioT1L7 = undefined; this.numerico = false; this.archivoT1L8 = null; this.resArchivoT1L8 = undefined;this.numberL8 = " "}
     }
     if(pregunta == 20){
-      if(respuesta == '1'){this.cambioT3L4 = true; this.archivoT3L5 = null; this.resArchivoT3L5 = undefined}
-      if(respuesta == '2'){this.cambioT3L4 = false; this.archivoT3L5 = null; this.resArchivoT3L5 = undefined}
-      if(!respuesta || respuesta == null){this.cambioT3L4 = undefined; this.archivoT3L5 = null; this.resArchivoT3L5 = undefined}
+      if(respuesta == '1'){this.cambioT3L4 = true; this.archivoT3L4 = null; this.resArchivoT3L4 = undefined}
+      if(respuesta == '2'){this.cambioT3L4 = false; this.archivoT3L4 = null; this.resArchivoT3L4 = undefined}
+      if(!respuesta || respuesta == null){this.cambioT3L4 = undefined; this.archivoT3L4 = null; this.resArchivoT3L4 = undefined}
     }
     if(pregunta == 21){
       if(respuesta == '1' || respuesta == '2' || respuesta == '3'){this.cambioT3L5 = true; this.archivoT3L5 = null; this.resArchivoT3L5 = undefined}
@@ -260,18 +262,18 @@ export class AereosComponent implements OnInit, OnChanges{
     const pregunta5: Pregunta = {
         preguntaId: 5,
         valor: this.selectL5,
-        nombreAlmacenado: this.resArchivoT1L5?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoT1L5?.nombreOriginalArchivo,
-        ruta: this.resArchivoT1L5?.ruta
+        nombreAlmacenado: this.resArchivoT1L5?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoT1L5?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoT1L5?.ruta??''
       }
       preguntas.push(pregunta5)
     //--------------------------
     const pregunta6: Pregunta = {
         preguntaId: 6,
         valor: this.selectL6,
-        nombreAlmacenado: this.resArchivoT1L6?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoT1L6?.nombreOriginalArchivo,
-        ruta: this.resArchivoT1L6?.ruta
+        nombreAlmacenado: this.resArchivoT1L6?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoT1L6?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoT1L6?.ruta??''
       }
       preguntas.push(pregunta6)
     //--------------------------
@@ -284,9 +286,9 @@ export class AereosComponent implements OnInit, OnChanges{
     const pregunta8: Pregunta = {
         preguntaId: 8,
         valor: this.numberL8,
-        nombreAlmacenado: this.resArchivoT1L8?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoT1L8?.nombreOriginalArchivo,
-        ruta: this.resArchivoT1L8?.ruta
+        nombreAlmacenado: this.resArchivoT1L8?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoT1L8?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoT1L8?.ruta??''
       }
       preguntas.push(pregunta8)
     //-------------------------
@@ -359,18 +361,18 @@ export class AereosComponent implements OnInit, OnChanges{
     const pregunta20: Pregunta = {
         preguntaId: 20,
         valor: this.selectL20,
-        nombreAlmacenado: this.resArchivoT3L4?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoT3L4?.nombreOriginalArchivo,
-        ruta: this.resArchivoT3L4?.ruta
+        nombreAlmacenado: this.resArchivoT3L4?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoT3L4?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoT3L4?.ruta??''
       }
       preguntas.push(pregunta20)
     //---------------------------
     const pregunta21: Pregunta = {
         preguntaId: 21,
         valor: this.selectL21,
-        nombreAlmacenado: this.resArchivoT3L5?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoT3L5?.nombreOriginalArchivo,
-        ruta: this.resArchivoT3L5?.ruta
+        nombreAlmacenado: this.resArchivoT3L5?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoT3L5?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoT3L5?.ruta??''
       }
       preguntas.push(pregunta21)
     //---------------------------
@@ -401,18 +403,18 @@ export class AereosComponent implements OnInit, OnChanges{
     const pregunta26: Pregunta = {
         preguntaId: 26,
         valor: this.selectL26,
-        nombreAlmacenado: this.resArchivoT5L3?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoT5L3?.nombreOriginalArchivo,
-        ruta: this.resArchivoT5L3?.ruta
+        nombreAlmacenado: this.resArchivoT5L3?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoT5L3?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoT5L3?.ruta??''
       }
       preguntas.push(pregunta26)
     //---------------------------
     const pregunta27: Pregunta = {
         preguntaId: 27,
         valor: this.selectL27,
-        nombreAlmacenado: this.resArchivoT5L4?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoT5L4?.nombreOriginalArchivo,
-        ruta: this.resArchivoT5L4?.ruta
+        nombreAlmacenado: this.resArchivoT5L4?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoT5L4?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoT5L4?.ruta??''
       }
       preguntas.push(pregunta27)
     //---------------------------

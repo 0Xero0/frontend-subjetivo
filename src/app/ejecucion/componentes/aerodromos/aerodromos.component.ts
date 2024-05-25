@@ -19,18 +19,19 @@ export class AerodromosComponent {
 
   soloLectura: boolean = false
   aprobado: boolean = false
+  editable: boolean = true
   faltantesDigtamen?:Array<any>
   faltantesIdentificacion?:Array<any>
   faltantesIngresos?:Array<any>
   faltantesReporte?:Array<any>
   fecha: Date;
-  fechaActual: string;
+  fechaActual: string; currentYear: number;
   anioReporte: number;
   selectedYear: number | null = null;
   listaUltimoAnioRM:Array<string> = []
 
   habilitarSubordinadas: boolean = true; habilitarNombreV: boolean = true; habilitarNitV: boolean = true; habilitarCual:boolean = true;
-  noObligadoRF:boolean = true;noObligadoRFS:boolean = true;
+  noObligadoRF:boolean = true;noObligadoRFS:boolean = true; habilitarHabilitacion:boolean = true;
   /* Validación correos electronicos */
   emailValido:boolean = true; emailValidoRL:boolean = true; emailValidoC:boolean = true; emailValidoRF:boolean = true;emailValidoRFS:boolean = true;
   emailValidoR:boolean = true;
@@ -120,8 +121,8 @@ export class AerodromosComponent {
     this.fechaActual = this.formatearFecha(this.fecha)
     this.anioReporte = this.fecha.getFullYear()-1
     /* UTLIMO AÑO */
-    const currentYear = new Date().getFullYear();
-    for (let year = currentYear - 30; year <= currentYear; year++) {
+    this.currentYear = new Date().getFullYear();
+    for (let year = this.currentYear - 30; year <= this.currentYear; year++) {
       this.listaUltimoAnioRM.push(year.toString());
     }
 
@@ -193,6 +194,24 @@ export class AerodromosComponent {
           icon: 'warning'
         })
         this.fechaNombrmiento = undefined
+      }
+    }
+    if(input == 'fechaInicioPS'){
+      if(event.target.value > this.fechaActual){
+        Swal.fire({
+          titleText: 'La fecha de habilitación no puede ser mayor a la fecha de diligenciamiento de este formulario',
+          icon: 'warning'
+        })
+        this.fechaInicioPS = undefined
+      }
+    }
+    if(input == 'fechaInicioPS2'){
+      if(event.target.value > this.fechaActual){
+        Swal.fire({
+          titleText: 'La fecha de habilitación no puede ser mayor a la fecha de diligenciamiento de este formulario',
+          icon: 'warning'
+        })
+        this.fechaInicioPS2 = undefined
       }
     }
     if(input == 'fechaInscrip'){
@@ -309,6 +328,21 @@ export class AerodromosComponent {
         this.fechaActoAC = undefined
       }
     }
+    /* if(input == 'ultimoAnioRM'){
+      if(event.target.value > this.currentYear){
+        Swal.fire({
+          titleText: 'El último año de renovación de matrícula no puede ser mayor al año actual',
+          icon: 'warning'
+        })
+        this.ultimoAnioRM = ""
+      }else if (event.target.value < this.currentYear-30){
+        Swal.fire({
+          titleText: 'El último año de renovación de matrícula no puede ser menor a '+(this.currentYear-30),
+          icon: 'warning'
+        })
+        this.ultimoAnioRM = ""
+      }
+    } */
   }
   fechaComparativa(){this.anioComparativo = (Number(this.anioActual)-1).toString()}
   formatearFecha(fecha: Date): string {
@@ -344,7 +378,7 @@ export class AerodromosComponent {
       if(respuesta != '1'){this.habilitarCual = true; this.cual = ""}
     }
     if(pregunt == 'obligadaRF'){
-      if(respuesta != '5'){this.noObligadoRF = false}
+      if(respuesta != '5'){this.noObligadoRF = false; this.dictamen = '2';}
       if(respuesta == '5' || respuesta == ""){this.noObligadoRF = true;this.noObligadoRFS = true;
         this.tipoDocumentoRF="";this.numeroIdRF="";this.nombreCompletoRF="";this.resDocumentoIdRF=undefined;this.emailRF="";
         this.tarjetaProRF="";this.resTarjetaProDocRF=undefined;this.numeroActaRF="";this.fechaNombrmientoRF=undefined;this.firmaAuditoriaRF="";
@@ -355,6 +389,9 @@ export class AerodromosComponent {
         this.tarjetaProRFS="";this.resTarjetaProDocRFS=undefined;this.numeroActaRFS="";this.resActaNombramientoRFS=undefined;
         this.fechaNombrmientoRFS=undefined;this.fechaInscripRFS=undefined; this.documentoIdRFS=undefined; this.tarjetaProDocRFS=undefined;
         this.actaNombramientoRFS=undefined; this.resCamaraYcomercioRFS=undefined;this.camaraYcomercioRFS=undefined;
+
+        this.dictamen = '1';
+        this.opinionDictamen=""; this.conSalDictamen=""; this.enfasisDictamen=""; this.docDictamen=undefined; this.resDocDictamen=undefined;
       }
     }
     if(pregunt == 'fiscalSuplente'){
@@ -364,6 +401,13 @@ export class AerodromosComponent {
         this.tarjetaProRFS="";this.resTarjetaProDocRFS=undefined;this.numeroActaRFS="";this.resActaNombramientoRFS=undefined;
         this.fechaNombrmientoRFS=undefined; this.documentoIdRFS=undefined; this.tarjetaProDocRFS=undefined;this.actaNombramientoRFS=undefined;
         this.resCamaraYcomercioRFS=undefined;this.camaraYcomercioRFS=undefined;
+      }
+    }
+    if(pregunt == 'habilitacionPS'){
+      if(respuesta == '1'){this.habilitarHabilitacion = false}
+      if(respuesta != '1'){this.habilitarHabilitacion = true;
+        this.tipoVigiladoSelect = ""; this.fechaInicioPS2 = undefined; this.resoHabilitacion2=undefined; this.resHabilitacion2 = undefined;
+        this.entidadHabilitante2 = "";
       }
     }
   }
@@ -483,11 +527,14 @@ export class AerodromosComponent {
         if(this.identificacion[5].valor){this.habilitarSi(this.identificacion[5].valor,'vinculacionEconomica')}
         if(this.identificacion[7].valor){this.habilitarSi(this.identificacion[7].valor,'vinculadosEco')}
         if(this.identificacion[31].valor){this.habilitarSi(this.identificacion[31].valor,'vigilada')}
+        if(this.identificacion[33].valor){this.habilitarSi(this.identificacion[33].valor,'habilitacionPS')}
         if(this.identificacion[58].valor){this.habilitarSi(this.identificacion[58].valor,'obligadaRF')}
         if(this.identificacion[72].valor){this.habilitarSi(this.identificacion[72].valor,'fiscalSuplente')}
 
         if(respuesta['editable'] == false){
+          this.editable = respuesta['editable']
           this.soloLectura = true; this.hayCambios = true; this.noObligadoRF = true; this.noObligadoRFS = true;
+          this.habilitarHabilitacion = true
         }
       }
     })

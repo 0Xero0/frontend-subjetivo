@@ -30,6 +30,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   soloLectura: boolean = false
   aprobado: boolean = false
   faltantes: number[] = []
+  editable: boolean= true
 
   //Variables select tabla 1
   selectL1: string = "";selectL2: string = "";selectL3: string = "";selectL4: string = "";selectL5: string = "";selectL6: string = "";
@@ -134,9 +135,9 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
       if(!respuesta || respuesta == null){this.cambioRespuesta = undefined; this.archivoL5 = null; this.resArchivoL5 = undefined}
     }
     if(pregunta == 7){
-      if(respuesta == '1'){this.cambioT1L7 = false; this.archivoL8 = null; this.resArchivoL8 = undefined; this.numerico = false;this.numberL8 = " "}
-      if(respuesta == '2' || respuesta == '3' || respuesta == '4'){this.cambioT1L7 = true; this.numerico = true;this.numberL8 = " "}
-      if(!respuesta || respuesta == null){this.cambioT1L7 = undefined; this.numerico = false; this.archivoL8 = null; this.resArchivoL8 = undefined;this.numberL8 = " "}
+      if(respuesta == '1'){this.cambioT1L7 = false; this.archivoL8 = null; this.resArchivoL8 = undefined; this.numerico = false;this.numberL8 = ""}
+      if(respuesta == '2' || respuesta == '3' || respuesta == '4'){this.cambioT1L7 = true; this.numerico = true;this.numberL8 = ""; this.archivoL8 = null;}
+      if(!respuesta || respuesta == null){this.cambioT1L7 = undefined; this.numerico = false; this.archivoL8 = null; this.resArchivoL8 = undefined;this.numberL8 = ""}
     }
     if(pregunta == 22){
       if(respuesta == '1'){this.cambioT3L3 = false;}
@@ -264,6 +265,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
           this.cambioRespuestaSelect(this.portuarias[i-1].valor,i)
         }
         if(respuesta['editable'] != true){
+          this.editable = respuesta['editable']
           this.soloLectura = true
           this.cambioT3L3 = true
           this.cambioT3L8 = true
@@ -276,10 +278,10 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
         this.selectL2 = this.portuarias[1].valor
         this.selectL3 = this.portuarias[2].valor
         this.selectL4 = this.portuarias[3].valor
-        this.selectL5 = this.portuarias[4].valor;
+        this.selectL5 = this.portuarias[4].valor;this.resArchivoL5 = this.portuarias[4]
         this.selectL6 = this.portuarias[5].valor
         this.selectL7 = this.portuarias[6].valor
-        this.numberL8 = this.portuarias[7].valor;
+        this.numberL8 = this.portuarias[7].valor;this.resArchivoL8 = this.portuarias[7]
         this.selectL9 = this.portuarias[8].valor
         this.selectL10 = this.portuarias[9].valor
         this.selectL11 = this.portuarias[10].valor
@@ -295,20 +297,20 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
         this.selectL21 = this.portuarias[20].valor
         this.selectL22 = this.portuarias[21].valor
         this.selectL23 = this.portuarias[22].valor
-        this.selectL24 = this.portuarias[23].valor;
+        this.selectL24 = this.portuarias[23].valor;this.resArchivoL5T3 = this.portuarias[23]
         this.selectL25 = this.portuarias[24].valor
-        this.selectL26 = this.portuarias[25].valor;
+        this.selectL26 = this.portuarias[25].valor;this.resArchivoL7T3 = this.portuarias[25]
         this.selectL27 = this.portuarias[26].valor
         this.selectL28 = this.portuarias[27].valor
-        this.selectL29 = this.portuarias[28].valor;
+        this.selectL29 = this.portuarias[28].valor;this.resArchivoL1T4 = this.portuarias[28]
         this.textArea30 = this.portuarias[29].valor
-        this.selectL31 = this.portuarias[30].valor;
-        this.selectL32 = this.portuarias[31].valor;
+        this.selectL31 = this.portuarias[30].valor;this.resArchivoL3T4 = this.portuarias[30]
+        this.selectL32 = this.portuarias[31].valor;this.resArchivoL4T4 = this.portuarias[31]
         this.selectL33 = this.portuarias[32].valor
         this.selectL34 = this.portuarias[33].valor
         this.selectL35 = this.portuarias[34].valor
-        this.selectL36 = this.portuarias[35].valor;
-        this.selectL37 = this.portuarias[36].valor;
+        this.selectL36 = this.portuarias[35].valor;this.resArchivoL3T5 = this.portuarias[35]
+        this.selectL37 = this.portuarias[36].valor;this.resArchivoL4T5 = this.portuarias[36]
         //console.log(this.portuarias);
       }
     })
@@ -410,9 +412,9 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     const pregunta5: Pregunta = {
         preguntaId: 5,
         valor: this.selectL5,
-        nombreAlmacenado: this.resArchivoL5?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL5?.nombreOriginalArchivo,
-        ruta: this.resArchivoL5?.ruta
+        nombreAlmacenado: this.resArchivoL5?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoL5?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoL5?.ruta??''
       }
       preguntas.push(pregunta5)
     //--------------------------
@@ -431,9 +433,9 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     const pregunta8: Pregunta = {
         preguntaId: 8,
         valor: this.numberL8,
-        nombreAlmacenado: this.resArchivoL8?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL8?.nombreOriginalArchivo,
-        ruta: this.resArchivoL8?.ruta
+        nombreAlmacenado: this.resArchivoL8?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoL8?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoL8?.ruta??''
       }
       preguntas.push(pregunta8)
     //-------------------------
@@ -530,9 +532,9 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     const pregunta24: Pregunta = {
         preguntaId: 24,
         valor: this.selectL24,
-        nombreAlmacenado: this.resArchivoL5T3?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL5T3?.nombreOriginalArchivo,
-        ruta: this.resArchivoL5T3?.ruta
+        nombreAlmacenado: this.resArchivoL5T3?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoL5T3?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoL5T3?.ruta??''
       }
       preguntas.push(pregunta24)
     //---------------------------
@@ -545,9 +547,9 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     const pregunta26: Pregunta = {
         preguntaId: 26,
         valor: this.selectL26,
-        nombreAlmacenado: this.resArchivoL7T3?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL7T3?.nombreOriginalArchivo,
-        ruta: this.resArchivoL7T3?.ruta
+        nombreAlmacenado: this.resArchivoL7T3?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoL7T3?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoL7T3?.ruta??''
       }
       preguntas.push(pregunta26)
     //---------------------------
@@ -566,9 +568,9 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     const pregunta29: Pregunta = {
         preguntaId: 29,
         valor: this.selectL29,
-        nombreAlmacenado: this.resArchivoL1T4?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL1T4?.nombreOriginalArchivo,
-        ruta: this.resArchivoL1T4?.ruta
+        nombreAlmacenado: this.resArchivoL1T4?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoL1T4?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoL1T4?.ruta??''
       }
       preguntas.push(pregunta29)
     //---------------------------
@@ -581,18 +583,18 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     const pregunta31: Pregunta = {
         preguntaId: 31,
         valor: this.selectL31,
-        nombreAlmacenado: this.resArchivoL3T4?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL3T4?.nombreOriginalArchivo,
-        ruta: this.resArchivoL3T4?.ruta
+        nombreAlmacenado: this.resArchivoL3T4?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoL3T4?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoL3T4?.ruta??''
       }
       preguntas.push(pregunta31)
     //---------------------------
     const pregunta32: Pregunta = {
         preguntaId: 32,
         valor: this.selectL32,
-        nombreAlmacenado: this.resArchivoL4T4?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL4T4?.nombreOriginalArchivo,
-        ruta: this.resArchivoL4T4?.ruta
+        nombreAlmacenado: this.resArchivoL4T4?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoL4T4?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoL4T4?.ruta??''
       }
       preguntas.push(pregunta32)
     //---------------------------
@@ -617,18 +619,18 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     const pregunta36: Pregunta = {
         preguntaId: 36,
         valor: this.selectL36,
-        nombreAlmacenado: this.resArchivoL3T5?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL3T5?.nombreOriginalArchivo,
-        ruta: this.resArchivoL3T5?.ruta
+        nombreAlmacenado: this.resArchivoL3T5?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoL3T5?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoL3T5?.ruta??''
       }
       preguntas.push(pregunta36)
     //---------------------------
     const pregunta37: Pregunta = {
         preguntaId: 37,
         valor: this.selectL37,
-        nombreAlmacenado: this.resArchivoL4T5?.nombreAlmacenado,
-        nombreOriginalArchivo: this.resArchivoL4T5?.nombreOriginalArchivo,
-        ruta: this.resArchivoL4T5?.ruta
+        nombreAlmacenado: this.resArchivoL4T5?.nombreAlmacenado??'',
+        nombreOriginalArchivo: this.resArchivoL4T5?.nombreOriginalArchivo??'',
+        ruta: this.resArchivoL4T5?.ruta??''
       }
       preguntas.push(pregunta37)
     //---------------------------

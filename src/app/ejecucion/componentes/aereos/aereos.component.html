@@ -8,7 +8,7 @@
       Enviar a ST
     </button>
     <button type="button" class="boton primario relleno" [disabled]="!hayCambios" (click)="guardar()"
-    *ngIf="!aprobado">
+    *ngIf="editable">
       Guardar
     </button>
   </div>
@@ -42,7 +42,7 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <span class="validacion" *ngIf="verificarFaltantes(1)">Falta por completar</span>
+                  <span class="validacion" *ngIf="verificarFaltantes(1) && !selectL1">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -60,7 +60,7 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <span class="validacion" *ngIf="verificarFaltantes(2)">Falta por completar</span>
+                  <span class="validacion" *ngIf="verificarFaltantes(2) && !selectL2">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -79,7 +79,7 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <span class="validacion" *ngIf="verificarFaltantes(3)">Falta por completar</span>
+                  <span class="validacion" *ngIf="verificarFaltantes(3) && !selectL3">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -97,7 +97,7 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <span class="validacion" *ngIf="verificarFaltantes(4)">Falta por completar</span>
+                  <span class="validacion" *ngIf="verificarFaltantes(4) && !selectL4">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -115,7 +115,7 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <span class="validacion" *ngIf="verificarFaltantes(5)">Falta por completar</span>
+                  <span class="validacion" *ngIf="verificarFaltantes(5) && !selectL5">Falta por completar</span>
                 </fieldset>
               </td>
               <td>
@@ -130,8 +130,8 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT1L5 == false || cambioT1L5 == true">
                   <app-input-archivo id="archivoL5" [disabled]="soloLectura" [nombre]="'ArchivoL5pdf'"
                     [(ngModel)]="archivoT1L5" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,5),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[4].nombreOriginalArchivo != '' && selectL5 == transporte[4].valor">
-                      {{transporte[4].nombreOriginalArchivo}}
+                    <span class="texto-azul" *ngIf="transporte[4].nombreOriginalArchivo == resArchivoT1L5?.nombreOriginalArchivo && selectL5 == transporte[4].valor">
+                      {{resArchivoT1L5?.nombreOriginalArchivo}}
                     </span>
                   <span>PDF, Máximo 5 Mb</span>
                 </fieldset>
@@ -148,7 +148,7 @@
                   [(ngModel)]="selectL6" [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(6)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(6) && !selectL6">Falta por completar</span>
                 </fieldset>
               </td>
               <td>
@@ -168,16 +168,16 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT1L6 == true">
                   <app-input-archivo id="archivoL6" [disabled]="soloLectura" [nombre]="'archivoL6xlsx'"
                     [(ngModel)]="archivoT1L6" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,6),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[5].nombreOriginalArchivo !== '' && selectL6 == transporte[5].valor">
-                      {{transporte[5].nombreOriginalArchivo}}
+                    <span class="texto-azul" *ngIf="transporte[5].nombreOriginalArchivo == resArchivoT1L6?.nombreOriginalArchivo && selectL6 == transporte[5].valor">
+                      {{resArchivoT1L6?.nombreOriginalArchivo}}
                     </span>
                   <span>Excel, Máximo 5 Mb</span>
                 </fieldset>
                 <fieldset class="d-flex flex-column" *ngIf="cambioT1L6 == false">
                   <app-input-archivo id="archivoL6" [disabled]="soloLectura" [nombre]="'ArchivoL6pdf'"
                     [(ngModel)]="archivoT1L6" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,6),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[5].nombreOriginalArchivo !== '' && selectL6 == transporte[5].valor">
-                      {{transporte[5].nombreOriginalArchivo}}
+                    <span class="texto-azul" *ngIf="transporte[5].nombreOriginalArchivo == resArchivoT1L6?.nombreOriginalArchivo && selectL6 == transporte[5].valor">
+                      {{resArchivoT1L6?.nombreOriginalArchivo}}
                     </span>
                   <span>PDF, Máximo 5 Mb</span>
                 </fieldset>
@@ -196,7 +196,7 @@
                     <option *ngFor="let opcion of fusiones" [value]="opcion.id">
                       {{opcion.nombre}}
                     </option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(7)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(7) && !selectL7">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -214,7 +214,7 @@
                     [largoMaximo]="10" [cantidadDecimales]="2" [disabled]="!numerico"/>
                 </ng-container>
                 <span *ngIf="numerico">
-                  <span class="validacion" *ngIf="verificarFaltantes(8)">Falta por completar</span>
+                  <span class="validacion" *ngIf="verificarFaltantes(8) && !numberL8 && numerico">Falta por completar</span>
                 </span>
 
               </td>
@@ -226,8 +226,8 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT1L7 != undefined">
                   <app-input-archivo id="archivoL8" [disabled]="soloLectura" [nombre]="'ArchivoL8pdf'"
                     [(ngModel)]="archivoT1L8" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,8),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[7].nombreOriginalArchivo != '' && selectL7 == transporte[7].valor">
-                      {{transporte[7].nombreOriginalArchivo}}
+                    <span class="texto-azul" *ngIf="transporte[7].nombreOriginalArchivo == resArchivoT1L8?.nombreOriginalArchivo && selectL7 == transporte[6].valor">
+                      {{resArchivoT1L8?.nombreOriginalArchivo}}
                     </span>
                   <span>PDF, Máximo 5 Mb</span>
                 </fieldset>
@@ -244,7 +244,7 @@
                   [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(9)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(9) && !selectL9">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -261,7 +261,7 @@
                   [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(10)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(10) && !selectL10">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -278,7 +278,7 @@
                   [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(11)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(11) && !selectL11">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -295,7 +295,7 @@
                   [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of inversiones" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(12)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(12) && !selectL12">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -313,7 +313,7 @@
                   [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(13)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(13) && !selectL13">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -331,7 +331,7 @@
                   [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(14)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(14) && !selectL14">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -349,7 +349,7 @@
                   [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(15)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(15) && !selectL15">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -375,7 +375,7 @@
                   [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(16)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(16) && !selectL16">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -402,7 +402,7 @@
                   [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(17)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(17) && !selectL17">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -419,7 +419,7 @@
                   [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(18)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(18) && !selectL18">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -437,7 +437,7 @@
                   (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(19)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(19) && !selectL19">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -456,7 +456,7 @@
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
                   <span *ngIf="!cambioT3L4">
-                    <span class="validacion" *ngIf="verificarFaltantes(20)">Falta por completar</span>
+                    <span class="validacion" *ngIf="verificarFaltantes(20) && !selectL20">Falta por completar</span>
                   </span>
                 </fieldset>
               </td>
@@ -472,10 +472,10 @@
               </td>
               <td>
                 <fieldset class="d-flex flex-column" *ngIf="cambioT3L4 == true || cambioT3L4 == false">
-                  <app-input-archivo id="archivoT3L4" [disabled]="soloLectura" [nombre]="'archivoT3L4'"
-                    [(ngModel)]="archivoT3L4" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,20),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[19].nombreOriginalArchivo != '' && selectL20 == transporte[19].valor">
-                      {{transporte[19].nombreOriginalArchivo}}
+                  <app-input-archivo [(ngModel)]="archivoT3L4" [acepta]="['.pdf']" [disabled]="soloLectura"
+                  (change)="[cargarArchivo($event,'pdf',5,20),detectarCambios()]"/>
+                    <span class="texto-azul" *ngIf="transporte[19].nombreOriginalArchivo == resArchivoT3L4?.nombreOriginalArchivo && selectL20 == transporte[19].valor">
+                      {{resArchivoT3L4?.nombreOriginalArchivo}}
                     </span>
                   <span>PDF, Máximo 5 Mb</span>
                 </fieldset>
@@ -492,7 +492,7 @@
                   [(ngModel)]="selectL21" (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of equipos" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(21)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(21) && !selectL21">Falta por completar</span>
                 </fieldset>
               </td>
               <td>
@@ -508,16 +508,16 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT3L5 == true">
                   <app-input-archivo id="archivoL5T3" [disabled]="soloLectura" [nombre]="'archivoL5T3pdf'"
                     [(ngModel)]="archivoT3L5" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,21),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[20].nombreOriginalArchivo != '' && selectL21 == transporte[20].valor">
-                      {{transporte[20].nombreOriginalArchivo}}
+                    <span class="texto-azul" *ngIf="transporte[20].nombreOriginalArchivo == resArchivoT3L5?.nombreOriginalArchivo && selectL21 == transporte[20].valor">
+                      {{resArchivoT3L5?.nombreOriginalArchivo}}
                     </span>
                   <span>Excel, Máximo 5 Mb</span>
                 </fieldset>
                 <fieldset class="d-flex flex-column" *ngIf="cambioT3L5 == false">
                   <app-input-archivo id="archivoL5T3" [disabled]="soloLectura" [nombre]="'archivoL5T3pdf'"
                     [(ngModel)]="archivoT3L5" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,21),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[20].nombreOriginalArchivo != '' && selectL21 == transporte[20].valor">
-                      {{transporte[20].nombreOriginalArchivo}}
+                    <span class="texto-azul" *ngIf="transporte[20].nombreOriginalArchivo == resArchivoT3L5?.nombreOriginalArchivo && selectL21 == transporte[20].valor">
+                      {{resArchivoT3L5?.nombreOriginalArchivo}}
                     </span>
                   <span>PDF, Máximo 5 Mb</span>
                 </fieldset>
@@ -534,7 +534,7 @@
                   [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(22)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(22) && !selectL22">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -560,7 +560,7 @@
                   (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(23)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(23) && !selectL23">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -588,7 +588,7 @@
                   [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(24)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(24) && !selectL24">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -606,7 +606,7 @@
                   [disabled]="soloLectura" (ngModelChange)="detectarCambios()">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(25)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(25) && !selectL25">Falta por completar</span>
                 </fieldset>
               </td>
               <td></td>
@@ -625,7 +625,7 @@
                   [(ngModel)]="selectL26" (ngModelChange)="detectarCambios()" [disabled]="soloLectura">
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
-                  </select><span class="validacion" *ngIf="verificarFaltantes(26)">Falta por completar</span>
+                  </select><span class="validacion" *ngIf="verificarFaltantes(26)  && !selectL26">Falta por completar</span>
                 </fieldset>
               </td>
               <td>
@@ -639,8 +639,8 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT5L3 == true || cambioT5L3 == false">
                   <app-input-archivo id="archivoL3T5" [disabled]="soloLectura" [nombre]="'archivoL3T5pdf'"
                     [(ngModel)]="archivoT5L3" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,26),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[25].nombreOriginalArchivo != '' && selectL26 == transporte[25].valor">
-                      {{transporte[25].nombreOriginalArchivo}}
+                    <span class="texto-azul" *ngIf="transporte[25].nombreOriginalArchivo == resArchivoT5L3?.nombreOriginalArchivo && selectL26 == transporte[25].valor">
+                      {{resArchivoT5L3?.nombreOriginalArchivo}}
                     </span>
                   <span>PDF, Máximo 5 Mb</span>
                 </fieldset>
@@ -659,7 +659,7 @@
                     <option value="">Elija una opción</option>
                     <option *ngFor="let opcion of sino" [value]="opcion.id">{{opcion.nombre}}</option>
                   </select>
-                  <span class="validacion" *ngIf="verificarFaltantes(27)">Falta por completar</span>
+                  <span class="validacion" *ngIf="verificarFaltantes(27)  && !selectL27">Falta por completar</span>
                 </fieldset>
               </td>
               <td>
@@ -680,16 +680,16 @@
                 <fieldset class="d-flex flex-column" *ngIf="cambioT5L4 == true">
                   <app-input-archivo id="archivoL4T5" [disabled]="soloLectura" [nombre]="'archivoL4T5pdf'"
                     [(ngModel)]="archivoT5L4" [acepta]="['.xlsx']" (change)="[cargarArchivo($event,'xlsx',5,27),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[26].nombreOriginalArchivo != '' && selectL27 == transporte[26].valor">
-                      {{transporte[26].nombreOriginalArchivo}}
+                    <span class="texto-azul" *ngIf="transporte[26].nombreOriginalArchivo == resArchivoT5L4?.nombreOriginalArchivo && selectL27 == transporte[26].valor">
+                      {{resArchivoT5L4?.nombreOriginalArchivo}}
                     </span>
                   <span >Excel, Máximo 5 Mb</span>
                 </fieldset>
                 <fieldset class="d-flex flex-column" *ngIf="cambioT5L4 == false">
                   <app-input-archivo id="archivoL4T5" [disabled]="soloLectura" [nombre]="'archivoL4T5pdf'"
                     [(ngModel)]="archivoT5L4" [acepta]="['.pdf']" (change)="[cargarArchivo($event,'pdf',5,27),detectarCambios()]"/>
-                    <span class="texto-azul" *ngIf="transporte[26].nombreOriginalArchivo != '' && selectL27 == transporte[26].valor">
-                      {{transporte[26].nombreOriginalArchivo}}
+                    <span class="texto-azul" *ngIf="transporte[26].nombreOriginalArchivo == resArchivoT5L4?.nombreOriginalArchivo && selectL27 == transporte[26].valor">
+                      {{resArchivoT5L4?.nombreOriginalArchivo}}
                     </span>
                   <span >PDF, Máximo 5 Mb</span>
                 </fieldset>
