@@ -8,7 +8,7 @@
       Enviar a ST
     </button>
     <button type="button" class="boton primario relleno" [disabled]="!hayCambios" (click)="guardar()"
-    *ngIf="!aprobado">
+    *ngIf="editable">
       Guardar
     </button>
   </div>

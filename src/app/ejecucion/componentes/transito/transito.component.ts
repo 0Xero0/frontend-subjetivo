@@ -20,6 +20,7 @@ export class TransitoComponent {
 
   soloLectura: boolean = false
   aprobado: boolean = false
+  editable: boolean = true
   faltantes?: Faltantes
   fecha: Date;
   fechaActual: string;
@@ -337,7 +338,7 @@ export class TransitoComponent {
         this.iniciarCambios()
         
         if(respuesta['editable'] != true){
-          this.soloLectura = true
+          this.soloLectura = true; this.editable = respuesta['editable']
           this.hayCambios = true
           this.cambioG = true; this.cambioP = true; this.cambioT = true; this.cambioD = true; this.cambioPC = true
           this.cambioPCC = true; this.cambioPCP = true; this.cambioR = true; this.cambioO = true

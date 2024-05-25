@@ -18,6 +18,7 @@ export class AereosComponent implements OnInit, OnChanges{
 
   soloLectura: boolean = false
   aprobado: boolean = false
+  editable: boolean = true
   faltantes: number[] = []
 
   //Variables select tabla 1
@@ -87,6 +88,7 @@ export class AereosComponent implements OnInit, OnChanges{
           this.cambioRespuestaSelect(this.transporte[i-1].valor,i)
         }
         if(respuesta['editable'] != true){
+          this.editable = respuesta['editable']
           this.soloLectura = true
           this.numerico = false
           this.hayCambios = true
@@ -144,7 +146,7 @@ export class AereosComponent implements OnInit, OnChanges{
     }
     if(pregunta == 7){
       if(respuesta == '1'){this.cambioT1L7 = false; this.archivoT1L8 = null; this.resArchivoT1L8 = undefined; this.numerico = false;this.numberL8 = " "}
-      if(respuesta == '2' || respuesta == '3' || respuesta == '4'){this.cambioT1L7 = true; this.numerico = true;this.numberL8 = ""}
+      if(respuesta == '2' || respuesta == '3' || respuesta == '4'){this.cambioT1L7 = true; this.numerico = true;this.numberL8 = ""; this.archivoT1L8 = null}
       if(!respuesta || respuesta == null){this.cambioT1L7 = undefined; this.numerico = false; this.archivoT1L8 = null; this.resArchivoT1L8 = undefined;this.numberL8 = " "}
     }
     if(pregunta == 20){
