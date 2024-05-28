@@ -1,5 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { Actividad, FormularioEjecucion } from '../../modelos/FormularioEjecucion';
+import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ServicioEjecucion } from '../../servicios/ejecucion.service';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -7,12 +6,7 @@ import { Router } from '@angular/router';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
 import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
-import { TipoImportacion } from '../../TipoImportacion';
-import { RespuestaErrorImportacion } from '../../modelos/ErrorImportacion';
-import { Observable, catchError, forkJoin, of } from 'rxjs'
-import { InputNumericoComponent } from 'src/app/inputs/componentes/input-numerico/input-numerico.component';
 import { Portuarias } from '../../modelos/Portuarias';
-import { InputArchivoComponent } from 'src/app/inputs/componentes/input-archivo/input-archivo.component';
 import Swal from 'sweetalert2';
 import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
 import { Pregunta } from '../../modelos/Preguntas';

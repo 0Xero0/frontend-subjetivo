@@ -25,14 +25,6 @@ export class TransitoComponent {
   fecha: Date;
   fechaActual: string;
 
-  servicios = [
-    {
-      id: 1,
-      nombre: 'gruas',
-      indice: 'G'
-    }
-  ]
-
   //Variables tabla 1
   textL1: string = "";selectL2: string = "";numberL3: string = "";numberL4: string = "";selectL5: string = "";selectL6: string = "";
   selectL7: string = ""
@@ -336,14 +328,15 @@ export class TransitoComponent {
         this.llenarIdentificacion()
         this.llenarPreguntas(this.preguntas)
         this.iniciarCambios()
-        
+
         if(respuesta['editable'] != true){
           this.soloLectura = true; this.editable = respuesta['editable']
           this.hayCambios = true
-          this.cambioG = true; this.cambioP = true; this.cambioT = true; this.cambioD = true; this.cambioPC = true
-          this.cambioPCC = true; this.cambioPCP = true; this.cambioR = true; this.cambioO = true
-          this.otroG = true; this.otroP = true; this.otroT = true; this.otroD = true; this.otroPC = true
-          this.otroPCC = true; this.otroPCP = true; this.otroR = true; this.otroO = true
+          this.cambioG = true; this.cambioP = true; this.cambioT = true; this.cambioD = true;
+          this.cambioPC = true; this.cambioPCC = true; this.cambioPCP = true; this.cambioR = true;
+          this.cambioO = true; this.otroG = true; this.otroP = true; this.otroT = true;
+          this.otroD = true; this.otroPC = true; this.otroPCC = true; this.otroPCP = true;
+          this.otroR = true; this.otroO = true
         }
         //console.log(this.portuarias);
       }
@@ -429,7 +422,6 @@ export class TransitoComponent {
           icon:'warning'
         })
       }
-
     }
   }
 

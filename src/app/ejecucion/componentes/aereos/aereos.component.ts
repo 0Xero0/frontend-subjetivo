@@ -22,13 +22,15 @@ export class AereosComponent implements OnInit, OnChanges{
   faltantes: number[] = []
 
   //Variables select tabla 1
-  selectL1: string = "";selectL2: string = "";selectL3: string = "";selectL4: string = "";selectL5: string = "";selectL6: string = "";
-  selectL7: string = "";numberL8: string = "";selectL9: string = "";selectL10: string = "";selectL11: string = "";selectL12: string = "";
+  selectL1: string = "";selectL2: string = "";selectL3: string = "";selectL4: string = "";
+  selectL5: string = "";selectL6: string = "";selectL7: string = "";numberL8: string = "";
+  selectL9: string = "";selectL10: string = "";selectL11: string = "";selectL12: string = "";
   selectL13: string = "";selectL14: string = "";selectL15: string = "";
   //Variables select tabla 2
   selectL16: string = "";
   //Variables select tabla 3
-  selectL17: string = "";selectL18: string = "";selectL19: string = "";selectL20: string = "";selectL21: string = "";selectL22: string = "";
+  selectL17: string = "";selectL18: string = "";selectL19: string = "";selectL20: string = "";
+  selectL21: string = "";selectL22: string = "";
   //Variables select tabla 4
   selectL23: string = "";
   //Variables select tabla 5
