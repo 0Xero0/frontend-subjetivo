@@ -40,12 +40,14 @@ export class ServicioEjecucion extends Autenticable {
 
   obtenerTransito(){
     const endpoint = `/api/v1/transitos`
-    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+    return this.http.get<any>(`${this.host}${endpoint}`,
+    { headers: this.obtenerCabeceraAutorizacion() })
   }
 
   obtenerAerodromos(){
     const endpoint = `/api/v1/aerodromos`
-    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+    return this.http.get<any>(`${this.host}${endpoint}`,
+    { headers: this.obtenerCabeceraAutorizacion() })
   }
 
   maestraSiNo(){
