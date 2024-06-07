@@ -15,7 +15,9 @@ export class VerificarSubjetivoComponent {
   public formulario: FormGroup
   documento:string = ""
 
-  constructor(private verificarSubjetivo: VerificarSubjetivoService, private enrutador: Router) {
+  constructor(
+    private verificarSubjetivo: VerificarSubjetivoService,
+    private enrutador: Router){
     this.formulario = new FormGroup({
       documentoId: new FormControl('', [Validators.required])
     })
@@ -55,7 +57,7 @@ export class VerificarSubjetivoComponent {
               icon:'error'
             })
           }
-          
+
         }
       },
       error: (error: HttpErrorResponse) => {
@@ -69,7 +71,8 @@ export class VerificarSubjetivoComponent {
   }
 
   marcarFormularioComoSucio(): void {
-    (<any>Object).values(this.formulario.controls).forEach((control: FormControl) => {
+    (<any>Object).values(this.formulario.controls).forEach(
+      (control: FormControl) => {
       control.markAsDirty();
       if (control) {
         control.markAsDirty()
