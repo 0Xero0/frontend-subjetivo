@@ -2,17 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Autenticable } from 'src/app/administrador/servicios/compartido/Autenticable';
 import { environment } from 'src/environments/environment';
-import { FormularioEjecucion } from '../modelos/FormularioEjecucion';
-import { ResumenReporte } from 'src/app/encuestas/modelos/ResumenReporte';
-import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
-import { RespuestaActividad } from '../modelos/RespuestaActividad';
-import { RespuestaAdicional } from '../modelos/RespuestaAdicional';
-import { Observable } from 'rxjs';
-import { Mes } from 'src/app/encuestas/modelos/Mes';
-import { FiltrosReportes } from 'src/app/encuestas/modelos/FiltrosReportes';
-import { ListaEmpresasEjecucion } from '../modelos/ListaEmpresasEjecucion';
-import { ListaPatiosEjecucion } from '../modelos/ListaPatiosEjecucion';
-import { TipoImportacion } from '../TipoImportacion';
 import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
 
 @Injectable({
@@ -26,26 +15,26 @@ export class ServicioEjecucion extends Autenticable {
     super()
   }
 
-  obtenerPortuarias(){
-    const endpoint = `/api/v1/portuarias`
+  obtenerPortuarias(vigencia?: number){
+    const endpoint = `/api/v1/portuarias?vigencia=${vigencia}`
     return this.http.get<any>(`${this.host}${endpoint}`,
     { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  obtenerTransporte(){
-    const endpoint = `/api/v1/transportes`
+  obtenerTransporte(vigencia?: number){
+    const endpoint = `/api/v1/transportes?vigencia=${vigencia}`
     return this.http.get<any>(`${this.host}${endpoint}`,
     { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  obtenerTransito(){
-    const endpoint = `/api/v1/transitos`
+  obtenerTransito(vigencia?: number){
+    const endpoint = `/api/v1/transitos?vigencia=${vigencia}`
     return this.http.get<any>(`${this.host}${endpoint}`,
     { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  obtenerAerodromos(){
-    const endpoint = `/api/v1/aerodromos`
+  obtenerAerodromos(vigencia?: number){
+    const endpoint = `/api/v1/aerodromos?vigencia=${vigencia}`
     return this.http.get<any>(`${this.host}${endpoint}`,
     { headers: this.obtenerCabeceraAutorizacion() })
   }
@@ -141,8 +130,8 @@ export class ServicioEjecucion extends Autenticable {
     { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  enviarST(){
-    const endpoint = '/api/v1/portuarias/enviar'
+  enviarST(vigencia?: number){
+    const endpoint = '/api/v1/portuarias/enviar?vigencia=' + vigencia
     return this.http.get<any>(`${this.host}${endpoint}`,
     { headers: this.obtenerCabeceraAutorizacion()})
   }
@@ -154,8 +143,8 @@ export class ServicioEjecucion extends Autenticable {
     { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  enviarSTTransporte(){
-    const endpoint = '/api/v1/transportes/enviar'
+  enviarSTTransporte(vigencia?: number){
+    const endpoint = '/api/v1/transportes/enviar?vigencia=' + vigencia
     return this.http.get<any>(`${this.host}${endpoint}`,
     { headers: this.obtenerCabeceraAutorizacion()})
   }
@@ -167,8 +156,8 @@ export class ServicioEjecucion extends Autenticable {
     { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  enviarSTTransito(){
-    const endpoint = '/api/v1/transitos/enviar'
+  enviarSTTransito(vigencia?: number){
+    const endpoint = '/api/v1/transitos/enviar?vigencia=' + vigencia
     return this.http.get<any>(`${this.host}${endpoint}`,
     { headers: this.obtenerCabeceraAutorizacion()})
   }
@@ -179,8 +168,14 @@ export class ServicioEjecucion extends Autenticable {
     { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  enviarSTAerodromo(){
-    const endpoint = '/api/v1/aerodromos/enviar'
+  enviarSTAerodromo(vigencia?: number){
+    const endpoint = '/api/v1/aerodromos/enviar?vigencia=' + vigencia
+    return this.http.get<any>(`${this.host}${endpoint}`,
+    { headers: this.obtenerCabeceraAutorizacion()})
+  }
+
+  obtenerVigencias(tipo: number) {
+    const endpoint = `/api/v1/reportes/${tipo}`;
     return this.http.get<any>(`${this.host}${endpoint}`,
     { headers: this.obtenerCabeceraAutorizacion()})
   }

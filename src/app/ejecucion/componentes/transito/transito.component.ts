@@ -1,8 +1,8 @@
-import { Component, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ServicioEjecucion } from '../../servicios/ejecucion.service';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
 import Swal from 'sweetalert2';
 import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
@@ -13,7 +13,7 @@ import { Faltantes } from '../../modelos/faltantes';
   templateUrl: './transito.component.html',
   styleUrls: ['./transito.component.css']
 })
-export class TransitoComponent {
+export class TransitoComponent implements OnInit {
 
   @ViewChild('popup') popup!: PopupComponent
   hayCambios: boolean = false
@@ -122,16 +122,25 @@ export class TransitoComponent {
   identificacionOrganismo?: any
   preguntas?: any
 
-  constructor(private servicio: ServicioEjecucion, private router: Router, private servicioLocalStorage: ServicioLocalStorage){
-    this.obtenerTransitos()
+  vigencia?: number
+
+  constructor(private servicio: ServicioEjecucion, private router: Router,
+    private servicioLocalStorage: ServicioLocalStorage,
+    private route: ActivatedRoute) {
+
     this.fecha = new Date()
     this.fechaActual = this.formatearFecha(this.fecha)
   }
   ngOnChanges(changes: SimpleChanges): void {
+
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.vigencia = params['vigencia'] || null;
+    });
     this.obtenerMaestras()
+    this.obtenerTransitos()
     //this.enviarST()
   }
   formatearFecha(fecha: Date): string {
@@ -321,7 +330,7 @@ export class TransitoComponent {
   }
 
   obtenerTransitos(){
-    this.servicio.obtenerTransito().subscribe({
+    this.servicio.obtenerTransito(this.vigencia).subscribe({
       next: (respuesta:any)=>{
         this.identificacionOrganismo = respuesta['identificacionOrganismo']
         this.preguntas = respuesta['preguntas']
@@ -431,7 +440,7 @@ export class TransitoComponent {
 
     let preguntaJson: any;
 
-    preguntaJson={identificacionOrganismo, preguntas}
+    preguntaJson={identificacionOrganismo, preguntas, vigencia: this.vigencia}
     console.log(preguntaJson)
     Swal.fire({
       icon: 'info',
@@ -471,7 +480,7 @@ export class TransitoComponent {
   }
 
   enviarST(){
-    this.servicio.enviarSTTransito().subscribe({
+    this.servicio.enviarSTTransito(this.vigencia).subscribe({
       next: (respuesta) => {
         this.aprobado = respuesta['aprobado']
         this.faltantes = respuesta
@@ -1698,5 +1707,9 @@ export class TransitoComponent {
     this.numeroO3 = preguntas.otros[14].valor
     this.textO6 = preguntas.otros[15].valor
     this.numeroO5 = preguntas.otros[17].valor
+  }
+
+  volverAVigencias(): void {
+    this.router.navigate(['/administrar/transito']);
   }
 }

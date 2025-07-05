@@ -1,8 +1,8 @@
-import { Component, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ServicioEjecucion } from '../../servicios/ejecucion.service';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
 import { Faltantes } from '../../modelos/faltantes';
@@ -13,7 +13,7 @@ import { ingresos } from '../../modelos/aerodromo';
   templateUrl: './aerodromos.component.html',
   styleUrls: ['./aerodromos.component.css']
 })
-export class AerodromosComponent {
+export class AerodromosComponent implements OnInit {
   @ViewChild('popup') popup!: PopupComponent
   hayCambios: boolean = false
 
@@ -115,8 +115,10 @@ export class AerodromosComponent {
   dictamenj:Array<any> = []
   ingresos:Array<ingresos> = []
 
-  constructor(private servicio: ServicioEjecucion, private router: Router){
-    this.obtenerAerodromos()
+  vigencia?: number;
+
+  constructor(private servicio: ServicioEjecucion, private router: Router, private route: ActivatedRoute){
+
     this.fecha = new Date();
     this.fechaActual = this.formatearFecha(this.fecha)
     this.anioReporte = this.fecha.getFullYear()-1
@@ -129,9 +131,18 @@ export class AerodromosComponent {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      console.log(params);
+      this.vigencia = params['vigencia'];
+    });
+    this.obtenerAerodromos()
     this.maestras()
     this.fechaReporte = this.fechaActual
     //this.enviarST()
+  }
+
+  volverAVigencias(): void {
+    this.router.navigate(['/administrar/aerodromos']);
   }
 
   detectarCambios(){
@@ -512,7 +523,8 @@ export class AerodromosComponent {
   }
 
   obtenerAerodromos(){
-    this.servicio.obtenerAerodromos().subscribe({
+    console.log(this.vigencia)
+    this.servicio.obtenerAerodromos(this.vigencia).subscribe({
       next: (respuesta)=>{
         console.log(respuesta);
         this.identificacion = respuesta['identificacion']
@@ -547,7 +559,7 @@ export class AerodromosComponent {
     const ingresos = this.capturarIngresos()
     let aerodromosJson:any;
 
-    aerodromosJson={identificacion,reporte,dictamen,ingresos}
+    aerodromosJson={identificacion,reporte,dictamen,ingresos, vigencia:this.vigencia}
     console.log(aerodromosJson)
     Swal.fire({
       icon: 'info',
@@ -574,18 +586,13 @@ export class AerodromosComponent {
             titleText:error.error.mensaje,
             icon:'error'
           })
-        }else{
-          Swal.fire({
-            titleText:error.error,
-            icon:'error'
-          })
         }
       }
     })
   }
 
   enviarST(){
-    this.servicio.enviarSTAerodromo().subscribe({
+    this.servicio.enviarSTAerodromo(this.vigencia).subscribe({
       next: (respuesta) => {
         console.log(respuesta);
 

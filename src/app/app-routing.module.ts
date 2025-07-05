@@ -15,6 +15,11 @@ import { AereosComponent } from './ejecucion/componentes/aereos/aereos.component
 import { TransitoComponent } from './ejecucion/componentes/transito/transito.component';
 import { AerodromosComponent } from './ejecucion/componentes/aerodromos/aerodromos.component';
 import { VerificarSubjetivoComponent } from './verificar-subjetivo/verificar-subjetivo.component';
+import { VigenciasComponent } from './ejecucion/vigencias/vigencias.component';
+import { VistaVigenciaEjecucionComponent } from './ejecucion/componentes/formulario-ejecucion/vista-vigencia-ejecucion/vista-vigencia-ejecucion.component';
+import { VistaVigenciaTransitoComponent } from './ejecucion/componentes/transito/vista-vigencia-transito/vista-vigencia-transito.component';
+import { VistaVigenciaAereosComponent } from './ejecucion/componentes/aereos/vista-vigencia-aereos/vista-vigencia-aereos.component';
+import { VistaVigenciaAerodromosComponent } from './ejecucion/componentes/aerodromos/vista-vigencia-aerodromos/vista-vigencia-aerodromos.component';
 
 
 
@@ -42,24 +47,41 @@ const routes: Routes = [
       },
       {
         path: 'puertos',
+        component: VistaVigenciaEjecucionComponent
+      },
+      {
+        path: 'formulario-puertos',
         component: PaginaEjecucionComponent
       },
       {
         path: 'transito',
+        component: VistaVigenciaTransitoComponent
+      },
+      {
+        path: 'formulario-transito',
         component: TransitoComponent
       },
       {
         path: 'concesiones',
-        component: AereosComponent
+        component: VistaVigenciaAereosComponent/* AereosComponent */
+      },
+      {
+        path: 'formulario-concesiones',
+        component:  AereosComponent
+      },
+      {
+        path: 'aerodromos',
+        component: VistaVigenciaAerodromosComponent
+      },
+      {
+        path: 'formulario-aerodromos',
+        component: AerodromosComponent
       },
       {
         path: 'usuarios',
         loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule)
       },
-      {
-        path: 'aerodromos',
-        component: AerodromosComponent
-      },
+
     ]
   },
   {
