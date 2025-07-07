@@ -127,7 +127,9 @@ export class AerodromosComponent implements OnInit {
     for (let year = this.currentYear - 30; year <= this.currentYear; year++) {
       this.listaUltimoAnioRM.push(year.toString());
     }
-
+    this.route.queryParams.subscribe(params => {
+      this.vigencia = params['vigencia'] ? Number(params['vigencia']) : undefined;
+    });
   }
 
   ngOnInit(): void {
@@ -187,12 +189,17 @@ export class AerodromosComponent implements OnInit {
   }
 
   fechaMaxima(event:any,input?:any){
+    // Determinar la fecha máxima según la vigencia
+    let fechaMaxima = '2023-12-31';
+    if (this.vigencia && !isNaN(this.vigencia)) {
+      const anio = Number(this.vigencia) - 1;
+      fechaMaxima = `${anio}-12-31`;
+    }
     //console.log(event.target.value)
-    const fechaMaxima = '2023-12-31'
     if(input == 'fechaCorteEF'){
       if(event.target.value > fechaMaxima){
         Swal.fire({
-          titleText: 'La fecha de corte no puede ser mayor a 31/12/2023',
+          titleText: `La fecha de corte no puede ser mayor a ${fechaMaxima.split('-').reverse().join('/')}`,
           icon: 'warning'
         })
         this.fechaCorteEF = undefined
