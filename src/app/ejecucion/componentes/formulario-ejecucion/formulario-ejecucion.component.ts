@@ -2,7 +2,7 @@ import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular
 import { ServicioEjecucion } from '../../servicios/ejecucion.service';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
 import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
@@ -82,18 +82,27 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
 
   portuarias: Portuarias[] = []
 
-  constructor(private servicio: ServicioEjecucion, private router: Router, private servicioLocalStorage: ServicioLocalStorage){
-    this.obtenerPortuarias()
+  vigencia?: number
+
+  constructor(private servicio: ServicioEjecucion, private router: Router,
+     private servicioLocalStorage: ServicioLocalStorage,
+     private route: ActivatedRoute) {
+
 
     const usuario = this.servicioLocalStorage.obtenerUsuario()
     if(!usuario) throw new ErrorAutorizacion();
     this.usuario = usuario
   }
   ngOnChanges(changes: SimpleChanges): void {
+
+
   }
 
   ngOnInit(): void {
     //this.enviarST()
+    this.route.queryParams.subscribe(params => {
+      this.vigencia = params['vigencia'] || null;
+    });
     this.maestraFusiones()
     this.maestraSiNo()
     this.maestraSiNoAplica()
@@ -103,6 +112,12 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     this.maestraEquipos()
     this.maestraPorcentajes()
     this.maestraPeriodos()
+
+    this.obtenerPortuarias()
+  }
+
+  volverAVigencias(): void {
+    this.router.navigate(['/administrar/puertos']);
   }
 
   detectarCambios(){
@@ -252,7 +267,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   }
 
   obtenerPortuarias(){
-    this.servicio.obtenerPortuarias().subscribe({
+    this.servicio.obtenerPortuarias(this.vigencia).subscribe({
       next: (respuesta:any)=>{
         this.portuarias = respuesta['preguntas']
         for(let i = 1; i <= 37; i++){
@@ -629,13 +644,14 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
       preguntas.push(pregunta37)
     //---------------------------
 
-    preguntaJson={preguntas}
+    preguntaJson={preguntas, vigencia: this.vigencia}
     Swal.fire({
       icon: 'info',
       allowOutsideClick: false,
       text: 'Espere por favor...',
     });
     Swal.showLoading(null);
+    console.log(preguntaJson);
     this.servicio.guardar(preguntaJson).subscribe({
       next: (respuesta: any) =>{
         //console.log(respuesta);
@@ -665,7 +681,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   }
 
   enviarST(){
-    this.servicio.enviarST().subscribe({
+    this.servicio.enviarST(this.vigencia).subscribe({
       next: (respuesta) => {
         this.aprobado = respuesta['aprobado']
         this.faltantes = respuesta['faltantes']

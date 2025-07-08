@@ -13,6 +13,12 @@ import { AereosComponent } from './componentes/aereos/aereos.component';
 import { TransitoComponent } from './componentes/transito/transito.component';
 import { AerodromosComponent } from './componentes/aerodromos/aerodromos.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { VigenciasComponent } from './vigencias/vigencias.component';
+import { VistaVigenciaTransitoComponent } from './componentes/transito/vista-vigencia-transito/vista-vigencia-transito.component';
+import { VistaVigenciaEjecucionComponent } from './componentes/formulario-ejecucion/vista-vigencia-ejecucion/vista-vigencia-ejecucion.component';
+import { VistaVigenciaAerodromosComponent } from './componentes/aerodromos/vista-vigencia-aerodromos/vista-vigencia-aerodromos.component';
+import { VistaVigenciaAereosComponent } from './componentes/aereos/vista-vigencia-aereos/vista-vigencia-aereos.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -23,6 +29,11 @@ import { BrowserModule } from '@angular/platform-browser';
     AereosComponent,
     TransitoComponent,
     AerodromosComponent,
+    VigenciasComponent,
+    VistaVigenciaTransitoComponent,
+    VistaVigenciaEjecucionComponent,
+    VistaVigenciaAerodromosComponent,
+    VistaVigenciaAereosComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +45,8 @@ import { BrowserModule } from '@angular/platform-browser';
     InputsModule,
     InformacionGeneralModule,
     PipesModule,
-    RouterModule
+    RouterModule,
+    NgxPaginationModule
   ]
 })
 export class EjecucionModule { }

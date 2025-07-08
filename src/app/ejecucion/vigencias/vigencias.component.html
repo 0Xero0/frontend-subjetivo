@@ -1,0 +1,33 @@
+<h4>Listado de vigencias</h4>
+
+<table class="table">
+  <thead class="encabezado">
+    <tr>
+      <th scope="col">N°</th>
+      <th scope="col">Vigencia</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody class="cuerpo">
+    <tr
+      *ngFor="let registro of registros | paginate: { itemsPerPage: itemPorPagina, currentPage: pagina, id:'vigencias' }; let i = index">
+      <td>{{ i+1 }}</td>
+      <td>{{ registro.vigencia}}</td>
+      <td>{{ registro.estadoId }}</td>
+      <td>
+        <!-- Aquí puedes agregar botones para editar o eliminar -->
+        <button class="boton primario relleno" (click)="redirigir(registro)">
+          <i class="bi bi-eye"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-center">
+  <!-- Paginador -->
+  <pagination-controls class="pagination-controls" (pageChange)="[pagina = $event]" previousLabel="Anterior"
+    nextLabel="Siguiente" [maxSize]="7" [directionLinks]="true" [autoHide]="false" #paginador1 id="vigencias">
+  </pagination-controls>
+</div>
