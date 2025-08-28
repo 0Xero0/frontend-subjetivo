@@ -1554,159 +1554,159 @@ export class TransitoComponent implements OnInit {
 
   llenarPreguntas(preguntas:any){
     /* Gruas */
-    this.textG1 = preguntas.gruas[0].valor
-    this.numeroG1 = preguntas.gruas[1].valor
-    this.selectG2 = preguntas.gruas[2].valor
-    this.textG2 = preguntas.gruas[3].valor
-    this.textG3 = preguntas.gruas[4].valor
-    this.textG4 = preguntas.gruas[5].valor
-    this.numeroG2 = preguntas.gruas[6].valor
-    this.selectG3 = preguntas.gruas[8].valor
-    this.textG5 = preguntas.gruas[9].valor
-    this.selectG4 = preguntas.gruas[10].valor
-    this.fechaG1 = preguntas.gruas[11].valor
-    this.fechaG2 = preguntas.gruas[12].valor
-    this.selectG5 = preguntas.gruas[13].valor
-    this.numeroG3 = preguntas.gruas[14].valor
-    this.textG6 = preguntas.gruas[15].valor
-    this.numeroG5 = preguntas.gruas[17].valor
+    this.textG1 = this.preguntas.gruas.find((t: any) => t.preguntaId === 1)?.valor || "";
+    this.numeroG1 = this.preguntas.gruas.find((t: any) => t.preguntaId === 2)?.valor || "";
+    this.selectG2 = this.preguntas.gruas.find((t: any) => t.preguntaId === 3)?.valor || "";
+    this.textG2 = this.preguntas.gruas.find((t: any) => t.preguntaId === 4)?.valor || "";
+    this.textG3 = this.preguntas.gruas.find((t: any) => t.preguntaId === 5)?.valor || "";
+    this.textG4 = this.preguntas.gruas.find((t: any) => t.preguntaId === 6)?.valor || "";
+    this.numeroG2 = this.preguntas.gruas.find((t: any) => t.preguntaId === 7)?.valor || "";
+    this.selectG3 = this.preguntas.gruas.find((t: any) => t.preguntaId === 8)?.valor || "";
+    this.textG5 = this.preguntas.gruas.find((t: any) => t.preguntaId === 9)?.valor || "";
+    this.selectG4 = this.preguntas.gruas.find((t: any) => t.preguntaId === 10)?.valor || "";
+    this.fechaG1 = this.preguntas.gruas.find((t: any) => t.preguntaId === 11)?.valor || "";
+    this.fechaG2 = this.preguntas.gruas.find((t: any) => t.preguntaId === 12)?.valor || "";
+    this.selectG5 = this.preguntas.gruas.find((t: any) => t.preguntaId === 13)?.valor || "";
+    this.numeroG3 = this.preguntas.gruas.find((t: any) => t.preguntaId === 14)?.valor || "";
+    this.textG6 = this.preguntas.gruas.find((t: any) => t.preguntaId === 15)?.valor || "";
+    this.numeroG5 = this.preguntas.gruas.find((t: any) => t.preguntaId === 16)?.valor || "";
     /* patios */
-    this.textP1 = preguntas.patios[0].valor
-    this.numeroP1 = preguntas.patios[2].valor
-    this.selectP2 = preguntas.patios[2].valor
-    this.textP2 = preguntas.patios[3].valor
-    this.textP3 = preguntas.patios[4].valor
-    this.textP4 = preguntas.patios[5].valor
-    this.numeroP2 = preguntas.patios[6].valor
-    this.selectP3 = preguntas.patios[8].valor
-    this.textP5 = preguntas.patios[9].valor
-    this.selectP4 = preguntas.patios[10].valor
-    this.fechaP1 = preguntas.patios[11].valor
-    this.fechaP2 = preguntas.patios[12].valor
-    this.selectP5 = preguntas.patios[13].valor
-    this.numeroP3 = preguntas.patios[14].valor
-    this.textP6 = preguntas.patios[15].valor
-    this.numeroP5 = preguntas.patios[17].valor
+    this.textP1 = this.preguntas.patios.find((t: any) => t.preguntaId === 1)?.valor || "";
+    this.numeroP1 = this.preguntas.patios.find((t: any) => t.preguntaId === 2)?.valor || "";
+    this.selectP2 = this.preguntas.patios.find((t: any) => t.preguntaId === 3)?.valor || "";
+    this.textP2 = this.preguntas.patios.find((t: any) => t.preguntaId === 4)?.valor || "";
+    this.textP3 = this.preguntas.patios.find((t: any) => t.preguntaId === 5)?.valor || "";
+    this.textP4 = this.preguntas.patios.find((t: any) => t.preguntaId === 6)?.valor || "";
+    this.numeroP2 = this.preguntas.patios.find((t: any) => t.preguntaId === 7)?.valor || "";
+    this.selectP3 = this.preguntas.patios.find((t: any) => t.preguntaId === 8)?.valor || "";
+    this.textP5 = this.preguntas.patios.find((t: any) => t.preguntaId === 9)?.valor || "";
+    this.selectP4 = this.preguntas.patios.find((t: any) => t.preguntaId === 10)?.valor || "";
+    this.fechaP1 = this.preguntas.patios.find((t: any) => t.preguntaId === 11)?.valor || "";
+    this.fechaP2 = this.preguntas.patios.find((t: any) => t.preguntaId === 12)?.valor || "";
+    this.selectP5 = this.preguntas.patios.find((t: any) => t.preguntaId === 13)?.valor || "";
+    this.numeroP3 = this.preguntas.patios.find((t: any) => t.preguntaId === 14)?.valor || "";
+    this.textP6 = this.preguntas.patios.find((t: any) => t.preguntaId === 15)?.valor || "";
+    this.numeroP5 = this.preguntas.patios.find((t: any) => t.preguntaId === 17)?.valor || "";
     /* tramitesTransito */
-    this.textT1 = preguntas.tramitesTransito[0].valor
-    this.numeroT1 = preguntas.tramitesTransito[1].valor
-    this.selectT2 = preguntas.tramitesTransito[2].valor
-    this.textT2 = preguntas.tramitesTransito[3].valor
-    this.textT3 = preguntas.tramitesTransito[4].valor
-    this.textT4 = preguntas.tramitesTransito[5].valor
-    this.numeroT2 = preguntas.tramitesTransito[6].valor
-    this.selectT3 = preguntas.tramitesTransito[8].valor
-    this.textT5 = preguntas.tramitesTransito[9].valor
-    this.selectT4 = preguntas.tramitesTransito[10].valor
-    this.fechaT1 = preguntas.tramitesTransito[11].valor
-    this.fechaT2 = preguntas.tramitesTransito[12].valor
-    this.selectT5 = preguntas.tramitesTransito[13].valor
-    this.numeroT3 = preguntas.tramitesTransito[14].valor
-    this.textT6 = preguntas.tramitesTransito[15].valor
-    this.numeroT5 = preguntas.tramitesTransito[17].valor
+    this.textT1 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 1)?.valor || "";
+    this.numeroT1 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 2)?.valor || "";
+    this.selectT2 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 3)?.valor || "";
+    this.textT2 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 4)?.valor || "";
+    this.textT3 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 5)?.valor || "";
+    this.textT4 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 6)?.valor || "";
+    this.numeroT2 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 7)?.valor || "";
+    this.selectT3 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 9)?.valor || "";
+    this.textT5 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 10)?.valor || "";
+    this.selectT4 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 11)?.valor || "";
+    this.fechaT1 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 12)?.valor || "";
+    this.fechaT2 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 13)?.valor || "";
+    this.selectT5 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 14)?.valor || "";
+    this.numeroT3 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 15)?.valor || "";
+    this.textT6 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 16)?.valor || "";
+    this.numeroT5 = this.preguntas.tramitesTransito.find((t: any) => t.preguntaId === 18)?.valor || "";
     /* deteccionInfracciones */
-    this.textD1 = preguntas.deteccionInfracciones[0].valor
-    this.numeroD1 = preguntas.deteccionInfracciones[1].valor
-    this.selectD2 = preguntas.deteccionInfracciones[2].valor
-    this.textD2 = preguntas.deteccionInfracciones[3].valor
-    this.textD3 = preguntas.deteccionInfracciones[4].valor
-    this.textD4 = preguntas.deteccionInfracciones[5].valor
-    this.numeroD2 = preguntas.deteccionInfracciones[6].valor
-    this.selectD3 = preguntas.deteccionInfracciones[8].valor
-    this.textD5 = preguntas.deteccionInfracciones[9].valor
-    this.selectD4 = preguntas.deteccionInfracciones[10].valor
-    this.fechaD1 = preguntas.deteccionInfracciones[11].valor
-    this.fechaD2 = preguntas.deteccionInfracciones[12].valor
-    this.selectD5 = preguntas.deteccionInfracciones[13].valor
-    this.numeroD3 = preguntas.deteccionInfracciones[14].valor
-    this.textD6 = preguntas.deteccionInfracciones[15].valor
-    this.numeroD5 = preguntas.deteccionInfracciones[17].valor
+    this.textD1 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 1)?.valor || "";
+    this.numeroD1 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 2)?.valor || "";
+    this.selectD2 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 3)?.valor || "";
+    this.textD2 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 4)?.valor || "";
+    this.textD3 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 5)?.valor || "";
+    this.textD4 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 6)?.valor || "";
+    this.numeroD2 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 7)?.valor || "";
+    this.selectD3 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 8)?.valor || "";
+    this.textD5 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 9)?.valor || "";
+    this.selectD4 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 10)?.valor || "";
+    this.fechaD1 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 11)?.valor || "";
+    this.fechaD2 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 12)?.valor || "";
+    this.selectD5 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 13)?.valor || "";
+    this.numeroD3 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 14)?.valor || "";
+    this.textD6 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 15)?.valor || "";
+    this.numeroD5 = this.preguntas.deteccionInfracciones.find((t: any) => t.preguntaId === 17)?.valor || "";
     /* procesosContravencionales */
-    this.textPC1 = preguntas.procesosContravencionales[0].valor
-    this.numeroPC1 = preguntas.procesosContravencionales[1].valor
-    this.selectPC2 = preguntas.procesosContravencionales[2].valor
-    this.textPC2 = preguntas.procesosContravencionales[3].valor
-    this.textPC3 = preguntas.procesosContravencionales[4].valor
-    this.textPC4 = preguntas.procesosContravencionales[5].valor
-    this.numeroPC2 = preguntas.procesosContravencionales[6].valor
-    this.selectPC3 = preguntas.procesosContravencionales[8].valor
-    this.textPC5 = preguntas.procesosContravencionales[9].valor
-    this.selectPC4 = preguntas.procesosContravencionales[10].valor
-    this.fechaPC1 = preguntas.procesosContravencionales[11].valor
-    this.fechaPC2 = preguntas.procesosContravencionales[12].valor
-    this.selectPC5 = preguntas.procesosContravencionales[13].valor
-    this.numeroPC3 = preguntas.procesosContravencionales[14].valor
-    this.textPC6 = preguntas.procesosContravencionales[15].valor
-    this.numeroPC5 = preguntas.procesosContravencionales[17].valor
+    this.textPC1 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 1)?.valor || "";
+    this.numeroPC1 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 2)?.valor || "";
+    this.selectPC2 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 3)?.valor || "";
+    this.textPC2 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 4)?.valor || "";
+    this.textPC3 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 5)?.valor || "";
+    this.textPC4 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 6)?.valor || "";
+    this.numeroPC2 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 7)?.valor || "";
+    this.selectPC3 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 8)?.valor || "";
+    this.textPC5 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 9)?.valor || "";
+    this.selectPC4 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 10)?.valor || "";
+    this.fechaPC1 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 11)?.valor || "";
+    this.fechaPC2 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 12)?.valor || "";
+    this.selectPC5 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 13)?.valor || "";
+    this.numeroPC3 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 14)?.valor || "";
+    this.textPC6 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 15)?.valor || "";
+    this.numeroPC5 = this.preguntas.procesosContravencionales.find((t: any) => t.preguntaId === 17)?.valor || "";
     /* procesoCobroCoactivo */
-    this.textPCC1 = preguntas.procesoCobroCoactivo[0].valor
-    this.numeroPCC1 = preguntas.procesoCobroCoactivo[1].valor
-    this.selectPCC2 = preguntas.procesoCobroCoactivo[2].valor
-    this.textPCC2 = preguntas.procesoCobroCoactivo[3].valor
-    this.textPCC3 = preguntas.procesoCobroCoactivo[4].valor
-    this.textPCC4 = preguntas.procesoCobroCoactivo[5].valor
-    this.numeroPCC2 = preguntas.procesoCobroCoactivo[6].valor
-    this.selectPCC3 = preguntas.procesoCobroCoactivo[8].valor
-    this.textPCC5 = preguntas.procesoCobroCoactivo[9].valor
-    this.selectPCC4 = preguntas.procesoCobroCoactivo[10].valor
-    this.fechaPCC1 = preguntas.procesoCobroCoactivo[11].valor
-    this.fechaPCC2 = preguntas.procesoCobroCoactivo[12].valor
-    this.selectPCC5 = preguntas.procesoCobroCoactivo[13].valor
-    this.numeroPCC3 = preguntas.procesoCobroCoactivo[14].valor
-    this.textPCC6 = preguntas.procesoCobroCoactivo[15].valor
-    this.numeroPCC5 = preguntas.procesoCobroCoactivo[17].valor
+    this.textPCC1 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 1)?.valor || "";
+    this.numeroPCC1 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 2)?.valor || "";
+    this.selectPCC2 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 3)?.valor || "";
+    this.textPCC2 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 4)?.valor || "";
+    this.textPCC3 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 5)?.valor || "";
+    this.textPCC4 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 6)?.valor || "";
+    this.numeroPCC2 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 7)?.valor || "";
+    this.selectPCC3 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 8)?.valor || "";
+    this.textPCC5 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 9)?.valor || "";
+    this.selectPCC4 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 10)?.valor || "";
+    this.fechaPCC1 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 11)?.valor || "";
+    this.fechaPCC2 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 12)?.valor || "";
+    this.selectPCC5 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 13)?.valor || "";
+    this.numeroPCC3 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 14)?.valor || "";
+    this.textPCC6 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 15)?.valor || "";
+    this.numeroPCC5 = this.preguntas.procesoCobroCoactivo.find((t: any) => t.preguntaId === 17)?.valor || "";
     /* procesoCobroPersuasivo */
-    this.textPCP1 = preguntas.procesoCobroPersuasivo[0].valor
-    this.numeroPCP1 = preguntas.procesoCobroPersuasivo[1].valor
-    this.selectPCP2 = preguntas.procesoCobroPersuasivo[2].valor
-    this.textPCP2 = preguntas.procesoCobroPersuasivo[3].valor
-    this.textPCP3 = preguntas.procesoCobroPersuasivo[4].valor
-    this.textPCP4 = preguntas.procesoCobroPersuasivo[5].valor
-    this.numeroPCP2 = preguntas.procesoCobroPersuasivo[6].valor
-    this.selectPCP3 = preguntas.procesoCobroPersuasivo[8].valor
-    this.textPCP5 = preguntas.procesoCobroPersuasivo[9].valor
-    this.selectPCP4 = preguntas.procesoCobroPersuasivo[10].valor
-    this.fechaPCP1 = preguntas.procesoCobroPersuasivo[11].valor
-    this.fechaPCP2 = preguntas.procesoCobroPersuasivo[12].valor
-    this.selectPCP5 = preguntas.procesoCobroPersuasivo[13].valor
-    this.numeroPCP3 = preguntas.procesoCobroPersuasivo[14].valor
-    this.textPCP6 = preguntas.procesoCobroPersuasivo[15].valor
-    this.numeroPCP5 = preguntas.procesoCobroPersuasivo[17].valor
+    this.textPCP1 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 1)?.valor || "";
+    this.numeroPCP1 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 2)?.valor || "";
+    this.selectPCP2 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 3)?.valor || "";
+    this.textPCP2 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 4)?.valor || "";
+    this.textPCP3 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 5)?.valor || "";
+    this.textPCP4 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 6)?.valor || "";
+    this.numeroPCP2 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 7)?.valor || "";
+    this.selectPCP3 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 8)?.valor || "";
+    this.textPCP5 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 9)?.valor || "";
+    this.selectPCP4 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 10)?.valor || "";
+    this.fechaPCP1 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 11)?.valor || "";
+    this.fechaPCP2 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 12)?.valor || "";
+    this.selectPCP5 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 13)?.valor || "";
+    this.numeroPCP3 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 14)?.valor || "";
+    this.textPCP6 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 15)?.valor || "";
+    this.numeroPCP5 = this.preguntas.procesoCobroPersuasivo.find((t: any) => t.preguntaId === 17)?.valor || "";
     /* recaudoMultas */
-    this.textR1 = preguntas.recaudoMultas[0].valor
-    this.numeroR1 = preguntas.recaudoMultas[1].valor
-    this.selectR2 = preguntas.recaudoMultas[2].valor
-    this.textR2 = preguntas.recaudoMultas[3].valor
-    this.textR3 = preguntas.recaudoMultas[4].valor
-    this.textR4 = preguntas.recaudoMultas[5].valor
-    this.numeroR2 = preguntas.recaudoMultas[6].valor
-    this.selectR3 = preguntas.recaudoMultas[8].valor
-    this.textR5 = preguntas.recaudoMultas[9].valor
-    this.selectR4 = preguntas.recaudoMultas[10].valor
-    this.fechaR1 = preguntas.recaudoMultas[11].valor
-    this.fechaR2 = preguntas.recaudoMultas[12].valor
-    this.selectR5 = preguntas.recaudoMultas[13].valor
-    this.numeroR3 = preguntas.recaudoMultas[14].valor
-    this.textR6 = preguntas.recaudoMultas[15].valor
-    this.numeroR5 = preguntas.recaudoMultas[17].valor
+    this.textR1 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 1)?.valor || "";
+    this.numeroR1 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 2)?.valor || "";
+    this.selectR2 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 3)?.valor || "";
+    this.textR2 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 4)?.valor || "";
+    this.textR3 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 5)?.valor || "";
+    this.textR4 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 6)?.valor || "";
+    this.numeroR2 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 7)?.valor || "";
+    this.selectR3 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 8)?.valor || "";
+    this.textR5 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 9)?.valor || "";
+    this.selectR4 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 10)?.valor || "";
+    this.fechaR1 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 11)?.valor || "";
+    this.fechaR2 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 12)?.valor || "";
+    this.selectR5 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 13)?.valor || "";
+    this.numeroR3 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 14)?.valor || "";
+    this.textR6 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 15)?.valor || "";
+    this.numeroR5 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 17)?.valor || "";
     /* otros */
-    this.textO0 = preguntas.otros[18].valor
-    this.textO1 = preguntas.otros[0].valor
-    this.numeroO1 = preguntas.otros[1].valor
-    this.selectO2 = preguntas.otros[2].valor
-    this.textO2 = preguntas.otros[3].valor
-    this.textO3 = preguntas.otros[4].valor
-    this.textO4 = preguntas.otros[5].valor
-    this.numeroO2 = preguntas.otros[6].valor
-    this.selectO3 = preguntas.otros[8].valor
-    this.textO5 = preguntas.otros[9].valor
-    this.selectO4 = preguntas.otros[10].valor
-    this.fechaO1 = preguntas.otros[11].valor
-    this.fechaO2 = preguntas.otros[12].valor
-    this.selectO5 = preguntas.otros[13].valor
-    this.numeroO3 = preguntas.otros[14].valor
-    this.textO6 = preguntas.otros[15].valor
-    this.numeroO5 = preguntas.otros[17].valor
+    this.textO0 = this.preguntas.otros.find((t: any) => t.preguntaId === 18)?.valor || "";
+    this.textO1 = this.preguntas.otros.find((t: any) => t.preguntaId === 0)?.valor || "";
+    this.numeroO1 = this.preguntas.otros.find((t: any) => t.preguntaId === 1)?.valor || "";
+    this.selectO2 = this.preguntas.otros.find((t: any) => t.preguntaId === 2)?.valor || "";
+    this.textO2 = this.preguntas.otros.find((t: any) => t.preguntaId === 3)?.valor || "";
+    this.textO3 = this.preguntas.otros.find((t: any) => t.preguntaId === 4)?.valor || "";
+    this.textO4 = this.preguntas.otros.find((t: any) => t.preguntaId === 5)?.valor || "";
+    this.numeroO2 = this.preguntas.otros.find((t: any) => t.preguntaId === 6)?.valor || "";
+    this.selectO3 = this.preguntas.otros.find((t: any) => t.preguntaId === 8)?.valor || "";
+    this.textO5 = this.preguntas.otros.find((t: any) => t.preguntaId === 9)?.valor || "";
+    this.selectO4 = this.preguntas.otros.find((t: any) => t.preguntaId === 10)?.valor || "";
+    this.fechaO1 = this.preguntas.otros.find((t: any) => t.preguntaId === 11)?.valor || "";
+    this.fechaO2 = this.preguntas.otros.find((t: any) => t.preguntaId === 12)?.valor || "";
+    this.selectO5 = this.preguntas.otros.find((t: any) => t.preguntaId === 13)?.valor || "";
+    this.numeroO3 = this.preguntas.otros.find((t: any) => t.preguntaId === 14)?.valor || "";
+    this.textO6 = this.preguntas.otros.find((t: any) => t.preguntaId === 15)?.valor || "";
+    this.numeroO5 = this.preguntas.otros.find((t: any) => t.preguntaId === 17)?.valor || "";
   }
 
   volverAVigencias(): void {

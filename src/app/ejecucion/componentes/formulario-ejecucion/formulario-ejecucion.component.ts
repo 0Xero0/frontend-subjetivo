@@ -283,43 +283,51 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
           this.hayCambios = true
         }
         //Inicializar variables
-        this.selectL1 = this.portuarias[0].valor
-        this.selectL2 = this.portuarias[1].valor
-        this.selectL3 = this.portuarias[2].valor
-        this.selectL4 = this.portuarias[3].valor
-        this.selectL5 = this.portuarias[4].valor;this.resArchivoL5 = this.portuarias[4]
-        this.selectL6 = this.portuarias[5].valor
-        this.selectL7 = this.portuarias[6].valor
-        this.numberL8 = this.portuarias[7].valor;this.resArchivoL8 = this.portuarias[7]
-        this.selectL9 = this.portuarias[8].valor
-        this.selectL10 = this.portuarias[9].valor
-        this.selectL11 = this.portuarias[10].valor
-        this.selectL12 = this.portuarias[11].valor
-        this.selectL13 = this.portuarias[12].valor
-        this.selectL14 = this.portuarias[13].valor
-        this.selectL15 = this.portuarias[14].valor
-        this.selectL16 = this.portuarias[15].valor
-        this.selectL17 = this.portuarias[16].valor
-        this.selectL18 = this.portuarias[17].valor
-        this.selectL19 = this.portuarias[18].valor
-        this.selectL20 = this.portuarias[19].valor
-        this.selectL21 = this.portuarias[20].valor
-        this.selectL22 = this.portuarias[21].valor
-        this.selectL23 = this.portuarias[22].valor
-        this.selectL24 = this.portuarias[23].valor;this.resArchivoL5T3 = this.portuarias[23]
-        this.selectL25 = this.portuarias[24].valor
-        this.selectL26 = this.portuarias[25].valor;this.resArchivoL7T3 = this.portuarias[25]
-        this.selectL27 = this.portuarias[26].valor
-        this.selectL28 = this.portuarias[27].valor
-        this.selectL29 = this.portuarias[28].valor;this.resArchivoL1T4 = this.portuarias[28]
-        this.textArea30 = this.portuarias[29].valor
-        this.selectL31 = this.portuarias[30].valor;this.resArchivoL3T4 = this.portuarias[30]
-        this.selectL32 = this.portuarias[31].valor;this.resArchivoL4T4 = this.portuarias[31]
-        this.selectL33 = this.portuarias[32].valor
-        this.selectL34 = this.portuarias[33].valor
-        this.selectL35 = this.portuarias[34].valor
-        this.selectL36 = this.portuarias[35].valor;this.resArchivoL3T5 = this.portuarias[35]
-        this.selectL37 = this.portuarias[36].valor;this.resArchivoL4T5 = this.portuarias[36]
+        this.selectL1 = this.portuarias.find((t: any) => t.preguntaId === 1)?.valor || "";
+        this.selectL2 = this.portuarias.find((t: any) => t.preguntaId === 2)?.valor || "";
+        this.selectL3 = this.portuarias.find((t: any) => t.preguntaId === 3)?.valor || "";
+        this.selectL4 = this.portuarias.find((t: any) => t.preguntaId === 4)?.valor || "";
+        this.selectL5 = this.portuarias.find((t: any) => t.preguntaId === 5)?.valor || ""; this.resArchivoL5 = this.portuarias.find((t: any) => t.preguntaId === 5);
+        this.selectL6 = this.portuarias.find((t: any) => t.preguntaId === 6)?.valor || "";
+        this.selectL7 = this.portuarias.find((t: any) => t.preguntaId === 7)?.valor || "";
+        const pregunta8 = this.portuarias.find((t: any) => t.preguntaId === 8);
+        this.numberL8 = pregunta8 ? pregunta8.valor : ""; this.resArchivoL8 = pregunta8;
+        this.selectL9 = this.portuarias.find((t: any) => t.preguntaId === 9)?.valor || "";
+        this.selectL10 = this.portuarias.find((t: any) => t.preguntaId === 10)?.valor || "";
+        this.selectL11 = this.portuarias.find((t: any) => t.preguntaId === 11)?.valor || "";
+        this.selectL12 = this.portuarias.find((t: any) => t.preguntaId === 12)?.valor || "";
+        this.selectL13 = this.portuarias.find((t: any) => t.preguntaId === 13)?.valor || "";
+        this.selectL14 = this.portuarias.find((t: any) => t.preguntaId === 14)?.valor || "";
+        this.selectL15 = this.portuarias.find((t: any) => t.preguntaId === 15)?.valor || "";
+        this.selectL16 = this.portuarias.find((t: any) => t.preguntaId === 16)?.valor || "";
+        this.selectL17 = this.portuarias.find((t: any) => t.preguntaId === 17)?.valor || "";
+        this.selectL18 = this.portuarias.find((t: any) => t.preguntaId === 18)?.valor || "";
+        this.selectL19 = this.portuarias.find((t: any) => t.preguntaId === 19)?.valor || "";
+        this.selectL20 = this.portuarias.find((t: any) => t.preguntaId === 20)?.valor || "";
+        this.selectL21 = this.portuarias.find((t: any) => t.preguntaId === 21)?.valor || "";
+        this.selectL22 = this.portuarias.find((t: any) => t.preguntaId === 22)?.valor || "";
+        this.selectL23 = this.portuarias.find((t: any) => t.preguntaId === 23)?.valor || "";
+        const pregunta24 = this.portuarias.find((t: any) => t.preguntaId === 24);
+        this.selectL24 = pregunta24 ? pregunta24.valor : ""; this.resArchivoL5T3 = pregunta24;
+        this.selectL25 = this.portuarias.find((t: any) => t.preguntaId === 25)?.valor || "";
+        const pregunta26 = this.portuarias.find((t: any) => t.preguntaId === 26);
+        this.selectL26 = pregunta26 ? pregunta26.valor : ""; this.resArchivoL7T3 = pregunta26;
+        this.selectL27 = this.portuarias.find((t: any) => t.preguntaId === 27)?.valor || "";
+        this.selectL28 = this.portuarias.find((t: any) => t.preguntaId === 28)?.valor || "";
+        const pregunta29 = this.portuarias.find((t: any) => t.preguntaId === 29);
+        this.selectL29 = pregunta29 ? pregunta29.valor : ""; this.resArchivoL1T4 = pregunta29;
+        this.textArea30 = this.portuarias.find((t: any) => t.preguntaId === 30)?.valor || "";
+        const pregunta31 = this.portuarias.find((t: any) => t.preguntaId === 31);
+        this.selectL31 = pregunta31 ? pregunta31.valor : ""; this.resArchivoL3T4 = pregunta31;
+        const pregunta32 = this.portuarias.find((t: any) => t.preguntaId === 32);
+        this.selectL32 = pregunta32 ? pregunta32.valor : ""; this.resArchivoL4T4 = pregunta32;
+        this.selectL33 = this.portuarias.find((t: any) => t.preguntaId === 33)?.valor || "";
+        this.selectL34 = this.portuarias.find((t: any) => t.preguntaId === 34)?.valor || "";
+        this.selectL35 = this.portuarias.find((t: any) => t.preguntaId === 35)?.valor || "";
+        const pregunta36 = this.portuarias.find((t: any) => t.preguntaId === 36);
+        this.selectL36 = pregunta36 ? pregunta36.valor : ""; this.resArchivoL3T5 = pregunta36;
+        const pregunta37 = this.portuarias.find((t: any) => t.preguntaId === 37);
+        this.selectL37 = pregunta37 ? pregunta37.valor : ""; this.resArchivoL4T5 = pregunta37;
         //console.log(this.portuarias);
       }
     })
