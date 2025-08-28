@@ -102,33 +102,60 @@ export class AereosComponent implements OnInit, OnChanges {
           this.hayCambios = true
         }
         //Inicializar variables
-        this.selectL1 = this.transporte[0].valor
-        this.selectL2 = this.transporte[1].valor
-        this.selectL3 = this.transporte[2].valor
-        this.selectL4 = this.transporte[3].valor
-        this.selectL5 = this.transporte[4].valor; this.resArchivoT1L5 = this.transporte[4]
-        this.selectL6 = this.transporte[5].valor; this.resArchivoT1L6 = this.transporte[5]
-        this.selectL7 = this.transporte[6].valor
-        this.numberL8 = this.transporte[7].valor; this.resArchivoT1L8 = this.transporte[7]
-        this.selectL9 = this.transporte[8].valor
-        this.selectL10 = this.transporte[9].valor
-        this.selectL11 = this.transporte[10].valor
-        this.selectL12 = this.transporte[11].valor
-        this.selectL13 = this.transporte[12].valor
-        this.selectL14 = this.transporte[13].valor
-        this.selectL15 = this.transporte[14].valor
-        this.selectL16 = this.transporte[15].valor
-        this.selectL17 = this.transporte[16].valor
-        this.selectL18 = this.transporte[17].valor
-        this.selectL19 = this.transporte[18].valor
-        this.selectL20 = this.transporte[19].valor; this.resArchivoT3L4 = this.transporte[19]
-        this.selectL21 = this.transporte[20].valor; this.resArchivoT3L5 = this.transporte[20]
-        this.selectL22 = this.transporte[21].valor
-        this.selectL23 = this.transporte[22].valor
-        this.selectL24 = this.transporte[23].valor
-        this.selectL25 = this.transporte[24].valor
-        this.selectL26 = this.transporte[25].valor; this.resArchivoT5L3 = this.transporte[25]
-        this.selectL27 = this.transporte[26].valor; this.resArchivoT5L4 = this.transporte[26]
+        const pregunta1 = this.transporte.find((t: any) => t.preguntaId === 1);
+        this.selectL1 = pregunta1 ? pregunta1.valor : "";
+        const pregunta2 = this.transporte.find((t: any) => t.preguntaId === 2);
+        this.selectL2 = pregunta2 ? pregunta2.valor : "";
+        const pregunta3 = this.transporte.find((t: any) => t.preguntaId === 3);
+        this.selectL3 = pregunta3 ? pregunta3.valor : "";
+        const pregunta4 = this.transporte.find((t: any) => t.preguntaId === 4);
+        this.selectL4 = pregunta4 ? pregunta4.valor : "";
+        const pregunta5 = this.transporte.find((t: any) => t.preguntaId === 5);
+        this.selectL5 = pregunta5 ? pregunta5.valor : ""; this.resArchivoT1L5 = pregunta5;
+        const pregunta6 = this.transporte.find((t: any) => t.preguntaId === 6);
+        this.selectL6 = pregunta6 ? pregunta6.valor : ""; this.resArchivoT1L6 = pregunta6;
+        const pregunta7 = this.transporte.find((t: any) => t.preguntaId === 7);
+        this.selectL7 = pregunta7 ? pregunta7.valor : "";
+        const pregunta8 = this.transporte.find((t: any) => t.preguntaId === 8);
+        this.numberL8 = pregunta8 ? pregunta8.valor : ""; this.resArchivoT1L8 = pregunta8;
+        const pregunta9 = this.transporte.find((t: any) => t.preguntaId === 9);
+        this.selectL9 = pregunta9 ? pregunta9.valor : "";
+        const pregunta10 = this.transporte.find((t: any) => t.preguntaId === 10);
+        this.selectL10 = pregunta10 ? pregunta10.valor : "";
+        const pregunta11 = this.transporte.find((t: any) => t.preguntaId === 11);
+        this.selectL11 = pregunta11 ? pregunta11.valor : "";
+        const pregunta12 = this.transporte.find((t: any) => t.preguntaId === 12);
+        this.selectL12 = pregunta12 ? pregunta12.valor : "";
+        const pregunta13 = this.transporte.find((t: any) => t.preguntaId === 13);
+        this.selectL13 = pregunta13 ? pregunta13.valor : "";
+        const pregunta14 = this.transporte.find((t: any) => t.preguntaId === 14);
+        this.selectL14 = pregunta14 ? pregunta14.valor : "";
+        const pregunta15 = this.transporte.find((t: any) => t.preguntaId === 15);
+        this.selectL15 = pregunta15 ? pregunta15.valor : "";
+        const pregunta16 = this.transporte.find((t: any) => t.preguntaId === 16);
+        this.selectL16 = pregunta16 ? pregunta16.valor : "";
+        const pregunta17 = this.transporte.find((t: any) => t.preguntaId === 17);
+        this.selectL17 = pregunta17 ? pregunta17.valor : "";
+        const pregunta18 = this.transporte.find((t: any) => t.preguntaId === 18);
+        this.selectL18 = pregunta18 ? pregunta18.valor : "";
+        const pregunta19 = this.transporte.find((t: any) => t.preguntaId === 19);
+        this.selectL19 = pregunta19 ? pregunta19.valor : "";
+        const pregunta20 = this.transporte.find((t: any) => t.preguntaId === 20);
+        this.selectL20 = pregunta20 ? pregunta20.valor : ""; this.resArchivoT3L4 = pregunta20;
+        const pregunta21 = this.transporte.find((t: any) => t.preguntaId === 21);
+        this.selectL21 = pregunta21 ? pregunta21.valor : ""; this.resArchivoT3L5 = pregunta21;
+        const pregunta22 = this.transporte.find((t: any) => t.preguntaId === 22);
+        this.selectL22 = pregunta22 ? pregunta22.valor : "";
+        const pregunta23 = this.transporte.find((t: any) => t.preguntaId === 23);
+        this.selectL23 = pregunta23 ? pregunta23.valor : "";
+        const pregunta24 = this.transporte.find((t: any) => t.preguntaId === 24);
+        this.selectL24 = pregunta24 ? pregunta24.valor : "";
+        const pregunta25 = this.transporte.find((t: any) => t.preguntaId === 25);
+        this.selectL25 = pregunta25 ? pregunta25.valor : "";
+        const pregunta26 = this.transporte.find((t: any) => t.preguntaId === 26);
+        this.selectL26 = pregunta26 ? pregunta26.valor : ""; this.resArchivoT5L3 = pregunta26;
+        const pregunta27 = this.transporte.find((t: any) => t.preguntaId === 27);
+        this.selectL27 = pregunta27 ? pregunta27.valor : ""; this.resArchivoT5L4 = pregunta27;
         //console.log(this.portuarias);
       }
     })
