@@ -92,6 +92,7 @@ export class AereosComponent implements OnInit, OnChanges {
     this.servicio.obtenerTransporte(this.vigencia).subscribe({
       next: (respuesta: any) => {
         this.transporte = respuesta['preguntas']
+        console.log(this.transporte);
         for (let i = 1; i <= 27; i++) {
           this.cambioRespuestaSelect(this.transporte[i - 1].valor, i)
         }
@@ -102,39 +103,39 @@ export class AereosComponent implements OnInit, OnChanges {
           this.hayCambios = true
         }
         //Inicializar variables
-        this.selectL1 = this.transporte.find((t: any) => t.preguntaId === 1)?.value || "";
-        this.selectL2 = this.transporte.find((t: any) => t.preguntaId === 2)?.value || "";
-        this.selectL3 = this.transporte.find((t: any) => t.preguntaId === 3)?.value || "";
-        this.selectL4 = this.transporte.find((t: any) => t.preguntaId === 4)?.value || "";
-        this.selectL5 = this.transporte.find((t: any) => t.preguntaId === 5)?.value || "";
+        this.selectL1 = this.transporte.find((t: any) => t.preguntaId === 1)?.valor || "";
+        this.selectL2 = this.transporte.find((t: any) => t.preguntaId === 2)?.valor || "";
+        this.selectL3 = this.transporte.find((t: any) => t.preguntaId === 3)?.valor || "";
+        this.selectL4 = this.transporte.find((t: any) => t.preguntaId === 4)?.valor || "";
+        this.selectL5 = this.transporte.find((t: any) => t.preguntaId === 5)?.valor || "";
         this.resArchivoT1L5 = this.transporte.find((t: any) => t.preguntaId === 5);
-        this.selectL6 = this.transporte.find((t: any) => t.preguntaId === 6)?.value || "";
+        this.selectL6 = this.transporte.find((t: any) => t.preguntaId === 6)?.valor || "";
         this.resArchivoT1L6 = this.transporte.find((t: any) => t.preguntaId === 6);
-        this.selectL7 = this.transporte.find((t: any) => t.preguntaId === 7)?.value || "";
-        this.numberL8 = this.transporte.find((t: any) => t.preguntaId === 8)?.value || "";
+        this.selectL7 = this.transporte.find((t: any) => t.preguntaId === 7)?.valor || "";
+        this.numberL8 = this.transporte.find((t: any) => t.preguntaId === 8)?.valor || "";
         this.resArchivoT1L8 = this.transporte.find((t: any) => t.preguntaId === 8);
-        this.selectL9 = this.transporte.find((t: any) => t.preguntaId === 9)?.value || "";
-        this.selectL10 = this.transporte.find((t: any) => t.preguntaId === 10)?.value || "";
-        this.selectL11 = this.transporte.find((t: any) => t.preguntaId === 11)?.value || "";
-        this.selectL12 = this.transporte.find((t: any) => t.preguntaId === 12)?.value || "";
-        this.selectL13 = this.transporte.find((t: any) => t.preguntaId === 13)?.value || "";
-        this.selectL14 = this.transporte.find((t: any) => t.preguntaId === 14)?.value || "";
-        this.selectL15 = this.transporte.find((t: any) => t.preguntaId === 15)?.value || "";
-        this.selectL16 = this.transporte.find((t: any) => t.preguntaId === 16)?.value || "";
-        this.selectL17 = this.transporte.find((t: any) => t.preguntaId === 17)?.value || "";
-        this.selectL18 = this.transporte.find((t: any) => t.preguntaId === 18)?.value || "";
-        this.selectL19 = this.transporte.find((t: any) => t.preguntaId === 19)?.value || "";
-        this.selectL20 = this.transporte.find((t: any) => t.preguntaId === 20)?.value || "";
+        this.selectL9 = this.transporte.find((t: any) => t.preguntaId === 9)?.valor || "";
+        this.selectL10 = this.transporte.find((t: any) => t.preguntaId === 10)?.valor || "";
+        this.selectL11 = this.transporte.find((t: any) => t.preguntaId === 11)?.valor || "";
+        this.selectL12 = this.transporte.find((t: any) => t.preguntaId === 12)?.valor || "";
+        this.selectL13 = this.transporte.find((t: any) => t.preguntaId === 13)?.valor || "";
+        this.selectL14 = this.transporte.find((t: any) => t.preguntaId === 14)?.valor || "";
+        this.selectL15 = this.transporte.find((t: any) => t.preguntaId === 15)?.valor || "";
+        this.selectL16 = this.transporte.find((t: any) => t.preguntaId === 16)?.valor || "";
+        this.selectL17 = this.transporte.find((t: any) => t.preguntaId === 17)?.valor || "";
+        this.selectL18 = this.transporte.find((t: any) => t.preguntaId === 18)?.valor || "";
+        this.selectL19 = this.transporte.find((t: any) => t.preguntaId === 19)?.valor || "";
+        this.selectL20 = this.transporte.find((t: any) => t.preguntaId === 20)?.valor || "";
         this.resArchivoT3L4 = this.transporte.find((t: any) => t.preguntaId === 20);
-        this.selectL21 = this.transporte.find((t: any) => t.preguntaId === 21)?.value || "";
+        this.selectL21 = this.transporte.find((t: any) => t.preguntaId === 21)?.valor || "";
         this.resArchivoT3L5 = this.transporte.find((t: any) => t.preguntaId === 21);
-        this.selectL22 = this.transporte.find((t: any) => t.preguntaId === 22)?.value || "";
-        this.selectL23 = this.transporte.find((t: any) => t.preguntaId === 23)?.value || "";
-        this.selectL24 = this.transporte.find((t: any) => t.preguntaId === 24)?.value || "";
-        this.selectL25 = this.transporte.find((t: any) => t.preguntaId === 25)?.value || "";
-        this.selectL26 = this.transporte.find((t: any) => t.preguntaId === 26)?.value || "";
+        this.selectL22 = this.transporte.find((t: any) => t.preguntaId === 22)?.valor || "";
+        this.selectL23 = this.transporte.find((t: any) => t.preguntaId === 23)?.valor || "";
+        this.selectL24 = this.transporte.find((t: any) => t.preguntaId === 24)?.valor || "";
+        this.selectL25 = this.transporte.find((t: any) => t.preguntaId === 25)?.valor || "";
+        this.selectL26 = this.transporte.find((t: any) => t.preguntaId === 26)?.valor || "";
         this.resArchivoT5L3 = this.transporte.find((t: any) => t.preguntaId === 26);
-        this.selectL27 = this.transporte.find((t: any) => t.preguntaId === 27)?.value || "";
+        this.selectL27 = this.transporte.find((t: any) => t.preguntaId === 27)?.valor || "";
         this.resArchivoT5L4 = this.transporte.find((t: any) => t.preguntaId === 27);
         //console.log(this.portuarias);
       }
