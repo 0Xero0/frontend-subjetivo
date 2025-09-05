@@ -1091,9 +1091,9 @@ export class AerodromosComponent implements OnInit {
       {/* "PDF ACTA NOMBRAMIENTO" */
         "preguntaId": 46,
         "valor": "",
-        "nombreAlmacenado": this.resActaNombramiento?.nombreAlmacenado??''??''??'',
-        "nombreOriginalArchivo": this.resActaNombramiento?.nombreOriginalArchivo??''??''??'',
-        "ruta": this.resActaNombramiento?.ruta??''??''??'',
+        "nombreAlmacenado": this.resActaNombramiento?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resActaNombramiento?.nombreOriginalArchivo??'',
+        "ruta": this.resActaNombramiento?.ruta??'',
       },
       {/* "FECHA DE INSCRIPCION EN CC REPRESENTANTE" */
         "preguntaId": 47,
@@ -1105,9 +1105,9 @@ export class AerodromosComponent implements OnInit {
       {/* "PDF CAMARA Y COMERCIO" */
         "preguntaId": 48,
         "valor": "",
-        "nombreAlmacenado": this.resCC?.nombreAlmacenado??''??''??''??'',
-        "nombreOriginalArchivo": this.resCC?.nombreOriginalArchivo??''??''??''??'',
-        "ruta": this.resCC?.ruta??''??''??''??'',
+        "nombreAlmacenado": this.resCC?.nombreAlmacenado??'',
+        "nombreOriginalArchivo": this.resCC?.nombreOriginalArchivo??'',
+        "ruta": this.resCC?.ruta??'',
       },
       {/* "TIPO DE DOCUMENTO CONTADOR" */
         "preguntaId": 49,

@@ -1690,23 +1690,23 @@ export class TransitoComponent implements OnInit {
     this.textR6 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 16)?.valor || "";
     this.numeroR5 = this.preguntas.recaudoMultas.find((t: any) => t.preguntaId === 18)?.valor || "";
     /* otros */
-    this.textO0 = this.preguntas.otros.find((t: any) => t.preguntaId === 18)?.valor || "";
-    this.textO1 = this.preguntas.otros.find((t: any) => t.preguntaId === 0)?.valor || "";
-    this.numeroO1 = this.preguntas.otros.find((t: any) => t.preguntaId === 1)?.valor || "";
-    this.selectO2 = this.preguntas.otros.find((t: any) => t.preguntaId === 2)?.valor || "";
-    this.textO2 = this.preguntas.otros.find((t: any) => t.preguntaId === 3)?.valor || "";
-    this.textO3 = this.preguntas.otros.find((t: any) => t.preguntaId === 4)?.valor || "";
-    this.textO4 = this.preguntas.otros.find((t: any) => t.preguntaId === 5)?.valor || "";
-    this.numeroO2 = this.preguntas.otros.find((t: any) => t.preguntaId === 6)?.valor || "";
-    this.selectO3 = this.preguntas.otros.find((t: any) => t.preguntaId === 8)?.valor || "";
-    this.textO5 = this.preguntas.otros.find((t: any) => t.preguntaId === 9)?.valor || "";
-    this.selectO4 = this.preguntas.otros.find((t: any) => t.preguntaId === 10)?.valor || "";
-    this.fechaO1 = this.preguntas.otros.find((t: any) => t.preguntaId === 11)?.valor || "";
-    this.fechaO2 = this.preguntas.otros.find((t: any) => t.preguntaId === 12)?.valor || "";
-    this.selectO5 = this.preguntas.otros.find((t: any) => t.preguntaId === 13)?.valor || "";
-    this.numeroO3 = this.preguntas.otros.find((t: any) => t.preguntaId === 14)?.valor || "";
-    this.textO6 = this.preguntas.otros.find((t: any) => t.preguntaId === 15)?.valor || "";
-    this.numeroO5 = this.preguntas.otros.find((t: any) => t.preguntaId === 17)?.valor || "";
+    this.textO0 = this.preguntas.otros.find((t: any) => t.preguntaId === 19)?.valor || "";
+    this.textO1 = this.preguntas.otros.find((t: any) => t.preguntaId === 1)?.valor || "";
+    this.numeroO1 = this.preguntas.otros.find((t: any) => t.preguntaId === 2)?.valor || "";
+    this.selectO2 = this.preguntas.otros.find((t: any) => t.preguntaId === 3)?.valor || "";
+    this.textO2 = this.preguntas.otros.find((t: any) => t.preguntaId === 4)?.valor || "";
+    this.textO3 = this.preguntas.otros.find((t: any) => t.preguntaId === 5)?.valor || "";
+    this.textO4 = this.preguntas.otros.find((t: any) => t.preguntaId === 6)?.valor || "";
+    this.numeroO2 = this.preguntas.otros.find((t: any) => t.preguntaId === 7)?.valor || "";
+    this.selectO3 = this.preguntas.otros.find((t: any) => t.preguntaId === 9)?.valor || "";
+    this.textO5 = this.preguntas.otros.find((t: any) => t.preguntaId === 10)?.valor || "";
+    this.selectO4 = this.preguntas.otros.find((t: any) => t.preguntaId === 11)?.valor || "";
+    this.fechaO1 = this.preguntas.otros.find((t: any) => t.preguntaId === 12)?.valor || "";
+    this.fechaO2 = this.preguntas.otros.find((t: any) => t.preguntaId === 13)?.valor || "";
+    this.selectO5 = this.preguntas.otros.find((t: any) => t.preguntaId === 14)?.valor || "";
+    this.numeroO3 = this.preguntas.otros.find((t: any) => t.preguntaId === 15)?.valor || "";
+    this.textO6 = this.preguntas.otros.find((t: any) => t.preguntaId === 16)?.valor || "";
+    this.numeroO5 = this.preguntas.otros.find((t: any) => t.preguntaId === 18)?.valor || "";
   }
 
   volverAVigencias(): void {
