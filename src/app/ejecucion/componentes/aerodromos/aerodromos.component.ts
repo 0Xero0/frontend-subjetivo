@@ -1551,7 +1551,7 @@ export class AerodromosComponent implements OnInit {
     return [
       {/* "Ingresos de actividades ordinarias ó Ingresos Fiscales" */
         "preguntaId": 1,
-        "valor": this.IngrsoF1,
+        "valor": this.IngrsoF1.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1559,7 +1559,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "Ingresos de actividades ordinarias ó Ingresos Fiscales"  */
         "preguntaId": 1,
-        "valor": this.IngrsoF2,
+        "valor": this.IngrsoF2.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1567,7 +1567,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "Ingresos derivados de actividades de transporte, conexas y complementarias" */
         "preguntaId": 2,
-        "valor": this.IngrsoA1,
+        "valor": this.IngrsoA1.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1575,7 +1575,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "Ingresos derivados de actividades de transporte, conexas y complementarias" */
         "preguntaId": 2,
-        "valor": this.IngrsoA2,
+        "valor": this.IngrsoA2.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1583,7 +1583,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "Unidad de negocio (aeródromos a cargo de los entes territoriales." */
         "preguntaId": 3,
-        "valor": this.unidadN1,
+        "valor": this.unidadN1.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1591,7 +1591,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "Unidad de negocio (aeródromos a cargo de los entes territoriales." */
         "preguntaId": 3,
-        "valor": this.unidadN2,
+        "valor": this.unidadN2.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1599,7 +1599,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "INGRESOS FISCALES NO TRIBUTARIOS " */
         "preguntaId": 4,
-        "valor": this.ingresoFT1,
+        "valor": this.ingresoFT1.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1607,7 +1607,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "INGRESOS FISCALES NO TRIBUTARIOS " */
         "preguntaId": 4,
-        "valor": this.ingresoFT2,
+        "valor": this.ingresoFT2.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
