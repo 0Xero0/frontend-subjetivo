@@ -13,27 +13,29 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     }
   ]
 })
-export class InputBusquedaComponent implements OnInit, ControlValueAccessor{
+export class InputBusquedaComponent implements OnInit, ControlValueAccessor {
   texto: string = ""
   estaDeshabilitado: boolean = false
-
+  @Output() buscar = new EventEmitter<string>();
   constructor() {
   }
 
   ngOnInit(): void {
   }
 
-  manejar(texto: string){
+  manejar(texto: string) {
     this.texto = texto
     this.onChange(texto)
   }
+  realizarBusqueda() {
+    this.buscar.emit(this.texto);
+  }
 
-  
 
   //Control value accesor interface
-  onChange = (texto: string)=>{}
+  onChange = (texto: string) => { }
 
-  onTouched = ()=>{}
+  onTouched = () => { }
 
   writeValue(texto: string): void {
     this.texto = texto

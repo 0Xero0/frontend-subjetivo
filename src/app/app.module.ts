@@ -17,6 +17,7 @@ import { TarifasModule } from './tarifas/tarifas.module';
 import { FormsModule } from '@angular/forms';
 import { TemplatesModule } from "./templates/templates.module";
 import { VerificarSubjetivoModule } from './verificar-subjetivo/verificar-subjetivo.module';
+import { PaginaConsultorModule } from './pagina-consultor/pagina-consultor.module';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { VerificarSubjetivoModule } from './verificar-subjetivo/verificar-subjet
         SweetAlert2Module.forRoot(),
         FormsModule,
         TemplatesModule,
-        VerificarSubjetivoModule
+        VerificarSubjetivoModule,
+        PaginaConsultorModule
     ]
 })
 export class AppModule { }

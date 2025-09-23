@@ -20,6 +20,7 @@ import { VistaVigenciaEjecucionComponent } from './ejecucion/componentes/formula
 import { VistaVigenciaTransitoComponent } from './ejecucion/componentes/transito/vista-vigencia-transito/vista-vigencia-transito.component';
 import { VistaVigenciaAereosComponent } from './ejecucion/componentes/aereos/vista-vigencia-aereos/vista-vigencia-aereos.component';
 import { VistaVigenciaAerodromosComponent } from './ejecucion/componentes/aerodromos/vista-vigencia-aerodromos/vista-vigencia-aerodromos.component';
+import { ListadoUsuariosComponent } from './pagina-consultor/paginas/listado-usuarios/listado-usuarios.component';
 
 
 
@@ -77,6 +78,14 @@ const routes: Routes = [
         path: 'formulario-aerodromos',
         component: AerodromosComponent
       },
+      {
+        path: 'consultor/:formularioId',
+        component: ListadoUsuariosComponent
+      },
+      /* {
+        path: 'consultor',
+        component: ListadoUsuariosComponent
+      }, */
       {
         path: 'usuarios',
         loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule)

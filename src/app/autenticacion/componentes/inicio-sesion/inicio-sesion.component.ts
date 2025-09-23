@@ -59,6 +59,10 @@ export class InicioSesionComponent implements OnInit {
             }
           }
           else{
+            if (respuesta.formularios.length > 0 && respuesta.rol.id === '009') {
+              this.enrutador.navigateByUrl(`/administrar/consultor/${respuesta.formularios[0].id}`);
+              return;
+            }
             this.enrutador.navigateByUrl(`/administrar`);
           }
         }
