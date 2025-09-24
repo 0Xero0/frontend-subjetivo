@@ -1689,14 +1689,14 @@
               <td>
                 <ng-container>
                   <app-input-moneda [(ngModel)]="IngrsoF1" (ngModelChange)="[detectarCambios(),sumatoriaIngresos(1)]"
-                    [maxlength]="12" [disabled]="soloLectura" /><!--  -->
+                    [maxlength]="15" [disabled]="soloLectura"/><!--  -->
                 </ng-container>
                 <span class="validacion" *ngIf="verificarFaltantes(3,1) && !IngrsoF1">Falta por completar</span>
               </td>
               <td>
                 <ng-container>
                   <app-input-moneda [(ngModel)]="IngrsoF2" (ngModelChange)="[detectarCambios(),sumatoriaIngresos(2)]"
-                    [maxlength]="12" [disabled]="soloLectura" /><!--  -->
+                    [maxlength]="15" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
                 <span class="validacion" *ngIf="verificarFaltantes(3,1) && !IngrsoF2">Falta por completar</span>
               </td>
@@ -1709,14 +1709,14 @@
               <td>
                 <ng-container>
                   <app-input-moneda [(ngModel)]="IngrsoA1" (ngModelChange)="[detectarCambios(),sumatoriaIngresos(1)]"
-                    [maxlength]="12" [disabled]="soloLectura"/><!--  -->
+                    [maxlength]="15" [disabled]="soloLectura"/><!--  -->
                 </ng-container>
                 <span class="validacion" *ngIf="verificarFaltantes(3,2) && !IngrsoA1">Falta por completar</span>
               </td>
               <td>
                 <ng-container>
                   <app-input-moneda [(ngModel)]="IngrsoA2" (ngModelChange)="[detectarCambios(),sumatoriaIngresos(2)]"
-                    [maxlength]="12" [disabled]="soloLectura" /><!--  -->
+                    [maxlength]="15" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
                 <span class="validacion" *ngIf="verificarFaltantes(3,2) && !IngrsoA2">Falta por completar</span>
               </td>
@@ -1729,14 +1729,14 @@
               <td>
                 <ng-container>
                   <app-input-moneda [(ngModel)]="unidadN1" (ngModelChange)="[detectarCambios(),sumatoriaIngresos(1)]"
-                    [maxlength]="12" [disabled]="soloLectura" /><!--  -->
+                    [maxlength]="15" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
               <span class="validacion" *ngIf="verificarFaltantes(3,3) && !unidadN1">Falta por completar</span>
               </td>
               <td>
                 <ng-container>
                   <app-input-moneda [(ngModel)]="unidadN2" (ngModelChange)="[detectarCambios(),sumatoriaIngresos(2)]"
-                    [maxlength]="12" [disabled]="soloLectura" /><!--  -->
+                    [maxlength]="15" [disabled]="soloLectura" /><!--  -->
                 </ng-container>
               <span class="validacion" *ngIf="verificarFaltantes(3,3) && !unidadN2">Falta por completar</span>
               </td>
@@ -1749,14 +1749,14 @@
               <td>
                 <ng-container>
                   <app-input-moneda [(ngModel)]="ingresoFT1" (ngModelChange)="detectarCambios()"
-                    [maxlength]="12" [disabled]="true" /><!--  -->
+                    [maxlength]="15" [disabled]="true" /><!--  -->
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
               </td>
               <td>
                 <ng-container>
                   <app-input-moneda [(ngModel)]="ingresoFT2" (ngModelChange)="detectarCambios()"
-                    [maxlength]="12" [disabled]="true" /><!--  -->
+                    [maxlength]="15" [disabled]="true" /><!--  -->
                 </ng-container>
                 <!-- <span class="validacion" *ngIf="verificarFaltantes(1,3)">Falta por completar</span> -->
               </td>
