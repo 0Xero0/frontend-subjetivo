@@ -93,6 +93,33 @@ export class InputMonedaComponent implements OnInit, ControlValueAccessor{
       crudo = crudo.slice(0, dotIndex + 1) + crudo.slice(dotIndex + 1).replace(/\./g, '');
     }
 
+    // Aplica límite de longitud sobre dígitos (sin contar separadores ni punto)
+    if (this.maxlength && this.maxlength > 0) {
+      const soloDigitos = crudo.replace(/\D/g, '');
+      if (soloDigitos.length > this.maxlength) {
+        let restante = this.maxlength;
+        const tienePunto = crudo.includes('.');
+        if (tienePunto) {
+          let [ent, dec = ''] = crudo.split('.');
+          ent = ent.replace(/\D/g, '');
+          dec = dec.replace(/\D/g, '');
+          let nuevoEnt = '';
+          let nuevoDec = '';
+          if (ent.length >= restante) {
+            nuevoEnt = ent.slice(0, restante);
+            nuevoDec = '';
+          } else {
+            nuevoEnt = ent;
+            restante -= ent.length;
+            nuevoDec = dec.slice(0, restante);
+          }
+          crudo = nuevoDec !== '' ? `${nuevoEnt}.${nuevoDec}` : nuevoEnt;
+        } else {
+          crudo = soloDigitos.slice(0, restante);
+        }
+      }
+    }
+
     if (!this.regex.test(crudo) && crudo !== "") {
       this.valorInput = this.valorAnterior;
       return;
