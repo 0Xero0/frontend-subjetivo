@@ -15,26 +15,26 @@ export class ServicioEjecucion extends Autenticable {
     super()
   }
 
-  obtenerPortuarias(vigencia?: number){
-    const endpoint = `/api/v1/portuarias?vigencia=${vigencia}`
+  obtenerPortuarias(vigencia?: number, nit?: string){
+    const endpoint = `/api/v1/portuarias?vigencia=${vigencia}&nit=${nit}`
     return this.http.get<any>(`${this.host}${endpoint}`,
     { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  obtenerTransporte(vigencia?: number){
-    const endpoint = `/api/v1/transportes?vigencia=${vigencia}`
+  obtenerTransporte(vigencia?: number, nit?: string){
+    const endpoint = `/api/v1/transportes?vigencia=${vigencia}&nit=${nit}`
     return this.http.get<any>(`${this.host}${endpoint}`,
     { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  obtenerTransito(vigencia?: number){
-    const endpoint = `/api/v1/transitos?vigencia=${vigencia}`
+  obtenerTransito(vigencia?: number, nit?: string){
+    const endpoint = `/api/v1/transitos?vigencia=${vigencia}&nit=${nit}`
     return this.http.get<any>(`${this.host}${endpoint}`,
     { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  obtenerAerodromos(vigencia?: number){
-    const endpoint = `/api/v1/aerodromos?vigencia=${vigencia}`
+  obtenerAerodromos(vigencia?: number, nit?: string){
+    const endpoint = `/api/v1/aerodromos?vigencia=${vigencia}&nit=${nit}`
     return this.http.get<any>(`${this.host}${endpoint}`,
     { headers: this.obtenerCabeceraAutorizacion() })
   }
@@ -174,8 +174,8 @@ export class ServicioEjecucion extends Autenticable {
     { headers: this.obtenerCabeceraAutorizacion()})
   }
 
-  obtenerVigencias(tipo: number) {
-    const endpoint = `/api/v1/reportes/${tipo}`;
+  obtenerVigencias(tipo: number, nit?: any) {
+    const endpoint = `/api/v1/reportes/${tipo}?nit=${nit}`;
     return this.http.get<any>(`${this.host}${endpoint}`,
     { headers: this.obtenerCabeceraAutorizacion()})
   }

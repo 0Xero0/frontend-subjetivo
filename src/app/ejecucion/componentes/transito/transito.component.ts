@@ -7,6 +7,9 @@ import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-stor
 import Swal from 'sweetalert2';
 import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
 import { Faltantes } from '../../modelos/faltantes';
+import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
+import { Rol } from 'src/app/autenticacion/modelos/Rol';
+import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
 
 @Component({
   selector: 'app-transito',
@@ -14,6 +17,10 @@ import { Faltantes } from '../../modelos/faltantes';
   styleUrls: ['./transito.component.css']
 })
 export class TransitoComponent implements OnInit {
+  usuario: Usuario | null = null;
+  rol: Rol | null = null;
+  nitVigilado?: string;
+  nombreVigilado?: string;
 
   @ViewChild('popup') popup!: PopupComponent
   hayCambios: boolean = false
@@ -126,8 +133,9 @@ export class TransitoComponent implements OnInit {
 
   constructor(private servicio: ServicioEjecucion, private router: Router,
     private servicioLocalStorage: ServicioLocalStorage,
-    private route: ActivatedRoute) {
-
+    private route: ActivatedRoute, private servicioArchivos: ServicioArchivos) {
+    this.usuario = servicioLocalStorage.obtenerUsuario()
+    this.rol = servicioLocalStorage.obtenerRol();
     this.fecha = new Date()
     this.fechaActual = this.formatearFecha(this.fecha)
   }
@@ -135,9 +143,17 @@ export class TransitoComponent implements OnInit {
 
   }
 
+  descargarArchivo(archivo: ArchivoGuardado | undefined) {
+    if (archivo) {
+      this.servicioArchivos.descargarArchivo(archivo.nombreAlmacenado, archivo.ruta, archivo.nombreOriginalArchivo)
+    }
+  }
+
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.vigencia = params['vigencia'] || null;
+      this.nitVigilado = params['nit'] || null;
+      this.nombreVigilado = params['nombre'] || null;
     });
     this.obtenerMaestras()
     this.obtenerTransitos()
@@ -330,7 +346,7 @@ export class TransitoComponent implements OnInit {
   }
 
   obtenerTransitos(){
-    this.servicio.obtenerTransito(this.vigencia).subscribe({
+    this.servicio.obtenerTransito(this.vigencia, this.nitVigilado).subscribe({
       next: (respuesta:any)=>{
         this.identificacionOrganismo = respuesta['identificacionOrganismo']
         this.preguntas = respuesta['preguntas']
@@ -1710,6 +1726,6 @@ export class TransitoComponent implements OnInit {
   }
 
   volverAVigencias(): void {
-    this.router.navigate(['/administrar/transito']);
+    this.router.navigate(['/administrar/transito'], { queryParams: { nit: this.nitVigilado, nombre: this.nombreVigilado } } );
   }
 }

@@ -7,6 +7,8 @@ import { AdministradorModule } from './administrador/administrador.module';
 import { AutenticacionModule } from './autenticacion/autenticacion.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorAutorizacion } from './administrador/interceptores/InterceptorAutorizacion';
+import { LoadingOverlayComponent } from './compartido/loading/loading-overlay.component';
+import { LoadingInterceptor } from './compartido/loading/loading.interceptor';
 import { AlertasModule } from './alertas/alertas.module';
 import { InputsModule } from './inputs/inputs.module';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -17,17 +19,24 @@ import { TarifasModule } from './tarifas/tarifas.module';
 import { FormsModule } from '@angular/forms';
 import { TemplatesModule } from "./templates/templates.module";
 import { VerificarSubjetivoModule } from './verificar-subjetivo/verificar-subjetivo.module';
+import { PaginaConsultorModule } from './pagina-consultor/pagina-consultor.module';
 
 
 @NgModule({
     declarations: [
         AppComponent,
+        LoadingOverlayComponent,
     ],
     exports: [],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: InterceptorAutorizacion,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LoadingInterceptor,
             multi: true
         }
     ],
@@ -47,7 +56,8 @@ import { VerificarSubjetivoModule } from './verificar-subjetivo/verificar-subjet
         SweetAlert2Module.forRoot(),
         FormsModule,
         TemplatesModule,
-        VerificarSubjetivoModule
+        VerificarSubjetivoModule,
+        PaginaConsultorModule
     ]
 })
 export class AppModule { }

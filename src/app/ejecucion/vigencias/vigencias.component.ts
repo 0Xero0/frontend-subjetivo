@@ -10,6 +10,8 @@ import { RegistroVigencia } from '../modelos/vigencia';
 export class VigenciasComponent implements OnInit {
 
   @Input() tipo?: number; // 1: Concesiones, 2: Tránsito, 3: Puertos, 4: Aerodromos
+  @Input() nitVigilado?: string;
+  @Input() nombreVigilado?: string;
 
   @Input() registros: RegistroVigencia[] = []
 
@@ -24,17 +26,17 @@ export class VigenciasComponent implements OnInit {
 
   redirigir(registro: RegistroVigencia): void {
     // Aquí puedes implementar la lógica para redirigir a la página de detalles del registro
-    console.log('Redirigiendo al registro:', registro);
-    console.log('Tipo de vigencia:', this.tipo);
+    /* console.log('Redirigiendo al registro:', registro);
+    console.log('Tipo de vigencia:', this.tipo); */
     if (this.tipo === 1) {
-      console.log('Redirigiendo a formulario de concesiones');
-      this.router.navigate(['/administrar/formulario-concesiones'], { queryParams: { vigencia: registro.vigencia }});
+      /* console.log('Redirigiendo a formulario de concesiones'); */
+      this.router.navigate(['/administrar/formulario-concesiones'], { queryParams: { vigencia: registro.vigencia, nit: this.nitVigilado, nombre: this.nombreVigilado }});
     } else if (this.tipo === 2) {
-      this.router.navigate(['/administrar/formulario-transito'], { queryParams: { vigencia: registro.vigencia }});
+      this.router.navigate(['/administrar/formulario-transito'], { queryParams: { vigencia: registro.vigencia, nit: this.nitVigilado, nombre: this.nombreVigilado }});
     } else if (this.tipo === 3) {
-      this.router.navigate(['/administrar/formulario-puertos'], { queryParams: { vigencia: registro.vigencia }});
+      this.router.navigate(['/administrar/formulario-puertos'], { queryParams: { vigencia: registro.vigencia, nit: this.nitVigilado, nombre: this.nombreVigilado }});
     } else {
-      this.router.navigate(['/administrar/formulario-aerodromos'], { queryParams: { vigencia: registro.vigencia }});
+      this.router.navigate(['/administrar/formulario-aerodromos'], { queryParams: { vigencia: registro.vigencia, nit: this.nitVigilado, nombre: this.nombreVigilado }});
     }
   }
 

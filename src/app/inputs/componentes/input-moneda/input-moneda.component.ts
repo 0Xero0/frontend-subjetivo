@@ -14,9 +14,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ]
 })
 export class InputMonedaComponent implements OnInit, ControlValueAccessor{
-  @Input() cantidadDecimales: number = 3
-  @Input() valorInicial: number | null = null;
+  @Input() cantidadDecimales: number = 0;
+  @Input() valorInicial: string | number | null = null;
   @Input() placeholder: string = "";
+  @Input() maxlength: number = 18;
   valor: number | null = null;
   valorInput: string = ""
   valorAnterior: string = ""
@@ -24,20 +25,58 @@ export class InputMonedaComponent implements OnInit, ControlValueAccessor{
   regex: RegExp
 
   constructor() {
-    this.regex = new RegExp(`^[0-9]+(\\.[0-9]{1,${3}})?$`)
+    // Se ajusta realmente en ngOnInit según cantidadDecimales
+    this.regex = new RegExp(`^[0-9]+(\\.[0-9]*)?$`)
   }
 
   ngOnInit(): void {
-    this.regex = new RegExp(`^[0-9]+(\\.[0-9]{1,${this.cantidadDecimales}})?$`)
+    // Construye un regex válido incluso cuando cantidadDecimales = 0
+    if (this.cantidadDecimales && this.cantidadDecimales > 0) {
+      this.regex = new RegExp(`^[0-9]+(\\.[0-9]{0,${this.cantidadDecimales}})?$`)
+    } else {
+      this.regex = new RegExp(`^[0-9]+$`)
+    }
     this.valorInput = this.valorInicial !== null ? this.formatear(this.valorInicial.toString()) : "";
-    this.valorAnterior = this.valorInicial !== null ? this.valorInicial.toString() : "";
+    // Mantiene el mismo formato visual como valor anterior para evitar saltos al invalidar
+    this.valorAnterior = this.valorInput;
   }
 
   formatear(valor: string) {
-    if(valor !== ''){
-      valor = Number(valor).toString()
+    // No usar Number() para evitar notación científica y redondeos
+    // Limpia comas y espacios
+    valor = (valor ?? '').toString().replace(/,/g, '').trim();
+    if (valor === '') return '';
+
+    // Permite sólo dígitos y un punto decimal
+    // (si existe más de un punto, se ignoran los adicionales en el formateo)
+    let cleaned = valor.replace(/[^\d.]/g, '');
+    const firstDot = cleaned.indexOf('.');
+
+    const formatMiles = (digits: string) => {
+      return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
-    return valor.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+
+    if (firstDot !== -1) {
+      // Partes entero y decimal
+      const intRaw = cleaned.slice(0, firstDot).replace(/\D/g, '');
+      let decRaw = cleaned.slice(firstDot + 1).replace(/\D/g, '');
+      // Limita la longitud de decimales
+      if (this.cantidadDecimales > 0) {
+        decRaw = decRaw.slice(0, this.cantidadDecimales);
+      } else {
+        decRaw = '';
+      }
+
+      const intFormatted = formatMiles(intRaw);
+      // Si hay decimales o el usuario acaba de escribir el punto y se permiten decimales, conserva el punto
+      if (decRaw !== '' || (valor.endsWith('.') && this.cantidadDecimales > 0)) {
+        return `${intFormatted}.${decRaw}`;
+      }
+      return intFormatted;
+    } else {
+      const intRaw = cleaned.replace(/\D/g, '');
+      return formatMiles(intRaw);
+    }
   }
 
   desformatear(valor: string) {
@@ -45,15 +84,53 @@ export class InputMonedaComponent implements OnInit, ControlValueAccessor{
   }
 
   alCambiarValor(valor: string) {
-    valor = this.desformatear(valor)
-    if (!this.regex.test(valor) && valor !== "") {
-      this.valorInput = this.valorAnterior
+    // Remueve comas y limpia caracteres inválidos, permitiendo sólo un punto
+    let crudo = (valor ?? '').toString().replace(/,/g, '').trim();
+    crudo = crudo.replace(/[^\d.]/g, '');
+    const dotIndex = crudo.indexOf('.');
+    if (dotIndex !== -1) {
+      // Elimina puntos adicionales dejando sólo el primero
+      crudo = crudo.slice(0, dotIndex + 1) + crudo.slice(dotIndex + 1).replace(/\./g, '');
+    }
+
+    // Aplica límite de longitud sobre dígitos (sin contar separadores ni punto)
+    if (this.maxlength && this.maxlength > 0) {
+      const soloDigitos = crudo.replace(/\D/g, '');
+      if (soloDigitos.length > this.maxlength) {
+        let restante = this.maxlength;
+        const tienePunto = crudo.includes('.');
+        if (tienePunto) {
+          let [ent, dec = ''] = crudo.split('.');
+          ent = ent.replace(/\D/g, '');
+          dec = dec.replace(/\D/g, '');
+          let nuevoEnt = '';
+          let nuevoDec = '';
+          if (ent.length >= restante) {
+            nuevoEnt = ent.slice(0, restante);
+            nuevoDec = '';
+          } else {
+            nuevoEnt = ent;
+            restante -= ent.length;
+            nuevoDec = dec.slice(0, restante);
+          }
+          crudo = nuevoDec !== '' ? `${nuevoEnt}.${nuevoDec}` : nuevoEnt;
+        } else {
+          crudo = soloDigitos.slice(0, restante);
+        }
+      }
+    }
+
+    if (!this.regex.test(crudo) && crudo !== "") {
+      this.valorInput = this.valorAnterior;
       return;
     }
-    this.valorInput = this.formatear(valor.toString())
-    this.valorAnterior = this.valorInput
-    this.valor = this.valorInput !== "" ? Number(this.desformatear(this.valorInput)) : null
-    this.onChange(this.valor)
+
+    this.valorInput = this.formatear(crudo);
+    this.valorAnterior = this.valorInput;
+
+    const sinComas = this.desformatear(this.valorInput);
+    this.valor = sinComas !== "" ? Number(sinComas) : null;
+    this.onChange(this.valor);
   }
 
   //NgValueAccesor Interface

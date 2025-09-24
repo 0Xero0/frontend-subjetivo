@@ -7,6 +7,9 @@ import Swal from 'sweetalert2';
 import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
 import { Faltantes } from '../../modelos/faltantes';
 import { ingresos } from '../../modelos/aerodromo';
+import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
+import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
+import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
 
 @Component({
   selector: 'app-aerodromos',
@@ -15,6 +18,10 @@ import { ingresos } from '../../modelos/aerodromo';
 })
 export class AerodromosComponent implements OnInit {
   @ViewChild('popup') popup!: PopupComponent
+  usuario: Usuario | null = null;
+  nitVigilado?: string;
+  nombreVigilado?: string;
+
   hayCambios: boolean = false
 
   soloLectura: boolean = false
@@ -117,7 +124,8 @@ export class AerodromosComponent implements OnInit {
 
   vigencia?: number;
 
-  constructor(private servicio: ServicioEjecucion, private router: Router, private route: ActivatedRoute){
+  constructor(private servicio: ServicioEjecucion, private router: Router, private route: ActivatedRoute, private servicioLocalStorage: ServicioLocalStorage, private servicioArchivos: ServicioArchivos) {
+    this.usuario = servicioLocalStorage.obtenerUsuario()
 
     this.fecha = new Date();
     this.fechaActual = this.formatearFecha(this.fecha)
@@ -132,10 +140,17 @@ export class AerodromosComponent implements OnInit {
     });
   }
 
+  descargarArchivo(archivo: ArchivoGuardado | undefined) {
+    if (archivo) {
+      this.servicioArchivos.descargarArchivo(archivo.nombreAlmacenado, archivo.ruta, archivo.nombreOriginalArchivo)
+    }
+  }
+
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       this.vigencia = params['vigencia'];
+      this.nitVigilado = params['nit'] || this.usuario?.usuario || null;
+      this.nombreVigilado = params['nombre'] || null;
     });
     this.obtenerAerodromos()
     this.maestras()
@@ -144,7 +159,7 @@ export class AerodromosComponent implements OnInit {
   }
 
   volverAVigencias(): void {
-    this.router.navigate(['/administrar/aerodromos']);
+    this.router.navigate(['/administrar/aerodromos'], { queryParams: { nit: this.nitVigilado, nombre: this.nombreVigilado } });
   }
 
   detectarCambios(){
@@ -531,9 +546,9 @@ export class AerodromosComponent implements OnInit {
 
   obtenerAerodromos(){
     console.log(this.vigencia)
-    this.servicio.obtenerAerodromos(this.vigencia).subscribe({
+    this.servicio.obtenerAerodromos(this.vigencia, this.nitVigilado).subscribe({
       next: (respuesta)=>{
-        console.log(respuesta);
+        console.log(respuesta['editable'] == false);
         this.identificacion = respuesta['identificacion']
         this.reporte = respuesta['reporte']
         this.dictamenj = respuesta['digtamen']
@@ -1551,7 +1566,7 @@ export class AerodromosComponent implements OnInit {
     return [
       {/* "Ingresos de actividades ordinarias ó Ingresos Fiscales" */
         "preguntaId": 1,
-        "valor": this.IngrsoF1,
+        "valor": this.IngrsoF1.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1559,7 +1574,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "Ingresos de actividades ordinarias ó Ingresos Fiscales"  */
         "preguntaId": 1,
-        "valor": this.IngrsoF2,
+        "valor": this.IngrsoF2.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1567,7 +1582,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "Ingresos derivados de actividades de transporte, conexas y complementarias" */
         "preguntaId": 2,
-        "valor": this.IngrsoA1,
+        "valor": this.IngrsoA1.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1575,7 +1590,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "Ingresos derivados de actividades de transporte, conexas y complementarias" */
         "preguntaId": 2,
-        "valor": this.IngrsoA2,
+        "valor": this.IngrsoA2.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1583,7 +1598,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "Unidad de negocio (aeródromos a cargo de los entes territoriales." */
         "preguntaId": 3,
-        "valor": this.unidadN1,
+        "valor": this.unidadN1.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1591,7 +1606,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "Unidad de negocio (aeródromos a cargo de los entes territoriales." */
         "preguntaId": 3,
-        "valor": this.unidadN2,
+        "valor": this.unidadN2.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1599,7 +1614,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "INGRESOS FISCALES NO TRIBUTARIOS " */
         "preguntaId": 4,
-        "valor": this.ingresoFT1,
+        "valor": this.ingresoFT1.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1607,7 +1622,7 @@ export class AerodromosComponent implements OnInit {
       },
       {/* "INGRESOS FISCALES NO TRIBUTARIOS " */
         "preguntaId": 4,
-        "valor": this.ingresoFT2,
+        "valor": this.ingresoFT2.toString(),
         "nombreAlmacenado": "",
         "nombreOriginalArchivo": "",
         "ruta": "",
@@ -1789,25 +1804,17 @@ export class AerodromosComponent implements OnInit {
     this.ingresoFT2 = this.encontrarValor(4,this.anioReporte-1)
   }
 
-  encontrarValor(preguntaId:any, anio:any):string {
-    if(preguntaId == 1){
-      if(anio === this.ingresos[0].anio){return this.ingresos[0].valor}
-      if(anio === this.ingresos[1].anio){return this.ingresos[1].valor}
+  encontrarValor(preguntaId: any, anio: any): string {
+    const lista: any[] = Array.isArray(this.ingresos) ? this.ingresos : []
+    if (!lista.length) return ""
+    const pid = Number(preguntaId)
+    const yr = Number(anio)
+    try {
+      const encontrado = lista.find((it: any) => Number((it?.preguntaId ?? it?.preguntaid)) === pid && Number(it?.anio) === yr)
+      return (encontrado?.valor ?? '').toString()
+    } catch (e) {
+      console.warn('Error leyendo ingresos:', e)
+      return ""
     }
-    if(preguntaId == 2){
-      if(anio === this.ingresos[2].anio){return this.ingresos[2].valor}
-      if(anio === this.ingresos[3].anio){return this.ingresos[3].valor}
-    }
-    if(preguntaId == 3){
-      if(anio === this.ingresos[4].anio){return this.ingresos[4].valor}
-      if(anio === this.ingresos[5].anio){return this.ingresos[5].valor}
-    }
-    if(preguntaId == 4){
-      if(anio === this.ingresos[6].anio){return this.ingresos[6].valor}
-      if(anio === this.ingresos[7].anio){return this.ingresos[7].valor}
-    }
-    return ""
-    /* const pregunta = preguntas.find(p => p.preguntaId === preguntaId && p.anio === anio);
-    return pregunta ? pregunta.valor : null; */
   }
 }

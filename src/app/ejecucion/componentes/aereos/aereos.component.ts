@@ -6,6 +6,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Pregunta } from '../../modelos/Preguntas';
+import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
+import { Rol } from 'src/app/autenticacion/modelos/Rol';
+import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
+import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
 
 @Component({
   selector: 'app-concesiones',
@@ -13,6 +17,11 @@ import { Pregunta } from '../../modelos/Preguntas';
   styleUrls: ['./aereos.component.css']
 })
 export class AereosComponent implements OnInit, OnChanges {
+  usuario: Usuario | null = null
+  rol: Rol | null = null
+  nitVigilado?: string
+  nombreVigilado?: string
+
   @ViewChild('popup') popup!: PopupComponent
   hayCambios: boolean = false
 
@@ -71,7 +80,9 @@ export class AereosComponent implements OnInit, OnChanges {
   transporte: any
   vigencia?: number
 
-  constructor(private servicio: ServicioEjecucion, private router: Router, private route: ActivatedRoute) {
+  constructor(private servicio: ServicioEjecucion, private router: Router, private route: ActivatedRoute, private servicioLocalStorage: ServicioLocalStorage, private servicoArchivos: ServicioArchivos) {
+    this.usuario = servicioLocalStorage.obtenerUsuario()
+    this.rol = servicioLocalStorage.obtenerRol();
     //this.obtenerTransporte()
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -81,6 +92,8 @@ export class AereosComponent implements OnInit, OnChanges {
     this.route.queryParams.subscribe(params => {
       console.log(params);
       this.vigencia = params['vigencia'] || null;
+      this.nitVigilado = params['nit'] || null;
+      this.nombreVigilado = params['nombre'] || null;
     });
     console.log('Vigencia:', this.vigencia);
     //this.enviarST()
@@ -89,7 +102,7 @@ export class AereosComponent implements OnInit, OnChanges {
   }
 
   obtenerTransporte() {
-    this.servicio.obtenerTransporte(this.vigencia).subscribe({
+    this.servicio.obtenerTransporte(this.vigencia, this.nitVigilado).subscribe({
       next: (respuesta: any) => {
         this.transporte = respuesta['preguntas']
         console.log(this.transporte);
@@ -565,6 +578,12 @@ export class AereosComponent implements OnInit, OnChanges {
   }
 
   volverAVigencias(): void {
-    this.router.navigate(['/administrar/concesiones']);
+    this.router.navigate(['/administrar/concesiones'], { queryParams: { nit: this.nitVigilado, nombre: this.nombreVigilado } });
+  }
+
+  descargarArchivo(archivo: ArchivoGuardado | undefined) {
+    if (archivo) {
+      this.servicoArchivos.descargarArchivo(archivo.nombreAlmacenado, archivo.ruta, archivo.nombreOriginalArchivo)
+    }
   }
 }

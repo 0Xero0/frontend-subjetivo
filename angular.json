@@ -32,7 +32,7 @@
             ],
             "scripts": [
               "node_modules/html2canvas/dist/html2canvas.min.js",
-              "node_modules/jspdf/dist/jspdf.es.min.js"
+              "node_modules/jspdf/dist/jspdf.umd.min.js"
             ]
           },
           "configurations": {
@@ -40,13 +40,17 @@
               "budgets": [
                 {
                   "type": "initial",
+
                   "maximumWarning": "4mb",
+
                   "maximumError": "4mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kb",
-                  "maximumError": "8kb"
+
+                  "maximumWarning": "2mb",
+                  "maximumError": "4mb"
+
                 }
               ],
               "fileReplacements": [
@@ -124,7 +128,7 @@
             ],
             "scripts": [
               "node_modules/html2canvas/dist/html2canvas.min.js",
-              "node_modules/jspdf/dist/jspdf.es.min.js"
+              "node_modules/jspdf/dist/jspdf.umd.min.js"
             ]
           }
         }

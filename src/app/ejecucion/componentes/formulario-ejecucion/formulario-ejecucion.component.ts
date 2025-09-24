@@ -10,6 +10,8 @@ import { Portuarias } from '../../modelos/Portuarias';
 import Swal from 'sweetalert2';
 import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
 import { Pregunta } from '../../modelos/Preguntas';
+import { Rol } from 'src/app/autenticacion/modelos/Rol';
+import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
 
 @Component({
   selector: 'app-formulario-ejecucion',
@@ -20,6 +22,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   @ViewChild('popup') popup!: PopupComponent
   hayCambios: boolean = false
   usuario: Usuario
+  rol: Rol | null = null
 
   soloLectura: boolean = false
   aprobado: boolean = false
@@ -83,25 +86,38 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   portuarias: Portuarias[] = []
 
   vigencia?: number
+  formularioId?: any
+  nitVigilado?: string
+  nombreVigilado?: string
 
   constructor(private servicio: ServicioEjecucion, private router: Router,
      private servicioLocalStorage: ServicioLocalStorage,
-     private route: ActivatedRoute) {
+     private route: ActivatedRoute, private servicioArchivos: ServicioArchivos) {
 
 
     const usuario = this.servicioLocalStorage.obtenerUsuario()
     if(!usuario) throw new ErrorAutorizacion();
     this.usuario = usuario
+    this.rol = servicioLocalStorage.obtenerRol();
   }
   ngOnChanges(changes: SimpleChanges): void {
 
 
   }
 
+  descargarArchivo(archivo: ArchivoGuardado | undefined) {
+    if (archivo) {
+      this.servicioArchivos.descargarArchivo(archivo.nombreAlmacenado, archivo.ruta, archivo.nombreOriginalArchivo)
+    }
+  }
+
   ngOnInit(): void {
     //this.enviarST()
+
     this.route.queryParams.subscribe(params => {
       this.vigencia = params['vigencia'] || null;
+      this.nitVigilado = params['nit'] || this.usuario.usuario || null;
+      this.nombreVigilado = params['nombre'] || this.usuario?.nombre || null;
     });
     this.maestraFusiones()
     this.maestraSiNo()
@@ -117,7 +133,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   }
 
   volverAVigencias(): void {
-    this.router.navigate(['/administrar/puertos']);
+    this.router.navigate(['/administrar/puertos'], { queryParams: { nit: this.nitVigilado, nombre: this.nombreVigilado } });
   }
 
   detectarCambios(){
@@ -267,7 +283,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   }
 
   obtenerPortuarias(){
-    this.servicio.obtenerPortuarias(this.vigencia).subscribe({
+    this.servicio.obtenerPortuarias(this.vigencia, this.nitVigilado).subscribe({
       next: (respuesta:any)=>{
         this.portuarias = respuesta['preguntas']
         for(let i = 1; i <= 37; i++){

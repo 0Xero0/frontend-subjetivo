@@ -1,0 +1,7 @@
+<div class="loading-backdrop" *ngIf="(loading$ | async)">
+  <div class="loading-modal" role="status" aria-live="polite">
+    <div class="spinner"></div>
+    <div class="message">Descargando archivo…</div>
+  </div>
+  <div class="sr-only" aria-live="assertive">Cargando</div>
+</div>
