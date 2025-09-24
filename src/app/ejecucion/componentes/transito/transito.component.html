@@ -393,7 +393,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,17,1) && !archivoG1">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.gruas[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoG1)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.gruas[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.gruas[16]?.nombreAlmacenado, ruta: preguntas.gruas[16]?.ruta, nombreOriginalArchivo: preguntas.gruas[16]?.nombreOriginalArchivo})">
                   {{preguntas.gruas[16]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -408,7 +408,7 @@
                 <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.gruas[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoG2)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.gruas[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.gruas[7]?.nombreAlmacenado, ruta: preguntas.gruas[7]?.ruta, nombreOriginalArchivo: preguntas.gruas[7]?.nombreOriginalArchivo})">
                   {{preguntas.gruas[7]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -710,7 +710,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,17,2) && !archivoP1">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.patios[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoP1)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.patios[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.patios[16]?.nombreAlmacenado, ruta: preguntas.patios[16]?.ruta, nombreOriginalArchivo: preguntas.patios[16]?.nombreOriginalArchivo})">
                   {{preguntas.patios[16]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -725,7 +725,7 @@
                 <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.patios[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoP2)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.patios[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.patios[7]?.nombreAlmacenado, ruta: preguntas.patios[7]?.ruta, nombreOriginalArchivo: preguntas.patios[7]?.nombreOriginalArchivo})">
                   {{preguntas.patios[7]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1027,7 +1027,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,17,3) && !archivoT1">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.tramitesTransito[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoT1)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.tramitesTransito[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.tramitesTransito[16]?.nombreAlmacenado, ruta: preguntas.tramitesTransito[16]?.ruta, nombreOriginalArchivo: preguntas.tramitesTransito[16]?.nombreOriginalArchivo})">
                   {{preguntas.tramitesTransito[16]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1042,7 +1042,7 @@
                 <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.tramitesTransito[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoT2)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.tramitesTransito[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.tramitesTransito[7]?.nombreAlmacenado, ruta: preguntas.tramitesTransito[7]?.ruta, nombreOriginalArchivo: preguntas.tramitesTransito[7]?.nombreOriginalArchivo})">
                   {{preguntas.tramitesTransito[7]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1344,7 +1344,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,17,4) && !archivoD1">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.deteccionInfracciones[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoD1)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.deteccionInfracciones[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.deteccionInfracciones[16]?.nombreAlmacenado, ruta: preguntas.deteccionInfracciones[16]?.ruta, nombreOriginalArchivo: preguntas.deteccionInfracciones[16]?.nombreOriginalArchivo})">
                   {{preguntas.deteccionInfracciones[16]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1359,7 +1359,7 @@
                 <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.deteccionInfracciones[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoD2)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.deteccionInfracciones[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.deteccionInfracciones[7]?.nombreAlmacenado, ruta: preguntas.deteccionInfracciones[7]?.ruta, nombreOriginalArchivo: preguntas.deteccionInfracciones[7]?.nombreOriginalArchivo})">
                   {{preguntas.deteccionInfracciones[7]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1661,7 +1661,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,17,5) && !archivoPC1">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.procesosContravencionales[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoP1)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.procesosContravencionales[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.procesosContravencionales[16]?.nombreAlmacenado, ruta: preguntas.procesosContravencionales[16]?.ruta, nombreOriginalArchivo: preguntas.procesosContravencionales[16]?.nombreOriginalArchivo})">
                   {{preguntas.procesosContravencionales[16]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1676,7 +1676,7 @@
                 <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.procesosContravencionales[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoP2)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.procesosContravencionales[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.procesosContravencionales[7]?.nombreAlmacenado, ruta: preguntas.procesosContravencionales[7]?.ruta, nombreOriginalArchivo: preguntas.procesosContravencionales[7]?.nombreOriginalArchivo})">
                   {{preguntas.procesosContravencionales[7]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1978,7 +1978,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,17,6) && !archivoPCC1">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.procesoCobroCoactivo[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoPCC1)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.procesoCobroCoactivo[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.procesoCobroCoactivo[16]?.nombreAlmacenado, ruta: preguntas.procesoCobroCoactivo[16]?.ruta, nombreOriginalArchivo: preguntas.procesoCobroCoactivo[16]?.nombreOriginalArchivo})">
                   {{preguntas.procesoCobroCoactivo[16]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1993,7 +1993,7 @@
                 <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.procesoCobroCoactivo[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoPCC2)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.procesoCobroCoactivo[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.procesoCobroCoactivo[7]?.nombreAlmacenado, ruta: preguntas.procesoCobroCoactivo[7]?.ruta, nombreOriginalArchivo: preguntas.procesoCobroCoactivo[7]?.nombreOriginalArchivo})">
                   {{preguntas.procesoCobroCoactivo[7]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -2295,7 +2295,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,17,7) && !archivoPCP1">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.procesoCobroPersuasivo[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoP1)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.procesoCobroPersuasivo[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.procesoCobroPersuasivo[16]?.nombreAlmacenado, ruta: preguntas.procesoCobroPersuasivo[16]?.ruta, nombreOriginalArchivo: preguntas.procesoCobroPersuasivo[16]?.nombreOriginalArchivo})">
                   {{preguntas.procesoCobroPersuasivo[16]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -2310,7 +2310,7 @@
                 <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.procesoCobroPersuasivo[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoP2)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.procesoCobroPersuasivo[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.procesoCobroPersuasivo[7]?.nombreAlmacenado, ruta: preguntas.procesoCobroPersuasivo[7]?.ruta, nombreOriginalArchivo: preguntas.procesoCobroPersuasivo[7]?.nombreOriginalArchivo})">
                   {{preguntas.procesoCobroPersuasivo[7]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -2612,7 +2612,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,17,8) && !archivoR1">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.recaudoMultas[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoR1)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.recaudoMultas[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.recaudoMultas[16]?.nombreAlmacenado, ruta: preguntas.recaudoMultas[16]?.ruta, nombreOriginalArchivo: preguntas.recaudoMultas[16]?.nombreOriginalArchivo})">
                   {{preguntas.recaudoMultas[16]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -2627,7 +2627,7 @@
                 <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.recaudoMultas[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoR2)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.recaudoMultas[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.recaudoMultas[7]?.nombreAlmacenado, ruta: preguntas.recaudoMultas[7]?.ruta, nombreOriginalArchivo: preguntas.recaudoMultas[7]?.nombreOriginalArchivo})">
                   {{preguntas.recaudoMultas[7]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -2947,7 +2947,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,17,9) && !archivoO1">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.otros[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoO1)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.otros[16]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.otros[16]?.nombreAlmacenado, ruta: preguntas.otros[16]?.ruta, nombreOriginalArchivo: preguntas.otros[16]?.nombreOriginalArchivo})">
                   {{preguntas.otros[16]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -2962,7 +2962,7 @@
                 <span>PDF, Máximo 5 Mb</span>
               </td>
               <td>
-                <span class="texto-azul cursor-pointer" *ngIf="preguntas.otros[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo(resArchivoO2)">
+                <span class="texto-azul cursor-pointer" *ngIf="preguntas.otros[7]?.nombreOriginalArchivo != ''" (click)="descargarArchivo({nombreAlmacenado: preguntas.otros[7]?.nombreAlmacenado, ruta: preguntas.otros[7]?.ruta, nombreOriginalArchivo: preguntas.otros[7]?.nombreOriginalArchivo})">
                   {{preguntas.otros[7]?.nombreOriginalArchivo}}
                 </span>
               </td>
