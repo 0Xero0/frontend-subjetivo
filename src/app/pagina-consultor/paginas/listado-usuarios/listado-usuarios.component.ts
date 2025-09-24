@@ -82,18 +82,9 @@ export class ListadoUsuariosComponent implements OnInit {
       const fuente = this.vigilados || []
       this.vigiladosFiltrados = fuente.filter((r: any) => {
         const campos = [
-          r?.numeroReporte,
-          r?.encuesta,
-          r?.descripcion,
-          r?.clasificacion,
-          r?.fechaInicio,
-          r?.fechaFinal,
-          r?.fechaEnvioST,
-          r?.razonSocial,
+          r?.nombre,
           r?.nit,
-          r?.email,
-          r?.vigencia,
-          r?.estado,
+          r?.correo
         ]
         return campos.some(v => (v ?? '').toString().toLowerCase().includes(termino))
       })
