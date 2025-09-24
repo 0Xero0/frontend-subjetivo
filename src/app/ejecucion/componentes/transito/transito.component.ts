@@ -9,6 +9,7 @@ import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
 import { Faltantes } from '../../modelos/faltantes';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { Rol } from 'src/app/autenticacion/modelos/Rol';
+import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
 
 @Component({
   selector: 'app-transito',
@@ -132,7 +133,7 @@ export class TransitoComponent implements OnInit {
 
   constructor(private servicio: ServicioEjecucion, private router: Router,
     private servicioLocalStorage: ServicioLocalStorage,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute, private servicioArchivos: ServicioArchivos) {
     this.usuario = servicioLocalStorage.obtenerUsuario()
     this.rol = servicioLocalStorage.obtenerRol();
     this.fecha = new Date()
@@ -140,6 +141,12 @@ export class TransitoComponent implements OnInit {
   }
   ngOnChanges(changes: SimpleChanges): void {
 
+  }
+
+  descargarArchivo(archivo: ArchivoGuardado | undefined) {
+    if (archivo) {
+      this.servicioArchivos.descargarArchivo(archivo.nombreAlmacenado, archivo.ruta, archivo.nombreOriginalArchivo)
+    }
   }
 
   ngOnInit(): void {

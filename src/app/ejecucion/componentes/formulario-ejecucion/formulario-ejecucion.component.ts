@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { ArchivoGuardado } from 'src/app/archivos/modelos/ArchivoGuardado';
 import { Pregunta } from '../../modelos/Preguntas';
 import { Rol } from 'src/app/autenticacion/modelos/Rol';
+import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
 
 @Component({
   selector: 'app-formulario-ejecucion',
@@ -91,7 +92,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
 
   constructor(private servicio: ServicioEjecucion, private router: Router,
      private servicioLocalStorage: ServicioLocalStorage,
-     private route: ActivatedRoute) {
+     private route: ActivatedRoute, private servicioArchivos: ServicioArchivos) {
 
 
     const usuario = this.servicioLocalStorage.obtenerUsuario()
@@ -102,6 +103,12 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   ngOnChanges(changes: SimpleChanges): void {
 
 
+  }
+
+  descargarArchivo(archivo: ArchivoGuardado | undefined) {
+    if (archivo) {
+      this.servicioArchivos.descargarArchivo(archivo.nombreAlmacenado, archivo.ruta, archivo.nombreOriginalArchivo)
+    }
   }
 
   ngOnInit(): void {

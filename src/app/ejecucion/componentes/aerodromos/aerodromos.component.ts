@@ -9,6 +9,7 @@ import { Faltantes } from '../../modelos/faltantes';
 import { ingresos } from '../../modelos/aerodromo';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
+import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
 
 @Component({
   selector: 'app-aerodromos',
@@ -123,7 +124,7 @@ export class AerodromosComponent implements OnInit {
 
   vigencia?: number;
 
-  constructor(private servicio: ServicioEjecucion, private router: Router, private route: ActivatedRoute, private servicioLocalStorage: ServicioLocalStorage) {
+  constructor(private servicio: ServicioEjecucion, private router: Router, private route: ActivatedRoute, private servicioLocalStorage: ServicioLocalStorage, private servicioArchivos: ServicioArchivos) {
     this.usuario = servicioLocalStorage.obtenerUsuario()
 
     this.fecha = new Date();
@@ -137,6 +138,12 @@ export class AerodromosComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.vigencia = params['vigencia'] ? Number(params['vigencia']) : undefined;
     });
+  }
+
+  descargarArchivo(archivo: ArchivoGuardado | undefined) {
+    if (archivo) {
+      this.servicioArchivos.descargarArchivo(archivo.nombreAlmacenado, archivo.ruta, archivo.nombreOriginalArchivo)
+    }
   }
 
   ngOnInit(): void {

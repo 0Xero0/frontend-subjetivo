@@ -9,6 +9,7 @@ import { Pregunta } from '../../modelos/Preguntas';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { Rol } from 'src/app/autenticacion/modelos/Rol';
 import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
+import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
 
 @Component({
   selector: 'app-concesiones',
@@ -79,7 +80,7 @@ export class AereosComponent implements OnInit, OnChanges {
   transporte: any
   vigencia?: number
 
-  constructor(private servicio: ServicioEjecucion, private router: Router, private route: ActivatedRoute, private servicioLocalStorage: ServicioLocalStorage) {
+  constructor(private servicio: ServicioEjecucion, private router: Router, private route: ActivatedRoute, private servicioLocalStorage: ServicioLocalStorage, private servicoArchivos: ServicioArchivos) {
     this.usuario = servicioLocalStorage.obtenerUsuario()
     this.rol = servicioLocalStorage.obtenerRol();
     //this.obtenerTransporte()
@@ -578,5 +579,11 @@ export class AereosComponent implements OnInit, OnChanges {
 
   volverAVigencias(): void {
     this.router.navigate(['/administrar/concesiones'], { queryParams: { nit: this.nitVigilado, nombre: this.nombreVigilado } });
+  }
+
+  descargarArchivo(archivo: ArchivoGuardado | undefined) {
+    if (archivo) {
+      this.servicoArchivos.descargarArchivo(archivo.nombreAlmacenado, archivo.ruta, archivo.nombreOriginalArchivo)
+    }
   }
 }

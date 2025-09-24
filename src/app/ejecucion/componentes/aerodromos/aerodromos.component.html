@@ -438,7 +438,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,27) && !cerl">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resCerl?.nombreOriginalArchivo == identificacion[26]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resCerl?.nombreOriginalArchivo == identificacion[26]?.nombreOriginalArchivo" (click)="descargarArchivo(resCerl)">
                   {{identificacion[26]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -490,7 +490,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,30) && !resoHabilitacion">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resHabilitacion?.nombreOriginalArchivo == identificacion[29]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resHabilitacion?.nombreOriginalArchivo == identificacion[29]?.nombreOriginalArchivo" (click)="descargarArchivo(resHabilitacion)">
                   {{identificacion[29]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -596,7 +596,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,37) && !resoHabilitacion2 && !habilitarHabilitacion">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="identificacion[36]?.nombreOriginalArchivo == resHabilitacion2?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="identificacion[36]?.nombreOriginalArchivo == resHabilitacion2?.nombreOriginalArchivo" (click)="descargarArchivo(resHabilitacion2)">
                   {{identificacion[36]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -677,7 +677,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,42) && !documentoId">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resDocumentoId?.nombreOriginalArchivo == identificacion[41]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resDocumentoId?.nombreOriginalArchivo == identificacion[41]?.nombreOriginalArchivo" (click)="descargarArchivo(resDocumentoId)">
                   {{identificacion[41]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -737,7 +737,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,46) && !actaNombramiento">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resActaNombramiento?.nombreOriginalArchivo == identificacion[45]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resActaNombramiento?.nombreOriginalArchivo == identificacion[45]?.nombreOriginalArchivo" (click)="descargarArchivo(resActaNombramiento)">
                   {{identificacion[45]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -766,7 +766,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,48) && !camaraYcomercio">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resCC?.nombreOriginalArchivo == identificacion[47]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resCC?.nombreOriginalArchivo == identificacion[47]?.nombreOriginalArchivo" (click)="descargarArchivo(resCC)">
                   {{identificacion[47]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -838,7 +838,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,52) && !documentoIdC">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resDocumentoIdC?.nombreOriginalArchivo == identificacion[51]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resDocumentoIdC?.nombreOriginalArchivo == identificacion[51]?.nombreOriginalArchivo" (click)="descargarArchivo(resDocumentoIdC)">
                   {{identificacion[51]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -885,7 +885,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,55) && !tarjetaProDoc">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resTarjetaProDoc?.nombreOriginalArchivo == identificacion[54]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resTarjetaProDoc?.nombreOriginalArchivo == identificacion[54]?.nombreOriginalArchivo" (click)="descargarArchivo(resTarjetaProDoc)">
                   {{identificacion[54]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -927,7 +927,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,58) && !actaNombramientoC">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resActaNombramientoC?.nombreOriginalArchivo == identificacion[57]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resActaNombramientoC?.nombreOriginalArchivo == identificacion[57]?.nombreOriginalArchivo" (click)="descargarArchivo(resActaNombramientoC)">
                   {{identificacion[57]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1010,7 +1010,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,63) && !documentoIdRF && !noObligadoRF">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resDocumentoIdRF?.nombreOriginalArchivo == identificacion[62]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resDocumentoIdRF?.nombreOriginalArchivo == identificacion[62]?.nombreOriginalArchivo" (click)="descargarArchivo(resDocumentoIdRF)">
                   {{identificacion[62]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1057,7 +1057,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,66) && !tarjetaProDocRF && !noObligadoRF">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resTarjetaProDocRF?.nombreOriginalArchivo == identificacion[65]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resTarjetaProDocRF?.nombreOriginalArchivo == identificacion[65]?.nombreOriginalArchivo" (click)="descargarArchivo(resTarjetaProDocRF)">
                   {{identificacion[65]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1099,7 +1099,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,69) && !actaNombramientoRF && !noObligadoRF">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resActaNombramientoRF?.nombreOriginalArchivo == identificacion[68]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resActaNombramientoRF?.nombreOriginalArchivo == identificacion[68]?.nombreOriginalArchivo" (click)="descargarArchivo(resActaNombramientoRF)">
                   {{identificacion[68]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1141,7 +1141,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,72) && !camaraYcomercioRF && !noObligadoRF">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resCamaraYcomercioRF?.nombreOriginalArchivo == identificacion[71]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resCamaraYcomercioRF?.nombreOriginalArchivo == identificacion[71]?.nombreOriginalArchivo" (click)="descargarArchivo(resCamaraYcomercioRF)">
                   {{identificacion[71]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1208,7 +1208,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,76) && !documentoIdRFS && !noObligadoRFS">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resDocumentoIdRFS?.nombreOriginalArchivo == identificacion[75]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resDocumentoIdRFS?.nombreOriginalArchivo == identificacion[75]?.nombreOriginalArchivo" (click)="descargarArchivo(resDocumentoIdRFS)">
                   {{identificacion[75]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1255,7 +1255,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,79) && !tarjetaProDocRFS && !noObligadoRFS">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resTarjetaProDocRFS?.nombreOriginalArchivo == identificacion[78]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resTarjetaProDocRFS?.nombreOriginalArchivo == identificacion[78]?.nombreOriginalArchivo" (click)="descargarArchivo(resTarjetaProDocRFS)">
                   {{identificacion[78]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1297,7 +1297,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,82) && !actaNombramientoRFS && !noObligadoRFS">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resActaNombramientoRFS?.nombreOriginalArchivo == identificacion[81]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resActaNombramientoRFS?.nombreOriginalArchivo == identificacion[81]?.nombreOriginalArchivo" (click)="descargarArchivo(resActaNombramientoRFS)">
                   {{identificacion[81]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1326,7 +1326,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(1,84) && !camaraYcomercioRFS && !noObligadoRFS">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resCamaraYcomercioRFS?.nombreOriginalArchivo == identificacion[83]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resCamaraYcomercioRFS?.nombreOriginalArchivo == identificacion[83]?.nombreOriginalArchivo" (click)="descargarArchivo(resCamaraYcomercioRFS)">
                   {{identificacion[83]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1429,7 +1429,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,5) && !docActoAC">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resDocActoAC?.nombreOriginalArchivo == reporte[4]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resDocActoAC?.nombreOriginalArchivo == reporte[4]?.nombreOriginalArchivo" (click)="descargarArchivo(resDocActoAC)">
                   {{reporte[4]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1514,7 +1514,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,10) && !documentoIdR">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resDocumentoIdR?.nombreOriginalArchivo == reporte[9]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resDocumentoIdR?.nombreOriginalArchivo == reporte[9]?.nombreOriginalArchivo" (click)="descargarArchivo(resDocumentoIdR)">
                   {{reporte[9]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1556,7 +1556,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,13) && !docActoNR">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resDocActoNR?.nombreOriginalArchivo == reporte[12]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resDocActoNR?.nombreOriginalArchivo == reporte[12]?.nombreOriginalArchivo" (click)="descargarArchivo(resDocActoNR)">
                   {{reporte[12]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1607,7 +1607,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,16) && !docActoNRR">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resDocActoNRR?.nombreOriginalArchivo == reporte[15]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resDocActoNRR?.nombreOriginalArchivo == reporte[15]?.nombreOriginalArchivo" (click)="descargarArchivo(resDocActoNRR)">
                   {{reporte[15]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1649,7 +1649,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(2,19) && !docActoNCR">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="reporte[18]?.nombreOriginalArchivo == resDocActoNCR?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="reporte[18]?.nombreOriginalArchivo == resDocActoNCR?.nombreOriginalArchivo" (click)="descargarArchivo(resDocActoNCR)">
                   {{reporte[18]?.nombreOriginalArchivo}}
                 </span>
               </td>
@@ -1864,7 +1864,7 @@
                 <span class="validacion" *ngIf="verificarFaltantes(4,5) && !docDictamen && !noObligadoRF">Falta por completar</span>
               </td>
               <td>
-                <span class="texto-azul" *ngIf="resDocDictamen?.nombreOriginalArchivo == dictamenj[4]?.nombreOriginalArchivo">
+                <span class="texto-azul cursor-pointer" *ngIf="resDocDictamen?.nombreOriginalArchivo == dictamenj[4]?.nombreOriginalArchivo" (click)="descargarArchivo(resDocDictamen)">
                   {{dictamenj[4]?.nombreOriginalArchivo}}
                 </span>
               </td>
